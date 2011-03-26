@@ -1,0 +1,310 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F1ADD8CA133E55830050EB59 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1ADD8C9133E55830050EB59 /* UIKit.framework */; };
+		F1ADD8CC133E55830050EB59 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1ADD8CB133E55830050EB59 /* Foundation.framework */; };
+		F1ADD8CE133E55830050EB59 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1ADD8CD133E55830050EB59 /* CoreGraphics.framework */; };
+		F1ADD8D4133E55830050EB59 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F1ADD8D2133E55830050EB59 /* InfoPlist.strings */; };
+		F1ADD8D7133E55830050EB59 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F1ADD8D6133E55830050EB59 /* main.m */; };
+		F1ADD8DA133E55830050EB59 /* HelloGoodbyeUnivAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F1ADD8D9133E55830050EB59 /* HelloGoodbyeUnivAppDelegate.m */; };
+		F1ADD8DE133E55830050EB59 /* HelloGoodbyeUnivAppDelegate_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = F1ADD8DD133E55830050EB59 /* HelloGoodbyeUnivAppDelegate_iPhone.m */; };
+		F1ADD8E1133E55830050EB59 /* MainWindow_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = F1ADD8DF133E55830050EB59 /* MainWindow_iPhone.xib */; };
+		F1ADD8E5133E55830050EB59 /* HelloGoodbyeUnivAppDelegate_iPad.m in Sources */ = {isa = PBXBuildFile; fileRef = F1ADD8E4133E55830050EB59 /* HelloGoodbyeUnivAppDelegate_iPad.m */; };
+		F1ADD8E8133E55830050EB59 /* MainWindow_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = F1ADD8E6133E55830050EB59 /* MainWindow_iPad.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		F1ADD8C5133E55830050EB59 /* HelloGoodbyeUniv.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HelloGoodbyeUniv.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F1ADD8C9133E55830050EB59 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		F1ADD8CB133E55830050EB59 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		F1ADD8CD133E55830050EB59 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		F1ADD8D1133E55830050EB59 /* HelloGoodbyeUniv-Info.plist */ = {isa = PBXFileReference; path = "HelloGoodbyeUniv-Info.plist"; sourceTree = "<group>"; };
+		F1ADD8D3133E55830050EB59 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		F1ADD8D5133E55830050EB59 /* HelloGoodbyeUniv-Prefix.pch */ = {isa = PBXFileReference; path = "HelloGoodbyeUniv-Prefix.pch"; sourceTree = "<group>"; };
+		F1ADD8D6133E55830050EB59 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		F1ADD8D8133E55830050EB59 /* HelloGoodbyeUnivAppDelegate.h */ = {isa = PBXFileReference; path = HelloGoodbyeUnivAppDelegate.h; sourceTree = "<group>"; };
+		F1ADD8D9133E55830050EB59 /* HelloGoodbyeUnivAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HelloGoodbyeUnivAppDelegate.m; sourceTree = "<group>"; };
+		F1ADD8DC133E55830050EB59 /* HelloGoodbyeUnivAppDelegate_iPhone.h */ = {isa = PBXFileReference; name = HelloGoodbyeUnivAppDelegate_iPhone.h; path = iPhone/HelloGoodbyeUnivAppDelegate_iPhone.h; sourceTree = "<group>"; };
+		F1ADD8DD133E55830050EB59 /* HelloGoodbyeUnivAppDelegate_iPhone.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = HelloGoodbyeUnivAppDelegate_iPhone.m; path = iPhone/HelloGoodbyeUnivAppDelegate_iPhone.m; sourceTree = "<group>"; };
+		F1ADD8E0133E55830050EB59 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = iPhone/en.lproj/MainWindow_iPhone.xib; sourceTree = "<group>"; };
+		F1ADD8E3133E55830050EB59 /* HelloGoodbyeUnivAppDelegate_iPad.h */ = {isa = PBXFileReference; name = HelloGoodbyeUnivAppDelegate_iPad.h; path = iPad/HelloGoodbyeUnivAppDelegate_iPad.h; sourceTree = "<group>"; };
+		F1ADD8E4133E55830050EB59 /* HelloGoodbyeUnivAppDelegate_iPad.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = HelloGoodbyeUnivAppDelegate_iPad.m; path = iPad/HelloGoodbyeUnivAppDelegate_iPad.m; sourceTree = "<group>"; };
+		F1ADD8E7133E55830050EB59 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = iPad/en.lproj/MainWindow_iPad.xib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F1ADD8C2133E55830050EB59 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F1ADD8CA133E55830050EB59 /* UIKit.framework in Frameworks */,
+				F1ADD8CC133E55830050EB59 /* Foundation.framework in Frameworks */,
+				F1ADD8CE133E55830050EB59 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		F1ADD8BA133E55830050EB59 = {
+			isa = PBXGroup;
+			children = (
+				F1ADD8CF133E55830050EB59 /* HelloGoodbyeUniv */,
+				F1ADD8C8133E55830050EB59 /* Frameworks */,
+				F1ADD8C6133E55830050EB59 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F1ADD8C6133E55830050EB59 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F1ADD8C5133E55830050EB59 /* HelloGoodbyeUniv.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F1ADD8C8133E55830050EB59 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F1ADD8C9133E55830050EB59 /* UIKit.framework */,
+				F1ADD8CB133E55830050EB59 /* Foundation.framework */,
+				F1ADD8CD133E55830050EB59 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F1ADD8CF133E55830050EB59 /* HelloGoodbyeUniv */ = {
+			isa = PBXGroup;
+			children = (
+				F1ADD8D8133E55830050EB59 /* HelloGoodbyeUnivAppDelegate.h */,
+				F1ADD8D9133E55830050EB59 /* HelloGoodbyeUnivAppDelegate.m */,
+				F1ADD8DB133E55830050EB59 /* iPhone */,
+				F1ADD8E2133E55830050EB59 /* iPad */,
+				F1ADD8D0133E55830050EB59 /* Supporting Files */,
+			);
+			path = HelloGoodbyeUniv;
+			sourceTree = "<group>";
+		};
+		F1ADD8D0133E55830050EB59 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				F1ADD8D1133E55830050EB59 /* HelloGoodbyeUniv-Info.plist */,
+				F1ADD8D2133E55830050EB59 /* InfoPlist.strings */,
+				F1ADD8D5133E55830050EB59 /* HelloGoodbyeUniv-Prefix.pch */,
+				F1ADD8D6133E55830050EB59 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F1ADD8DB133E55830050EB59 /* iPhone */ = {
+			isa = PBXGroup;
+			children = (
+				F1ADD8DC133E55830050EB59 /* HelloGoodbyeUnivAppDelegate_iPhone.h */,
+				F1ADD8DD133E55830050EB59 /* HelloGoodbyeUnivAppDelegate_iPhone.m */,
+				F1ADD8DF133E55830050EB59 /* MainWindow_iPhone.xib */,
+			);
+			name = iPhone;
+			sourceTree = "<group>";
+		};
+		F1ADD8E2133E55830050EB59 /* iPad */ = {
+			isa = PBXGroup;
+			children = (
+				F1ADD8E3133E55830050EB59 /* HelloGoodbyeUnivAppDelegate_iPad.h */,
+				F1ADD8E4133E55830050EB59 /* HelloGoodbyeUnivAppDelegate_iPad.m */,
+				F1ADD8E6133E55830050EB59 /* MainWindow_iPad.xib */,
+			);
+			name = iPad;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F1ADD8C4133E55830050EB59 /* HelloGoodbyeUniv */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F1ADD8EB133E55830050EB59 /* Build configuration list for PBXNativeTarget "HelloGoodbyeUniv" */;
+			buildPhases = (
+				F1ADD8C1133E55830050EB59 /* Sources */,
+				F1ADD8C2133E55830050EB59 /* Frameworks */,
+				F1ADD8C3133E55830050EB59 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = HelloGoodbyeUniv;
+			productName = HelloGoodbyeUniv;
+			productReference = F1ADD8C5133E55830050EB59 /* HelloGoodbyeUniv.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F1ADD8BC133E55830050EB59 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				ORGANIZATIONNAME = notknot;
+			};
+			buildConfigurationList = F1ADD8BF133E55830050EB59 /* Build configuration list for PBXProject "HelloGoodbyeUniv" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = F1ADD8BA133E55830050EB59;
+			productRefGroup = F1ADD8C6133E55830050EB59 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F1ADD8C4133E55830050EB59 /* HelloGoodbyeUniv */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F1ADD8C3133E55830050EB59 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F1ADD8D4133E55830050EB59 /* InfoPlist.strings in Resources */,
+				F1ADD8E1133E55830050EB59 /* MainWindow_iPhone.xib in Resources */,
+				F1ADD8E8133E55830050EB59 /* MainWindow_iPad.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F1ADD8C1133E55830050EB59 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F1ADD8D7133E55830050EB59 /* main.m in Sources */,
+				F1ADD8DA133E55830050EB59 /* HelloGoodbyeUnivAppDelegate.m in Sources */,
+				F1ADD8DE133E55830050EB59 /* HelloGoodbyeUnivAppDelegate_iPhone.m in Sources */,
+				F1ADD8E5133E55830050EB59 /* HelloGoodbyeUnivAppDelegate_iPad.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		F1ADD8D2133E55830050EB59 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F1ADD8D3133E55830050EB59 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		F1ADD8DF133E55830050EB59 /* MainWindow_iPhone.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F1ADD8E0133E55830050EB59 /* en */,
+			);
+			name = MainWindow_iPhone.xib;
+			sourceTree = "<group>";
+		};
+		F1ADD8E6133E55830050EB59 /* MainWindow_iPad.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F1ADD8E7133E55830050EB59 /* en */,
+			);
+			name = MainWindow_iPad.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		F1ADD8E9133E55830050EB59 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		F1ADD8EA133E55830050EB59 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		F1ADD8EC133E55830050EB59 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "HelloGoodbyeUniv/HelloGoodbyeUniv-Prefix.pch";
+				INFOPLIST_FILE = "HelloGoodbyeUniv/HelloGoodbyeUniv-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		F1ADD8ED133E55830050EB59 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "HelloGoodbyeUniv/HelloGoodbyeUniv-Prefix.pch";
+				INFOPLIST_FILE = "HelloGoodbyeUniv/HelloGoodbyeUniv-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALIDATE_PRODUCT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F1ADD8BF133E55830050EB59 /* Build configuration list for PBXProject "HelloGoodbyeUniv" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F1ADD8E9133E55830050EB59 /* Debug */,
+				F1ADD8EA133E55830050EB59 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F1ADD8EB133E55830050EB59 /* Build configuration list for PBXNativeTarget "HelloGoodbyeUniv" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F1ADD8EC133E55830050EB59 /* Debug */,
+				F1ADD8ED133E55830050EB59 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F1ADD8BC133E55830050EB59 /* Project object */;
+}
