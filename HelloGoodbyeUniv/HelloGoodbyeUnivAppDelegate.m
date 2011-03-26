@@ -12,6 +12,7 @@
 
 
 @synthesize window=_window;
+@synthesize viewController;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -61,6 +62,7 @@
 
 - (void)dealloc
 {
+    self.viewController = nil;
     [_window release];
     [super dealloc];
 }
