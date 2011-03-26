@@ -24,16 +24,16 @@
 		F1ADD8C9133E55830050EB59 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		F1ADD8CB133E55830050EB59 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F1ADD8CD133E55830050EB59 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		F1ADD8D1133E55830050EB59 /* HelloGoodbyeUniv-Info.plist */ = {isa = PBXFileReference; path = "HelloGoodbyeUniv-Info.plist"; sourceTree = "<group>"; };
+		F1ADD8D1133E55830050EB59 /* HelloGoodbyeUniv-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "HelloGoodbyeUniv-Info.plist"; sourceTree = "<group>"; };
 		F1ADD8D3133E55830050EB59 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		F1ADD8D5133E55830050EB59 /* HelloGoodbyeUniv-Prefix.pch */ = {isa = PBXFileReference; path = "HelloGoodbyeUniv-Prefix.pch"; sourceTree = "<group>"; };
+		F1ADD8D5133E55830050EB59 /* HelloGoodbyeUniv-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HelloGoodbyeUniv-Prefix.pch"; sourceTree = "<group>"; };
 		F1ADD8D6133E55830050EB59 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		F1ADD8D8133E55830050EB59 /* HelloGoodbyeUnivAppDelegate.h */ = {isa = PBXFileReference; path = HelloGoodbyeUnivAppDelegate.h; sourceTree = "<group>"; };
+		F1ADD8D8133E55830050EB59 /* HelloGoodbyeUnivAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HelloGoodbyeUnivAppDelegate.h; sourceTree = "<group>"; };
 		F1ADD8D9133E55830050EB59 /* HelloGoodbyeUnivAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HelloGoodbyeUnivAppDelegate.m; sourceTree = "<group>"; };
-		F1ADD8DC133E55830050EB59 /* HelloGoodbyeUnivAppDelegate_iPhone.h */ = {isa = PBXFileReference; name = HelloGoodbyeUnivAppDelegate_iPhone.h; path = iPhone/HelloGoodbyeUnivAppDelegate_iPhone.h; sourceTree = "<group>"; };
+		F1ADD8DC133E55830050EB59 /* HelloGoodbyeUnivAppDelegate_iPhone.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = HelloGoodbyeUnivAppDelegate_iPhone.h; path = iPhone/HelloGoodbyeUnivAppDelegate_iPhone.h; sourceTree = "<group>"; };
 		F1ADD8DD133E55830050EB59 /* HelloGoodbyeUnivAppDelegate_iPhone.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = HelloGoodbyeUnivAppDelegate_iPhone.m; path = iPhone/HelloGoodbyeUnivAppDelegate_iPhone.m; sourceTree = "<group>"; };
 		F1ADD8E0133E55830050EB59 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = iPhone/en.lproj/MainWindow_iPhone.xib; sourceTree = "<group>"; };
-		F1ADD8E3133E55830050EB59 /* HelloGoodbyeUnivAppDelegate_iPad.h */ = {isa = PBXFileReference; name = HelloGoodbyeUnivAppDelegate_iPad.h; path = iPad/HelloGoodbyeUnivAppDelegate_iPad.h; sourceTree = "<group>"; };
+		F1ADD8E3133E55830050EB59 /* HelloGoodbyeUnivAppDelegate_iPad.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = HelloGoodbyeUnivAppDelegate_iPad.h; path = iPad/HelloGoodbyeUnivAppDelegate_iPad.h; sourceTree = "<group>"; };
 		F1ADD8E4133E55830050EB59 /* HelloGoodbyeUnivAppDelegate_iPad.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = HelloGoodbyeUnivAppDelegate_iPad.m; path = iPad/HelloGoodbyeUnivAppDelegate_iPad.m; sourceTree = "<group>"; };
 		F1ADD8E7133E55830050EB59 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = iPad/en.lproj/MainWindow_iPad.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
