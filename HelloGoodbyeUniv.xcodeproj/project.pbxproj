@@ -17,6 +17,8 @@
 		F1ADD8E1133E55830050EB59 /* MainWindow_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = F1ADD8DF133E55830050EB59 /* MainWindow_iPhone.xib */; };
 		F1ADD8E5133E55830050EB59 /* HelloGoodbyeUnivAppDelegate_iPad.m in Sources */ = {isa = PBXBuildFile; fileRef = F1ADD8E4133E55830050EB59 /* HelloGoodbyeUnivAppDelegate_iPad.m */; };
 		F1ADD8E8133E55830050EB59 /* MainWindow_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = F1ADD8E6133E55830050EB59 /* MainWindow_iPad.xib */; };
+		F1ADD8F1133E56440050EB59 /* HelloGoodbyeViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = F1ADD8EF133E56440050EB59 /* HelloGoodbyeViewController_iPhone.m */; };
+		F1ADD8F2133E56440050EB59 /* HelloGoodbyeViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = F1ADD8F0133E56440050EB59 /* HelloGoodbyeViewController_iPhone.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +38,9 @@
 		F1ADD8E3133E55830050EB59 /* HelloGoodbyeUnivAppDelegate_iPad.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = HelloGoodbyeUnivAppDelegate_iPad.h; path = iPad/HelloGoodbyeUnivAppDelegate_iPad.h; sourceTree = "<group>"; };
 		F1ADD8E4133E55830050EB59 /* HelloGoodbyeUnivAppDelegate_iPad.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = HelloGoodbyeUnivAppDelegate_iPad.m; path = iPad/HelloGoodbyeUnivAppDelegate_iPad.m; sourceTree = "<group>"; };
 		F1ADD8E7133E55830050EB59 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = iPad/en.lproj/MainWindow_iPad.xib; sourceTree = "<group>"; };
+		F1ADD8EE133E56440050EB59 /* HelloGoodbyeViewController_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelloGoodbyeViewController_iPhone.h; sourceTree = "<group>"; };
+		F1ADD8EF133E56440050EB59 /* HelloGoodbyeViewController_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelloGoodbyeViewController_iPhone.m; sourceTree = "<group>"; };
+		F1ADD8F0133E56440050EB59 /* HelloGoodbyeViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HelloGoodbyeViewController_iPhone.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +110,9 @@
 		F1ADD8DB133E55830050EB59 /* iPhone */ = {
 			isa = PBXGroup;
 			children = (
+				F1ADD8EE133E56440050EB59 /* HelloGoodbyeViewController_iPhone.h */,
+				F1ADD8EF133E56440050EB59 /* HelloGoodbyeViewController_iPhone.m */,
+				F1ADD8F0133E56440050EB59 /* HelloGoodbyeViewController_iPhone.xib */,
 				F1ADD8DC133E55830050EB59 /* HelloGoodbyeUnivAppDelegate_iPhone.h */,
 				F1ADD8DD133E55830050EB59 /* HelloGoodbyeUnivAppDelegate_iPhone.m */,
 				F1ADD8DF133E55830050EB59 /* MainWindow_iPhone.xib */,
@@ -175,6 +183,7 @@
 				F1ADD8D4133E55830050EB59 /* InfoPlist.strings in Resources */,
 				F1ADD8E1133E55830050EB59 /* MainWindow_iPhone.xib in Resources */,
 				F1ADD8E8133E55830050EB59 /* MainWindow_iPad.xib in Resources */,
+				F1ADD8F2133E56440050EB59 /* HelloGoodbyeViewController_iPhone.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -189,6 +198,7 @@
 				F1ADD8DA133E55830050EB59 /* HelloGoodbyeUnivAppDelegate.m in Sources */,
 				F1ADD8DE133E55830050EB59 /* HelloGoodbyeUnivAppDelegate_iPhone.m in Sources */,
 				F1ADD8E5133E55830050EB59 /* HelloGoodbyeUnivAppDelegate_iPad.m in Sources */,
+				F1ADD8F1133E56440050EB59 /* HelloGoodbyeViewController_iPhone.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
