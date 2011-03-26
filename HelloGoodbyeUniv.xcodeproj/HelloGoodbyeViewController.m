@@ -11,71 +11,98 @@
 
 @implementation HelloGoodbyeViewController
 
-@synthesize currentOperand, previousOperand;
-@synthesize operationPending;
-@synthesize label;
-
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        self.previousOperand = 0;
+        self.currentOperand = 0;
+        self.operationPending = nil;
     }
     return self;
 }
 
+@synthesize previousOperand = _previousOperand;
+@synthesize operationPending = _operationPending;
+@synthesize label = _label;
+
+- (void)setCurrentOperand:(double)operand
+{
+    _currentOperand = operand;
+    NSString *newText;
+    if (operand != 0) {
+        newText = [NSString stringWithFormat:@"%f", operand];
+    } else {
+        newText = @"0";
+    }
+    self.label.text = newText;
+}
+
+- (double)currentOperand
+{
+    return _currentOperand;
+}
+
+- (IBAction)operationPressed:(UIButton *)sender
+{
+    NSString *operation = sender.titleLabel.text;
+    NSLog(@"%@ operation pressed", operation);
+    if (self.operationPending) {
+        self.currentOperand = self.previousOperand + self.currentOperand;
+        self.operationPending = operation;
+    } else {
+        self.previousOperand = self.currentOperand;
+        self.currentOperand = 0;
+        self.operationPending = operation;
+    }
+}
+
+- (IBAction)digitPressed:(UIButton *)sender
+{
+    NSString *digit = sender.titleLabel.text;
+    NSLog(@"%@ digit pressed", digit);
+    if (self.currentOperand != 0) {
+        self.currentOperand = [[self.label.text stringByAppendingString:digit] doubleValue];
+    } else {
+        self.currentOperand = [digit doubleValue];
+    }
+}
+
+- (IBAction)cleanAll
+{
+    NSLog(@"clean button pressed");
+    self.currentOperand = 0;
+    self.previousOperand = 0;
+    self.operationPending = nil;
+}
+
+- (void)releaseMembers
+{
+    self.operationPending = nil;
+    self.label = nil;
+}
 - (void)dealloc
 {
+    [self releaseMembers];
     [super dealloc];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-    
-    // Release any cached data, images, etc that aren't in use.
-}
-
-#pragma mark - View lifecycle
-
-/*
-// Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView
-{
-}
-*/
-
-/*
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.label.text = @"0";
 }
-*/
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
+    [self releaseMembers];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+    return YES;
 }
-
-- (IBAction)operationPressed:(UIButton *)sender
-{
-    NSLog(@"%@", sender.titleLabel.text);
-}
-
-- (IBAction)digitPressed:(UIButton *)sender
-{
-    NSLog(@"%@", sender.titleLabel.text);
-    
-}
-
 @end

@@ -10,15 +10,19 @@
 
 
 @interface HelloGoodbyeViewController : UIViewController {
-    
+    double _currentOperand;
+    double _previousOperand;
+    NSString * _operationPending;
+    UILabel * _label;
 }
 
-@property float currentOperand;
-@property float previousOperand;
+@property double currentOperand;
+@property double previousOperand;
 @property (retain) NSString *operationPending;
 @property (retain) IBOutlet UILabel *label;
 
 - (IBAction)operationPressed:(UIButton *)sender;
 - (IBAction)digitPressed:(UIButton *)sender;
+- (IBAction)cleanAll;
 
 @end
