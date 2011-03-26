@@ -11,6 +11,10 @@
 
 @implementation HelloGoodbyeViewController
 
+@synthesize currentOperand, previousOperand;
+@synthesize operationPending;
+@synthesize label;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -61,6 +65,17 @@
 {
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+- (IBAction)operationPressed:(UIButton *)sender
+{
+    NSLog(@"%@", sender.titleLabel.text);
+}
+
+- (IBAction)digitPressed:(UIButton *)sender
+{
+    NSLog(@"%@", sender.titleLabel.text);
+    
 }
 
 @end

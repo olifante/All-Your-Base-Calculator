@@ -13,4 +13,12 @@
     
 }
 
+@property float currentOperand;
+@property float previousOperand;
+@property (retain) NSString *operationPending;
+@property (retain) IBOutlet UILabel *label;
+
+- (IBAction)operationPressed:(UIButton *)sender;
+- (IBAction)digitPressed:(UIButton *)sender;
+
 @end
