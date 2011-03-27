@@ -67,7 +67,7 @@
     } else if ([self.pendingOperation isEqualToString:@"/"]) {
         result = self.previousOperand / self.currentOperand;
     }
-    return [NSString stringWithFormat:@"%f", result];
+    return [NSString stringWithFormat:@"%g", result];
 }
 
 - (IBAction)operationPressed:(UIButton *)sender
@@ -102,6 +102,7 @@
 
 - (IBAction)digitPressed:(UIButton *)sender
 {
+    // TODO: check for repeated decimal points
     NSString *digit = sender.titleLabel.text;
     NSLog(@"%@ digit pressed", digit);
     if ([self.currentDigits isEqualToString:@"0"]) {
