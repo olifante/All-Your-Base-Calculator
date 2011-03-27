@@ -18,6 +18,16 @@
 @synthesize previousDigits = _previousDigits;
 @synthesize operationHasJustBeenPerformed = _operationHasJustBeenPerformed;
 
+- (BOOL)stringEmpty:(NSString *)string
+{
+    return [string isEqualToString:@""];
+}
+
+- (BOOL)stringNotEmpty:(NSString *)string
+{
+    return [string isEqualToString:@""];
+}
+
 - (NSString *)currentDigits
 {
     if (!_currentDigits) {

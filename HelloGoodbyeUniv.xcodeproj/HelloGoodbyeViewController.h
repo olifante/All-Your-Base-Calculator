@@ -31,4 +31,7 @@
 - (IBAction)resultPressed:(UIButton *)sender;
 - (IBAction)cleanAll;
 
+- (BOOL)stringEmpty:(NSString *)string;
+- (BOOL)stringNotEmpty:(NSString *)string;
+
 @end
