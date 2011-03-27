@@ -26,8 +26,9 @@
 @property (readonly) double currentOperand;
 @property (readonly) double previousOperand;
 
-- (IBAction)operationPressed:(UIButton *)sender;
 - (IBAction)digitPressed:(UIButton *)sender;
+- (IBAction)operationPressed:(UIButton *)sender;
+- (IBAction)resultPressed:(UIButton *)sender;
 - (IBAction)cleanAll;
 
 @end

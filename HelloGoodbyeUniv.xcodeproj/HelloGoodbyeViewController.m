@@ -27,7 +27,9 @@
 
 - (double)currentOperand
 {
-    return [self.currentDigits doubleValue];
+    double result = [self.currentDigits doubleValue];
+    NSLog(@"%g", result);
+    return result;
 }
 
 - (double)previousOperand
@@ -75,32 +77,6 @@
     return [NSString stringWithFormat:@"%g", result];
 }
 
-- (IBAction)operationPressed:(UIButton *)sender
-{
-    NSString *operation = sender.titleLabel.text;
-    NSLog(@"%@ operation pressed", operation);
-    if (self.pendingOperation) {
-        NSString *resultDigits = [self performPendingOperation];
-        if ([operation isEqualToString:@"="]) {
-            self.pendingOperation = nil;
-        } else {
-            self.pendingOperation = operation;
-        }
-        self.previousDigits = resultDigits;
-        self.currentDigits = @"";
-        self.operationHasJustBeenPerformed = YES;
-    } else if (![operation isEqualToString:@"="]) { 
-        // no operation pending
-        if (!self.operationHasJustBeenPerformed) {
-            self.previousDigits = self.currentDigits;
-        }
-        self.pendingOperation = operation;
-        self.currentDigits = @"";
-        self.operationHasJustBeenPerformed = NO;
-    }
-    [self updateLabel];
-}
-
 - (IBAction)digitPressed:(UIButton *)sender
 {
     // TODO: check for repeated decimal points
@@ -113,6 +89,44 @@
     }
     self.operationHasJustBeenPerformed = NO;
     [self updateLabel];
+}
+
+- (IBAction)operationPressed:(UIButton *)sender
+{
+    NSString *operation = sender.titleLabel.text;
+    NSLog(@"%@ operation pressed", operation);
+    if ([self.currentDigits isEqualToString:@""] && self.pendingOperation) {
+        // do nothing
+    } else if (self.pendingOperation) {
+        self.previousDigits = [self performPendingOperation];
+        self.pendingOperation = operation;
+        self.currentDigits = @"";
+        self.operationHasJustBeenPerformed = YES;
+    } else { 
+        if (!self.operationHasJustBeenPerformed) {
+            self.previousDigits = self.currentDigits;
+        }
+        self.pendingOperation = operation;
+        self.currentDigits = @"";
+        self.operationHasJustBeenPerformed = NO;
+    }
+    [self updateLabel];
+}
+
+- (IBAction)resultPressed:(UIButton *)sender
+{
+    NSLog(@"results button pressed");
+    if (self.pendingOperation) {
+        self.previousDigits = [self performPendingOperation];
+        self.pendingOperation = nil;
+        self.currentDigits = @"";
+        self.operationHasJustBeenPerformed = YES;
+    } else if (self.currentOperand != 0.0) { 
+        self.currentDigits = [NSString stringWithFormat:@"%g", self.currentDigits];
+        self.operationHasJustBeenPerformed = NO;
+    }
+    [self updateLabel];
+    
 }
 
 - (IBAction)cleanAll
