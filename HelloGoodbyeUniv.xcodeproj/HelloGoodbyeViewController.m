@@ -13,17 +13,8 @@
 
 @synthesize label = _label;
 @synthesize pendingOperation = _pendingOperation;
+@synthesize currentDigits = _currentDigits;
 @synthesize previousDigits = _previousDigits;
-
-- (void)setCurrentDigits:(NSString *)currentDigits
-{
-    _currentDigits = currentDigits;
-    if (self.pendingOperation) {
-        self.label.text = [NSString stringWithFormat:@"%@ %@ %@", self.previousDigits, self.pendingOperation, self.currentDigits];
-    } else {
-        self.label.text = currentDigits;
-    }
-}
 
 - (NSString *)currentDigits
 {
@@ -31,8 +22,8 @@
         _currentDigits = @"";
     }
     return _currentDigits;
-
 }
+
 - (double)currentOperand
 {
     return [self.currentDigits doubleValue];
@@ -43,6 +34,16 @@
     return [self.previousDigits doubleValue];
 }
 
+- (void)updateLabel
+{
+    if (self.previousDigits && self.pendingOperation) {
+        self.label.text = [NSString stringWithFormat:@"%@ %@ %@", self.previousDigits, self.pendingOperation, self.currentDigits];
+    } else if (self.previousDigits && [self.currentDigits isEqualToString:@""]) { // and no pending operation
+        self.label.text = [NSString stringWithFormat:@"= %@", self.previousDigits];
+    } else {
+        self.label.text = self.currentDigits;
+    }
+}
 - (NSString *)performPendingOperation
 {
     double result;
@@ -63,29 +64,25 @@
     NSString *operation = sender.titleLabel.text;
     NSLog(@"%@ operation pressed", operation);
     if (self.pendingOperation) {
-        NSString *resultDigits;
+        NSString *resultDigits = [self performPendingOperation];
         if ([operation isEqualToString:@"="]) {
-            resultDigits = [self performPendingOperation];
-            self.previousDigits = nil;
             self.pendingOperation = nil;
-            self.currentDigits = resultDigits;
         } else {
-            resultDigits = [self performPendingOperation];
-            self.previousDigits = resultDigits;
             self.pendingOperation = operation;
-            self.currentDigits = @"";
         }
+        self.previousDigits = resultDigits;
+        self.currentDigits = @"";
     } else { 
         // no operation pending
         if ([operation isEqualToString:@"="]) {
             // do nothing
-            self.previousDigits = nil; // shouldn't be necessary
         } else {
             self.previousDigits = self.currentDigits;
             self.pendingOperation = operation;
             self.currentDigits = @"";
         }
     }
+    [self updateLabel];
 }
 
 - (IBAction)digitPressed:(UIButton *)sender
@@ -97,21 +94,23 @@
     } else {
         self.currentDigits = [self.currentDigits stringByAppendingString:digit];
     }
+    [self updateLabel];
 }
 
 - (IBAction)cleanAll
 {
     NSLog(@"clean button pressed");
-    self.currentDigits = @"0";
-    self.previousDigits = nil;
     self.pendingOperation = nil;
+    self.previousDigits = nil;
+    self.currentDigits = @"0";
+    [self updateLabel];
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        
+        self.currentDigits = @"";
     }
     return self;
 }
@@ -142,7 +141,6 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    // Return YES for supported orientations
     return YES;
 }
 @end
