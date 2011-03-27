@@ -74,9 +74,6 @@
 {
     NSString *operation = sender.titleLabel.text;
     NSLog(@"%@ operation pressed", operation);
-    if ([self.currentDigits isEqualToString:@""] && self.previousDigits) {
-        self.currentDigits = self.previousDigits;
-    }
     if (self.pendingOperation) {
         NSString *resultDigits = [self performPendingOperation];
         if ([operation isEqualToString:@"="]) {
