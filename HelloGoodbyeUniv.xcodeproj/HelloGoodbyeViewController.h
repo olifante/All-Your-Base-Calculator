@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "NKString.h"
 
 @interface HelloGoodbyeViewController : UIViewController {
     UILabel *_label;
@@ -30,8 +31,5 @@
 - (IBAction)operationPressed:(UIButton *)sender;
 - (IBAction)resultPressed:(UIButton *)sender;
 - (IBAction)cleanAll;
-
-- (BOOL)stringEmpty:(NSString *)string;
-- (BOOL)stringNotEmpty:(NSString *)string;
 
 @end

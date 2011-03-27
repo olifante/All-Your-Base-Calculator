@@ -22,6 +22,7 @@
 		F1ADD8F6133E56720050EB59 /* HelloGoodbyeViewController_iPad.m in Sources */ = {isa = PBXBuildFile; fileRef = F1ADD8F4133E56720050EB59 /* HelloGoodbyeViewController_iPad.m */; };
 		F1ADD8F7133E56720050EB59 /* HelloGoodbyeViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = F1ADD8F5133E56720050EB59 /* HelloGoodbyeViewController_iPad.xib */; };
 		F1EC2926133E5E4100E5C619 /* HelloGoodbyeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F1EC2925133E5E4100E5C619 /* HelloGoodbyeViewController.m */; };
+		F1EC2934133FFA3000E5C619 /* NKString.m in Sources */ = {isa = PBXBuildFile; fileRef = F1EC2933133FFA2F00E5C619 /* NKString.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +50,8 @@
 		F1ADD8F5133E56720050EB59 /* HelloGoodbyeViewController_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HelloGoodbyeViewController_iPad.xib; sourceTree = "<group>"; };
 		F1EC2924133E5E4100E5C619 /* HelloGoodbyeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HelloGoodbyeViewController.h; path = HelloGoodbyeUniv.xcodeproj/HelloGoodbyeViewController.h; sourceTree = SOURCE_ROOT; };
 		F1EC2925133E5E4100E5C619 /* HelloGoodbyeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HelloGoodbyeViewController.m; path = HelloGoodbyeUniv.xcodeproj/HelloGoodbyeViewController.m; sourceTree = SOURCE_ROOT; };
+		F1EC2932133FFA2F00E5C619 /* NKString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NKString.h; sourceTree = "<group>"; };
+		F1EC2933133FFA2F00E5C619 /* NKString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NKString.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +98,8 @@
 		F1ADD8CF133E55830050EB59 /* HelloGoodbyeUniv */ = {
 			isa = PBXGroup;
 			children = (
+				F1EC2932133FFA2F00E5C619 /* NKString.h */,
+				F1EC2933133FFA2F00E5C619 /* NKString.m */,
 				F1EC2924133E5E4100E5C619 /* HelloGoodbyeViewController.h */,
 				F1EC2925133E5E4100E5C619 /* HelloGoodbyeViewController.m */,
 				F1ADD8D8133E55830050EB59 /* HelloGoodbyeUnivAppDelegate.h */,
@@ -215,6 +220,7 @@
 				F1ADD8F1133E56440050EB59 /* HelloGoodbyeViewController_iPhone.m in Sources */,
 				F1ADD8F6133E56720050EB59 /* HelloGoodbyeViewController_iPad.m in Sources */,
 				F1EC2926133E5E4100E5C619 /* HelloGoodbyeViewController.m in Sources */,
+				F1EC2934133FFA3000E5C619 /* NKString.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

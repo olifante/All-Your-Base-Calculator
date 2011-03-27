@@ -18,16 +18,6 @@
 @synthesize previousDigits = _previousDigits;
 @synthesize operationHasJustBeenPerformed = _operationHasJustBeenPerformed;
 
-- (BOOL)stringEmpty:(NSString *)string
-{
-    return [string isEqualToString:@""];
-}
-
-- (BOOL)stringNotEmpty:(NSString *)string
-{
-    return [string isEqualToString:@""];
-}
-
 - (NSString *)currentDigits
 {
     if (!_currentDigits) {
@@ -133,7 +123,7 @@
 {
     NSString *operation = sender.titleLabel.text;
     NSLog(@"%@ operation pressed", operation);
-    if ([self stringEmpty:self.currentDigits] && self.pendingOperation) {
+    if ([self.currentDigits isEmptyNK] && self.pendingOperation) {
         // do nothing if 2nd operation pressed with an empty 2nd operand
     } else if (self.pendingOperation) {
         [self performPendingOperation];
