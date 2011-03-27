@@ -15,6 +15,8 @@
 @synthesize pendingOperation = _pendingOperation;
 @synthesize currentDigits = _currentDigits;
 @synthesize previousDigits = _previousDigits;
+@synthesize labelPrefix = _labelPrefix;
+@synthesize labelInfix = _labelInfix;
 
 - (NSString *)currentDigits
 {
