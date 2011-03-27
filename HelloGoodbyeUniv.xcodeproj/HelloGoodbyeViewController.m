@@ -37,9 +37,9 @@
 - (void)updateLabel
 {
     if (self.previousDigits && self.pendingOperation) {
-        self.label.text = [NSString stringWithFormat:@"%@ %@ %@", self.previousDigits, self.pendingOperation, self.currentDigits];
+        self.label.text = [NSString stringWithFormat:@"%@%@%@", self.previousDigits, self.pendingOperation, self.currentDigits];
     } else if (self.previousDigits && [self.currentDigits isEqualToString:@""]) { // and no pending operation
-        self.label.text = [NSString stringWithFormat:@"= %@", self.previousDigits];
+        self.label.text = [NSString stringWithFormat:@"=%@", self.previousDigits];
     } else {
         self.label.text = self.currentDigits;
     }
