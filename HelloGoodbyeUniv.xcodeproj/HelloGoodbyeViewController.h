@@ -11,19 +11,18 @@
 
 @interface HelloGoodbyeViewController : UIViewController {
     UILabel * _label;
-    NSString * _labelPrefix;
-    NSString * _labelInfix;
     NSString * _pendingOperation;
     NSString * _currentDigits;
     NSString * _previousDigits;
+    BOOL _operationHasJustBeenPerformed;
 }
 
-@property (retain) IBOutlet UILabel *label;
-@property (nonatomic, copy) NSString * labelPrefix;
-@property (nonatomic, copy) NSString * labelInfix;
-@property (nonatomic, copy) NSString *pendingOperation;
+@property (retain) IBOutlet UILabel * label;
+@property (nonatomic, copy) NSString * pendingOperation;
 @property (nonatomic, copy) NSString * currentDigits;
 @property (nonatomic, copy) NSString * previousDigits;
+@property BOOL operationHasJustBeenPerformed;
+
 @property (readonly) double currentOperand;
 @property (readonly) double previousOperand;
 

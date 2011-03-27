@@ -12,11 +12,10 @@
 @implementation HelloGoodbyeViewController
 
 @synthesize label = _label;
-@synthesize labelPrefix = _labelPrefix;
-@synthesize labelInfix = _labelInfix;
 @synthesize pendingOperation = _pendingOperation;
 @synthesize currentDigits = _currentDigits;
 @synthesize previousDigits = _previousDigits;
+@synthesize operationHasJustBeenPerformed = _operationHasJustBeenPerformed;
 
 - (NSString *)currentDigits
 {
@@ -38,10 +37,20 @@
 
 - (void)updateLabel
 {
+    NSString *prefix;
+    if (self.operationHasJustBeenPerformed) {
+        prefix = @"=";
+    } else {
+        prefix = @"";
+    }
     if (self.previousDigits) {
-        self.label.text = [NSString stringWithFormat:@"%@%@%@", self.previousDigits, self.pendingOperation, self.currentDigits];
-    } else if (self.previousDigits && [self.currentDigits isEqualToString:@""]) { // and no pending operation
-        self.label.text = [NSString stringWithFormat:@"=%@", self.previousDigits];
+        self.label.text = [NSString stringWithFormat:
+            @"%@%@%@%@"
+            , prefix
+            , self.previousDigits
+            , self.pendingOperation ? self.pendingOperation : @""
+            , self.currentDigits ? self.currentDigits : @""
+       ];
     } else {
         self.label.text = self.currentDigits;
     }
@@ -77,6 +86,7 @@
         }
         self.previousDigits = resultDigits;
         self.currentDigits = @"";
+        self.operationHasJustBeenPerformed = YES;
     } else { 
         // no operation pending
         if ([operation isEqualToString:@"="]) {
@@ -99,25 +109,27 @@
     } else {
         self.currentDigits = [self.currentDigits stringByAppendingString:digit];
     }
+    self.operationHasJustBeenPerformed = NO;
     [self updateLabel];
-}
-
-- (void)releaseMembers
-{
-    self.label = nil;
-    self.labelPrefix = nil;
-    self.labelInfix = nil;
-    self.pendingOperation = nil;
-    self.previousDigits = nil;
-    self.currentDigits = nil;
 }
 
 - (IBAction)cleanAll
 {
     NSLog(@"clean button pressed");
-    [self releaseMembers];
+    self.pendingOperation = nil;
+    self.previousDigits = nil;
     self.currentDigits = @"0";
     self.label.text = @"0";
+    self.operationHasJustBeenPerformed = NO;
+    [self updateLabel];
+}
+
+- (void)releaseMembers
+{
+    self.pendingOperation = nil;
+    self.previousDigits = nil;
+    self.currentDigits = nil;
+    self.label = nil;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -125,6 +137,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.currentDigits = @"";
+        self.operationHasJustBeenPerformed = NO;
     }
     return self;
 }
