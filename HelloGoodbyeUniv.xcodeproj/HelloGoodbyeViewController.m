@@ -12,6 +12,7 @@
 @implementation HelloGoodbyeViewController
 
 @synthesize label = _label;
+@synthesize pendingLabel, currentLabel, previousLabel, resultsLabel;
 @synthesize pendingOperation = _pendingOperation;
 @synthesize currentDigits = _currentDigits;
 @synthesize previousDigits = _previousDigits;
@@ -25,11 +26,27 @@
     return _currentDigits;
 }
 
+- (void)setCurrentDigits:(NSString *)digits
+{
+    _currentDigits = digits;
+    self.currentLabel.text = digits;
+}
+
+- (void)setPreviousDigits:(NSString *)digits
+{
+    _previousDigits = digits;
+    self.previousLabel.text = digits;
+}
+
+- (void)setPendingOperation:(NSString *)pendingOperation
+{
+    _pendingOperation = pendingOperation;
+    self.pendingLabel.text = pendingOperation;
+}
+
 - (double)currentOperand
 {
-    double result = [self.currentDigits doubleValue];
-    NSLog(@"%g", result);
-    return result;
+    return [self.currentDigits doubleValue];
 }
 
 - (double)previousOperand
@@ -82,6 +99,9 @@
     // TODO: check for repeated decimal points
     NSString *digit = sender.titleLabel.text;
     NSLog(@"%@ digit pressed", digit);
+    if (!self.pendingOperation && self.previousDigits) {
+        self.previousDigits = nil; // we don't want stale values lying around
+    }
     if ([self.currentDigits isEqualToString:@"0"]) {
         self.currentDigits = digit;
     } else {
@@ -121,8 +141,11 @@
         self.pendingOperation = nil;
         self.currentDigits = @"";
         self.operationHasJustBeenPerformed = YES;
-    } else if (self.currentOperand != 0.0) { 
-        self.currentDigits = [NSString stringWithFormat:@"%g", self.currentDigits];
+    } else if (self.currentOperand == 0.0) {
+        self.currentDigits = @"0";
+    } else {
+        NSString *normalizedDigits = [NSString stringWithFormat:@"%g", self.currentOperand];
+        self.currentDigits = normalizedDigits;
         self.operationHasJustBeenPerformed = NO;
     }
     [self updateLabel];
@@ -137,7 +160,6 @@
     self.currentDigits = @"0";
     self.label.text = @"0";
     self.operationHasJustBeenPerformed = NO;
-    [self updateLabel];
 }
 
 - (void)releaseMembers
