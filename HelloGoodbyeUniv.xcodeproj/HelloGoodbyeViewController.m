@@ -89,9 +89,10 @@
         self.label.text = self.currentDigits;
     }
 }
-- (NSString *)performPendingOperation
+- (void)performPendingOperation
 {
     double result;
+    BOOL success = YES;
     if ([self.pendingOperation isEqualToString:@"+"]) {
         result = self.previousOperand + self.currentOperand;
     } else if ([self.pendingOperation isEqualToString:@"-"]) {
@@ -100,8 +101,15 @@
         result = self.previousOperand * self.currentOperand;
     } else if ([self.pendingOperation isEqualToString:@"/"]) {
         result = self.previousOperand / self.currentOperand;
+    } else {
+        success = NO;
     }
-    return [NSString stringWithFormat:@"%g", result];
+    if (success) {
+        self.previousDigits = [NSString stringWithFormat:@"%g", result];
+        self.pendingOperation = nil;
+        self.currentDigits = @"";
+        self.operationHasJustBeenPerformed = YES;
+    }
 }
 
 - (IBAction)digitPressed:(UIButton *)sender
@@ -125,20 +133,19 @@
 {
     NSString *operation = sender.titleLabel.text;
     NSLog(@"%@ operation pressed", operation);
-    if ([self.currentDigits isEqualToString:@""] && self.pendingOperation) {
-        // do nothing
+    if ([self stringEmpty:self.currentDigits] && self.pendingOperation) {
+        // do nothing if 2nd operation pressed with an empty 2nd operand
     } else if (self.pendingOperation) {
-        self.previousDigits = [self performPendingOperation];
+        [self performPendingOperation];
         self.pendingOperation = operation;
-        self.currentDigits = @"";
-        self.operationHasJustBeenPerformed = YES;
-    } else { 
+    } else { // no pending operation
         if (!self.operationHasJustBeenPerformed) {
+            // if no operation has just been performed, the 1st operand is empty
             self.previousDigits = self.currentDigits;
         }
         self.pendingOperation = operation;
         self.currentDigits = @"";
-        self.operationHasJustBeenPerformed = NO;
+//        self.operationHasJustBeenPerformed = NO; // make the "=" prefix disappear after pressing an operation
     }
     [self updateLabel];
 }
@@ -147,16 +154,13 @@
 {
     NSLog(@"results button pressed");
     if (self.pendingOperation) {
-        self.previousDigits = [self performPendingOperation];
-        self.pendingOperation = nil;
-        self.currentDigits = @"";
-        self.operationHasJustBeenPerformed = YES;
+        [self performPendingOperation];
     } else if (self.currentOperand == 0.0) {
         self.currentDigits = @"0";
     } else {
         NSString *normalizedDigits = [NSString stringWithFormat:@"%g", self.currentOperand];
         self.currentDigits = normalizedDigits;
-        self.operationHasJustBeenPerformed = NO;
+//        self.operationHasJustBeenPerformed = NO;
     }
     [self updateLabel];
     
