@@ -37,20 +37,25 @@
 
 - (void)updateLabel
 {
-    NSString *prefix;
-    if (self.operationHasJustBeenPerformed) {
-        prefix = @"=";
-    } else {
-        prefix = @"";
-    }
-    if (self.previousDigits) {
+    if (self.operationHasJustBeenPerformed && self.previousDigits && self.pendingOperation) {
         self.label.text = [NSString stringWithFormat:
-            @"%@%@%@%@"
-            , prefix
-            , self.previousDigits
-            , self.pendingOperation ? self.pendingOperation : @""
-            , self.currentDigits ? self.currentDigits : @""
-       ];
+                           @"= %@ %@ %@"
+                           , self.previousDigits
+                           , self.pendingOperation
+                           , self.currentDigits ? self.currentDigits : @""
+                           ];
+    } else if (self.operationHasJustBeenPerformed && self.previousDigits && !self.pendingOperation) {
+        self.label.text = [NSString stringWithFormat:
+                           @"= %@"
+                           , self.previousDigits
+                           ];
+    } else if (!self.operationHasJustBeenPerformed && self.previousDigits && self.pendingOperation) {
+        self.label.text = [NSString stringWithFormat:
+                           @"%@ %@ %@"
+                           , self.previousDigits
+                           , self.pendingOperation
+                           , self.currentDigits ? self.currentDigits : @""
+                           ];
     } else {
         self.label.text = self.currentDigits;
     }
