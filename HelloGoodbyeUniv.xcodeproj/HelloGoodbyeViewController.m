@@ -89,15 +89,14 @@
         self.previousDigits = resultDigits;
         self.currentDigits = @"";
         self.operationHasJustBeenPerformed = YES;
-    } else { 
+    } else if (![operation isEqualToString:@"="]) { 
         // no operation pending
-        if ([operation isEqualToString:@"="]) {
-            // do nothing
-        } else {
+        if (!self.operationHasJustBeenPerformed) {
             self.previousDigits = self.currentDigits;
-            self.pendingOperation = operation;
-            self.currentDigits = @"";
         }
+        self.pendingOperation = operation;
+        self.currentDigits = @"";
+        self.operationHasJustBeenPerformed = NO;
     }
     [self updateLabel];
 }
