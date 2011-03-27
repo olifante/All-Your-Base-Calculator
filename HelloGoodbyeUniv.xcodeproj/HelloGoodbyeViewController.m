@@ -11,49 +11,80 @@
 
 @implementation HelloGoodbyeViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        self.previousOperand = 0;
-        self.currentOperand = 0;
-        self.operationPending = nil;
-    }
-    return self;
-}
-
-@synthesize previousOperand = _previousOperand;
-@synthesize operationPending = _operationPending;
 @synthesize label = _label;
+@synthesize pendingOperation = _pendingOperation;
+@synthesize previousDigits = _previousDigits;
 
-- (void)setCurrentOperand:(double)operand
+- (void)setCurrentDigits:(NSString *)currentDigits
 {
-    _currentOperand = operand;
-    NSString *newText;
-    if (operand != 0) {
-        newText = [NSString stringWithFormat:@"%f", operand];
+    _currentDigits = currentDigits;
+    if (self.pendingOperation) {
+        self.label.text = [NSString stringWithFormat:@"%@ %@ %@", self.previousDigits, self.pendingOperation, self.currentDigits];
     } else {
-        newText = @"0";
+        self.label.text = currentDigits;
     }
-    self.label.text = newText;
 }
 
+- (NSString *)currentDigits
+{
+    if (!_currentDigits) {
+        _currentDigits = @"";
+    }
+    return _currentDigits;
+
+}
 - (double)currentOperand
 {
-    return _currentOperand;
+    return [self.currentDigits doubleValue];
+}
+
+- (double)previousOperand
+{
+    return [self.previousDigits doubleValue];
+}
+
+- (NSString *)performPendingOperation
+{
+    double result;
+    if ([self.pendingOperation isEqualToString:@"+"]) {
+        result = self.previousOperand + self.currentOperand;
+    } else if ([self.pendingOperation isEqualToString:@"-"]) {
+        result = self.previousOperand - self.currentOperand;
+    } else if ([self.pendingOperation isEqualToString:@"*"]) {
+        result = self.previousOperand * self.currentOperand;
+    } else if ([self.pendingOperation isEqualToString:@"/"]) {
+        result = self.previousOperand / self.currentOperand;
+    }
+    return [NSString stringWithFormat:@"%f", result];
 }
 
 - (IBAction)operationPressed:(UIButton *)sender
 {
     NSString *operation = sender.titleLabel.text;
     NSLog(@"%@ operation pressed", operation);
-    if (self.operationPending) {
-        self.currentOperand = self.previousOperand + self.currentOperand;
-        self.operationPending = operation;
-    } else {
-        self.previousOperand = self.currentOperand;
-        self.currentOperand = 0;
-        self.operationPending = operation;
+    if (self.pendingOperation) {
+        NSString *resultDigits;
+        if ([operation isEqualToString:@"="]) {
+            resultDigits = [self performPendingOperation];
+            self.previousDigits = nil;
+            self.pendingOperation = nil;
+            self.currentDigits = resultDigits;
+        } else {
+            resultDigits = [self performPendingOperation];
+            self.previousDigits = resultDigits;
+            self.pendingOperation = operation;
+            self.currentDigits = @"";
+        }
+    } else { 
+        // no operation pending
+        if ([operation isEqualToString:@"="]) {
+            // do nothing
+            self.previousDigits = nil; // shouldn't be necessary
+        } else {
+            self.previousDigits = self.currentDigits;
+            self.pendingOperation = operation;
+            self.currentDigits = @"";
+        }
     }
 }
 
@@ -61,24 +92,33 @@
 {
     NSString *digit = sender.titleLabel.text;
     NSLog(@"%@ digit pressed", digit);
-    if (self.currentOperand != 0) {
-        self.currentOperand = [[self.label.text stringByAppendingString:digit] doubleValue];
+    if ([self.currentDigits isEqualToString:@"0"]) {
+        self.currentDigits = digit;
     } else {
-        self.currentOperand = [digit doubleValue];
+        self.currentDigits = [self.currentDigits stringByAppendingString:digit];
     }
 }
 
 - (IBAction)cleanAll
 {
     NSLog(@"clean button pressed");
-    self.currentOperand = 0;
-    self.previousOperand = 0;
-    self.operationPending = nil;
+    self.currentDigits = @"0";
+    self.previousDigits = nil;
+    self.pendingOperation = nil;
+}
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        
+    }
+    return self;
 }
 
 - (void)releaseMembers
 {
-    self.operationPending = nil;
+    self.pendingOperation = nil;
     self.label = nil;
 }
 - (void)dealloc

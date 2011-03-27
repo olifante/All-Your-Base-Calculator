@@ -10,16 +10,18 @@
 
 
 @interface HelloGoodbyeViewController : UIViewController {
-    double _currentOperand;
-    double _previousOperand;
-    NSString * _operationPending;
     UILabel * _label;
+    NSString * _pendingOperation;
+    NSString * _currentDigits;
+    NSString * _previousDigits;
 }
 
-@property double currentOperand;
-@property double previousOperand;
-@property (retain) NSString *operationPending;
 @property (retain) IBOutlet UILabel *label;
+@property (retain) NSString *pendingOperation;
+@property (nonatomic, retain) NSString * currentDigits;
+@property (nonatomic, retain) NSString * previousDigits;
+@property (readonly) double currentOperand;
+@property (readonly) double previousOperand;
 
 - (IBAction)operationPressed:(UIButton *)sender;
 - (IBAction)digitPressed:(UIButton *)sender;
