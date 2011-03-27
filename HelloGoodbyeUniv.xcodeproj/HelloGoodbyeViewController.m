@@ -12,11 +12,11 @@
 @implementation HelloGoodbyeViewController
 
 @synthesize label = _label;
+@synthesize labelPrefix = _labelPrefix;
+@synthesize labelInfix = _labelInfix;
 @synthesize pendingOperation = _pendingOperation;
 @synthesize currentDigits = _currentDigits;
 @synthesize previousDigits = _previousDigits;
-@synthesize labelPrefix = _labelPrefix;
-@synthesize labelInfix = _labelInfix;
 
 - (NSString *)currentDigits
 {
@@ -38,7 +38,7 @@
 
 - (void)updateLabel
 {
-    if (self.previousDigits && self.pendingOperation) {
+    if (self.previousDigits) {
         self.label.text = [NSString stringWithFormat:@"%@%@%@", self.previousDigits, self.pendingOperation, self.currentDigits];
     } else if (self.previousDigits && [self.currentDigits isEqualToString:@""]) { // and no pending operation
         self.label.text = [NSString stringWithFormat:@"=%@", self.previousDigits];
@@ -102,13 +102,22 @@
     [self updateLabel];
 }
 
+- (void)releaseMembers
+{
+    self.label = nil;
+    self.labelPrefix = nil;
+    self.labelInfix = nil;
+    self.pendingOperation = nil;
+    self.previousDigits = nil;
+    self.currentDigits = nil;
+}
+
 - (IBAction)cleanAll
 {
     NSLog(@"clean button pressed");
-    self.pendingOperation = nil;
-    self.previousDigits = nil;
+    [self releaseMembers];
     self.currentDigits = @"0";
-    [self updateLabel];
+    self.label.text = @"0";
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -120,11 +129,6 @@
     return self;
 }
 
-- (void)releaseMembers
-{
-    self.pendingOperation = nil;
-    self.label = nil;
-}
 - (void)dealloc
 {
     [self releaseMembers];
