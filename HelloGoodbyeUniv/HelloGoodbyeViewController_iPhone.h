@@ -14,9 +14,6 @@
     
 }
 
-@property (retain) HelloGoodbyeViewController_iPhoneL *landscapeViewController;
-@property BOOL isShowingLandscapeView;
-
 - (void)orientationChanged:(NSNotification *)notification;
 
 @end

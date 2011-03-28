@@ -11,15 +11,12 @@
 
 @implementation HelloGoodbyeViewController_iPhone
 
-@synthesize landscapeViewController;
-@synthesize isShowingLandscapeView;
-
 - (id)init
 {
     self = [super initWithNibName:@"HelloGoodbyeViewController_iPhone" bundle:nil];;
     if (self)
     {
-        isShowingLandscapeView = NO;
+        self.isShowingLandscapeView = NO;
         self.landscapeViewController = [[[HelloGoodbyeViewController_iPhoneL alloc]
                                          initWithNibName:@"HelloGoodbyeViewController_iPhoneL"
                                          bundle:nil] autorelease];
@@ -37,17 +34,17 @@
 {
     UIDeviceOrientation deviceOrientation = [UIDevice currentDevice].orientation;
     if (UIDeviceOrientationIsLandscape(deviceOrientation) &&
-        !isShowingLandscapeView)
+        !self.isShowingLandscapeView)
     {
         [self presentModalViewController:self.landscapeViewController
                                 animated:YES];
-        isShowingLandscapeView = YES;
+        self.isShowingLandscapeView = YES;
     }
     else if (UIDeviceOrientationIsPortrait(deviceOrientation) &&
-             isShowingLandscapeView)
+             self.isShowingLandscapeView)
     {
         [self dismissModalViewControllerAnimated:YES];
-        isShowingLandscapeView = NO;
+        self.isShowingLandscapeView = NO;
     }
 }
 

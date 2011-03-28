@@ -8,10 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "HelloGoodbyeViewController.h"
-
+#import "HelloGoodbyeViewController_iPadL.h"
 
 @interface HelloGoodbyeViewController_iPad : HelloGoodbyeViewController {
     
 }
+
+- (void)orientationChanged:(NSNotification *)notification;
 
 @end

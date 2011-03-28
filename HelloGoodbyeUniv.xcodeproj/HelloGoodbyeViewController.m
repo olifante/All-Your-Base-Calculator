@@ -11,6 +11,9 @@
 
 @implementation HelloGoodbyeViewController
 
+@synthesize landscapeViewController;
+@synthesize isShowingLandscapeView;
+
 @synthesize label = _label;
 @synthesize pendingLabel, currentLabel, previousLabel;
 @synthesize pendingOperation = _pendingOperation;

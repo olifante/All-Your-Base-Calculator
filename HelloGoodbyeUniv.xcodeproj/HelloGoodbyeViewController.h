@@ -17,6 +17,9 @@
     BOOL _operationHasJustBeenPerformed;
 }
 
+@property (retain) HelloGoodbyeViewController *landscapeViewController;
+@property BOOL isShowingLandscapeView;
+
 @property (retain) IBOutlet UILabel *label;
 @property (retain) IBOutlet UILabel *pendingLabel, *currentLabel, *previousLabel;
 @property (nonatomic, retain) NSString *pendingOperation;
