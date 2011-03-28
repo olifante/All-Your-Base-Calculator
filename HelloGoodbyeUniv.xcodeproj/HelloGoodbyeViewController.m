@@ -106,10 +106,12 @@
     NSString *digit = sender.titleLabel.text;
     NSLog(@"%@ digit pressed", digit);
     if (!self.pendingOperation && self.previousDigits) {
-        self.previousDigits = nil; // we don't want stale values lying around
+        [self cleanAll]; // if there is no pending operation we don't want stale values lying around
     }
     if (self.currentDigits) {
         self.currentDigits = [self.currentDigits stringByAppendingString:digit];
+    } else if ([digit isEqualToString:@"0"]) {
+        // do not add a zero if there are no current digits
     } else {
         self.currentDigits = digit;
     }
@@ -140,11 +142,17 @@
 - (IBAction)resultPressed:(UIButton *)sender
 {
     NSLog(@"results button pressed");
-    if (self.pendingOperation) {
+    if (self.currentDigits && self.pendingOperation) {
         [self performPendingOperation];
+    } else if (self.pendingOperation) { // but no 2nd operand
+        self.pendingOperation = nil;
+    } else if (self.previousDigits) {
+        self.previousDigits = [NSString stringWithFormat:@"%g", self.previousOperand];
     } else {
-        self.currentDigits = [NSString stringWithFormat:@"%g", self.currentOperand];
+        self.previousDigits = [NSString stringWithFormat:@"%g", self.currentOperand];
     }
+    self.currentDigits = nil;
+    self.operationHasJustBeenPerformed = YES;
     [self updateLabel];
     
 }
