@@ -19,9 +19,9 @@
 
 @property (retain) IBOutlet UILabel *label;
 @property (retain) IBOutlet UILabel *pendingLabel, *currentLabel, *previousLabel, *resultsLabel;
-@property (nonatomic, copy) NSString *pendingOperation;
-@property (nonatomic, copy) NSString *currentDigits;
-@property (nonatomic, copy) NSString *previousDigits;
+@property (nonatomic, retain) NSString *pendingOperation;
+@property (nonatomic, retain) NSString *currentDigits;
+@property (nonatomic, retain) NSString *previousDigits;
 @property BOOL operationHasJustBeenPerformed;
 
 @property (readonly) double currentOperand;

@@ -18,14 +18,6 @@
 @synthesize previousDigits = _previousDigits;
 @synthesize operationHasJustBeenPerformed = _operationHasJustBeenPerformed;
 
-- (NSString *)currentDigits
-{
-    if (!_currentDigits) {
-        _currentDigits = @"";
-    }
-    return _currentDigits;
-}
-
 - (void)setCurrentDigits:(NSString *)digits
 {
     _currentDigits = digits;
@@ -148,8 +140,7 @@
     } else if (self.currentOperand == 0.0) {
         self.currentDigits = @"0";
     } else {
-        NSString *normalizedDigits = [NSString stringWithFormat:@"%g", self.currentOperand];
-        self.currentDigits = normalizedDigits;
+        self.currentDigits = [NSString stringWithFormat:@"%g", self.currentOperand];
 //        self.operationHasJustBeenPerformed = NO;
     }
     [self updateLabel];
