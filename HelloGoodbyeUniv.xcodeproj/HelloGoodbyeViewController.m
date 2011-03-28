@@ -20,19 +20,25 @@
 
 - (void)setCurrentDigits:(NSString *)digits
 {
+    [_currentDigits release];
     _currentDigits = digits;
+    [_currentDigits retain];    
     self.currentLabel.text = digits;
 }
 
 - (void)setPreviousDigits:(NSString *)digits
 {
+    [_previousDigits release];
     _previousDigits = digits;
+    [_previousDigits retain];
     self.previousLabel.text = digits;
 }
 
 - (void)setPendingOperation:(NSString *)pendingOperation
 {
+    [_pendingOperation release];
     _pendingOperation = pendingOperation;
+    [_pendingOperation retain];
     self.pendingLabel.text = pendingOperation;
 }
 
