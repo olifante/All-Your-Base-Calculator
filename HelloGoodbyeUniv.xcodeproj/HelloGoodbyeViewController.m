@@ -12,7 +12,7 @@
 @implementation HelloGoodbyeViewController
 
 @synthesize label = _label;
-@synthesize pendingLabel, currentLabel, previousLabel, resultsLabel;
+@synthesize pendingLabel, currentLabel, previousLabel;
 @synthesize pendingOperation = _pendingOperation;
 @synthesize currentDigits = _currentDigits;
 @synthesize previousDigits = _previousDigits;
@@ -207,4 +207,5 @@
 {
     return YES;
 }
+
 @end

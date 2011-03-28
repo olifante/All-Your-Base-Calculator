@@ -18,7 +18,7 @@
 }
 
 @property (retain) IBOutlet UILabel *label;
-@property (retain) IBOutlet UILabel *pendingLabel, *currentLabel, *previousLabel, *resultsLabel;
+@property (retain) IBOutlet UILabel *pendingLabel, *currentLabel, *previousLabel;
 @property (nonatomic, retain) NSString *pendingOperation;
 @property (nonatomic, retain) NSString *currentDigits;
 @property (nonatomic, retain) NSString *previousDigits;
