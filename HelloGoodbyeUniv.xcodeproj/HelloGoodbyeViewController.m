@@ -89,7 +89,7 @@
     if (success) {
         self.previousDigits = [NSString stringWithFormat:@"%g", result];
         self.pendingOperation = nil;
-        self.currentDigits = @"";
+        self.currentDigits = nil;
         self.operationHasJustBeenPerformed = YES;
     }
 }
@@ -102,10 +102,10 @@
     if (!self.pendingOperation && self.previousDigits) {
         self.previousDigits = nil; // we don't want stale values lying around
     }
-    if ([self.currentDigits isEqualToString:@"0"]) {
-        self.currentDigits = digit;
-    } else {
+    if (self.currentDigits) {
         self.currentDigits = [self.currentDigits stringByAppendingString:digit];
+    } else {
+        self.currentDigits = digit;
     }
     self.operationHasJustBeenPerformed = NO;
     [self updateLabel];
@@ -115,7 +115,7 @@
 {
     NSString *operation = sender.titleLabel.text;
     NSLog(@"%@ operation pressed", operation);
-    if ([self.currentDigits isEmptyNK] && self.pendingOperation) {
+    if (!self.currentDigits && self.pendingOperation) {
         // do nothing if 2nd operation pressed with an empty 2nd operand
     } else if (self.pendingOperation) {
         [self performPendingOperation];
@@ -126,8 +126,7 @@
             self.previousDigits = self.currentDigits;
         }
         self.pendingOperation = operation;
-        self.currentDigits = @"";
-//        self.operationHasJustBeenPerformed = NO; // make the "=" prefix disappear after pressing an operation
+        self.currentDigits = nil;
     }
     [self updateLabel];
 }
@@ -137,11 +136,8 @@
     NSLog(@"results button pressed");
     if (self.pendingOperation) {
         [self performPendingOperation];
-    } else if (self.currentOperand == 0.0) {
-        self.currentDigits = @"0";
     } else {
         self.currentDigits = [NSString stringWithFormat:@"%g", self.currentOperand];
-//        self.operationHasJustBeenPerformed = NO;
     }
     [self updateLabel];
     
@@ -152,7 +148,7 @@
     NSLog(@"clean button pressed");
     self.pendingOperation = nil;
     self.previousDigits = nil;
-    self.currentDigits = @"0";
+    self.currentDigits = nil;
     self.label.text = @"0";
     self.operationHasJustBeenPerformed = NO;
 }
@@ -169,8 +165,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.currentDigits = @"";
-        self.operationHasJustBeenPerformed = NO;
+        [self cleanAll];
     }
     return self;
 }
