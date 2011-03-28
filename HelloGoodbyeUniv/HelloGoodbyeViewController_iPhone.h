@@ -8,10 +8,15 @@
 
 #import <UIKit/UIKit.h>
 #import "HelloGoodbyeViewController.h"
-
+#import "HelloGoodbyeViewController_iPhoneL.h"
 
 @interface HelloGoodbyeViewController_iPhone : HelloGoodbyeViewController {
     
 }
+
+@property (retain) HelloGoodbyeViewController_iPhoneL *landscapeViewController;
+@property BOOL isShowingLandscapeView;
+
+- (void)orientationChanged:(NSNotification *)notification;
 
 @end
