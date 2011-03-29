@@ -6,9 +6,9 @@
 //  Copyright 2011 notknot. All rights reserved.
 //
 
-#import "HelloGoodbyeUnivAppDelegate.h"
+#import "AllYourBaseAppDelegate.h"
 
-@implementation HelloGoodbyeUnivAppDelegate
+@implementation AllYourBaseAppDelegate
 
 
 @synthesize window=_window;

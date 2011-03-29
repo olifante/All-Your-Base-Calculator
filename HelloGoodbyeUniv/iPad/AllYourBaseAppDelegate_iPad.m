@@ -6,14 +6,14 @@
 //  Copyright 2011 notknot. All rights reserved.
 //
 
-#import "HelloGoodbyeUnivAppDelegate_iPad.h"
-#import "HelloGoodbyeViewController_iPad.h"
+#import "AllYourBaseAppDelegate_iPad.h"
+#import "AllYourBaseViewController_iPad.h"
 
-@implementation HelloGoodbyeUnivAppDelegate_iPad
+@implementation AllYourBaseAppDelegate_iPad
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    self.viewController = [[HelloGoodbyeViewController_iPad alloc] init];
+    self.viewController = [[AllYourBaseViewController_iPad alloc] init];
     self.window.rootViewController = self.viewController;
     [self.window addSubview:self.viewController.view];
     [self.window makeKeyAndVisible];

@@ -6,10 +6,10 @@
 //  Copyright 2011 notknot. All rights reserved.
 //
 
-#import "HelloGoodbyeViewController_iPadL.h"
+#import "AllYourBaseViewController_iPadL.h"
 
 
-@implementation HelloGoodbyeViewController_iPadL
+@implementation AllYourBaseViewController_iPadL
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "HelloGoodbyeViewController.h"
-#import "HelloGoodbyeViewController_iPadL.h"
+#import "AllYourBaseViewController.h"
+#import "AllYourBaseViewController_iPadL.h"
 
-@interface HelloGoodbyeViewController_iPad : HelloGoodbyeViewController {
+@interface AllYourBaseViewController_iPad : AllYourBaseViewController {
     
 }
 

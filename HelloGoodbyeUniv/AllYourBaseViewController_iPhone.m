@@ -1,24 +1,24 @@
 //
-//  HelloGoodbyeViewController_iPad.m
+//  HelloGoodbyeViewController_iPhone.m
 //  HelloGoodbyeUniv
 //
 //  Created by Tiago Henriques on 3/26/11.
 //  Copyright 2011 notknot. All rights reserved.
 //
 
-#import "HelloGoodbyeViewController_iPad.h"
+#import "AllYourBaseViewController_iPhone.h"
 
 
-@implementation HelloGoodbyeViewController_iPad
+@implementation AllYourBaseViewController_iPhone
 
 - (id)init
 {
-    self = [super initWithNibName:@"HelloGoodbyeViewController_iPad" bundle:nil];;
+    self = [super initWithNibName:@"AllYourBaseViewController_iPhone" bundle:nil];;
     if (self)
     {
         self.isShowingLandscapeView = NO;
-        self.landscapeViewController = [[[HelloGoodbyeViewController_iPadL alloc]
-                                         initWithNibName:@"HelloGoodbyeViewController_iPadL"
+        self.landscapeViewController = [[[AllYourBaseViewController_iPhoneL alloc]
+                                         initWithNibName:@"AllYourBaseViewController_iPhoneL"
                                          bundle:nil] autorelease];
         
         [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];

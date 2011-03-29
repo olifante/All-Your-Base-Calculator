@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HelloGoodbyeUnivAppDelegate : NSObject <UIApplicationDelegate> {
+@interface AllYourBaseAppDelegate : NSObject <UIApplicationDelegate> {
 
 }
 

@@ -8,38 +8,38 @@
 
 /* Begin PBXBuildFile section */
 		F145DEDA134013FB00CCC887 /* CalcBrain.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F145DED8134013FB00CCC887 /* CalcBrain.xcdatamodeld */; };
-		F145DEDF1340DFA000CCC887 /* HelloGoodbyeViewController_iPhoneL.m in Sources */ = {isa = PBXBuildFile; fileRef = F145DEDD1340DFA000CCC887 /* HelloGoodbyeViewController_iPhoneL.m */; };
-		F145DEE01340DFA000CCC887 /* HelloGoodbyeViewController_iPhoneL.xib in Resources */ = {isa = PBXBuildFile; fileRef = F145DEDE1340DFA000CCC887 /* HelloGoodbyeViewController_iPhoneL.xib */; };
-		F145DEE41340ED4000CCC887 /* HelloGoodbyeViewController_iPadL.m in Sources */ = {isa = PBXBuildFile; fileRef = F145DEE21340ED4000CCC887 /* HelloGoodbyeViewController_iPadL.m */; };
-		F145DEE51340ED4000CCC887 /* HelloGoodbyeViewController_iPadL.xib in Resources */ = {isa = PBXBuildFile; fileRef = F145DEE31340ED4000CCC887 /* HelloGoodbyeViewController_iPadL.xib */; };
-		F1648E9B13415EBF004D0E12 /* HelloGoodbyeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F1648E9913415EBF004D0E12 /* HelloGoodbyeViewController.m */; };
+		F145DEDF1340DFA000CCC887 /* AllYourBaseViewController_iPhoneL.m in Sources */ = {isa = PBXBuildFile; fileRef = F145DEDD1340DFA000CCC887 /* AllYourBaseViewController_iPhoneL.m */; };
+		F145DEE01340DFA000CCC887 /* AllYourBaseViewController_iPhoneL.xib in Resources */ = {isa = PBXBuildFile; fileRef = F145DEDE1340DFA000CCC887 /* AllYourBaseViewController_iPhoneL.xib */; };
+		F145DEE41340ED4000CCC887 /* AllYourBaseViewController_iPadL.m in Sources */ = {isa = PBXBuildFile; fileRef = F145DEE21340ED4000CCC887 /* AllYourBaseViewController_iPadL.m */; };
+		F145DEE51340ED4000CCC887 /* AllYourBaseViewController_iPadL.xib in Resources */ = {isa = PBXBuildFile; fileRef = F145DEE31340ED4000CCC887 /* AllYourBaseViewController_iPadL.xib */; };
+		F1648E9B13415EBF004D0E12 /* AllYourBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F1648E9913415EBF004D0E12 /* AllYourBaseViewController.m */; };
 		F1ADD8CA133E55830050EB59 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1ADD8C9133E55830050EB59 /* UIKit.framework */; };
 		F1ADD8CC133E55830050EB59 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1ADD8CB133E55830050EB59 /* Foundation.framework */; };
 		F1ADD8CE133E55830050EB59 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1ADD8CD133E55830050EB59 /* CoreGraphics.framework */; };
 		F1ADD8D4133E55830050EB59 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F1ADD8D2133E55830050EB59 /* InfoPlist.strings */; };
 		F1ADD8D7133E55830050EB59 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F1ADD8D6133E55830050EB59 /* main.m */; };
-		F1ADD8DA133E55830050EB59 /* HelloGoodbyeUnivAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F1ADD8D9133E55830050EB59 /* HelloGoodbyeUnivAppDelegate.m */; };
-		F1ADD8DE133E55830050EB59 /* HelloGoodbyeUnivAppDelegate_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = F1ADD8DD133E55830050EB59 /* HelloGoodbyeUnivAppDelegate_iPhone.m */; };
+		F1ADD8DA133E55830050EB59 /* AllYourBaseAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F1ADD8D9133E55830050EB59 /* AllYourBaseAppDelegate.m */; };
+		F1ADD8DE133E55830050EB59 /* AllYourBaseAppDelegate_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = F1ADD8DD133E55830050EB59 /* AllYourBaseAppDelegate_iPhone.m */; };
 		F1ADD8E1133E55830050EB59 /* MainWindow_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = F1ADD8DF133E55830050EB59 /* MainWindow_iPhone.xib */; };
-		F1ADD8E5133E55830050EB59 /* HelloGoodbyeUnivAppDelegate_iPad.m in Sources */ = {isa = PBXBuildFile; fileRef = F1ADD8E4133E55830050EB59 /* HelloGoodbyeUnivAppDelegate_iPad.m */; };
+		F1ADD8E5133E55830050EB59 /* AllYourBaseAppDelegate_iPad.m in Sources */ = {isa = PBXBuildFile; fileRef = F1ADD8E4133E55830050EB59 /* AllYourBaseAppDelegate_iPad.m */; };
 		F1ADD8E8133E55830050EB59 /* MainWindow_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = F1ADD8E6133E55830050EB59 /* MainWindow_iPad.xib */; };
-		F1ADD8F1133E56440050EB59 /* HelloGoodbyeViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = F1ADD8EF133E56440050EB59 /* HelloGoodbyeViewController_iPhone.m */; };
-		F1ADD8F2133E56440050EB59 /* HelloGoodbyeViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = F1ADD8F0133E56440050EB59 /* HelloGoodbyeViewController_iPhone.xib */; };
-		F1ADD8F6133E56720050EB59 /* HelloGoodbyeViewController_iPad.m in Sources */ = {isa = PBXBuildFile; fileRef = F1ADD8F4133E56720050EB59 /* HelloGoodbyeViewController_iPad.m */; };
-		F1ADD8F7133E56720050EB59 /* HelloGoodbyeViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = F1ADD8F5133E56720050EB59 /* HelloGoodbyeViewController_iPad.xib */; };
+		F1ADD8F1133E56440050EB59 /* AllYourBaseViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = F1ADD8EF133E56440050EB59 /* AllYourBaseViewController_iPhone.m */; };
+		F1ADD8F2133E56440050EB59 /* AllYourBaseViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = F1ADD8F0133E56440050EB59 /* AllYourBaseViewController_iPhone.xib */; };
+		F1ADD8F6133E56720050EB59 /* AllYourBaseViewController_iPad.m in Sources */ = {isa = PBXBuildFile; fileRef = F1ADD8F4133E56720050EB59 /* AllYourBaseViewController_iPad.m */; };
+		F1ADD8F7133E56720050EB59 /* AllYourBaseViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = F1ADD8F5133E56720050EB59 /* AllYourBaseViewController_iPad.xib */; };
 		F1EC2934133FFA3000E5C619 /* NKString.m in Sources */ = {isa = PBXBuildFile; fileRef = F1EC2933133FFA2F00E5C619 /* NKString.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		F145DED9134013FB00CCC887 /* CalcBrain.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CalcBrain.xcdatamodel; sourceTree = "<group>"; };
-		F145DEDC1340DFA000CCC887 /* HelloGoodbyeViewController_iPhoneL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelloGoodbyeViewController_iPhoneL.h; sourceTree = "<group>"; };
-		F145DEDD1340DFA000CCC887 /* HelloGoodbyeViewController_iPhoneL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelloGoodbyeViewController_iPhoneL.m; sourceTree = "<group>"; };
-		F145DEDE1340DFA000CCC887 /* HelloGoodbyeViewController_iPhoneL.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HelloGoodbyeViewController_iPhoneL.xib; sourceTree = "<group>"; };
-		F145DEE11340ED4000CCC887 /* HelloGoodbyeViewController_iPadL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelloGoodbyeViewController_iPadL.h; sourceTree = "<group>"; };
-		F145DEE21340ED4000CCC887 /* HelloGoodbyeViewController_iPadL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelloGoodbyeViewController_iPadL.m; sourceTree = "<group>"; };
-		F145DEE31340ED4000CCC887 /* HelloGoodbyeViewController_iPadL.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HelloGoodbyeViewController_iPadL.xib; sourceTree = "<group>"; };
-		F1648E9913415EBF004D0E12 /* HelloGoodbyeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HelloGoodbyeViewController.m; path = HelloGoodbyeUniv/HelloGoodbyeViewController.m; sourceTree = "<group>"; };
-		F1648E9A13415EBF004D0E12 /* HelloGoodbyeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HelloGoodbyeViewController.h; path = HelloGoodbyeUniv/HelloGoodbyeViewController.h; sourceTree = "<group>"; };
+		F145DEDC1340DFA000CCC887 /* AllYourBaseViewController_iPhoneL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllYourBaseViewController_iPhoneL.h; sourceTree = "<group>"; };
+		F145DEDD1340DFA000CCC887 /* AllYourBaseViewController_iPhoneL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllYourBaseViewController_iPhoneL.m; sourceTree = "<group>"; };
+		F145DEDE1340DFA000CCC887 /* AllYourBaseViewController_iPhoneL.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllYourBaseViewController_iPhoneL.xib; sourceTree = "<group>"; };
+		F145DEE11340ED4000CCC887 /* AllYourBaseViewController_iPadL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllYourBaseViewController_iPadL.h; sourceTree = "<group>"; };
+		F145DEE21340ED4000CCC887 /* AllYourBaseViewController_iPadL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllYourBaseViewController_iPadL.m; sourceTree = "<group>"; };
+		F145DEE31340ED4000CCC887 /* AllYourBaseViewController_iPadL.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllYourBaseViewController_iPadL.xib; sourceTree = "<group>"; };
+		F1648E9913415EBF004D0E12 /* AllYourBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllYourBaseViewController.m; sourceTree = "<group>"; };
+		F1648E9A13415EBF004D0E12 /* AllYourBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllYourBaseViewController.h; sourceTree = "<group>"; };
 		F1ADD8C5133E55830050EB59 /* AllYourBase.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AllYourBase.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1ADD8C9133E55830050EB59 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		F1ADD8CB133E55830050EB59 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -48,20 +48,20 @@
 		F1ADD8D3133E55830050EB59 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		F1ADD8D5133E55830050EB59 /* AllYourBase-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AllYourBase-Prefix.pch"; sourceTree = "<group>"; };
 		F1ADD8D6133E55830050EB59 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		F1ADD8D8133E55830050EB59 /* HelloGoodbyeUnivAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HelloGoodbyeUnivAppDelegate.h; sourceTree = "<group>"; };
-		F1ADD8D9133E55830050EB59 /* HelloGoodbyeUnivAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HelloGoodbyeUnivAppDelegate.m; sourceTree = "<group>"; };
-		F1ADD8DC133E55830050EB59 /* HelloGoodbyeUnivAppDelegate_iPhone.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = HelloGoodbyeUnivAppDelegate_iPhone.h; path = iPhone/HelloGoodbyeUnivAppDelegate_iPhone.h; sourceTree = "<group>"; };
-		F1ADD8DD133E55830050EB59 /* HelloGoodbyeUnivAppDelegate_iPhone.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = HelloGoodbyeUnivAppDelegate_iPhone.m; path = iPhone/HelloGoodbyeUnivAppDelegate_iPhone.m; sourceTree = "<group>"; };
+		F1ADD8D8133E55830050EB59 /* AllYourBaseAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AllYourBaseAppDelegate.h; sourceTree = "<group>"; };
+		F1ADD8D9133E55830050EB59 /* AllYourBaseAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AllYourBaseAppDelegate.m; sourceTree = "<group>"; };
+		F1ADD8DC133E55830050EB59 /* AllYourBaseAppDelegate_iPhone.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AllYourBaseAppDelegate_iPhone.h; path = iPhone/AllYourBaseAppDelegate_iPhone.h; sourceTree = "<group>"; };
+		F1ADD8DD133E55830050EB59 /* AllYourBaseAppDelegate_iPhone.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = AllYourBaseAppDelegate_iPhone.m; path = iPhone/AllYourBaseAppDelegate_iPhone.m; sourceTree = "<group>"; };
 		F1ADD8E0133E55830050EB59 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = iPhone/en.lproj/MainWindow_iPhone.xib; sourceTree = "<group>"; };
-		F1ADD8E3133E55830050EB59 /* HelloGoodbyeUnivAppDelegate_iPad.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = HelloGoodbyeUnivAppDelegate_iPad.h; path = iPad/HelloGoodbyeUnivAppDelegate_iPad.h; sourceTree = "<group>"; };
-		F1ADD8E4133E55830050EB59 /* HelloGoodbyeUnivAppDelegate_iPad.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = HelloGoodbyeUnivAppDelegate_iPad.m; path = iPad/HelloGoodbyeUnivAppDelegate_iPad.m; sourceTree = "<group>"; };
+		F1ADD8E3133E55830050EB59 /* AllYourBaseAppDelegate_iPad.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AllYourBaseAppDelegate_iPad.h; path = iPad/AllYourBaseAppDelegate_iPad.h; sourceTree = "<group>"; };
+		F1ADD8E4133E55830050EB59 /* AllYourBaseAppDelegate_iPad.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = AllYourBaseAppDelegate_iPad.m; path = iPad/AllYourBaseAppDelegate_iPad.m; sourceTree = "<group>"; };
 		F1ADD8E7133E55830050EB59 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = iPad/en.lproj/MainWindow_iPad.xib; sourceTree = "<group>"; };
-		F1ADD8EE133E56440050EB59 /* HelloGoodbyeViewController_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelloGoodbyeViewController_iPhone.h; sourceTree = "<group>"; };
-		F1ADD8EF133E56440050EB59 /* HelloGoodbyeViewController_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelloGoodbyeViewController_iPhone.m; sourceTree = "<group>"; };
-		F1ADD8F0133E56440050EB59 /* HelloGoodbyeViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HelloGoodbyeViewController_iPhone.xib; sourceTree = "<group>"; };
-		F1ADD8F3133E56720050EB59 /* HelloGoodbyeViewController_iPad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelloGoodbyeViewController_iPad.h; sourceTree = "<group>"; };
-		F1ADD8F4133E56720050EB59 /* HelloGoodbyeViewController_iPad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelloGoodbyeViewController_iPad.m; sourceTree = "<group>"; };
-		F1ADD8F5133E56720050EB59 /* HelloGoodbyeViewController_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HelloGoodbyeViewController_iPad.xib; sourceTree = "<group>"; };
+		F1ADD8EE133E56440050EB59 /* AllYourBaseViewController_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllYourBaseViewController_iPhone.h; sourceTree = "<group>"; };
+		F1ADD8EF133E56440050EB59 /* AllYourBaseViewController_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllYourBaseViewController_iPhone.m; sourceTree = "<group>"; };
+		F1ADD8F0133E56440050EB59 /* AllYourBaseViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllYourBaseViewController_iPhone.xib; sourceTree = "<group>"; };
+		F1ADD8F3133E56720050EB59 /* AllYourBaseViewController_iPad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllYourBaseViewController_iPad.h; sourceTree = "<group>"; };
+		F1ADD8F4133E56720050EB59 /* AllYourBaseViewController_iPad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllYourBaseViewController_iPad.m; sourceTree = "<group>"; };
+		F1ADD8F5133E56720050EB59 /* AllYourBaseViewController_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllYourBaseViewController_iPad.xib; sourceTree = "<group>"; };
 		F1EC2932133FFA2F00E5C619 /* NKString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NKString.h; sourceTree = "<group>"; };
 		F1EC2933133FFA2F00E5C619 /* NKString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NKString.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -83,9 +83,7 @@
 		F1ADD8BA133E55830050EB59 = {
 			isa = PBXGroup;
 			children = (
-				F1648E9913415EBF004D0E12 /* HelloGoodbyeViewController.m */,
-				F1648E9A13415EBF004D0E12 /* HelloGoodbyeViewController.h */,
-				F1ADD8CF133E55830050EB59 /* HelloGoodbyeUniv */,
+				F1ADD8CF133E55830050EB59 /* AllYourBase */,
 				F1ADD8C8133E55830050EB59 /* Frameworks */,
 				F1ADD8C6133E55830050EB59 /* Products */,
 			);
@@ -109,18 +107,21 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		F1ADD8CF133E55830050EB59 /* HelloGoodbyeUniv */ = {
+		F1ADD8CF133E55830050EB59 /* AllYourBase */ = {
 			isa = PBXGroup;
 			children = (
 				F1EC2932133FFA2F00E5C619 /* NKString.h */,
 				F1EC2933133FFA2F00E5C619 /* NKString.m */,
 				F145DED8134013FB00CCC887 /* CalcBrain.xcdatamodeld */,
-				F1ADD8D8133E55830050EB59 /* HelloGoodbyeUnivAppDelegate.h */,
-				F1ADD8D9133E55830050EB59 /* HelloGoodbyeUnivAppDelegate.m */,
+				F1648E9A13415EBF004D0E12 /* AllYourBaseViewController.h */,
+				F1648E9913415EBF004D0E12 /* AllYourBaseViewController.m */,
+				F1ADD8D8133E55830050EB59 /* AllYourBaseAppDelegate.h */,
+				F1ADD8D9133E55830050EB59 /* AllYourBaseAppDelegate.m */,
 				F1ADD8DB133E55830050EB59 /* iPhone */,
 				F1ADD8E2133E55830050EB59 /* iPad */,
 				F1ADD8D0133E55830050EB59 /* Supporting Files */,
 			);
+			name = AllYourBase;
 			path = HelloGoodbyeUniv;
 			sourceTree = "<group>";
 		};
@@ -138,14 +139,14 @@
 		F1ADD8DB133E55830050EB59 /* iPhone */ = {
 			isa = PBXGroup;
 			children = (
-				F1ADD8EE133E56440050EB59 /* HelloGoodbyeViewController_iPhone.h */,
-				F1ADD8EF133E56440050EB59 /* HelloGoodbyeViewController_iPhone.m */,
-				F1ADD8F0133E56440050EB59 /* HelloGoodbyeViewController_iPhone.xib */,
-				F145DEDC1340DFA000CCC887 /* HelloGoodbyeViewController_iPhoneL.h */,
-				F145DEDD1340DFA000CCC887 /* HelloGoodbyeViewController_iPhoneL.m */,
-				F145DEDE1340DFA000CCC887 /* HelloGoodbyeViewController_iPhoneL.xib */,
-				F1ADD8DC133E55830050EB59 /* HelloGoodbyeUnivAppDelegate_iPhone.h */,
-				F1ADD8DD133E55830050EB59 /* HelloGoodbyeUnivAppDelegate_iPhone.m */,
+				F1ADD8EE133E56440050EB59 /* AllYourBaseViewController_iPhone.h */,
+				F1ADD8EF133E56440050EB59 /* AllYourBaseViewController_iPhone.m */,
+				F1ADD8F0133E56440050EB59 /* AllYourBaseViewController_iPhone.xib */,
+				F145DEDC1340DFA000CCC887 /* AllYourBaseViewController_iPhoneL.h */,
+				F145DEDD1340DFA000CCC887 /* AllYourBaseViewController_iPhoneL.m */,
+				F145DEDE1340DFA000CCC887 /* AllYourBaseViewController_iPhoneL.xib */,
+				F1ADD8DC133E55830050EB59 /* AllYourBaseAppDelegate_iPhone.h */,
+				F1ADD8DD133E55830050EB59 /* AllYourBaseAppDelegate_iPhone.m */,
 				F1ADD8DF133E55830050EB59 /* MainWindow_iPhone.xib */,
 			);
 			name = iPhone;
@@ -154,14 +155,14 @@
 		F1ADD8E2133E55830050EB59 /* iPad */ = {
 			isa = PBXGroup;
 			children = (
-				F1ADD8F3133E56720050EB59 /* HelloGoodbyeViewController_iPad.h */,
-				F1ADD8F4133E56720050EB59 /* HelloGoodbyeViewController_iPad.m */,
-				F1ADD8F5133E56720050EB59 /* HelloGoodbyeViewController_iPad.xib */,
-				F145DEE11340ED4000CCC887 /* HelloGoodbyeViewController_iPadL.h */,
-				F145DEE21340ED4000CCC887 /* HelloGoodbyeViewController_iPadL.m */,
-				F145DEE31340ED4000CCC887 /* HelloGoodbyeViewController_iPadL.xib */,
-				F1ADD8E3133E55830050EB59 /* HelloGoodbyeUnivAppDelegate_iPad.h */,
-				F1ADD8E4133E55830050EB59 /* HelloGoodbyeUnivAppDelegate_iPad.m */,
+				F1ADD8F3133E56720050EB59 /* AllYourBaseViewController_iPad.h */,
+				F1ADD8F4133E56720050EB59 /* AllYourBaseViewController_iPad.m */,
+				F1ADD8F5133E56720050EB59 /* AllYourBaseViewController_iPad.xib */,
+				F145DEE11340ED4000CCC887 /* AllYourBaseViewController_iPadL.h */,
+				F145DEE21340ED4000CCC887 /* AllYourBaseViewController_iPadL.m */,
+				F145DEE31340ED4000CCC887 /* AllYourBaseViewController_iPadL.xib */,
+				F1ADD8E3133E55830050EB59 /* AllYourBaseAppDelegate_iPad.h */,
+				F1ADD8E4133E55830050EB59 /* AllYourBaseAppDelegate_iPad.m */,
 				F1ADD8E6133E55830050EB59 /* MainWindow_iPad.xib */,
 			);
 			name = iPad;
@@ -220,10 +221,10 @@
 				F1ADD8D4133E55830050EB59 /* InfoPlist.strings in Resources */,
 				F1ADD8E1133E55830050EB59 /* MainWindow_iPhone.xib in Resources */,
 				F1ADD8E8133E55830050EB59 /* MainWindow_iPad.xib in Resources */,
-				F1ADD8F2133E56440050EB59 /* HelloGoodbyeViewController_iPhone.xib in Resources */,
-				F1ADD8F7133E56720050EB59 /* HelloGoodbyeViewController_iPad.xib in Resources */,
-				F145DEE01340DFA000CCC887 /* HelloGoodbyeViewController_iPhoneL.xib in Resources */,
-				F145DEE51340ED4000CCC887 /* HelloGoodbyeViewController_iPadL.xib in Resources */,
+				F1ADD8F2133E56440050EB59 /* AllYourBaseViewController_iPhone.xib in Resources */,
+				F1ADD8F7133E56720050EB59 /* AllYourBaseViewController_iPad.xib in Resources */,
+				F145DEE01340DFA000CCC887 /* AllYourBaseViewController_iPhoneL.xib in Resources */,
+				F145DEE51340ED4000CCC887 /* AllYourBaseViewController_iPadL.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -235,16 +236,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				F1ADD8D7133E55830050EB59 /* main.m in Sources */,
-				F1ADD8DA133E55830050EB59 /* HelloGoodbyeUnivAppDelegate.m in Sources */,
-				F1ADD8DE133E55830050EB59 /* HelloGoodbyeUnivAppDelegate_iPhone.m in Sources */,
-				F1ADD8E5133E55830050EB59 /* HelloGoodbyeUnivAppDelegate_iPad.m in Sources */,
-				F1ADD8F1133E56440050EB59 /* HelloGoodbyeViewController_iPhone.m in Sources */,
-				F1ADD8F6133E56720050EB59 /* HelloGoodbyeViewController_iPad.m in Sources */,
+				F1ADD8DA133E55830050EB59 /* AllYourBaseAppDelegate.m in Sources */,
+				F1ADD8DE133E55830050EB59 /* AllYourBaseAppDelegate_iPhone.m in Sources */,
+				F1ADD8E5133E55830050EB59 /* AllYourBaseAppDelegate_iPad.m in Sources */,
+				F1ADD8F1133E56440050EB59 /* AllYourBaseViewController_iPhone.m in Sources */,
+				F1ADD8F6133E56720050EB59 /* AllYourBaseViewController_iPad.m in Sources */,
 				F1EC2934133FFA3000E5C619 /* NKString.m in Sources */,
 				F145DEDA134013FB00CCC887 /* CalcBrain.xcdatamodeld in Sources */,
-				F145DEDF1340DFA000CCC887 /* HelloGoodbyeViewController_iPhoneL.m in Sources */,
-				F145DEE41340ED4000CCC887 /* HelloGoodbyeViewController_iPadL.m in Sources */,
-				F1648E9B13415EBF004D0E12 /* HelloGoodbyeViewController.m in Sources */,
+				F145DEDF1340DFA000CCC887 /* AllYourBaseViewController_iPhoneL.m in Sources */,
+				F145DEE41340ED4000CCC887 /* AllYourBaseViewController_iPadL.m in Sources */,
+				F1648E9B13415EBF004D0E12 /* AllYourBaseViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

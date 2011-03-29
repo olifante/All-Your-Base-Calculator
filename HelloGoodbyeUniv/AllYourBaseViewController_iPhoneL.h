@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "HelloGoodbyeViewController.h"
+#import "AllYourBaseViewController.h"
 
-@interface HelloGoodbyeViewController_iPhoneL : HelloGoodbyeViewController {
+@interface AllYourBaseViewController_iPhoneL : AllYourBaseViewController {
     
 }
 

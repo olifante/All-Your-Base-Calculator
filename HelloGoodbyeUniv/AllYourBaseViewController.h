@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "NKString.h"
 
-@interface HelloGoodbyeViewController : UIViewController {
+@interface AllYourBaseViewController : UIViewController {
     UILabel *_label;
     NSString *_pendingOperation;
     NSString *_currentDigits;
@@ -17,7 +17,7 @@
     BOOL _operationHasJustBeenPerformed;
 }
 
-@property (retain) HelloGoodbyeViewController *landscapeViewController;
+@property (retain) AllYourBaseViewController *landscapeViewController;
 @property BOOL isShowingLandscapeView;
 
 @property (retain) IBOutlet UILabel *label;

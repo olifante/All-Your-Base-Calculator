@@ -6,14 +6,14 @@
 //  Copyright 2011 notknot. All rights reserved.
 //
 
-#import "HelloGoodbyeUnivAppDelegate_iPhone.h"
-#import "HelloGoodbyeViewController_iPhone.h"
+#import "AllYourBaseAppDelegate_iPhone.h"
+#import "AllYourBaseViewController_iPhone.h"
 
-@implementation HelloGoodbyeUnivAppDelegate_iPhone
+@implementation AllYourBaseAppDelegate_iPhone
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    self.viewController = [[HelloGoodbyeViewController_iPhone alloc] init];
+    self.viewController = [[AllYourBaseViewController_iPhone alloc] init];
     self.window.rootViewController = self.viewController;
     [self.window addSubview:self.viewController.view];
     [self.window makeKeyAndVisible];

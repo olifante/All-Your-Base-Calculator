@@ -6,10 +6,10 @@
 //  Copyright 2011 notknot. All rights reserved.
 //
 
-#import "HelloGoodbyeViewController.h"
+#import "AllYourBaseViewController.h"
 
 
-@implementation HelloGoodbyeViewController
+@implementation AllYourBaseViewController
 
 @synthesize landscapeViewController;
 @synthesize isShowingLandscapeView;

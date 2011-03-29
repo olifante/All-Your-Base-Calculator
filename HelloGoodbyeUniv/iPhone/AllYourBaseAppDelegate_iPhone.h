@@ -1,5 +1,5 @@
 //
-//  HelloGoodbyeUnivAppDelegate_iPad.h
+//  HelloGoodbyeUnivAppDelegate_iPhone.h
 //  HelloGoodbyeUniv
 //
 //  Created by Tiago Henriques on 3/26/11.
@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "HelloGoodbyeUnivAppDelegate.h"
+#import "AllYourBaseAppDelegate.h"
 
-@interface HelloGoodbyeUnivAppDelegate_iPad : HelloGoodbyeUnivAppDelegate {
+@interface AllYourBaseAppDelegate_iPhone : AllYourBaseAppDelegate {
     
 }
 
