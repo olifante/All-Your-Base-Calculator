@@ -8,27 +8,23 @@
 
 #import <UIKit/UIKit.h>
 #import "NKString.h"
+#import "AllYourBaseModel.h"
 
 @interface AllYourBaseViewController : UIViewController {
+    AllYourBaseModel *_model;
     UILabel *_label;
-    NSString *_pendingOperation;
-    NSString *_currentDigits;
-    NSString *_previousDigits;
-    BOOL _operationHasJustBeenPerformed;
 }
 
 @property (retain) AllYourBaseViewController *landscapeViewController;
 @property BOOL isShowingLandscapeView;
 
+@property (retain) AllYourBaseModel *model;
 @property (retain) IBOutlet UILabel *label;
 @property (retain) IBOutlet UILabel *pendingLabel, *currentLabel, *previousLabel;
-@property (nonatomic, retain) NSString *pendingOperation;
-@property (nonatomic, retain) NSString *currentDigits;
-@property (nonatomic, retain) NSString *previousDigits;
-@property BOOL operationHasJustBeenPerformed;
 
-@property (readonly) double currentOperand;
-@property (readonly) double previousOperand;
+- (void)updateLabel;
+- (void)releaseMembers;
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil model:(AllYourBaseModel *)model;
 
 - (IBAction)digitPressed:(UIButton *)sender;
 - (IBAction)operationPressed:(UIButton *)sender;

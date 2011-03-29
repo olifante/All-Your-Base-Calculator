@@ -11,15 +11,17 @@
 
 @implementation AllYourBaseViewController_iPad
 
-- (id)init
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil model:(AllYourBaseModel *)model
 {
-    self = [super initWithNibName:@"AllYourBaseViewController_iPad" bundle:nil];;
+    self = [super initWithNibName:@"AllYourBaseViewController_iPad" bundle:nil model:nil];;
     if (self)
     {
+        self.model = [[[AllYourBaseModel alloc] init] autorelease];
         self.isShowingLandscapeView = NO;
         self.landscapeViewController = [[[AllYourBaseViewController_iPadL alloc]
                                          initWithNibName:@"AllYourBaseViewController_iPadL"
-                                         bundle:nil] autorelease];
+                                         bundle:nil
+                                         model:self.model] autorelease];
         
         [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
         [[NSNotificationCenter defaultCenter] addObserver:self
@@ -37,14 +39,15 @@
         !self.isShowingLandscapeView)
     {
         [self presentModalViewController:self.landscapeViewController
-                                animated:YES];
+                                animated:NO];
         self.isShowingLandscapeView = YES;
     }
     else if (UIDeviceOrientationIsPortrait(deviceOrientation) &&
              self.isShowingLandscapeView)
     {
-        [self dismissModalViewControllerAnimated:YES];
+        [self dismissModalViewControllerAnimated:NO];
         self.isShowingLandscapeView = NO;
+        [self updateLabel];
     }
 }
 
