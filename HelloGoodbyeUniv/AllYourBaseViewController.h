@@ -11,18 +11,18 @@
 #import "AllYourBaseModel.h"
 
 @interface AllYourBaseViewController : UIViewController {
-    AllYourBaseModel *_model;
-    UILabel *_label;
+    
 }
 
 @property (retain) AllYourBaseViewController *landscapeViewController;
 @property BOOL isShowingLandscapeView;
 
 @property (retain) AllYourBaseModel *model;
-@property (retain) IBOutlet UILabel *label;
-@property (retain) IBOutlet UILabel *pendingLabel, *currentLabel, *previousLabel;
+@property (retain) IBOutlet UILabel *currentLabel, *previousLabel;
 
-- (void)updateLabel;
+- (void)updateLabels;
+- (void)updatePreviousLabel;
+- (void)updateCurrentLabel;
 - (void)releaseMembers;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil model:(AllYourBaseModel *)model;
 

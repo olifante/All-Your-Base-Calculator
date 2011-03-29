@@ -47,7 +47,7 @@
     {
         [self dismissModalViewControllerAnimated:NO];
         self.isShowingLandscapeView = NO;
-        [self updateLabel];
+        [self updateLabels];
     }
 }
 

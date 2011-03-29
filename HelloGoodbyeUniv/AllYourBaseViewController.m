@@ -15,32 +15,44 @@
 @synthesize isShowingLandscapeView;
 
 @synthesize model;
-@synthesize label = _label;
-@synthesize pendingLabel, currentLabel, previousLabel;
+@synthesize currentLabel, previousLabel;
 
-- (void)updateLabel
+- (void)updateLabels
+{
+    [self updateCurrentLabel];
+    [self updatePreviousLabel];
+}
+
+- (void)updatePreviousLabel
 {
     if (self.model.operationHasJustBeenPerformed && self.model.previousDigits && self.model.pendingOperation) {
-        self.label.text = [NSString stringWithFormat:
-                           @"= %@ %@ %@"
+        self.previousLabel.text = [NSString stringWithFormat:
+                           @"= %@ %@"
                            , self.model.previousDigits
                            , self.model.pendingOperation
-                           , self.model.currentDigits ? self.model.currentDigits : @""
                            ];
     } else if (self.model.operationHasJustBeenPerformed && self.model.previousDigits && !self.model.pendingOperation) {
-        self.label.text = [NSString stringWithFormat:
+        self.previousLabel.text = [NSString stringWithFormat:
                            @"= %@"
                            , self.model.previousDigits
                            ];
     } else if (!self.model.operationHasJustBeenPerformed && self.model.previousDigits && self.model.pendingOperation) {
-        self.label.text = [NSString stringWithFormat:
-                           @"%@ %@ %@"
+        self.previousLabel.text = [NSString stringWithFormat:
+                           @"%@ %@"
                            , self.model.previousDigits
                            , self.model.pendingOperation
-                           , self.model.currentDigits ? self.model.currentDigits : @""
                            ];
     } else {
-        self.label.text = self.model.currentDigits;
+        self.previousLabel.text = nil;
+    }
+}
+
+- (void)updateCurrentLabel
+{
+    if (self.model.currentDigits) {
+        self.currentLabel.text = self.model.currentDigits;
+    } else {
+        self.currentLabel.text = @"0";
     }
 }
 
@@ -60,7 +72,7 @@
         self.model.currentDigits = digit;
     }
     self.model.operationHasJustBeenPerformed = NO;
-    [self updateLabel];
+    [self updateLabels];
 }
 
 - (IBAction)operationPressed:(UIButton *)sender
@@ -80,7 +92,7 @@
         self.model.pendingOperation = operation;
         self.model.currentDigits = nil;
     }
-    [self updateLabel];
+    [self updateLabels];
 }
 
 - (IBAction)resultPressed:(UIButton *)sender
@@ -97,7 +109,7 @@
     }
     self.model.currentDigits = nil;
     self.model.operationHasJustBeenPerformed = YES;
-    [self updateLabel];
+    [self updateLabels];
     
 }
 
@@ -105,12 +117,13 @@
 {
     NSLog(@"clean button pressed");
     [self.model releaseMembers];
-    [self updateLabel];
+    [self updateLabels];
 }
 
 - (void)releaseMembers
 {
-    self.label = nil;
+    self.currentLabel = nil;
+    self.previousLabel = nil;
     self.model = nil;
 }
 
@@ -139,7 +152,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self updateLabel];
+    [self updateLabels];
 }
 
 - (void)viewDidUnload
