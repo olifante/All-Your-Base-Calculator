@@ -16,6 +16,8 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil model:nil];;
     if (self) {
         self.model = model;
+        [self.model addObserver:self forKeyPath:@"currentDigits" options:NSKeyValueObservingOptionNew context:nil];
+        [self.model addObserver:self forKeyPath:@"previousDigits" options:NSKeyValueObservingOptionNew context:nil];
     }
     return self;
 }

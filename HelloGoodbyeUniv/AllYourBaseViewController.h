@@ -25,6 +25,7 @@
 - (void)updateCurrentLabel;
 - (void)releaseMembers;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil model:(AllYourBaseModel *)model;
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context;
 
 - (IBAction)digitPressed:(UIButton *)sender;
 - (IBAction)periodPressed:(UIButton *)sender;

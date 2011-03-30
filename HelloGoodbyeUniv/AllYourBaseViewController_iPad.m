@@ -17,6 +17,8 @@
     if (self)
     {
         self.model = [[[AllYourBaseModel alloc] init] autorelease];
+        [self.model addObserver:self forKeyPath:@"currentDigits" options:NSKeyValueObservingOptionNew context:nil];
+        [self.model addObserver:self forKeyPath:@"previousDigits" options:NSKeyValueObservingOptionNew context:nil];
         self.isShowingLandscapeView = NO;
         self.landscapeViewController = [[[AllYourBaseViewController_iPadL alloc]
                                          initWithNibName:@"AllYourBaseViewController_iPadL"
@@ -47,7 +49,6 @@
     {
         [self dismissModalViewControllerAnimated:NO];
         self.isShowingLandscapeView = NO;
-        [self updateLabels];
     }
 }
 

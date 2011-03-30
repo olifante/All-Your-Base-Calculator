@@ -27,21 +27,21 @@
 {
     if (self.model.operationHasJustBeenPerformed && self.model.previousDigits && self.model.pendingOperation) {
         self.previousLabel.text = [NSString stringWithFormat:
-                           @"= %@ %@"
-                           , self.model.previousDigits
-                           , self.model.pendingOperation
-                           ];
+                                   @"= %@ %@"
+                                   , self.model.previousDigits
+                                   , self.model.pendingOperation
+                                   ];
     } else if (self.model.operationHasJustBeenPerformed && self.model.previousDigits && !self.model.pendingOperation) {
         self.previousLabel.text = [NSString stringWithFormat:
-                           @"= %@"
-                           , self.model.previousDigits
-                           ];
+                                   @"= %@"                           
+                                   , self.model.previousDigits
+                                   ];
     } else if (!self.model.operationHasJustBeenPerformed && self.model.previousDigits && self.model.pendingOperation) {
         self.previousLabel.text = [NSString stringWithFormat:
-                           @"%@ %@"
-                           , self.model.previousDigits
-                           , self.model.pendingOperation
-                           ];
+                                   @"%@ %@"
+                                   , self.model.previousDigits
+                                   , self.model.pendingOperation
+                                   ];
     } else {
         self.previousLabel.text = nil;
     }
@@ -123,7 +123,6 @@
     self.model.currentDigits = nil;
     self.model.operationHasJustBeenPerformed = YES;
     [self updateLabels];
-    
 }
 
 - (IBAction)cleanAll
@@ -177,6 +176,14 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait || interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown);
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    NSLog(@"observed keyPath:%@", keyPath);
+    if ([keyPath isEqualToString:@"previousDigits"] || [keyPath isEqualToString:@"currentDigits"]) {
+        [self updateLabels];
+    }
 }
 
 @end
