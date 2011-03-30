@@ -75,6 +75,17 @@
     [self updateLabels];
 }
 
+- (IBAction)periodPressed:(UIButton *)sender
+{
+    unichar period = [@"." characterAtIndex:0];
+    for (int i = 0; i < self.model.currentDigits.length; i++) {
+        if ([self.model.currentDigits characterAtIndex:i] == period) {
+            return; // do nothing if current string contains period
+        }
+    }
+    return [self digitPressed:sender];
+}
+
 - (IBAction)operationPressed:(UIButton *)sender
 {
     NSString *operation = sender.titleLabel.text;

@@ -27,6 +27,7 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil model:(AllYourBaseModel *)model;
 
 - (IBAction)digitPressed:(UIButton *)sender;
+- (IBAction)periodPressed:(UIButton *)sender;
 - (IBAction)operationPressed:(UIButton *)sender;
 - (IBAction)resultPressed:(UIButton *)sender;
 - (IBAction)cleanAll;
