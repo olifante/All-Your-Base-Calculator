@@ -68,6 +68,8 @@
         self.model.currentDigits = [self.model.currentDigits stringByAppendingString:digit];
     } else if ([digit isEqualToString:@"0"]) {
         // do not add a zero if there are no current digits
+    } else if (!self.model.currentDigits && [digit isEqualToString:@"."]) {
+        self.model.currentDigits = @"0."; // keep initial zero if period pressed
     } else {
         self.model.currentDigits = digit;
     }
