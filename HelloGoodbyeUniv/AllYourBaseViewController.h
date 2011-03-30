@@ -21,8 +21,6 @@
 @property (retain) IBOutlet UILabel *currentLabel, *previousLabel;
 
 - (void)updateLabels;
-- (void)updatePreviousLabel;
-- (void)updateCurrentLabel;
 - (void)releaseMembers;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil model:(AllYourBaseModel *)model;
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context;

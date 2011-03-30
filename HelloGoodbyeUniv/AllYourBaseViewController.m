@@ -19,41 +19,8 @@
 
 - (void)updateLabels
 {
-    [self updateCurrentLabel];
-    [self updatePreviousLabel];
-}
-
-- (void)updatePreviousLabel
-{
-    if (self.model.operationHasJustBeenPerformed && self.model.previousDigits && self.model.pendingOperation) {
-        self.previousLabel.text = [NSString stringWithFormat:
-                                   @"= %@ %@"
-                                   , self.model.previousDigits
-                                   , self.model.pendingOperation
-                                   ];
-    } else if (self.model.operationHasJustBeenPerformed && self.model.previousDigits && !self.model.pendingOperation) {
-        self.previousLabel.text = [NSString stringWithFormat:
-                                   @"= %@"                           
-                                   , self.model.previousDigits
-                                   ];
-    } else if (!self.model.operationHasJustBeenPerformed && self.model.previousDigits && self.model.pendingOperation) {
-        self.previousLabel.text = [NSString stringWithFormat:
-                                   @"%@ %@"
-                                   , self.model.previousDigits
-                                   , self.model.pendingOperation
-                                   ];
-    } else {
-        self.previousLabel.text = nil;
-    }
-}
-
-- (void)updateCurrentLabel
-{
-    if (self.model.currentDigits) {
-        self.currentLabel.text = self.model.currentDigits;
-    } else {
-        self.currentLabel.text = @"0";
-    }
+    self.currentLabel.text = self.model.currentDisplay;
+    self.previousLabel.text = self.model.previousDisplay;
 }
 
 - (IBAction)digitPressed:(UIButton *)sender

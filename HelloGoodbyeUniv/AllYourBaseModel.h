@@ -19,11 +19,16 @@
 @property (nonatomic, retain) NSString *pendingOperation;
 @property (nonatomic, retain) NSString *currentDigits;
 @property (nonatomic, retain) NSString *previousDigits;
+@property (nonatomic, retain) NSString *currentDisplay;
+@property (nonatomic, retain) NSString *previousDisplay;
 @property BOOL operationHasJustBeenPerformed;
 
 @property (readonly) double currentOperand;
 @property (readonly) double previousOperand;
 
+- (void)updateDisplays;
+- (void)updatePreviousDisplay;
+- (void)updateCurrentDisplay;
 - (void)releaseMembers;
 - (void)performPendingOperation;
 
