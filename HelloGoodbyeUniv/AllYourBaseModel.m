@@ -11,35 +11,45 @@
 
 @implementation AllYourBaseModel
 
+@synthesize operationHasJustBeenPerformed = _operationHasJustBeenPerformed;
 @synthesize pendingOperation = _pendingOperation;
 @synthesize currentDigits = _currentDigits;
 @synthesize previousDigits = _previousDigits;
-@synthesize currentDisplay;
-@synthesize previousDisplay;
-@synthesize operationHasJustBeenPerformed = _operationHasJustBeenPerformed;
 
-- (void)setCurrentDigits:(NSString *)digits
+- (NSString *)currentDisplay
 {
-    [_currentDigits release];
-    _currentDigits = digits;
-    [_currentDigits retain];
-    [self updateDisplays];
+    NSString *returnValue;
+    if (self.currentDigits) {
+        returnValue = self.currentDigits;
+    } else {
+        returnValue = @"0";
+    }
+    return returnValue;
 }
 
-- (void)setPreviousDigits:(NSString *)digits
+- (NSString *)previousDisplay
 {
-    [_previousDigits release];
-    _previousDigits = digits;
-    [_previousDigits retain];
-    [self updateDisplays];
-}
-
-- (void)setPendingOperation:(NSString *)pendingOperation
-{
-    [_pendingOperation release];
-    _pendingOperation = pendingOperation;
-    [_pendingOperation retain];
-    [self updateDisplays];
+    NSString *returnValue;
+    NSString *prefix = @"";
+    NSString *postfix = @"";
+    if (self.operationHasJustBeenPerformed) {
+        prefix = @"= ";
+    }
+    if (self.pendingOperation) {
+        postfix = [NSString stringWithFormat:@" %@", self.pendingOperation];
+    }
+    if (self.previousDigits) {
+        returnValue = [NSString stringWithFormat:
+                       @"%@%@%@"
+                       , prefix
+                       , self.previousDigits
+                       , postfix
+                       ];        
+    } else {
+        returnValue = nil;
+    }
+    return returnValue;
+//    return previousDigits;
 }
 
 - (double)currentOperand
@@ -50,45 +60,6 @@
 - (double)previousOperand
 {
     return [self.previousDigits doubleValue];
-}
-
-- (void)updateDisplays
-{
-    [self updateCurrentDisplay];
-    [self updatePreviousDisplay];
-}
-
-- (void)updatePreviousDisplay
-{
-    if (self.operationHasJustBeenPerformed && self.previousDigits && self.pendingOperation) {
-        self.previousDisplay = [NSString stringWithFormat:
-                                   @"= %@ %@"
-                                   , self.previousDigits
-                                   , self.pendingOperation
-                                   ];
-    } else if (self.operationHasJustBeenPerformed && self.previousDigits && !self.pendingOperation) {
-        self.previousDisplay = [NSString stringWithFormat:
-                                   @"= %@"                           
-                                   , self.previousDigits
-                                   ];
-    } else if (!self.operationHasJustBeenPerformed && self.previousDigits && self.pendingOperation) {
-        self.previousDisplay = [NSString stringWithFormat:
-                                   @"%@ %@"
-                                   , self.previousDigits
-                                   , self.pendingOperation
-                                   ];
-    } else {
-        self.previousDisplay = nil;
-    }
-}
-
-- (void)updateCurrentDisplay
-{
-    if (self.currentDigits) {
-        self.currentDisplay = self.currentDigits;
-    } else {
-        self.currentDisplay = @"0";
-    }
 }
 
 - (void)releaseMembers

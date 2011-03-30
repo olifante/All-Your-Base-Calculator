@@ -41,7 +41,6 @@
         self.model.currentDigits = digit;
     }
     self.model.operationHasJustBeenPerformed = NO;
-    [self updateLabels];
 }
 
 - (IBAction)periodPressed:(UIButton *)sender
@@ -72,7 +71,6 @@
         self.model.pendingOperation = operation;
         self.model.currentDigits = nil;
     }
-    [self updateLabels];
 }
 
 - (IBAction)resultPressed:(UIButton *)sender
@@ -89,14 +87,12 @@
     }
     self.model.currentDigits = nil;
     self.model.operationHasJustBeenPerformed = YES;
-    [self updateLabels];
 }
 
 - (IBAction)cleanAll
 {
     NSLog(@"clean button pressed");
     [self.model releaseMembers];
-    [self updateLabels];
 }
 
 - (void)releaseMembers
@@ -147,7 +143,7 @@
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    NSLog(@"observed keyPath:%@", keyPath);
+    NSLog(@"%@ observed keyPath:%@", [self class], keyPath);
     if ([keyPath isEqualToString:@"previousDigits"] || [keyPath isEqualToString:@"currentDigits"]) {
         [self updateLabels];
     }

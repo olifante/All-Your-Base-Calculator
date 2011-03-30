@@ -10,25 +10,21 @@
 
 
 @interface AllYourBaseModel : NSObject {
+    BOOL _operationHasJustBeenPerformed;    
     NSString *_pendingOperation;
     NSString *_currentDigits;
     NSString *_previousDigits;
-    BOOL _operationHasJustBeenPerformed;    
 }
 
+@property BOOL operationHasJustBeenPerformed;
 @property (nonatomic, retain) NSString *pendingOperation;
 @property (nonatomic, retain) NSString *currentDigits;
 @property (nonatomic, retain) NSString *previousDigits;
-@property (nonatomic, retain) NSString *currentDisplay;
-@property (nonatomic, retain) NSString *previousDisplay;
-@property BOOL operationHasJustBeenPerformed;
-
+@property (readonly) NSString *currentDisplay;
+@property (readonly) NSString *previousDisplay;
 @property (readonly) double currentOperand;
 @property (readonly) double previousOperand;
 
-- (void)updateDisplays;
-- (void)updatePreviousDisplay;
-- (void)updateCurrentDisplay;
 - (void)releaseMembers;
 - (void)performPendingOperation;
 
