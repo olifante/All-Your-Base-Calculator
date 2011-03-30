@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F12197421343BA6F00507A37 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1ADD8C9133E55830050EB59 /* UIKit.framework */; };
+		F12197431343BA6F00507A37 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1ADD8CB133E55830050EB59 /* Foundation.framework */; };
+		F12197441343BA6F00507A37 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1ADD8CD133E55830050EB59 /* CoreGraphics.framework */; };
+		F121974A1343BA6F00507A37 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F12197481343BA6F00507A37 /* InfoPlist.strings */; };
+		F121974D1343BA6F00507A37 /* LogicTests.h in Resources */ = {isa = PBXBuildFile; fileRef = F121974C1343BA6F00507A37 /* LogicTests.h */; };
+		F121974F1343BA7000507A37 /* LogicTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F121974E1343BA6F00507A37 /* LogicTests.m */; };
 		F145DEDA134013FB00CCC887 /* CalcBrain.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F145DED8134013FB00CCC887 /* CalcBrain.xcdatamodeld */; };
 		F145DEDF1340DFA000CCC887 /* AllYourBaseViewController_iPhoneL.m in Sources */ = {isa = PBXBuildFile; fileRef = F145DEDD1340DFA000CCC887 /* AllYourBaseViewController_iPhoneL.m */; };
 		F145DEE01340DFA000CCC887 /* AllYourBaseViewController_iPhoneL.xib in Resources */ = {isa = PBXBuildFile; fileRef = F145DEDE1340DFA000CCC887 /* AllYourBaseViewController_iPhoneL.xib */; };
@@ -32,6 +38,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F12197411343BA6F00507A37 /* LogicTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LogicTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F12197471343BA6F00507A37 /* LogicTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LogicTests-Info.plist"; sourceTree = "<group>"; };
+		F12197491343BA6F00507A37 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		F121974B1343BA6F00507A37 /* LogicTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LogicTests-Prefix.pch"; sourceTree = "<group>"; };
+		F121974C1343BA6F00507A37 /* LogicTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LogicTests.h; sourceTree = "<group>"; };
+		F121974E1343BA6F00507A37 /* LogicTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogicTests.m; sourceTree = "<group>"; };
 		F145DED9134013FB00CCC887 /* CalcBrain.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CalcBrain.xcdatamodel; sourceTree = "<group>"; };
 		F145DEDC1340DFA000CCC887 /* AllYourBaseViewController_iPhoneL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllYourBaseViewController_iPhoneL.h; sourceTree = "<group>"; };
 		F145DEDD1340DFA000CCC887 /* AllYourBaseViewController_iPhoneL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllYourBaseViewController_iPhoneL.m; sourceTree = "<group>"; };
@@ -70,6 +82,16 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		F121973D1343BA6F00507A37 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F12197421343BA6F00507A37 /* UIKit.framework in Frameworks */,
+				F12197431343BA6F00507A37 /* Foundation.framework in Frameworks */,
+				F12197441343BA6F00507A37 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F1ADD8C2133E55830050EB59 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -83,10 +105,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F12197451343BA6F00507A37 /* LogicTests */ = {
+			isa = PBXGroup;
+			children = (
+				F121974C1343BA6F00507A37 /* LogicTests.h */,
+				F121974E1343BA6F00507A37 /* LogicTests.m */,
+				F12197461343BA6F00507A37 /* Supporting Files */,
+			);
+			path = LogicTests;
+			sourceTree = "<group>";
+		};
+		F12197461343BA6F00507A37 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				F12197471343BA6F00507A37 /* LogicTests-Info.plist */,
+				F12197481343BA6F00507A37 /* InfoPlist.strings */,
+				F121974B1343BA6F00507A37 /* LogicTests-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		F1ADD8BA133E55830050EB59 = {
 			isa = PBXGroup;
 			children = (
 				F1ADD8CF133E55830050EB59 /* AllYourBase */,
+				F12197451343BA6F00507A37 /* LogicTests */,
 				F1ADD8C8133E55830050EB59 /* Frameworks */,
 				F1ADD8C6133E55830050EB59 /* Products */,
 			);
@@ -96,6 +139,7 @@
 			isa = PBXGroup;
 			children = (
 				F1ADD8C5133E55830050EB59 /* AllYourBase.app */,
+				F12197411343BA6F00507A37 /* LogicTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -176,6 +220,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		F12197401343BA6F00507A37 /* LogicTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F12197501343BA7000507A37 /* Build configuration list for PBXNativeTarget "LogicTests" */;
+			buildPhases = (
+				F121973C1343BA6F00507A37 /* Sources */,
+				F121973D1343BA6F00507A37 /* Frameworks */,
+				F121973E1343BA6F00507A37 /* Resources */,
+				F121973F1343BA6F00507A37 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LogicTests;
+			productName = LogicTests;
+			productReference = F12197411343BA6F00507A37 /* LogicTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
 		F1ADD8C4133E55830050EB59 /* AllYourBase */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = F1ADD8EB133E55830050EB59 /* Build configuration list for PBXNativeTarget "AllYourBase" */;
@@ -214,11 +276,21 @@
 			projectRoot = "";
 			targets = (
 				F1ADD8C4133E55830050EB59 /* AllYourBase */,
+				F12197401343BA6F00507A37 /* LogicTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		F121973E1343BA6F00507A37 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F121974A1343BA6F00507A37 /* InfoPlist.strings in Resources */,
+				F121974D1343BA6F00507A37 /* LogicTests.h in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F1ADD8C3133E55830050EB59 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -235,7 +307,31 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		F121973F1343BA6F00507A37 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
+		F121973C1343BA6F00507A37 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F121974F1343BA7000507A37 /* LogicTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F1ADD8C1133E55830050EB59 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -258,6 +354,14 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		F12197481343BA6F00507A37 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F12197491343BA6F00507A37 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		F1ADD8D2133E55830050EB59 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -285,6 +389,46 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		F12197511343BA7000507A37 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "LogicTests/LogicTests-Prefix.pch";
+				INFOPLIST_FILE = "LogicTests/LogicTests-Info.plist";
+				OTHER_LDFLAGS = (
+					"-framework",
+					SenTestingKit,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		F12197521343BA7000507A37 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "LogicTests/LogicTests-Prefix.pch";
+				INFOPLIST_FILE = "LogicTests/LogicTests-Info.plist";
+				OTHER_LDFLAGS = (
+					"-framework",
+					SenTestingKit,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
 		F1ADD8E9133E55830050EB59 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -350,6 +494,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		F12197501343BA7000507A37 /* Build configuration list for PBXNativeTarget "LogicTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F12197511343BA7000507A37 /* Debug */,
+				F12197521343BA7000507A37 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		F1ADD8BF133E55830050EB59 /* Build configuration list for PBXProject "AllYourBase" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
