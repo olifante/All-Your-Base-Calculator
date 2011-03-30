@@ -62,6 +62,66 @@
     return [self.previousDigits doubleValue];
 }
 
+- (void)digitPressed:(NSString *)digit
+{
+    if (!self.pendingOperation && self.previousDigits) {
+        [self releaseMembers]; // if there is no pending operation we don't want stale values lying around
+    }
+    if (self.currentDigits) {
+        self.currentDigits = [self.currentDigits stringByAppendingString:digit];
+    } else if ([digit isEqualToString:@"0"]) {
+        // do not add a zero if there are no current digits
+    } else if (!self.currentDigits && [digit isEqualToString:@"."]) {
+        self.currentDigits = @"0."; // keep initial zero if period pressed
+    } else {
+        self.currentDigits = digit;
+    }
+    self.operationHasJustBeenPerformed = NO;
+}
+
+- (void)periodPressed
+{
+    unichar period = [@"." characterAtIndex:0];
+    for (int i = 0; i < self.currentDigits.length; i++) {
+        if ([self.currentDigits characterAtIndex:i] == period) {
+            return; // do nothing if current string contains period
+        }
+    }
+    return [self digitPressed:@"."];
+}
+
+- (void)operationPressed:(NSString *)operation
+{
+    if (!self.currentDigits && self.pendingOperation) {
+        // do nothing if 2nd operation pressed with an empty 2nd operand
+    } else if (self.pendingOperation) {
+        [self performPendingOperation];
+        self.pendingOperation = operation;
+    } else { // no pending operation
+        if (!self.operationHasJustBeenPerformed) {
+            // if no operation has just been performed, the 1st operand is empty
+            self.previousDigits = self.currentDigits;
+        }
+        self.pendingOperation = operation;
+        self.currentDigits = nil;
+    }
+}
+
+- (void)resultPressed
+{
+    if (self.currentDigits && self.pendingOperation) {
+        [self performPendingOperation];
+    } else if (self.pendingOperation) { // but no 2nd operand
+        self.pendingOperation = nil;
+    } else if (self.previousDigits) {
+        self.previousDigits = [NSString stringWithFormat:@"%g", self.previousOperand];
+    } else {
+        self.previousDigits = [NSString stringWithFormat:@"%g", self.currentOperand];
+    }
+    self.currentDigits = nil;
+    self.operationHasJustBeenPerformed = YES;
+}
+
 - (void)releaseMembers
 {
     self.pendingOperation = nil;

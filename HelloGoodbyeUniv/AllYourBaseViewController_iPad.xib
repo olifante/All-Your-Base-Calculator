@@ -240,7 +240,6 @@
 						<int key="NSvFlags">301</int>
 						<string key="NSFrame">{{605, 560}, {100, 100}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
-						<reference key="NSNextKeyView"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
@@ -258,7 +257,7 @@
 					<object class="IBUIButton" id="1001301493">
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">301</int>
-						<string key="NSFrame">{{171, 344}, {100, 100}}</string>
+						<string key="NSFrame">{{63, 452}, {100, 100}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSNextKeyView" ref="870073770"/>
 						<bool key="IBUIOpaque">NO</bool>
@@ -398,7 +397,7 @@
 					<object class="IBUIButton" id="698315336">
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">301</int>
-						<string key="NSFrame">{{63, 452}, {100, 100}}</string>
+						<string key="NSFrame">{{171, 344}, {100, 100}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSNextKeyView" ref="692629471"/>
 						<bool key="IBUIOpaque">NO</bool>
@@ -570,15 +569,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">cleanAll</string>
-						<reference key="source" ref="840164716"/>
-						<reference key="destination" ref="841351856"/>
-						<int key="IBEventType">7</int>
-					</object>
-					<int key="connectionID">56</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">operationPressed:</string>
 						<reference key="source" ref="590421142"/>
 						<reference key="destination" ref="841351856"/>
@@ -605,15 +595,6 @@
 					<int key="connectionID">64</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">resultPressed:</string>
-						<reference key="source" ref="698315336"/>
-						<reference key="destination" ref="841351856"/>
-						<int key="IBEventType">7</int>
-					</object>
-					<int key="connectionID">65</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">previousLabel</string>
 						<reference key="source" ref="841351856"/>
@@ -631,12 +612,30 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">periodPressed:</string>
+						<string key="label">cleanPressed</string>
+						<reference key="source" ref="840164716"/>
+						<reference key="destination" ref="841351856"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">73</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">periodPressed</string>
 						<reference key="source" ref="1001301493"/>
 						<reference key="destination" ref="841351856"/>
 						<int key="IBEventType">7</int>
 					</object>
-					<int key="connectionID">69</int>
+					<int key="connectionID">74</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">resultPressed</string>
+						<reference key="source" ref="698315336"/>
+						<reference key="destination" ref="841351856"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">75</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -673,16 +672,16 @@
 							<reference ref="561542518"/>
 							<reference ref="275572693"/>
 							<reference ref="653020457"/>
-							<reference ref="1001301493"/>
 							<reference ref="692629471"/>
 							<reference ref="870073770"/>
 							<reference ref="482505995"/>
 							<reference ref="488205030"/>
 							<reference ref="590421142"/>
-							<reference ref="840164716"/>
-							<reference ref="698315336"/>
 							<reference ref="98150098"/>
 							<reference ref="951534625"/>
+							<reference ref="1001301493"/>
+							<reference ref="698315336"/>
+							<reference ref="840164716"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -850,7 +849,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">69</int>
+			<int key="maxID">75</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes"/>
 		<int key="IBDocument.localizationMode">0</int>

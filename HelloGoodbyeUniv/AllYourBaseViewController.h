@@ -26,9 +26,9 @@
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context;
 
 - (IBAction)digitPressed:(UIButton *)sender;
-- (IBAction)periodPressed:(UIButton *)sender;
 - (IBAction)operationPressed:(UIButton *)sender;
-- (IBAction)resultPressed:(UIButton *)sender;
-- (IBAction)cleanAll;
+- (IBAction)periodPressed;
+- (IBAction)resultPressed;
+- (IBAction)cleanPressed;
 
 @end

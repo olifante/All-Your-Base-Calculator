@@ -25,6 +25,10 @@
 @property (readonly) double currentOperand;
 @property (readonly) double previousOperand;
 
+- (void)digitPressed:(NSString *)digit;
+- (void)periodPressed;
+- (void)operationPressed:(NSString *)operation;
+- (void)resultPressed;
 - (void)releaseMembers;
 - (void)performPendingOperation;
 

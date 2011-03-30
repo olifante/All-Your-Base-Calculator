@@ -25,71 +25,30 @@
 
 - (IBAction)digitPressed:(UIButton *)sender
 {
-    // TODO: check for repeated decimal points
     NSString *digit = sender.titleLabel.text;
     NSLog(@"%@ digit pressed", digit);
-    if (!self.model.pendingOperation && self.model.previousDigits) {
-        [self cleanAll]; // if there is no pending operation we don't want stale values lying around
-    }
-    if (self.model.currentDigits) {
-        self.model.currentDigits = [self.model.currentDigits stringByAppendingString:digit];
-    } else if ([digit isEqualToString:@"0"]) {
-        // do not add a zero if there are no current digits
-    } else if (!self.model.currentDigits && [digit isEqualToString:@"."]) {
-        self.model.currentDigits = @"0."; // keep initial zero if period pressed
-    } else {
-        self.model.currentDigits = digit;
-    }
-    self.model.operationHasJustBeenPerformed = NO;
-}
-
-- (IBAction)periodPressed:(UIButton *)sender
-{
-    unichar period = [@"." characterAtIndex:0];
-    for (int i = 0; i < self.model.currentDigits.length; i++) {
-        if ([self.model.currentDigits characterAtIndex:i] == period) {
-            return; // do nothing if current string contains period
-        }
-    }
-    return [self digitPressed:sender];
+    [self.model digitPressed:digit];
 }
 
 - (IBAction)operationPressed:(UIButton *)sender
 {
     NSString *operation = sender.titleLabel.text;
     NSLog(@"%@ operation pressed", operation);
-    if (!self.model.currentDigits && self.model.pendingOperation) {
-        // do nothing if 2nd operation pressed with an empty 2nd operand
-    } else if (self.model.pendingOperation) {
-        [self.model performPendingOperation];
-        self.model.pendingOperation = operation;
-    } else { // no pending operation
-        if (!self.model.operationHasJustBeenPerformed) {
-            // if no operation has just been performed, the 1st operand is empty
-            self.model.previousDigits = self.model.currentDigits;
-        }
-        self.model.pendingOperation = operation;
-        self.model.currentDigits = nil;
-    }
+    [self.model operationPressed:operation];
 }
 
-- (IBAction)resultPressed:(UIButton *)sender
+- (IBAction)periodPressed
+{
+    [self.model periodPressed];
+}
+
+- (IBAction)resultPressed
 {
     NSLog(@"results button pressed");
-    if (self.model.currentDigits && self.model.pendingOperation) {
-        [self.model performPendingOperation];
-    } else if (self.model.pendingOperation) { // but no 2nd operand
-        self.model.pendingOperation = nil;
-    } else if (self.model.previousDigits) {
-        self.model.previousDigits = [NSString stringWithFormat:@"%g", self.model.previousOperand];
-    } else {
-        self.model.previousDigits = [NSString stringWithFormat:@"%g", self.model.currentOperand];
-    }
-    self.model.currentDigits = nil;
-    self.model.operationHasJustBeenPerformed = YES;
+    [self.model resultPressed];
 }
 
-- (IBAction)cleanAll
+- (IBAction)cleanPressed
 {
     NSLog(@"clean button pressed");
     [self.model releaseMembers];
