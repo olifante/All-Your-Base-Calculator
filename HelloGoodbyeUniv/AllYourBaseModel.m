@@ -20,35 +20,36 @@
 @synthesize previousDisplay = _previousDisplay;
 @synthesize currentDisplay = _currentDisplay;
 
-- (void)updateSecondDisplay
+- (void)updateCurrentDisplay
 {
     NSString *prefix = @"";
-    NSString *postfix = @"";
-    NSString *value = @"";
+    NSString *operation = @"";
+    NSString *first = @"";
+    NSString *second = @"";
     if (self.previousOperation) {
-        value = self.result;
-        if (!self.currentOperation) {
-            prefix = @"= ";
-        }
-    } else {
-        value = self.currentDigits;
+        prefix = @"= ";
     }
     if (self.currentOperation) {
-        postfix = [NSString stringWithFormat:@" %@", self.currentOperation];
+        first = self.previousDigits;
+        operation = [NSString stringWithFormat:@" %@ ", self.currentOperation];
+        second = self.currentDigits;  
+    } else {
+        second = self.currentDigits;
     }
     NSString *oldDisplay = self.currentDisplay;
     NSString *newDisplay = [NSString stringWithFormat:
-                            @"%@%@%@"
+                            @"%@%@%@%@"
                             , prefix
-                            , value ? value : @""
-                            , postfix
+                            , first ? first : @""
+                            , operation
+                            , second ? second : @""
                             ];
     if (![oldDisplay isEqualToString:newDisplay]) {
         self.currentDisplay = newDisplay;
     }
 }
 
-- (void)updateFirstDisplay
+- (void)updatePreviousDisplay
 {
     NSString *prefix = @"";
     NSString *postfix = @"";
@@ -56,10 +57,7 @@
     if (self.previousOperation) {
         value = self.previousExpression;
     } else {
-        value = self.currentDigits;
-    }
-    if (self.currentOperation) {
-        postfix = [NSString stringWithFormat:@" %@", self.currentOperation];
+        value = nil;
     }
     NSString *oldDisplay = self.previousDisplay;
     NSString *newDisplay = [NSString stringWithFormat:
@@ -75,8 +73,8 @@
 
 - (void)updateDisplays
 {
-    [self updateFirstDisplay];
-    [self updateSecondDisplay];
+    [self updatePreviousDisplay];
+    [self updateCurrentDisplay];
 }
 
 - (double)previousValue
@@ -114,6 +112,10 @@
 
 - (void)digitPressed:(NSString *)digit
 {
+    if (self.previousOperation) {
+        self.currentDigits = nil;
+    }
+    
     if (self.currentDigits) {
         self.currentDigits = [self.currentDigits stringByAppendingString:digit];
     } else if ([digit isEqualToString:@"0"]) {
@@ -129,13 +131,17 @@
 
 - (void)periodPressed
 {
-    unichar period = [@"." characterAtIndex:0];
-    for (int i = 0; i < self.currentDigits.length; i++) {
-        if ([self.currentDigits characterAtIndex:i] == period) {
-            return; // do nothing if current string contains period
+    if (self.previousOperation) {
+        return [self digitPressed:@"."];        
+    } else {
+        unichar period = [@"." characterAtIndex:0];
+        for (int i = 0; i < self.currentDigits.length; i++) {
+            if ([self.currentDigits characterAtIndex:i] == period) {
+                return; // do nothing if current string contains period
+            }
         }
+        return [self digitPressed:@"."];
     }
-    return [self digitPressed:@"."];
 }
 
 - (void)operationPressed:(NSString *)operation
@@ -155,14 +161,15 @@
 {
     if (self.currentOperation) {
         [self performPendingOperation];
-    } else {
-        self.result = [NSString stringWithFormat:@"%g", self.previousValue];
         self.currentDigits = self.result;
-        self.previousExpression = [NSString stringWithFormat:@"%@ =", self.previousDigits ? self.previousDigits : @"0"];
+    } else {
+        self.previousExpression = [NSString stringWithFormat:@"%@", self.currentDigits];
+        self.result = [NSString stringWithFormat:@"%g", self.currentValue];
+        self.currentDigits = self.result;
         self.previousOperation = @"=";
         self.currentOperation = nil;
-        self.previousDigits = nil;
     }
+    self.previousDigits = nil;
     [self updateDisplays];
 }
 
