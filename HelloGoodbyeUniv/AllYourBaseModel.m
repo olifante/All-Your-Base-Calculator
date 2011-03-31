@@ -160,6 +160,7 @@
         self.previousDigits = self.result;
     } else { // no pending operation
         self.previousDigits = self.currentDigits;
+//        self.previousDigits = self.currentDigits ? self.currentDisplay : @"0";
     }
     self.currentOperation = operation;
     self.currentDigits = nil;
@@ -172,7 +173,7 @@
         [self performPendingOperation];
         self.currentDigits = self.result;
     } else {
-        self.previousExpression = [NSString stringWithFormat:@"%@", self.currentDigits];
+        self.previousExpression = [NSString stringWithFormat:@"%@", self.currentDigits ? self.currentDigits : @"0"];
         self.result = [NSString stringWithFormat:@"%g", self.currentValue];
         self.currentDigits = self.result;
         self.previousOperation = @"=";
