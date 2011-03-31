@@ -32,6 +32,8 @@
 @property (readonly) double previousValue;
 @property (readonly) double currentValue;
 
+- (id)init;
+- (void)updateDisplays;
 - (void)performPendingOperation;
 - (void)digitPressed:(NSString *)digit;
 - (void)periodPressed;

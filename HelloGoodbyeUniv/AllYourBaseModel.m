@@ -20,6 +20,15 @@
 @synthesize previousDisplay = _previousDisplay;
 @synthesize currentDisplay = _currentDisplay;
 
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        [self updateDisplays];
+    }
+    return self;
+}
+
 - (void)updateCurrentDisplay
 {
     NSString *prefix = @"";
@@ -34,7 +43,7 @@
         operation = [NSString stringWithFormat:@" %@ ", self.currentOperation];
         second = self.currentDigits;  
     } else {
-        second = self.currentDigits;
+        second = self.currentDigits ? self.currentDigits : @"0";
     }
     NSString *oldDisplay = self.currentDisplay;
     NSString *newDisplay = [NSString stringWithFormat:

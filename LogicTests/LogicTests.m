@@ -52,7 +52,7 @@
 }
 
 - (void) testInit {
-    NSString *actual;
+    NSString *actual, *expected;
     
     actual = calculator.previousDigits;
     STAssertNil(actual, @"'%@' shoud be nil", actual);
@@ -72,11 +72,11 @@
     actual = calculator.result;
     STAssertNil(actual, @"'%@' shoud be nil", actual);
     
-    actual = calculator.previousDisplay;
-    STAssertNil(actual, @"'%@' shoud be nil", actual);
+    actual = calculator.previousDisplay, expected = @"";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
     
-    actual = calculator.currentDisplay;
-    STAssertNil(actual, @"'%@' shoud be nil", actual);
+    actual = calculator.currentDisplay, expected = @"0";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
 - (void) test1 {
