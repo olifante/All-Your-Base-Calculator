@@ -12,7 +12,6 @@
 @implementation AllYourBaseModel
 
 @synthesize firstOperand = _firstOperand;
-@synthesize secondOperand = _secondOperand;
 @synthesize currentOperand = _currentOperand;
 @synthesize pendingOperation = _pendingOperation;
 @synthesize performedOperation = _performedOperation;
@@ -71,9 +70,9 @@
     return [self.firstOperand doubleValue];
 }
 
-- (double)secondOperandValue
+- (double)currentOperandValue
 {
-    return [self.secondOperand doubleValue];
+    return [self.currentOperand doubleValue];
 }
 
 - (void)performPendingOperation
@@ -81,23 +80,21 @@
     double resultValue;
     BOOL knownOperation = YES;
     if ([self.pendingOperation isEqualToString:@"+"]) {
-        resultValue = self.firstOperandValue + self.secondOperandValue;
+        resultValue = self.firstOperandValue + self.currentOperandValue;
     } else if ([self.pendingOperation isEqualToString:@"-"]) {
-        resultValue = self.firstOperandValue - self.secondOperandValue;
+        resultValue = self.firstOperandValue - self.currentOperandValue;
     } else if ([self.pendingOperation isEqualToString:@"*"]) {
-        resultValue = self.firstOperandValue * self.secondOperandValue;
+        resultValue = self.firstOperandValue * self.currentOperandValue;
     } else if ([self.pendingOperation isEqualToString:@"/"]) {
-        resultValue = self.firstOperandValue / self.secondOperandValue;
+        resultValue = self.firstOperandValue / self.currentOperandValue;
     } else {
         knownOperation = NO;
     }
     if (knownOperation) {
         self.result = [NSString stringWithFormat:@"%g", resultValue];
-        self.performedExpression = [NSString stringWithFormat:@"%g %@ %g", self.firstOperandValue, self.pendingOperation, self.secondOperandValue];
+        self.performedExpression = [NSString stringWithFormat:@"%g %@ %g", self.firstOperandValue, self.pendingOperation, self.currentOperandValue];
         self.performedOperation = self.pendingOperation;
         self.pendingOperation = nil;
-        self.firstOperand = nil;
-        self.secondOperand = nil;
     }
 }
 
@@ -129,29 +126,26 @@
 - (void)operationPressed:(NSString *)operation
 {
     if (self.pendingOperation) {
-        self.secondOperand = self.currentOperand;
         [self performPendingOperation];
-        self.pendingOperation = operation;
+        self.firstOperand = self.result;
     } else { // no pending operation
-        self.pendingOperation = operation;
         self.firstOperand = self.currentOperand;
-        self.secondOperand = nil;
-        self.currentOperand = nil;
     }
+    self.pendingOperation = operation;
+    self.currentOperand = nil;
 }
 
 - (void)resultPressed
 {
     if (self.pendingOperation) {
-        self.secondOperand = self.currentOperand;
         [self performPendingOperation];
     } else {
         self.result = [NSString stringWithFormat:@"%g", self.firstOperandValue];
+        self.currentOperand = self.result;
         self.performedExpression = [NSString stringWithFormat:@"%@ =", self.firstOperand ? self.firstOperand : @"0"];
         self.performedOperation = @"=";
         self.pendingOperation = nil;
         self.firstOperand = nil;
-        self.secondOperand = nil;
     }
 }
 
@@ -160,7 +154,6 @@
     self.firstDisplay = nil;
     self.secondDisplay = nil;
     self.firstOperand = nil;
-    self.secondOperand = nil;
     self.currentOperand = nil;
     self.pendingOperation = nil;
     self.performedOperation = nil;

@@ -24,7 +24,6 @@
     self.secondLabel.text = self.model.secondDisplay;
     
     self.firstOperand.text = self.model.firstOperand;
-    self.secondOperand.text = self.model.secondOperand;
     self.currentOperand.text = self.model.currentOperand;
     self.pendingOperation.text = self.model.pendingOperation;
     self.performedOperation.text = self.model.performedOperation;

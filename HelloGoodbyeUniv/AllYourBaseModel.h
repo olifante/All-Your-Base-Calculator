@@ -11,7 +11,6 @@
 
 @interface AllYourBaseModel : NSObject {
     NSString *_firstOperand;
-    NSString *_secondOperand;
     NSString *_currentOperand;
     NSString *_pendingOperation;
     NSString *_performedOperation;    
@@ -22,7 +21,6 @@
 }
 
 @property (nonatomic, retain) NSString *firstOperand;
-@property (nonatomic, retain) NSString *secondOperand;
 @property (nonatomic, retain) NSString *currentOperand;
 @property (nonatomic, retain) NSString *performedOperation;
 @property (nonatomic, retain) NSString *pendingOperation;
@@ -32,7 +30,7 @@
 @property (nonatomic, retain) NSString *secondDisplay;
 
 @property (readonly) double firstOperandValue;
-@property (readonly) double secondOperandValue;
+@property (readonly) double currentOperandValue;
 
 - (void)performPendingOperation;
 - (void)digitPressed:(NSString *)digit;
