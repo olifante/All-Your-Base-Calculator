@@ -72,14 +72,14 @@
     actual = calculator.result;
     STAssertNil(actual, @"'%@' shoud be nil", actual);
     
-    actual = calculator.firstDisplay;
+    actual = calculator.previousDisplay;
     STAssertNil(actual, @"'%@' shoud be nil", actual);
     
-    actual = calculator.secondDisplay;
+    actual = calculator.currentDisplay;
     STAssertNil(actual, @"'%@' shoud be nil", actual);
 }
 
-- (void) testDigit {
+- (void) test1 {
     [calculator digitPressed:@"1"];
     
     NSString *actual, *expected;
@@ -102,14 +102,14 @@
     actual = calculator.result;
     STAssertNil(actual, @"'%@' shoud be nil", actual);
     
-    actual = calculator.firstDisplay;
+    actual = calculator.previousDisplay;
     STAssertNil(actual, @"'%@' shoud be nil", actual);
     
-    actual = calculator.secondDisplay;
-    STAssertNil(actual, @"'%@' shoud be nil", actual);
+    actual = calculator.currentDisplay, expected = @"1";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
-- (void) testDigitOperation {
+- (void) test1Plus {
     [calculator digitPressed:@"1"];
     [calculator operationPressed:@"+"];
     
@@ -133,14 +133,14 @@
     actual = calculator.result;
     STAssertNil(actual, @"'%@' shoud be nil", actual);
     
-    actual = calculator.firstDisplay;
+    actual = calculator.previousDisplay;
     STAssertNil(actual, @"'%@' shoud be nil", actual);
     
-    actual = calculator.secondDisplay;
+    actual = calculator.currentDisplay;
     STAssertNil(actual, @"'%@' shoud be nil", actual);
 }
 
-- (void) testDigitOperationDigit {
+- (void) test1Plus2 {
     [calculator digitPressed:@"1"];
     [calculator operationPressed:@"+"];
     [calculator digitPressed:@"2"];
@@ -165,14 +165,14 @@
     actual = calculator.result;
     STAssertNil(actual, @"'%@' shoud be nil", actual);
     
-    actual = calculator.firstDisplay;
+    actual = calculator.previousDisplay;
     STAssertNil(actual, @"'%@' shoud be nil", actual);
     
-    actual = calculator.secondDisplay;
+    actual = calculator.currentDisplay;
     STAssertNil(actual, @"'%@' shoud be nil", actual);
 }
 
-- (void) testDigitOperationDigitOperation {
+- (void) test1Plus2Times {
     [calculator digitPressed:@"1"];
     [calculator operationPressed:@"+"];
     [calculator digitPressed:@"2"];
@@ -198,14 +198,14 @@
     actual = calculator.result, expected = @"3";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
     
-    actual = calculator.firstDisplay;
+    actual = calculator.previousDisplay;
     STAssertNil(actual, @"'%@' shoud be nil", actual);
     
-    actual = calculator.secondDisplay;
+    actual = calculator.currentDisplay;
     STAssertNil(actual, @"'%@' shoud be nil", actual);
 }
 
-- (void) testDigitOperationDigitOperationDigit {
+- (void) test1Plus2Times4 {
     [calculator digitPressed:@"1"];
     [calculator operationPressed:@"+"];
     [calculator digitPressed:@"2"];
@@ -232,10 +232,10 @@
     actual = calculator.result, expected = @"3";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
     
-    actual = calculator.firstDisplay;
+    actual = calculator.previousDisplay;
     STAssertNil(actual, @"'%@' shoud be nil", actual);
     
-    actual = calculator.secondDisplay;
+    actual = calculator.currentDisplay;
     STAssertNil(actual, @"'%@' shoud be nil", actual);
 }
 

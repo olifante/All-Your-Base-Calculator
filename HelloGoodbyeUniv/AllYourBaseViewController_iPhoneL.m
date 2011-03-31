@@ -17,10 +17,10 @@
     if (self) {
         self.model = model;
         for (NSString *name in [NSArray arrayWithObjects:
-                                @"firstDisplay", @"secondDisplay",
-                                @"previousDigits", @"currentDigits",
-                                @"previousOperation", @"currentOperation",
-                                @"previousExpression", @"result",
+                                @"previousDisplay", @"currentDisplay",
+//                                @"previousDigits", @"currentDigits",
+//                                @"previousOperation", @"currentOperation",
+//                                @"previousExpression", @"result",
                                 nil]) {
             [self.model addObserver:self forKeyPath:name options:NSKeyValueObservingOptionNew context:nil];
         }

@@ -15,13 +15,13 @@
 @synthesize isShowingLandscapeView;
 
 @synthesize model;
-@synthesize firstDisplayLabel, secondDisplayLabel;
+@synthesize previousDisplayLabel, currentDisplayLabel;
 @synthesize previousDigitsLabel, currentDigitsLabel, currentOperationLabel, previousOperationLabel, previousExpressionLabel, resultLabel;
 
 -(void)updateLabels
 {
-    self.firstDisplayLabel.text = self.model.firstDisplay;
-    self.secondDisplayLabel.text = self.model.secondDisplay;
+    self.previousDisplayLabel.text = self.model.previousDisplay;
+    self.currentDisplayLabel.text = self.model.currentDisplay;
     
     self.previousDigitsLabel.text = self.model.previousDigits;
     self.currentDigitsLabel.text = self.model.currentDigits;
@@ -64,8 +64,8 @@
 
 - (void)releaseMembers
 {
-    self.firstDisplayLabel = nil;
-    self.secondDisplayLabel = nil;
+    self.previousDisplayLabel = nil;
+    self.currentDisplayLabel = nil;
     
     self.previousDigitsLabel = nil;
     self.currentDigitsLabel = nil;

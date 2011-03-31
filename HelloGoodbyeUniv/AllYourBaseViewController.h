@@ -18,7 +18,7 @@
 @property BOOL isShowingLandscapeView;
 
 @property (retain) AllYourBaseModel *model;
-@property (retain) IBOutlet UILabel *firstDisplayLabel, *secondDisplayLabel;
+@property (retain) IBOutlet UILabel *previousDisplayLabel, *currentDisplayLabel;
 @property (retain) IBOutlet UILabel *previousDigitsLabel, *currentDigitsLabel, *currentOperationLabel, *previousOperationLabel, *previousExpressionLabel, *resultLabel;
 
 - (void)releaseMembers;

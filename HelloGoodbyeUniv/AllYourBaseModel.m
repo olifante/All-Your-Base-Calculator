@@ -17,52 +17,66 @@
 @synthesize previousOperation = _previousOperation;
 @synthesize previousExpression = _previousExpression;
 @synthesize result = _result;
-@synthesize firstDisplay = _firstDisplay;
-@synthesize secondDisplay = _secondDisplay;
+@synthesize previousDisplay = _previousDisplay;
+@synthesize currentDisplay = _currentDisplay;
 
 - (void)updateSecondDisplay
 {
     NSString *prefix = @"";
     NSString *postfix = @"";
-    NSString *displayValue = @"";
+    NSString *value = @"";
     if (self.previousOperation) {
-        displayValue = self.result;
+        value = self.result;
         if (!self.currentOperation) {
             prefix = @"= ";
         }
     } else {
-        displayValue = self.currentDigits;
+        value = self.currentDigits;
     }
     if (self.currentOperation) {
         postfix = [NSString stringWithFormat:@" %@", self.currentOperation];
     }
-    self.secondDisplay = [NSString stringWithFormat:
+    NSString *oldDisplay = self.currentDisplay;
+    NSString *newDisplay = [NSString stringWithFormat:
                             @"%@%@%@"
                             , prefix
-                            , displayValue
+                            , value ? value : @""
                             , postfix
-                            ];        
+                            ];
+    if (![oldDisplay isEqualToString:newDisplay]) {
+        self.currentDisplay = newDisplay;
+    }
 }
 
 - (void)updateFirstDisplay
 {
     NSString *prefix = @"";
     NSString *postfix = @"";
-    NSString *displayValue = @"";
+    NSString *value = @"";
     if (self.previousOperation) {
-        displayValue = self.previousExpression;
+        value = self.previousExpression;
     } else {
-        displayValue = self.currentDigits;
+        value = self.currentDigits;
     }
     if (self.currentOperation) {
         postfix = [NSString stringWithFormat:@" %@", self.currentOperation];
     }
-    self.secondDisplay = [NSString stringWithFormat:
-                          @"%@%@%@"
-                          , prefix
-                          , displayValue
-                          , postfix
-                          ];        
+    NSString *oldDisplay = self.previousDisplay;
+    NSString *newDisplay = [NSString stringWithFormat:
+                            @"%@%@%@"
+                            , prefix
+                            , value ? value : @""
+                            , postfix
+                            ];
+    if (![oldDisplay isEqualToString:newDisplay]) {
+        self.previousDisplay = newDisplay;
+    }
+}
+
+- (void)updateDisplays
+{
+    [self updateFirstDisplay];
+    [self updateSecondDisplay];
 }
 
 - (double)previousValue
@@ -110,6 +124,7 @@
         self.currentDigits = digit;
     }
     self.previousOperation = nil;
+    [self updateDisplays];
 }
 
 - (void)periodPressed
@@ -133,6 +148,7 @@
     }
     self.currentOperation = operation;
     self.currentDigits = nil;
+    [self updateDisplays];
 }
 
 - (void)resultPressed
@@ -147,18 +163,20 @@
         self.currentOperation = nil;
         self.previousDigits = nil;
     }
+    [self updateDisplays];
 }
 
 - (void)releaseMembers
 {
-    self.firstDisplay = nil;
-    self.secondDisplay = nil;
+    self.previousDisplay = nil;
+    self.currentDisplay = nil;
     self.previousDigits = nil;
     self.currentDigits = nil;
     self.currentOperation = nil;
     self.previousOperation = nil;
     self.previousExpression = nil;
     self.result = nil;
+    [self updateDisplays];
 }
 
 - (void)dealloc

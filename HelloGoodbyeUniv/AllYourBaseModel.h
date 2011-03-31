@@ -16,8 +16,8 @@
     NSString *_previousOperation;    
     NSString *_previousExpression;
     NSString *_result;
-    NSString *_firstDisplay;
-    NSString *_secondDisplay;
+    NSString *_previousDisplay;
+    NSString *_currentDisplay;
 }
 
 @property (nonatomic, retain) NSString *previousDigits;
@@ -26,8 +26,8 @@
 @property (nonatomic, retain) NSString *currentOperation;
 @property (nonatomic, retain) NSString *previousExpression;
 @property (nonatomic, retain) NSString *result;
-@property (nonatomic, retain) NSString *firstDisplay;
-@property (nonatomic, retain) NSString *secondDisplay;
+@property (nonatomic, retain) NSString *previousDisplay;
+@property (nonatomic, retain) NSString *currentDisplay;
 
 @property (readonly) double previousValue;
 @property (readonly) double currentValue;
