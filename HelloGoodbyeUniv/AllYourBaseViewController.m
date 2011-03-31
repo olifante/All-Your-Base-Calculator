@@ -15,20 +15,20 @@
 @synthesize isShowingLandscapeView;
 
 @synthesize model;
-@synthesize firstLabel, secondLabel;
-@synthesize firstOperand, secondOperand, currentOperand, pendingOperation, performedOperation, performedExpression, result;
+@synthesize firstDisplayLabel, secondDisplayLabel;
+@synthesize previousDigitsLabel, currentDigitsLabel, currentOperationLabel, previousOperationLabel, previousExpressionLabel, resultLabel;
 
 -(void)updateLabels
 {
-    self.firstLabel.text = self.model.firstDisplay;
-    self.secondLabel.text = self.model.secondDisplay;
+    self.firstDisplayLabel.text = self.model.firstDisplay;
+    self.secondDisplayLabel.text = self.model.secondDisplay;
     
-    self.firstOperand.text = self.model.firstOperand;
-    self.currentOperand.text = self.model.currentOperand;
-    self.pendingOperation.text = self.model.pendingOperation;
-    self.performedOperation.text = self.model.performedOperation;
-    self.performedExpression.text = self.model.performedExpression;
-    self.result.text = self.model.result;
+    self.previousDigitsLabel.text = self.model.previousDigits;
+    self.currentDigitsLabel.text = self.model.currentDigits;
+    self.currentOperationLabel.text = self.model.currentOperation;
+    self.previousOperationLabel.text = self.model.previousOperation;
+    self.previousExpressionLabel.text = self.model.previousExpression;
+    self.resultLabel.text = self.model.result;
 }
 
 - (IBAction)digitPressed:(UIButton *)sender
@@ -64,16 +64,15 @@
 
 - (void)releaseMembers
 {
-    self.firstLabel = nil;
-    self.secondLabel = nil;
+    self.firstDisplayLabel = nil;
+    self.secondDisplayLabel = nil;
     
-    self.firstOperand = nil;
-    self.secondOperand = nil;
-    self.currentOperand = nil;
-    self.pendingOperation = nil;
-    self.performedOperation = nil;
-    self.performedExpression = nil;
-    self.result = nil;
+    self.previousDigitsLabel = nil;
+    self.currentDigitsLabel = nil;
+    self.currentOperationLabel = nil;
+    self.previousOperationLabel = nil;
+    self.previousExpressionLabel = nil;
+    self.resultLabel = nil;
     
     self.model = nil;
     self.landscapeViewController = nil;

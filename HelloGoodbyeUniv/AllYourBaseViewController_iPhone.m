@@ -19,9 +19,9 @@
         self.model = [[[AllYourBaseModel alloc] init] autorelease];
         for (NSString *name in [NSArray arrayWithObjects:
                           @"firstDisplay", @"secondDisplay",
-                          @"firstOperand", @"secondOperand", @"currentOperand",
-                          @"pendingOperation", @"performedOperation",
-                          @"performedExpression", @"result",
+                          @"previousDigits", @"currentDigits",
+                          @"previousOperation", @"currentOperation",
+                          @"previousExpression", @"result",
                           nil]) {
             [self.model addObserver:self forKeyPath:name options:NSKeyValueObservingOptionNew context:nil];
         }

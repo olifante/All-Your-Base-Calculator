@@ -10,27 +10,27 @@
 
 
 @interface AllYourBaseModel : NSObject {
-    NSString *_firstOperand;
-    NSString *_currentOperand;
-    NSString *_pendingOperation;
-    NSString *_performedOperation;    
-    NSString *_performedExpression;
+    NSString *_previousDigits;
+    NSString *_currentDigits;
+    NSString *_currentOperation;
+    NSString *_previousOperation;    
+    NSString *_previousExpression;
     NSString *_result;
     NSString *_firstDisplay;
     NSString *_secondDisplay;
 }
 
-@property (nonatomic, retain) NSString *firstOperand;
-@property (nonatomic, retain) NSString *currentOperand;
-@property (nonatomic, retain) NSString *performedOperation;
-@property (nonatomic, retain) NSString *pendingOperation;
-@property (nonatomic, retain) NSString *performedExpression;
+@property (nonatomic, retain) NSString *previousDigits;
+@property (nonatomic, retain) NSString *currentDigits;
+@property (nonatomic, retain) NSString *previousOperation;
+@property (nonatomic, retain) NSString *currentOperation;
+@property (nonatomic, retain) NSString *previousExpression;
 @property (nonatomic, retain) NSString *result;
 @property (nonatomic, retain) NSString *firstDisplay;
 @property (nonatomic, retain) NSString *secondDisplay;
 
-@property (readonly) double firstOperandValue;
-@property (readonly) double currentOperandValue;
+@property (readonly) double previousValue;
+@property (readonly) double currentValue;
 
 - (void)performPendingOperation;
 - (void)digitPressed:(NSString *)digit;

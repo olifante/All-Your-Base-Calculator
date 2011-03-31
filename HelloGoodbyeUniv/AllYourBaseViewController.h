@@ -18,8 +18,8 @@
 @property BOOL isShowingLandscapeView;
 
 @property (retain) AllYourBaseModel *model;
-@property (retain) IBOutlet UILabel *firstLabel, *secondLabel;
-@property (retain) IBOutlet UILabel *firstOperand, *secondOperand, *currentOperand, *pendingOperation, *performedOperation, *performedExpression, *result;
+@property (retain) IBOutlet UILabel *firstDisplayLabel, *secondDisplayLabel;
+@property (retain) IBOutlet UILabel *previousDigitsLabel, *currentDigitsLabel, *currentOperationLabel, *previousOperationLabel, *previousExpressionLabel, *resultLabel;
 
 - (void)releaseMembers;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil model:(AllYourBaseModel *)model;
