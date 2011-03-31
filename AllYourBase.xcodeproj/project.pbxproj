@@ -37,6 +37,16 @@
 		F1EC2934133FFA3000E5C619 /* NKString.m in Sources */ = {isa = PBXBuildFile; fileRef = F1EC2933133FFA2F00E5C619 /* NKString.m */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		F1D6C8571343DB7E00891EFF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F1ADD8BC133E55830050EB59 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F1ADD8C4133E55830050EB59;
+			remoteInfo = AllYourBase;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		F12197411343BA6F00507A37 /* LogicTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LogicTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F12197471343BA6F00507A37 /* LogicTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LogicTests-Info.plist"; sourceTree = "<group>"; };
@@ -232,6 +242,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				F1D6C8581343DB7E00891EFF /* PBXTargetDependency */,
 			);
 			name = LogicTests;
 			productName = LogicTests;
@@ -353,6 +364,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		F1D6C8581343DB7E00891EFF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F1ADD8C4133E55830050EB59 /* AllYourBase */;
+			targetProxy = F1D6C8571343DB7E00891EFF /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		F12197481343BA6F00507A37 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
@@ -393,6 +412,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/AllYourBase.app/AllYourBase";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
@@ -405,6 +425,7 @@
 					SenTestingKit,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
@@ -413,6 +434,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/AllYourBase.app/AllYourBase";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
@@ -425,6 +447,7 @@
 					SenTestingKit,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Release;
@@ -501,6 +524,7 @@
 				F12197521343BA7000507A37 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F1ADD8BF133E55830050EB59 /* Build configuration list for PBXProject "AllYourBase" */ = {
 			isa = XCConfigurationList;

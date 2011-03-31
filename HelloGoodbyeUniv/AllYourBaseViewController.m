@@ -15,12 +15,21 @@
 @synthesize isShowingLandscapeView;
 
 @synthesize model;
-@synthesize currentLabel, previousLabel;
+@synthesize firstLabel, secondLabel;
+@synthesize firstOperand, secondOperand, currentOperand, pendingOperation, performedOperation, performedExpression, result;
 
-- (void)updateLabels
+-(void)updateLabels
 {
-    self.currentLabel.text = self.model.currentDisplay;
-    self.previousLabel.text = self.model.previousDisplay;
+    self.firstLabel.text = self.model.firstDisplay;
+    self.secondLabel.text = self.model.secondDisplay;
+    
+    self.firstOperand.text = self.model.firstOperand;
+    self.secondOperand.text = self.model.secondOperand;
+    self.currentOperand.text = self.model.currentOperand;
+    self.pendingOperation.text = self.model.pendingOperation;
+    self.performedOperation.text = self.model.performedOperation;
+    self.performedExpression.text = self.model.performedExpression;
+    self.result.text = self.model.result;
 }
 
 - (IBAction)digitPressed:(UIButton *)sender
@@ -56,9 +65,19 @@
 
 - (void)releaseMembers
 {
-    self.currentLabel = nil;
-    self.previousLabel = nil;
+    self.firstLabel = nil;
+    self.secondLabel = nil;
+    
+    self.firstOperand = nil;
+    self.secondOperand = nil;
+    self.currentOperand = nil;
+    self.pendingOperation = nil;
+    self.performedOperation = nil;
+    self.performedExpression = nil;
+    self.result = nil;
+    
     self.model = nil;
+    self.landscapeViewController = nil;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -92,7 +111,6 @@
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    [self releaseMembers];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -103,9 +121,7 @@
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     NSLog(@"%@ observed keyPath:%@", [self class], keyPath);
-    if ([keyPath isEqualToString:@"previousDigits"] || [keyPath isEqualToString:@"currentDigits"]) {
-        [self updateLabels];
-    }
+    [self updateLabels];
 }
 
 @end

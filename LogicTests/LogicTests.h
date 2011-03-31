@@ -7,10 +7,11 @@
 //
 
 #import <SenTestingKit/SenTestingKit.h>
+#import "AllYourBaseModel.h"
 
 @interface LogicTests : SenTestCase {
 @private
-    
+    AllYourBaseModel *calculator;
 }
 
 @end

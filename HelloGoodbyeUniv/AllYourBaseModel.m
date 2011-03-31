@@ -11,79 +11,115 @@
 
 @implementation AllYourBaseModel
 
-@synthesize operationHasJustBeenPerformed = _operationHasJustBeenPerformed;
+@synthesize firstOperand = _firstOperand;
+@synthesize secondOperand = _secondOperand;
+@synthesize currentOperand = _currentOperand;
 @synthesize pendingOperation = _pendingOperation;
-@synthesize currentDigits = _currentDigits;
-@synthesize previousDigits = _previousDigits;
+@synthesize performedOperation = _performedOperation;
+@synthesize performedExpression = _performedExpression;
+@synthesize result = _result;
+@synthesize firstDisplay = _firstDisplay;
+@synthesize secondDisplay = _secondDisplay;
 
-- (NSString *)currentDisplay
+- (void)updateSecondDisplay
 {
-    NSString *returnValue;
-    if (self.currentDigits) {
-        returnValue = self.currentDigits;
-    } else {
-        returnValue = @"0";
-    }
-    return returnValue;
-}
-
-- (NSString *)previousDisplay
-{
-    NSString *returnValue;
     NSString *prefix = @"";
     NSString *postfix = @"";
-    if (self.operationHasJustBeenPerformed) {
-        prefix = @"= ";
+    NSString *displayValue = @"";
+    if (self.performedOperation) {
+        displayValue = self.result;
+        if (!self.pendingOperation) {
+            prefix = @"= ";
+        }
+    } else {
+        displayValue = self.currentOperand;
     }
     if (self.pendingOperation) {
         postfix = [NSString stringWithFormat:@" %@", self.pendingOperation];
     }
-    if (self.previousDigits) {
-        returnValue = [NSString stringWithFormat:
-                       @"%@%@%@"
-                       , prefix
-                       , self.previousDigits
-                       , postfix
-                       ];        
+    self.secondDisplay = [NSString stringWithFormat:
+                            @"%@%@%@"
+                            , prefix
+                            , displayValue
+                            , postfix
+                            ];        
+}
+
+- (void)updateFirstDisplay
+{
+    NSString *prefix = @"";
+    NSString *postfix = @"";
+    NSString *displayValue = @"";
+    if (self.performedOperation) {
+        displayValue = self.performedExpression;
     } else {
-        returnValue = nil;
+        displayValue = self.currentOperand;
     }
-    return returnValue;
-//    return previousDigits;
+    if (self.pendingOperation) {
+        postfix = [NSString stringWithFormat:@" %@", self.pendingOperation];
+    }
+    self.secondDisplay = [NSString stringWithFormat:
+                          @"%@%@%@"
+                          , prefix
+                          , displayValue
+                          , postfix
+                          ];        
 }
 
-- (double)currentOperand
+- (double)firstOperandValue
 {
-    return [self.currentDigits doubleValue];
+    return [self.firstOperand doubleValue];
 }
 
-- (double)previousOperand
+- (double)secondOperandValue
 {
-    return [self.previousDigits doubleValue];
+    return [self.secondOperand doubleValue];
+}
+
+- (void)performPendingOperation
+{
+    double resultValue;
+    BOOL knownOperation = YES;
+    if ([self.pendingOperation isEqualToString:@"+"]) {
+        resultValue = self.firstOperandValue + self.secondOperandValue;
+    } else if ([self.pendingOperation isEqualToString:@"-"]) {
+        resultValue = self.firstOperandValue - self.secondOperandValue;
+    } else if ([self.pendingOperation isEqualToString:@"*"]) {
+        resultValue = self.firstOperandValue * self.secondOperandValue;
+    } else if ([self.pendingOperation isEqualToString:@"/"]) {
+        resultValue = self.firstOperandValue / self.secondOperandValue;
+    } else {
+        knownOperation = NO;
+    }
+    if (knownOperation) {
+        self.result = [NSString stringWithFormat:@"%g", resultValue];
+        self.performedExpression = [NSString stringWithFormat:@"%g %@ %g", self.firstOperandValue, self.pendingOperation, self.secondOperandValue];
+        self.performedOperation = self.pendingOperation;
+        self.pendingOperation = nil;
+        self.firstOperand = nil;
+        self.secondOperand = nil;
+    }
 }
 
 - (void)digitPressed:(NSString *)digit
 {
-    if (!self.pendingOperation && self.previousDigits) {
-        [self releaseMembers]; // if there is no pending operation we don't want stale values lying around
-    }
-    if (self.currentDigits) {
-        self.currentDigits = [self.currentDigits stringByAppendingString:digit];
+    if (self.currentOperand) {
+        self.currentOperand = [self.currentOperand stringByAppendingString:digit];
     } else if ([digit isEqualToString:@"0"]) {
         // do not add a zero if there are no current digits
-    } else if (!self.currentDigits && [digit isEqualToString:@"."]) {
-        self.currentDigits = @"0."; // keep initial zero if period pressed
+    } else if (!self.currentOperand && [digit isEqualToString:@"."]) {
+        self.currentOperand = @"0."; // keep initial zero if period pressed
     } else {
-        self.currentDigits = digit;
+        self.currentOperand = digit;
     }
-    self.operationHasJustBeenPerformed = NO;
+    self.performedOperation = nil;
 }
 
 - (void)periodPressed
 {
     unichar period = [@"." characterAtIndex:0];
-    for (int i = 0; i < self.currentDigits.length; i++) {
-        if ([self.currentDigits characterAtIndex:i] == period) {
+    for (int i = 0; i < self.currentOperand.length; i++) {
+        if ([self.currentOperand characterAtIndex:i] == period) {
             return; // do nothing if current string contains period
         }
     }
@@ -92,71 +128,50 @@
 
 - (void)operationPressed:(NSString *)operation
 {
-    if (!self.currentDigits && self.pendingOperation) {
-        // do nothing if 2nd operation pressed with an empty 2nd operand
-    } else if (self.pendingOperation) {
+    if (self.pendingOperation) {
+        self.secondOperand = self.currentOperand;
         [self performPendingOperation];
         self.pendingOperation = operation;
     } else { // no pending operation
-        if (!self.operationHasJustBeenPerformed) {
-            // if no operation has just been performed, the 1st operand is empty
-            self.previousDigits = self.currentDigits;
-        }
         self.pendingOperation = operation;
-        self.currentDigits = nil;
+        self.firstOperand = self.currentOperand;
+        self.secondOperand = nil;
+        self.currentOperand = nil;
     }
 }
 
 - (void)resultPressed
 {
-    if (self.currentDigits && self.pendingOperation) {
+    if (self.pendingOperation) {
+        self.secondOperand = self.currentOperand;
         [self performPendingOperation];
-    } else if (self.pendingOperation) { // but no 2nd operand
-        self.pendingOperation = nil;
-    } else if (self.previousDigits) {
-        self.previousDigits = [NSString stringWithFormat:@"%g", self.previousOperand];
     } else {
-        self.previousDigits = [NSString stringWithFormat:@"%g", self.currentOperand];
+        self.result = [NSString stringWithFormat:@"%g", self.firstOperandValue];
+        self.performedExpression = [NSString stringWithFormat:@"%@ =", self.firstOperand ? self.firstOperand : @"0"];
+        self.performedOperation = @"=";
+        self.pendingOperation = nil;
+        self.firstOperand = nil;
+        self.secondOperand = nil;
     }
-    self.currentDigits = nil;
-    self.operationHasJustBeenPerformed = YES;
 }
 
 - (void)releaseMembers
 {
+    self.firstDisplay = nil;
+    self.secondDisplay = nil;
+    self.firstOperand = nil;
+    self.secondOperand = nil;
+    self.currentOperand = nil;
     self.pendingOperation = nil;
-    self.previousDigits = nil;
-    self.currentDigits = nil;
-    self.operationHasJustBeenPerformed = NO;
+    self.performedOperation = nil;
+    self.performedExpression = nil;
+    self.result = nil;
 }
 
 - (void)dealloc
 {
     [self releaseMembers];
     [super dealloc];
-}
-
-- (void)performPendingOperation
-{
-    double result;
-    BOOL success = YES;
-    if ([self.pendingOperation isEqualToString:@"+"]) {
-        result = self.previousOperand + self.currentOperand;
-    } else if ([self.pendingOperation isEqualToString:@"-"]) {
-        result = self.previousOperand - self.currentOperand;
-    } else if ([self.pendingOperation isEqualToString:@"*"]) {
-        result = self.previousOperand * self.currentOperand;
-    } else if ([self.pendingOperation isEqualToString:@"/"]) {
-        result = self.previousOperand / self.currentOperand;
-    } else {
-        success = NO;
-    }
-    if (success) {
-        self.previousDigits = [NSString stringWithFormat:@"%g", result];
-        self.pendingOperation = nil;
-        self.currentDigits = nil;
-        self.operationHasJustBeenPerformed = YES;
-    }
 }
 
 @end
