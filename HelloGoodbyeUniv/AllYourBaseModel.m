@@ -165,8 +165,7 @@
         [self performPendingOperation];
         self.previousDigits = self.result;
     } else { // no pending operation
-        self.previousDigits = self.currentDigits;
-//        self.previousDigits = self.currentDigits ? self.currentDisplay : @"0";
+        self.previousDigits = self.currentDigits ? self.currentDigits : @"0";
     }
     self.currentOperation = operation;
     self.currentDigits = nil;
