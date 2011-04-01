@@ -796,18 +796,19 @@
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
-- (void) test0Divide0Plus {
+- (void) test0Divide0ResultPlus {
     [calculator digitPressed:@"0"];
     [calculator operationPressed:@"/"];
     [calculator digitPressed:@"0"];
+    [calculator resultPressed];
     [calculator operationPressed:@"+"];
     NSString *actual, *expected;
     
-    actual = calculator.previousDigits, expected = @"(undefined)";
-    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
-    
-    actual = calculator.currentDigits;
+    actual = calculator.previousDigits;
     STAssertNil(actual, @"'%@' shoud be nil", actual);
+    
+    actual = calculator.currentDigits, expected = @"(undefined)";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
     
     actual = calculator.currentOperation;
     STAssertNil(actual, @"'%@' shoud be nil", actual);
@@ -825,6 +826,140 @@
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
     
     actual = calculator.currentDisplay, expected = @"= (undefined)";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+}
+
+- (void) test0Divide0Result1 {
+    [calculator digitPressed:@"0"];
+    [calculator operationPressed:@"/"];
+    [calculator digitPressed:@"0"];
+    [calculator resultPressed];
+    [calculator operationPressed:@"+"];
+    [calculator digitPressed:@"1"];
+    
+    NSString *actual, *expected;
+    
+    actual = calculator.previousDigits;
+    STAssertNil(actual, @"'%@' shoud be nil", actual);
+    
+    actual = calculator.currentDigits, expected = @"1";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+    
+    actual = calculator.currentOperation;
+    STAssertNil(actual, @"'%@' shoud be nil", actual);
+    
+    actual = calculator.previousOperation;
+    STAssertNil(actual, @"'%@' shoud be nil", actual);
+    
+    actual = calculator.previousExpression;
+    STAssertNil(actual, @"'%@' shoud be nil", actual);
+    
+    actual = calculator.result;
+    STAssertNil(actual, @"'%@' shoud be nil", actual);
+    
+    actual = calculator.previousDisplay, expected = @"";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+    
+    actual = calculator.currentDisplay, expected = @"1";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+}
+
+- (void) test0Divide0Plus {
+    [calculator digitPressed:@"0"];
+    [calculator operationPressed:@"/"];
+    [calculator digitPressed:@"0"];
+    [calculator operationPressed:@"+"];
+    NSString *actual, *expected;
+    
+    actual = calculator.previousDigits, expected = @"(undefined)";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+    
+    actual = calculator.currentDigits;
+    STAssertNil(actual, @"'%@' shoud be nil", actual);
+    
+    actual = calculator.currentOperation, expected = @"+";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+    
+    actual = calculator.previousOperation, expected = @"/";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+    
+    actual = calculator.previousExpression, expected = @"0 / 0";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+    
+    actual = calculator.result, expected = @"(undefined)";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+    
+    actual = calculator.previousDisplay, expected = @"0 / 0";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+    
+    actual = calculator.currentDisplay, expected = @"= (undefined)";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+}
+
+- (void) test0Divide0PlusResult {
+    [calculator digitPressed:@"0"];
+    [calculator operationPressed:@"/"];
+    [calculator digitPressed:@"0"];
+    [calculator operationPressed:@"+"];
+    [calculator resultPressed];
+    NSString *actual, *expected;
+    
+    actual = calculator.previousDigits, expected = @"(undefined)";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+    
+    actual = calculator.currentDigits;
+    STAssertNil(actual, @"'%@' shoud be nil", actual);
+    
+    actual = calculator.currentOperation, expected = @"+";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+    
+    actual = calculator.previousOperation, expected = @"/";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+    
+    actual = calculator.previousExpression, expected = @"0 / 0";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+    
+    actual = calculator.result, expected = @"(undefined)";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+    
+    actual = calculator.previousDisplay, expected = @"0 / 0";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+    
+    actual = calculator.currentDisplay, expected = @"= (undefined)";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+}
+
+- (void) test0Divide0Plus1 {
+    [calculator digitPressed:@"0"];
+    [calculator operationPressed:@"/"];
+    [calculator digitPressed:@"0"];
+    [calculator operationPressed:@"+"];
+    [calculator digitPressed:@"1"];
+    
+    NSString *actual, *expected;
+    
+    actual = calculator.previousDigits;
+    STAssertNil(actual, @"'%@' shoud be nil", actual);
+    
+    actual = calculator.currentDigits, expected = @"1";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+    
+    actual = calculator.currentOperation;
+    STAssertNil(actual, @"'%@' shoud be nil", actual);
+    
+    actual = calculator.previousOperation;
+    STAssertNil(actual, @"'%@' shoud be nil", actual);
+    
+    actual = calculator.previousExpression;
+    STAssertNil(actual, @"'%@' shoud be nil", actual);
+    
+    actual = calculator.result;
+    STAssertNil(actual, @"'%@' shoud be nil", actual);
+    
+    actual = calculator.previousDisplay, expected = @"";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+    
+    actual = calculator.currentDisplay, expected = @"1";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 

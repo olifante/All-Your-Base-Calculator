@@ -11,6 +11,7 @@
 
 @implementation AllYourBaseModel
 
+@synthesize error = _error;
 @synthesize previousDigits = _previousDigits;
 @synthesize currentDigits = _currentDigits;
 @synthesize currentOperation = _currentOperation;
@@ -24,6 +25,7 @@
 {
     self = [super init];
     if (self) {
+        self.error = NO;
         [self updateDisplays];
     }
     return self;
@@ -31,13 +33,20 @@
 
 - (void)updateCurrentDisplay
 {
+    if (self.error) {
+        self.currentDisplay = [NSString stringWithFormat:@"= %@", self.result];
+        return; // early return if in erroneous state
+    }
+    
     NSString *prefix = @"";
     NSString *operation = @"";
     NSString *first = @"";
     NSString *second = @"";
+
     if (self.previousOperation) {
         prefix = @"= ";
     }
+
     if (self.currentOperation) {
         first = self.previousDigits;
         operation = [NSString stringWithFormat:@" %@ ", self.currentOperation];
@@ -45,6 +54,7 @@
     } else {
         second = self.currentDigits ? self.currentDigits : @"0";
     }
+
     NSString *oldDisplay = self.currentDisplay;
     NSString *newDisplay = [NSString stringWithFormat:
                             @"%@%@%@%@"
@@ -60,14 +70,21 @@
 
 - (void)updatePreviousDisplay
 {
+    if (self.error) {
+        self.previousDisplay = self.previousExpression;
+        return; // early return if in erroneous state
+    }
+
     NSString *prefix = @"";
     NSString *postfix = @"";
     NSString *value = @"";
+    
     if (self.previousOperation) {
         value = self.previousExpression;
     } else {
         value = nil;
     }
+    
     NSString *oldDisplay = self.previousDisplay;
     NSString *newDisplay = [NSString stringWithFormat:
                             @"%@%@%@"
@@ -75,6 +92,7 @@
                             , value ? value : @""
                             , postfix
                             ];
+    
     if (![oldDisplay isEqualToString:newDisplay]) {
         self.previousDisplay = newDisplay;
     }
@@ -100,6 +118,7 @@
 {
     double resultValue;
     BOOL knownOperation = YES;
+    
     if ([self.currentOperation isEqualToString:@"+"]) {
         resultValue = self.previousValue + self.currentValue;
     } else if ([self.currentOperation isEqualToString:@"-"]) {
@@ -111,11 +130,14 @@
     } else {
         knownOperation = NO;
     }
+    
     if (knownOperation) {
         if (isnan(resultValue)) {
             self.result = @"(undefined)";
+            self.error = YES;
         } else if (isinf(resultValue)) {
             self.result = @"(infinity)";
+            self.error = YES;
         } else {
             self.result = [NSString stringWithFormat:@"%g", resultValue];
         }
@@ -127,6 +149,10 @@
 
 - (void)digitPressed:(NSString *)digit
 {
+    if (self.error) {
+        [self releaseMembers];
+    }
+    
     if (self.previousOperation) {
         self.currentDigits = nil;
     }
@@ -140,6 +166,7 @@
     } else {
         self.currentDigits = digit;
     }
+    
     self.previousOperation = nil;
     [self updateDisplays];
 }
@@ -161,12 +188,17 @@
 
 - (void)operationPressed:(NSString *)operation
 {
+    if (self.error) {
+        return; // do nothing if in erroneous state
+    }
+    
     if (self.currentOperation) {
         [self performPendingOperation];
         self.previousDigits = self.result;
     } else { // no pending operation
         self.previousDigits = self.currentDigits ? self.currentDigits : @"0";
     }
+    
     self.currentOperation = operation;
     self.currentDigits = nil;
     [self updateDisplays];
@@ -174,6 +206,10 @@
 
 - (void)resultPressed
 {
+    if (self.error) {
+        return; // do nothing if in erroneous state
+    }
+    
     if (self.currentOperation) {
         [self performPendingOperation];
         self.currentDigits = self.result;
@@ -198,6 +234,7 @@
     self.previousOperation = nil;
     self.previousExpression = nil;
     self.result = nil;
+    self.error = NO;
     [self updateDisplays];
 }
 

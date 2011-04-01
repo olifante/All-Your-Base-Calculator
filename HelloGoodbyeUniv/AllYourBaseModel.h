@@ -10,6 +10,7 @@
 
 
 @interface AllYourBaseModel : NSObject {
+    BOOL _error;
     NSString *_previousDigits;
     NSString *_currentDigits;
     NSString *_currentOperation;
@@ -20,6 +21,7 @@
     NSString *_currentDisplay;
 }
 
+@property BOOL error;
 @property (nonatomic, retain) NSString *previousDigits;
 @property (nonatomic, retain) NSString *currentDigits;
 @property (nonatomic, retain) NSString *previousOperation;
