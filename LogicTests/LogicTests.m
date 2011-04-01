@@ -703,4 +703,26 @@
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
+- (void) testNan {
+    [calculator digitPressed:@"0"];
+    [calculator operationPressed:@"/"];
+    [calculator digitPressed:@"0"];
+    [calculator resultPressed];
+    NSString *actual, *expected;
+    
+    actual = calculator.result, expected = @"(undefined)";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+}
+
+- (void) testInfinity {
+    [calculator digitPressed:@"1"];
+    [calculator operationPressed:@"/"];
+    [calculator digitPressed:@"0"];
+    [calculator resultPressed];
+    NSString *actual, *expected;
+    
+    actual = calculator.result, expected = @"(infinity)";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+}
+
 @end

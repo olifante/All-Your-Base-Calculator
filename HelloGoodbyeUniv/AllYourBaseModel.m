@@ -112,7 +112,13 @@
         knownOperation = NO;
     }
     if (knownOperation) {
-        self.result = [NSString stringWithFormat:@"%g", resultValue];
+        if (isnan(resultValue)) {
+            self.result = @"(undefined)";
+        } else if (isinf(resultValue)) {
+            self.result = @"(infinity)";
+        } else {
+            self.result = [NSString stringWithFormat:@"%g", resultValue];
+        }
         self.previousExpression = [NSString stringWithFormat:@"%g %@ %g", self.previousValue, self.currentOperation, self.currentValue];
         self.previousOperation = self.currentOperation;
         self.currentOperation = nil;
