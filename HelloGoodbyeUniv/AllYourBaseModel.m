@@ -134,7 +134,7 @@
     if (self.currentDigits) {
         self.currentDigits = [self.currentDigits stringByAppendingString:digit];
     } else if ([digit isEqualToString:@"0"]) {
-        // do not add a zero if there are no current digits
+        self.currentDigits = @"0";
     } else if (!self.currentDigits && [digit isEqualToString:@"."]) {
         self.currentDigits = @"0."; // keep initial zero if period pressed
     } else {
