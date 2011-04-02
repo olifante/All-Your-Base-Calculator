@@ -192,6 +192,10 @@
         return; // do nothing if in erroneous state
     }
     
+    if (!self.currentDigits) {
+        return; // do nothing if no 2nd operand has been input
+    }
+    
     if (self.currentOperation) {
         [self performPendingOperation];
         self.previousDigits = self.result;
@@ -210,6 +214,10 @@
         return; // do nothing if in erroneous state
     }
     
+    if (!self.currentDigits) {
+        return; // do nothing if no 2nd operand has been input
+    }
+
     if (self.currentOperation) {
         [self performPendingOperation];
         self.currentDigits = self.result;
@@ -228,7 +236,7 @@
 {
     if (self.error) {
         [self releaseMembers];
-        return;
+        return; // clean up and do nothing if in erroneous state
     }
     
     if (self.previousOperation) {
