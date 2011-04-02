@@ -228,6 +228,11 @@
 {
     if (self.error) {
         [self releaseMembers];
+        return;
+    }
+    
+    if (self.previousOperation) {
+        return; // do not allow results of previous operation to be modified
     }
     
     NSString *newDigits;
