@@ -123,10 +123,18 @@
         resultValue = self.previousValue + self.currentValue;
     } else if ([self.currentOperation isEqualToString:@"-"]) {
         resultValue = self.previousValue - self.currentValue;
-    } else if ([self.currentOperation isEqualToString:@"*"]) {
+    } else if ([self.currentOperation isEqualToString:@"×"]) {
         resultValue = self.previousValue * self.currentValue;
-    } else if ([self.currentOperation isEqualToString:@"/"]) {
+    } else if ([self.currentOperation isEqualToString:@"÷"]) {
         resultValue = self.previousValue / self.currentValue;
+//    } else if ([self.currentOperation isEqualToString:@"√"]) {
+//        resultValue = self.previousValue something self.currentValue;
+//    } else if ([self.currentOperation isEqualToString:@" ±=∙∁∶∷∞≈≪≫≝⩪⩫␡↤⇄"]) {
+//        resultValue = self.previousValue something self.currentValue;
+//    } else if ([self.currentOperation isEqualToString:@"√"]) {
+//        resultValue = self.previousValue something self.currentValue;
+//    } else if ([self.currentOperation isEqualToString:@"√"]) {
+//        resultValue = self.previousValue something self.currentValue;
     } else {
         knownOperation = NO;
     }
@@ -260,6 +268,31 @@
         self.currentDigits = newDigits;
         [self updateDisplays];
     }
+}
+
+- (void)negatePressed
+{
+    
+}
+
+- (void)percentPressed
+{
+    
+}
+
+- (void)shiftLeftPressed
+{
+    
+}
+
+- (void)shiftRightPressed
+{
+    
+}
+
+- (void)EEPressed
+{
+    
 }
 
 - (void)releaseMembers

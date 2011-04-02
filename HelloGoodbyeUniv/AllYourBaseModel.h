@@ -42,6 +42,22 @@
 - (void)operationPressed:(NSString *)operation;
 - (void)resultPressed;
 - (void)deletePressed;
+- (void)negatePressed;
+//- (void)invertPressed;
+//- (void)squarePressed;
+//- (void)squareRootPressed;
+- (void)percentPressed;
+//- (void)powerPressed;
+//- (void)logPressed;
+//- (void)lnPressed;
+//- (void)exponentiationPressed;
+//- (void)sinPressed
+// etc...
+//- (void)sinhPressed
+// etc...
+- (void)EEPressed;
+- (void)shiftLeftPressed;
+- (void)shiftRightPressed;
 - (void)releaseMembers;
 
 @end
