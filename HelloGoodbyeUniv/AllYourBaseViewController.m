@@ -52,8 +52,14 @@
 
 - (IBAction)resultPressed
 {
-    NSLog(@"results button pressed");
+    NSLog(@"result button pressed");
     [self.model resultPressed];
+}
+
+- (IBAction)deletePressed
+{
+    NSLog(@"delete button pressed");
+    [self.model deletePressed];
 }
 
 - (IBAction)cleanPressed

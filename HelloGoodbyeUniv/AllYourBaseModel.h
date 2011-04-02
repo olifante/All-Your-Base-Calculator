@@ -41,6 +41,7 @@
 - (void)periodPressed;
 - (void)operationPressed:(NSString *)operation;
 - (void)resultPressed;
+- (void)deletePressed;
 - (void)releaseMembers;
 
 @end

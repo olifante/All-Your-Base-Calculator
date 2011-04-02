@@ -224,6 +224,27 @@
     [self updateDisplays];
 }
 
+- (void)deletePressed
+{
+    if (self.error) {
+        [self releaseMembers];
+    }
+    
+    NSString *newDigits;
+    if (self.currentDigits) {
+        if ([self.currentDigits length] > 1) {
+            newDigits = [self.currentDigits substringToIndex:([self.currentDigits length] - 1)];
+        } else if ([self.currentDigits isEqualToString:@"0"]) {
+            newDigits = @"0";
+        } else {
+            newDigits = nil;
+        }
+        
+        self.currentDigits = newDigits;
+        [self updateDisplays];
+    }
+}
+
 - (void)releaseMembers
 {
     self.previousDisplay = nil;

@@ -502,6 +502,43 @@
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
+- (void) test12Point345Delete {
+    [calculator digitPressed:@"1"];
+    [calculator digitPressed:@"2"];
+    [calculator periodPressed];
+    [calculator digitPressed:@"3"];
+    [calculator digitPressed:@"4"];
+    [calculator digitPressed:@"5"];
+    [calculator deletePressed];
+    
+    NSString *actual, *expected;
+    
+    actual = calculator.previousDigits;
+    STAssertNil(actual, @"'%@' shoud be nil", actual);
+    
+    actual = calculator.currentDigits, expected = @"12.34";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+    
+    actual = calculator.currentOperation;
+    STAssertNil(actual, @"'%@' shoud be nil", actual);
+    
+    actual = calculator.previousOperation;
+    STAssertNil(actual, @"'%@' shoud be nil", actual);
+    
+    actual = calculator.previousExpression;
+    STAssertNil(actual, @"'%@' shoud be nil", actual);
+    
+    actual = calculator.result;
+    STAssertNil(actual, @"'%@' shoud be nil", actual);
+    
+    actual = calculator.previousDisplay, expected = @"";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+    
+    actual = calculator.currentDisplay, expected = @"12.34";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+}
+
+
 - (void) test12Point34Divide {
     [calculator digitPressed:@"1"];
     [calculator digitPressed:@"2"];
