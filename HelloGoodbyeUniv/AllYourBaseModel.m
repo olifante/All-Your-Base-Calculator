@@ -157,10 +157,14 @@
         self.currentDigits = nil;
     }
     
-    if (self.currentDigits) {
+    if ([self.currentDigits isEqualToString:@"0"]) {
+        if ([digit isEqualToString:@"0"]) {
+            self.currentDigits = @"0";            
+        } else {
+            self.currentDigits = digit;
+        }
+    } else if (self.currentDigits) {
         self.currentDigits = [self.currentDigits stringByAppendingString:digit];
-    } else if ([digit isEqualToString:@"0"]) {
-        self.currentDigits = @"0";
     } else if (!self.currentDigits && [digit isEqualToString:@"."]) {
         self.currentDigits = @"0."; // keep initial zero if period pressed
     } else {
