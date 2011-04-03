@@ -275,17 +275,17 @@
     
 }
 
-- (void)percentPressed
-{
-    
-}
-
 - (void)shiftLeftPressed
 {
     
 }
 
 - (void)shiftRightPressed
+{
+    
+}
+
+- (void)percentPressed
 {
     
 }
