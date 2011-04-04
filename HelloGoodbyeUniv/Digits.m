@@ -15,43 +15,56 @@ const NSString *allDigits = @"0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMN
 @synthesize base = _base;
 @synthesize positive = _positive;
 @synthesize digits = _digits;
-@synthesize baseDigits = _baseDigits;
-@synthesize baseDigitSet = _baseDigitSet;
+@synthesize allowedDigitsString = _allowedDigitsString;
+@synthesize allowedDigits = _allowedDigits;
+@synthesize forbiddenDigits = _forbiddenDigits;
 
-- (id)initWithString:(NSString *)serializedDigits base:(int)base
+- (id)initWithString:(NSString *)someString base:(int)base
 {
-    assert(base > 2);
+    if (!someString) {
+        return nil;
+    }
+
+    if (!base || (base < 2)) {
+        return nil;
+    }
     
     self = [super init];
     if (self) {
-        self.baseDigits = [allDigits substringToIndex:base];
-        self.baseDigitSet = [NSCharacterSet characterSetWithCharactersInString:self.baseDigits];
-        NSString *trimmedDigits = [serializedDigits stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-        
-        NSCharacterSet *unsignedDigitSet = [NSCharacterSet characterSetWithCharactersInString:trimmedDigits];
-        assert([self.baseDigitSet isSupersetOfSet:unsignedDigitSet]);
+        self.base = base;
+        self.positive = YES;
 
-        NSScanner *scanner = [NSScanner scannerWithString:trimmedDigits];
-        NSString *scannedDigits = nil;
+        self.allowedDigitsString = [allDigits substringToIndex:base];
+        self.allowedDigits = [NSCharacterSet characterSetWithCharactersInString:self.allowedDigitsString];
+        self.forbiddenDigits = [self.allowedDigits invertedSet];
+        
+        NSScanner *scanner = [NSScanner scannerWithString:someString];
+        
+        [scanner scanString:@" " intoString:NULL];
+        
         if ([scanner scanString:@"-" intoString:NULL]) {
             self.positive = NO;
-            if ([scanner scanCharactersFromSet:self.baseDigitSet intoString:&scannedDigits]) {
-                self.digits = [NSMutableString stringWithString:scannedDigits];
-            }
+        }
+
+        NSString *scannedDigits = nil;
+        if ([scanner scanUpToCharactersFromSet:self.forbiddenDigits intoString:&scannedDigits]) {
+            self.digits = scannedDigits;
+        } else {
+            self.digits = @"0";
         }
     }
     return self;
 }
 
-- (id)initWithString:(NSString *)serializedDigits
+- (id)initWithString:(NSString *)someString
 {
-    self = [self initWithString:serializedDigits base:10];
+    self = [self initWithString:someString base:10];
     return self;
 }
 
 - (id)init
 {
-    self = [self initWithString:nil base:10];    
+    self = [self initWithString:@"" base:10];    
     return self;
 }
 
@@ -67,8 +80,9 @@ const NSString *allDigits = @"0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMN
 
 - (NSString *)text
 {
-    NSString *sign = self.positive ? @"" : @"-";
-    return [NSString stringWithFormat:@"%@%@", sign, self.digits];
+    return [NSString stringWithFormat:@"%@%@", 
+            self.positive ? @"" : @"-", 
+            self.digits ? self.digits : @""];
 }
 
 @end

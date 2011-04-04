@@ -11,23 +11,138 @@
 
 @implementation DigitsTests
 
-#if USE_APPLICATION_UNIT_TEST     // all code under test is in the iPhone Application
-
-- (void)testAppDelegate {
+- (void)setUp
+{
+    [super setUp];
     
-    id yourApplicationDelegate = [[UIApplication sharedApplication] delegate];
-    STAssertNotNil(yourApplicationDelegate, @"UIApplication failed to find the AppDelegate");
-    
+    NSLog(@"%@ setUp", self.name);
+//    digits = [[[Digits alloc] init] retain];
+//    STAssertNotNil(digits, @"Cannot create Digits instance");
 }
 
-#else                           // all code under test must be linked into the Unit Test bundle
-
-- (void)testMath {
+- (void)tearDown
+{
+//    [digits release];
+    NSLog(@"%@ tearDown", self.name);
     
-    STAssertTrue((1+1)==2, @"Compiler isn't feeling well today :-(" );
-    
+    [super tearDown];
 }
 
-#endif
+- (void)testInit {
+    Digits *digits = [[[Digits alloc] init] retain];
+    STAssertNotNil(digits, @"Cannot create Digits instance");
+    STAssertTrue(digits.positive == YES, @"should be positive by default");
+    STAssertTrue(digits.base == 10, @"should use decimal base by default");
+    STAssertTrue(digits.intValue == 0, @"should be zero by default");
+    
+    NSString *actual, *expected;
+    
+    actual = digits.digits, expected = @"0";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+    
+    actual = digits.text, expected = @"0";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+}
+
+- (void)testInitWithStringNil {
+    Digits *digits = [[[Digits alloc] initWithString:nil] retain];
+    STAssertNil(digits, @"Should not be able to create Digits instance");
+}
+
+- (void)testInitWithEmptyStringBase1 {
+    Digits *digits = [[[Digits alloc] initWithString:@"" base:1] retain];
+    STAssertNil(digits, @"Should not be able to create Digits instance");
+}
+
+- (void)testInitWithSpace123SpaceSpace {
+    
+    Digits *digits = [[[Digits alloc] initWithString:@"  123 "] retain];
+    STAssertNotNil(digits, @"Cannot create Digits instance");
+    STAssertTrue(digits.positive == YES, @"should be positive by default");
+    STAssertTrue(digits.base == 10, @"should use decimal base by default");
+    STAssertTrue(digits.intValue == 123, @"");
+    
+    NSString *actual, *expected;
+    
+    actual = digits.digits, expected = @"123";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+    
+    actual = digits.text, expected = @"123";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+}
+
+- (void)testInitWithMinus12 {
+    
+    Digits *digits = [[[Digits alloc] initWithString:@"-12"] retain];
+    STAssertNotNil(digits, @"Cannot create Digits instance");
+    STAssertTrue(digits.positive == NO, @"should be positive by default");
+    STAssertTrue(digits.base == 10, @"should use decimal base by default");
+    STAssertTrue(digits.intValue == -12, @"");
+    
+    NSString *actual, *expected;
+    
+    actual = digits.digits, expected = @"12";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+    
+    actual = digits.text, expected = @"-12";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+}
+
+- (void)testInitWith1234567890 {
+    
+    Digits *digits = [[[Digits alloc] initWithString:@"1234567890"] retain];
+    STAssertNotNil(digits, @"Cannot create Digits instance");
+    STAssertTrue(digits.positive == YES, @"should be positive by default");
+    STAssertTrue(digits.base == 10, @"should use decimal base by default");
+    STAssertTrue(digits.intValue == 1234567890, @"");
+    
+    NSString *actual, *expected;
+    
+    actual = digits.digits, expected = @"1234567890";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+    
+    actual = digits.text, expected = @"1234567890";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+}
+
+- (void)testInitWith1234567890abc {
+    
+    Digits *digits = [[[Digits alloc] initWithString:@"1234567890abc"] retain];
+    STAssertNotNil(digits, @"Cannot create Digits instance");
+    STAssertTrue(digits.positive == YES, @"should be positive by default");
+    STAssertTrue(digits.base == 10, @"should use decimal base by default");
+    STAssertTrue(digits.intValue == 1234567890, @"");
+    
+    NSString *actual, *expected;
+    
+    actual = digits.digits, expected = @"1234567890";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+    
+    actual = digits.text, expected = @"1234567890";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+}
+
+- (void)testInitWithSpaceMinus123abc456SpaceSpace {
+    
+    Digits *digits = [[[Digits alloc] initWithString:@"  -123abc456 "] retain];
+    STAssertNotNil(digits, @"Cannot create Digits instance");
+    STAssertTrue(digits.positive == NO, @"should be positive by default");
+    STAssertTrue(digits.base == 10, @"should use decimal base by default");
+    STAssertTrue(digits.intValue == -123, @"");
+    
+    NSString *actual, *expected;
+    
+    actual = digits.digits, expected = @"123";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+    
+    actual = digits.text, expected = @"-123";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+}
+
+//- (void)testFail {
+//    
+//    STFail(@"this test is meant to fail");
+//
+//}
 
 @end

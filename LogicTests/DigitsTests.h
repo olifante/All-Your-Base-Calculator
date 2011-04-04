@@ -14,17 +14,12 @@
 
 #import <SenTestingKit/SenTestingKit.h>
 #import <UIKit/UIKit.h>
-//#import "application_headers" as required
+#import "Digits.h"
 
 
 @interface DigitsTests : SenTestCase {
-    
+@private
+//    Digits *digits;
 }
-
-#if USE_APPLICATION_UNIT_TEST
-- (void)testAppDelegate;       // simple test on application
-#else
-- (void)testMath;              // simple standalone test
-#endif
 
 @end
