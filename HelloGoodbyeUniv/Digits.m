@@ -13,11 +13,11 @@ const NSString *allDigits = @"0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMN
 @implementation Digits
 
 @synthesize base = _base;
-@synthesize positive = _positive;
-@synthesize digits = _digits;
 @synthesize allowedDigitsString = _allowedDigitsString;
 @synthesize allowedDigits = _allowedDigits;
 @synthesize forbiddenDigits = _forbiddenDigits;
+@synthesize positive = _positive;
+@synthesize digits = _digits;
 
 - (id)initWithString:(NSString *)someString base:(int)base
 {
@@ -31,26 +31,26 @@ const NSString *allDigits = @"0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMN
     
     self = [super init];
     if (self) {
-        self.base = base;
-        self.positive = YES;
+        _base = base;
+        _positive = YES;
 
-        self.allowedDigitsString = [allDigits substringToIndex:base];
-        self.allowedDigits = [NSCharacterSet characterSetWithCharactersInString:self.allowedDigitsString];
-        self.forbiddenDigits = [self.allowedDigits invertedSet];
+        _allowedDigitsString = [allDigits substringToIndex:base];
+        _allowedDigits = [NSCharacterSet characterSetWithCharactersInString:self.allowedDigitsString];
+        _forbiddenDigits = [self.allowedDigits invertedSet];
         
         NSScanner *scanner = [NSScanner scannerWithString:someString];
         
         [scanner scanString:@" " intoString:NULL];
         
         if ([scanner scanString:@"-" intoString:NULL]) {
-            self.positive = NO;
+            _positive = NO;
         }
 
         NSString *scannedDigits = nil;
         if ([scanner scanUpToCharactersFromSet:self.forbiddenDigits intoString:&scannedDigits]) {
             self.digits = scannedDigits;
         } else {
-            self.digits = @"0";
+            self.digits = @"";
         }
     }
     return self;
@@ -80,9 +80,48 @@ const NSString *allDigits = @"0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMN
 
 - (NSString *)text
 {
-    return [NSString stringWithFormat:@"%@%@", 
-            self.positive ? @"" : @"-", 
-            self.digits ? self.digits : @""];
+    if (self.digits) {
+        if ([self.digits isEqualToString:@""]) {
+            return @"0";
+        } else {
+            return [NSString stringWithFormat:@"%@%@", 
+                    self.positive ? @"" : @"-", 
+                    self.digits ? self.digits : @""];
+        }
+        
+    } else {
+        return nil;
+    }
+}
+
+- (void)pushDigit:(NSString *)digit
+{
+    if (!digit) {
+        return;
+    }
+    
+    if ([self.digits isEqualToString:@""]) {
+        if ([digit isEqualToString:@"0"]) {
+            // do not add another zero to a lonely zero            
+        } else {
+            self.digits = digit;
+        }
+    } else {
+        self.digits = [self.digits stringByAppendingString:digit];
+    }
+}
+
+- (NSString *)popDigit
+{
+    NSString *lastDigit;
+    int length = self.digits.length;
+    if (length < 1) {
+        lastDigit = nil;
+    } else {
+        lastDigit = [self.digits substringFromIndex:length - 1];
+        self.digits = [self.digits substringToIndex:length - 1];
+    }
+    return lastDigit;
 }
 
 @end

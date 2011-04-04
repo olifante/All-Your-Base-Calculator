@@ -18,17 +18,19 @@
     NSCharacterSet *_forbiddenDigits;
 }
 
-@property int base;
-@property BOOL positive;
+@property (readonly) int base;
+@property (readonly) BOOL positive;
 @property (retain) NSString *digits;
-@property (retain) NSString *allowedDigitsString;
-@property (retain) NSCharacterSet *allowedDigits;
-@property (retain) NSCharacterSet *forbiddenDigits;
+@property (readonly, retain) NSString *allowedDigitsString;
+@property (readonly, retain) NSCharacterSet *allowedDigits;
+@property (readonly, retain) NSCharacterSet *forbiddenDigits;
 
 - (id)initWithString:(NSString *)someString;
 - (id)initWithString:(NSString *)someString base:(int)someBase;
 - (int)intValue;
 - (NSNumber *)value;
 - (NSString *)text;
+- (void)pushDigit:(NSString *)digit;
+- (NSString *)popDigit;
 
 @end
