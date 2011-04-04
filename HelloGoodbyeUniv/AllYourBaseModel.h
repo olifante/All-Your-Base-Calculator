@@ -11,6 +11,8 @@
 
 @interface AllYourBaseModel : NSObject {
     BOOL _error;
+    BOOL _previousNegative;
+    BOOL _currentNegative;
     NSString *_previousDigits;
     NSString *_currentDigits;
     NSString *_currentOperation;
@@ -22,6 +24,8 @@
 }
 
 @property BOOL error;
+@property BOOL previousNegative;
+@property BOOL currentNegative;
 @property (nonatomic, retain) NSString *previousDigits;
 @property (nonatomic, retain) NSString *currentDigits;
 @property (nonatomic, retain) NSString *previousOperation;
@@ -39,7 +43,7 @@
 - (void)performPendingOperation;
 - (void)digitPressed:(NSString *)digit;
 - (void)periodPressed;
-- (void)operationPressed:(NSString *)operation;
+- (void)binaryOperationPressed:(NSString *)operation;
 - (void)resultPressed;
 - (void)deletePressed;
 - (void)negatePressed;

@@ -14,6 +14,8 @@
 @synthesize error = _error;
 @synthesize previousDigits = _previousDigits;
 @synthesize currentDigits = _currentDigits;
+@synthesize previousNegative = _previousNegative;
+@synthesize currentNegative = _currentNegative;
 @synthesize currentOperation = _currentOperation;
 @synthesize previousOperation = _previousOperation;
 @synthesize previousExpression = _previousExpression;
@@ -26,6 +28,8 @@
     self = [super init];
     if (self) {
         self.error = NO;
+        self.previousNegative = NO;
+        self.currentNegative = NO;
         [self updateDisplays];
     }
     return self;
@@ -38,14 +42,12 @@
         return; // early return if in erroneous state
     }
     
-    NSString *prefix = @"";
-    NSString *operation = @"";
+    NSString *prefix = self.previousOperation ? @"= " : @"";
+    NSString *firstSign = self.previousNegative ? @"-" : @"";
     NSString *first = @"";
+    NSString *operation = @"";
+    NSString *secondSign = self.currentNegative ? @"-" : @"";
     NSString *second = @"";
-
-    if (self.previousOperation) {
-        prefix = @"= ";
-    }
 
     if (self.currentOperation) {
         first = self.previousDigits;
@@ -127,7 +129,8 @@
         resultValue = self.previousValue * self.currentValue;
     } else if ([self.currentOperation isEqualToString:@"÷"]) {
         resultValue = self.previousValue / self.currentValue;
-//    } else if ([self.currentOperation isEqualToString:@"√"]) {
+    } else if ([self.currentOperation isEqualToString:@"^"]) {
+        resultValue = pow(self.previousValue, self.currentValue);
 //        resultValue = self.previousValue something self.currentValue;
 //    } else if ([self.currentOperation isEqualToString:@" ±=∙∁∶∷∞≈≪≫≝⩪⩫␡↤⇄"]) {
 //        resultValue = self.previousValue something self.currentValue;
@@ -198,7 +201,7 @@
     }
 }
 
-- (void)operationPressed:(NSString *)operation
+- (void)binaryOperationPressed:(NSString *)operation
 {
     if (self.error) {
         return; // do nothing if in erroneous state
@@ -306,6 +309,8 @@
     self.previousExpression = nil;
     self.result = nil;
     self.error = NO;
+    self.previousNegative = NO;
+    self.currentNegative = NO;
     [self updateDisplays];
 }
 

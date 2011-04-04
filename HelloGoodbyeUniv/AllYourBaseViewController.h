@@ -31,5 +31,8 @@
 - (IBAction)resultPressed;
 - (IBAction)deletePressed;
 - (IBAction)cleanPressed;
+- (IBAction)squareRootPressed;
+- (IBAction)cubeRootPressed;
+- (IBAction)reciprocalPressed;
 
 @end

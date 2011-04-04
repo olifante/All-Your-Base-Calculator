@@ -30,7 +30,7 @@
 
 - (void) testAddition {
     [calculator digitPressed:@"6"];
-    [calculator operationPressed:@"+"];
+    [calculator binaryOperationPressed:@"+"];
     [calculator digitPressed:@"2"];
     [calculator resultPressed];
     NSString *actual, *expected;
@@ -42,7 +42,7 @@
 - (void) testDivision {
     [calculator digitPressed:@"1"];
     [calculator digitPressed:@"9"];
-    [calculator operationPressed:@"÷"];
+    [calculator binaryOperationPressed:@"÷"];
     [calculator digitPressed:@"8"];
     [calculator resultPressed];
     NSString *actual, *expected;
@@ -173,7 +173,7 @@
 
 - (void) test1Plus {
     [calculator digitPressed:@"1"];
-    [calculator operationPressed:@"+"];
+    [calculator binaryOperationPressed:@"+"];
     
     NSString *actual, *expected;
     
@@ -204,7 +204,7 @@
 
 - (void) test1PlusResult {
     [calculator digitPressed:@"1"];
-    [calculator operationPressed:@"+"];
+    [calculator binaryOperationPressed:@"+"];
     [calculator resultPressed];
     
     NSString *actual, *expected;
@@ -236,8 +236,8 @@
 
 - (void) test1PlusTimes {
     [calculator digitPressed:@"1"];
-    [calculator operationPressed:@"+"];
-    [calculator operationPressed:@"*"];
+    [calculator binaryOperationPressed:@"+"];
+    [calculator binaryOperationPressed:@"*"];
     
     NSString *actual, *expected;
     
@@ -268,7 +268,7 @@
 
 - (void) test1Plus2 {
     [calculator digitPressed:@"1"];
-    [calculator operationPressed:@"+"];
+    [calculator binaryOperationPressed:@"+"];
     [calculator digitPressed:@"2"];
     
     NSString *actual, *expected;
@@ -300,9 +300,9 @@
 
 - (void) test1Plus2Times {
     [calculator digitPressed:@"1"];
-    [calculator operationPressed:@"+"];
+    [calculator binaryOperationPressed:@"+"];
     [calculator digitPressed:@"2"];
-    [calculator operationPressed:@"*"];
+    [calculator binaryOperationPressed:@"*"];
     
     NSString *actual, *expected;
     
@@ -333,9 +333,9 @@
 
 - (void) test1Plus2Times4 {
     [calculator digitPressed:@"1"];
-    [calculator operationPressed:@"+"];
+    [calculator binaryOperationPressed:@"+"];
     [calculator digitPressed:@"2"];
-    [calculator operationPressed:@"*"];
+    [calculator binaryOperationPressed:@"*"];
     [calculator digitPressed:@"4"];
     
     NSString *actual, *expected;
@@ -367,7 +367,7 @@
 
 - (void) test1Plus2Result {
     [calculator digitPressed:@"1"];
-    [calculator operationPressed:@"+"];
+    [calculator binaryOperationPressed:@"+"];
     [calculator digitPressed:@"2"];
     [calculator resultPressed];
     
@@ -400,7 +400,7 @@
 
 - (void) test1Plus2ResultDelete {
     [calculator digitPressed:@"1"];
-    [calculator operationPressed:@"+"];
+    [calculator binaryOperationPressed:@"+"];
     [calculator digitPressed:@"2"];
     [calculator resultPressed];
     [calculator deletePressed];
@@ -434,7 +434,7 @@
 
 - (void) test1Plus2ResultPoint {
     [calculator digitPressed:@"1"];
-    [calculator operationPressed:@"+"];
+    [calculator binaryOperationPressed:@"+"];
     [calculator digitPressed:@"2"];
     [calculator resultPressed];
     [calculator periodPressed];
@@ -468,7 +468,7 @@
 
 - (void) test4Divide3ResultPoint {
     [calculator digitPressed:@"4"];
-    [calculator operationPressed:@"÷"];
+    [calculator binaryOperationPressed:@"÷"];
     [calculator digitPressed:@"3"];
     [calculator resultPressed];
     [calculator periodPressed];
@@ -598,7 +598,7 @@
     [calculator digitPressed:@"1"];
     [calculator resultPressed];
     [calculator digitPressed:@"2"];
-    [calculator operationPressed:@"*"];
+    [calculator binaryOperationPressed:@"*"];
     
     NSString *actual, *expected;
     
@@ -631,7 +631,7 @@
     [calculator digitPressed:@"1"];
     [calculator resultPressed];
     [calculator digitPressed:@"2"];
-    [calculator operationPressed:@"*"];
+    [calculator binaryOperationPressed:@"*"];
     [calculator digitPressed:@"4"];
     
     NSString *actual, *expected;
@@ -738,7 +738,7 @@
     [calculator periodPressed];
     [calculator digitPressed:@"3"];
     [calculator digitPressed:@"4"];
-    [calculator operationPressed:@"÷"];
+    [calculator binaryOperationPressed:@"÷"];
     
     NSString *actual, *expected;
     
@@ -773,7 +773,7 @@
     [calculator periodPressed];
     [calculator digitPressed:@"3"];
     [calculator digitPressed:@"4"];
-    [calculator operationPressed:@"÷"];
+    [calculator binaryOperationPressed:@"÷"];
     [calculator digitPressed:@"5"];
     [calculator digitPressed:@"6"];
     [calculator periodPressed];
@@ -813,13 +813,13 @@
     [calculator periodPressed];
     [calculator digitPressed:@"3"];
     [calculator digitPressed:@"4"];
-    [calculator operationPressed:@"÷"];
+    [calculator binaryOperationPressed:@"÷"];
     [calculator digitPressed:@"5"];
     [calculator digitPressed:@"6"];
     [calculator periodPressed];
     [calculator digitPressed:@"7"];
     [calculator digitPressed:@"8"];
-    [calculator operationPressed:@"*"];
+    [calculator binaryOperationPressed:@"*"];
     
     NSString *actual, *expected;
     
@@ -854,13 +854,13 @@
     [calculator periodPressed];
     [calculator digitPressed:@"3"];
     [calculator digitPressed:@"4"];
-    [calculator operationPressed:@"÷"];
+    [calculator binaryOperationPressed:@"÷"];
     [calculator digitPressed:@"5"];
     [calculator digitPressed:@"6"];
     [calculator periodPressed];
     [calculator digitPressed:@"7"];
     [calculator digitPressed:@"8"];
-    [calculator operationPressed:@"*"];
+    [calculator binaryOperationPressed:@"*"];
     [calculator digitPressed:@"9"];
     
     NSString *actual, *expected;
@@ -903,7 +903,7 @@
 
 - (void) testMultiplication {
     [calculator digitPressed:@"6"];
-    [calculator operationPressed:@"×"];
+    [calculator binaryOperationPressed:@"×"];
     [calculator digitPressed:@"2"];
     [calculator resultPressed];
     NSString *actual, *expected;
@@ -914,7 +914,7 @@
 - (void) testSubtraction {
     [calculator digitPressed:@"1"];
     [calculator digitPressed:@"9"];
-    [calculator operationPressed:@"-"];
+    [calculator binaryOperationPressed:@"-"];
     [calculator digitPressed:@"2"];
     [calculator resultPressed];
     NSString *actual, *expected;
@@ -924,7 +924,7 @@
 
 - (void) testSubtractionNegativeResult {
     [calculator digitPressed:@"6"];
-    [calculator operationPressed:@"-"];
+    [calculator binaryOperationPressed:@"-"];
     [calculator digitPressed:@"2"];
     [calculator digitPressed:@"4"];
     [calculator resultPressed];
@@ -935,7 +935,7 @@
 
 - (void) test0Divide {
     [calculator digitPressed:@"0"];
-    [calculator operationPressed:@"÷"];
+    [calculator binaryOperationPressed:@"÷"];
     NSString *actual, *expected;
     
     actual = calculator.previousDigits, expected = @"0";
@@ -965,7 +965,7 @@
 
 - (void) test0Divide0 {
     [calculator digitPressed:@"0"];
-    [calculator operationPressed:@"÷"];
+    [calculator binaryOperationPressed:@"÷"];
     [calculator digitPressed:@"0"];
     NSString *actual, *expected;
     
@@ -996,7 +996,7 @@
 
 - (void) test0Divide0Result {
     [calculator digitPressed:@"0"];
-    [calculator operationPressed:@"÷"];
+    [calculator binaryOperationPressed:@"÷"];
     [calculator digitPressed:@"0"];
     [calculator resultPressed];
     NSString *actual, *expected;
@@ -1028,10 +1028,10 @@
 
 - (void) test0Divide0ResultPlus {
     [calculator digitPressed:@"0"];
-    [calculator operationPressed:@"÷"];
+    [calculator binaryOperationPressed:@"÷"];
     [calculator digitPressed:@"0"];
     [calculator resultPressed];
-    [calculator operationPressed:@"+"];
+    [calculator binaryOperationPressed:@"+"];
     NSString *actual, *expected;
     
     actual = calculator.previousDigits;
@@ -1061,10 +1061,10 @@
 
 - (void) test0Divide0Result1 {
     [calculator digitPressed:@"0"];
-    [calculator operationPressed:@"÷"];
+    [calculator binaryOperationPressed:@"÷"];
     [calculator digitPressed:@"0"];
     [calculator resultPressed];
-    [calculator operationPressed:@"+"];
+    [calculator binaryOperationPressed:@"+"];
     [calculator digitPressed:@"1"];
     
     NSString *actual, *expected;
@@ -1096,9 +1096,9 @@
 
 - (void) test0Divide0Plus {
     [calculator digitPressed:@"0"];
-    [calculator operationPressed:@"÷"];
+    [calculator binaryOperationPressed:@"÷"];
     [calculator digitPressed:@"0"];
-    [calculator operationPressed:@"+"];
+    [calculator binaryOperationPressed:@"+"];
     NSString *actual, *expected;
     
     actual = calculator.previousDigits, expected = @"(undefined)";
@@ -1128,9 +1128,9 @@
 
 - (void) test0Divide0PlusResult {
     [calculator digitPressed:@"0"];
-    [calculator operationPressed:@"÷"];
+    [calculator binaryOperationPressed:@"÷"];
     [calculator digitPressed:@"0"];
-    [calculator operationPressed:@"+"];
+    [calculator binaryOperationPressed:@"+"];
     [calculator resultPressed];
     NSString *actual, *expected;
     
@@ -1161,9 +1161,9 @@
 
 - (void) test0Divide0Plus1 {
     [calculator digitPressed:@"0"];
-    [calculator operationPressed:@"÷"];
+    [calculator binaryOperationPressed:@"÷"];
     [calculator digitPressed:@"0"];
-    [calculator operationPressed:@"+"];
+    [calculator binaryOperationPressed:@"+"];
     [calculator digitPressed:@"1"];
     
     NSString *actual, *expected;
@@ -1195,7 +1195,7 @@
 
 - (void) test1Divide0Result {
     [calculator digitPressed:@"1"];
-    [calculator operationPressed:@"÷"];
+    [calculator binaryOperationPressed:@"÷"];
     [calculator digitPressed:@"0"];
     [calculator resultPressed];
     NSString *actual, *expected;

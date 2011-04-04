@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F11DA726134A14E200797005 /* Digits.m in Sources */ = {isa = PBXBuildFile; fileRef = F11DA725134A14E200797005 /* Digits.m */; };
 		F12197421343BA6F00507A37 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1ADD8C9133E55830050EB59 /* UIKit.framework */; };
 		F12197431343BA6F00507A37 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1ADD8CB133E55830050EB59 /* Foundation.framework */; };
 		F12197441343BA6F00507A37 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1ADD8CD133E55830050EB59 /* CoreGraphics.framework */; };
@@ -48,6 +49,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F11DA724134A14E200797005 /* Digits.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Digits.h; sourceTree = "<group>"; };
+		F11DA725134A14E200797005 /* Digits.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Digits.m; sourceTree = "<group>"; };
 		F12197411343BA6F00507A37 /* LogicTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LogicTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F12197471343BA6F00507A37 /* LogicTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LogicTests-Info.plist"; sourceTree = "<group>"; };
 		F12197491343BA6F00507A37 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -169,6 +172,8 @@
 			children = (
 				F1EC2932133FFA2F00E5C619 /* NKString.h */,
 				F1EC2933133FFA2F00E5C619 /* NKString.m */,
+				F11DA724134A14E200797005 /* Digits.h */,
+				F11DA725134A14E200797005 /* Digits.m */,
 				F145DED8134013FB00CCC887 /* CalcBrain.xcdatamodeld */,
 				F197BD7913422BFD0056F74C /* AllYourBaseModel.h */,
 				F197BD7A13422BFD0056F74C /* AllYourBaseModel.m */,
@@ -359,6 +364,7 @@
 				F145DEE41340ED4000CCC887 /* AllYourBaseViewController_iPadL.m in Sources */,
 				F1648E9B13415EBF004D0E12 /* AllYourBaseViewController.m in Sources */,
 				F197BD7B13422BFD0056F74C /* AllYourBaseModel.m in Sources */,
+				F11DA726134A14E200797005 /* Digits.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

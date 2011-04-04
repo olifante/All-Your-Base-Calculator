@@ -42,7 +42,7 @@
 {
     NSString *operation = sender.titleLabel.text;
     NSLog(@"%@ operation pressed", operation);
-    [self.model operationPressed:operation];
+    [self.model binaryOperationPressed:operation];
 }
 
 - (IBAction)periodPressed
@@ -66,6 +66,37 @@
 {
     NSLog(@"clean button pressed");
     [self.model releaseMembers];
+}
+
+- (IBAction)squareRootPressed
+{
+    NSLog(@"square root button pressed");
+    [self.model binaryOperationPressed:@"^"];
+    [self.model digitPressed:@"."];
+    [self.model digitPressed:@"5"];
+    [self.model resultPressed];
+}
+
+- (IBAction)cubeRootPressed
+{
+    NSLog(@"cube root button pressed");
+    [self.model binaryOperationPressed:@"^"];
+    [self.model digitPressed:@"."];
+    [self.model digitPressed:@"3"];
+    [self.model digitPressed:@"3"];
+    [self.model digitPressed:@"3"];
+    [self.model digitPressed:@"3"];
+    [self.model digitPressed:@"3"];
+    [self.model digitPressed:@"3"];
+    [self.model resultPressed];
+}
+
+- (IBAction)reciprocalPressed
+{
+    NSLog(@"reciprocal button pressed");
+    [self.model binaryOperationPressed:@"^"];
+    [self.model negatePressed];
+    [self.model digitPressed:@"1"];    
 }
 
 - (void)releaseMembers
