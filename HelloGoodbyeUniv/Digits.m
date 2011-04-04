@@ -24,34 +24,21 @@ const NSString *allDigits = @"0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMN
     
     self = [super init];
     if (self) {
-        NSString *unsignedDigits = serializedDigits;
-        
-        NSRange minusSign = [serializedDigits rangeOfString:@"-"];
-        if (minusSign.location == 0) {
-            if (minusSign.length > 0) {
-                self = nil;
-            } else {
-                _positive = NO;
-                unsignedDigits = [serializedDigits substringFromIndex:1];
-            }
-        }
-        
-        NSRange plusSign = [serializedDigits rangeOfString:@"+"];
-        if (plusSign.location == 0) {
-            if (plusSign.length > 0) {
-                self = nil;
-            } else {
-                self.positive = YES;
-                unsignedDigits = [serializedDigits substringFromIndex:1];
-            }
-        }
-        
         self.baseDigits = [allDigits substringToIndex:base];
         self.baseDigitSet = [NSCharacterSet characterSetWithCharactersInString:self.baseDigits];
-
-        NSCharacterSet *unsignedDigitSet = [NSCharacterSet characterSetWithCharactersInString:unsignedDigits];
+        NSString *trimmedDigits = [serializedDigits stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+        
+        NSCharacterSet *unsignedDigitSet = [NSCharacterSet characterSetWithCharactersInString:trimmedDigits];
         assert([self.baseDigitSet isSupersetOfSet:unsignedDigitSet]);
-        self.digits = [NSMutableString stringWithString:unsignedDigits];
+
+        NSScanner *scanner = [NSScanner scannerWithString:trimmedDigits];
+        NSString *scannedDigits = nil;
+        if ([scanner scanString:@"-" intoString:NULL]) {
+            self.positive = NO;
+            if ([scanner scanCharactersFromSet:self.baseDigitSet intoString:&scannedDigits]) {
+                self.digits = [NSMutableString stringWithString:scannedDigits];
+            }
+        }
     }
     return self;
 }
