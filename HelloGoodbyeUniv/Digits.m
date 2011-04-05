@@ -16,8 +16,53 @@ const NSString *allDigits = @"0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMN
 @synthesize allowedDigitsString = _allowedDigitsString;
 @synthesize allowedDigits = _allowedDigits;
 @synthesize forbiddenDigits = _forbiddenDigits;
+@synthesize digitValues = _digitValues;
 @synthesize positive = _positive;
 @synthesize digits = _digits;
+
+- (int)intValue
+{
+    int length = self.digits.length;
+    int accumulator = 0;
+    int digitValue = 0;
+    for (int i = 0; i < length; i++) {
+        NSString *digit = [NSString stringWithFormat:@"%C", [self.digits characterAtIndex:i]];
+        digitValue = [[self.digitValues objectForKey:digit] intValue];
+        accumulator += digitValue * pow(_base, length - 1 - i);
+    }
+    
+    if (self.positive) {
+        return accumulator;
+    } else {
+        return -accumulator;
+    }
+}
+
+- (NSNumber *)value
+{
+    return [NSNumber numberWithInt:[self intValue]];    
+}
+
+- (NSString *)text
+{
+    if (self.digits) {
+        if ([self.digits isEqualToString:@""]) {
+            return @"0";
+        } else {
+            return [NSString stringWithFormat:@"%@%@", 
+                    self.positive ? @"" : @"-", 
+                    self.digits];
+        }
+        
+    } else {
+        return nil;
+    }
+}
+
+- (id)initWithInt:(int)someInt base:(int)base
+{
+    return nil;
+}
 
 - (id)initWithString:(NSString *)someString base:(int)base
 {
@@ -38,6 +83,14 @@ const NSString *allDigits = @"0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMN
         _allowedDigits = [NSCharacterSet characterSetWithCharactersInString:self.allowedDigitsString];
         _forbiddenDigits = [self.allowedDigits invertedSet];
         
+        int length = _allowedDigitsString.length;
+        NSMutableDictionary *dict = [[[NSMutableDictionary alloc] init] autorelease];
+        for (int i = 0; i < length; i++) {
+            NSString *digit = [NSString stringWithFormat:@"%C", [self.allowedDigitsString characterAtIndex:i]];
+            [dict setObject:[NSNumber numberWithInt:i] forKey:digit]; 
+        }
+        _digitValues = [NSDictionary dictionaryWithDictionary:dict];
+
         NSScanner *scanner = [NSScanner scannerWithString:someString];
         
         [scanner scanString:@" " intoString:NULL];
@@ -68,32 +121,6 @@ const NSString *allDigits = @"0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMN
     return self;
 }
 
-- (int)intValue
-{
-    return [self.text intValue];
-}
-
-- (NSNumber *)value
-{
-    return [NSNumber numberWithInt:[self intValue]];    
-}
-
-- (NSString *)text
-{
-    if (self.digits) {
-        if ([self.digits isEqualToString:@""]) {
-            return @"0";
-        } else {
-            return [NSString stringWithFormat:@"%@%@", 
-                    self.positive ? @"" : @"-", 
-                    self.digits ? self.digits : @""];
-        }
-        
-    } else {
-        return nil;
-    }
-}
-
 - (void)pushDigit:(NSString *)digit
 {
     if (!digit) {
@@ -122,6 +149,36 @@ const NSString *allDigits = @"0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMN
         self.digits = [self.digits substringToIndex:length - 1];
     }
     return lastDigit;
+}
+
+- (Digits *)times:(Digits *)secondOperand
+{
+    return nil;    
+}
+
+- (Digits *)plus:(Digits *)secondOperand
+{
+    return nil;
+}
+
+- (Digits *)minus:(Digits *)secondOperand
+{
+    return nil;
+}
+
+- (Digits *)divide:(Digits *)secondOperand
+{
+    return nil;
+}
+
+- (Digits *)negate
+{
+    return nil;
+}
+
+- (Digits *)invert
+{
+    return nil;
 }
 
 @end

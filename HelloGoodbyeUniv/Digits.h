@@ -16,6 +16,7 @@
     NSString *_allowedDigitsString;
     NSCharacterSet *_allowedDigits;
     NSCharacterSet *_forbiddenDigits;
+    NSDictionary *_digitValues;
 }
 
 @property (readonly) int base;
@@ -24,13 +25,21 @@
 @property (readonly, retain) NSString *allowedDigitsString;
 @property (readonly, retain) NSCharacterSet *allowedDigits;
 @property (readonly, retain) NSCharacterSet *forbiddenDigits;
+@property (readonly, retain) NSDictionary *digitValues;
+@property (readonly) int intValue;
+@property (readonly) NSNumber *value;
+@property (readonly) NSString *text;
 
+- (id)initWithInt:(int)someInt base:(int)base;
 - (id)initWithString:(NSString *)someString;
 - (id)initWithString:(NSString *)someString base:(int)someBase;
-- (int)intValue;
-- (NSNumber *)value;
-- (NSString *)text;
 - (void)pushDigit:(NSString *)digit;
 - (NSString *)popDigit;
+- (Digits *)times:(Digits *)secondOperand;
+- (Digits *)plus:(Digits *)secondOperand;
+- (Digits *)minus:(Digits *)secondOperand;
+- (Digits *)divide:(Digits *)secondOperand;
+- (Digits *)negate;
+- (Digits *)invert;
 
 @end

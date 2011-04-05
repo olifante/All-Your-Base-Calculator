@@ -187,7 +187,7 @@
 
     STAssertTrue(digits.positive == YES, @"should be positive by default");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
-    STAssertTrue(digits.intValue == 123, @"'%@' should be equal to '%d'", digits.intValue, 123);
+    STAssertTrue(digits.intValue == 123, @"'%d' should be equal to '%d'", digits.intValue, 123);
     
     NSString *actual, *expected;
     
@@ -235,7 +235,7 @@
         
     STAssertTrue(digits.positive == YES, @"should be positive by default");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
-    STAssertTrue(digits.intValue == 12, @"'%@' should be equal to '%d'", digits.intValue, 12);
+    STAssertTrue(digits.intValue == 12, @"'%d' should be equal to '%d'", digits.intValue, 12);
     
     actual = digits.digits, expected = @"12";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
