@@ -23,8 +23,8 @@
     self.previousDisplayLabel.text = self.model.previousDisplay;
     self.currentDisplayLabel.text = self.model.currentDisplay;
     
-    self.previousDigitsLabel.text = self.model.previousDigits;
-    self.currentDigitsLabel.text = self.model.currentDigits;
+    self.previousDigitsLabel.text = self.model.previousDigits.text;
+    self.currentDigitsLabel.text = self.model.currentDigits.text;
     self.currentOperationLabel.text = self.model.currentOperation;
     self.previousOperationLabel.text = self.model.previousOperation;
     self.previousExpressionLabel.text = self.model.previousExpression;

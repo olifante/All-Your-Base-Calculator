@@ -14,8 +14,6 @@
 @synthesize error = _error;
 @synthesize previousDigits = _previousDigits;
 @synthesize currentDigits = _currentDigits;
-@synthesize previousNegative = _previousNegative;
-@synthesize currentNegative = _currentNegative;
 @synthesize currentOperation = _currentOperation;
 @synthesize previousOperation = _previousOperation;
 @synthesize previousExpression = _previousExpression;
@@ -28,8 +26,8 @@
     self = [super init];
     if (self) {
         self.error = NO;
-        self.previousNegative = NO;
-        self.currentNegative = NO;
+        self.previousDigits = [[[Digits alloc] init] autorelease];
+        self.currentDigits = [[[Digits alloc] init] autorelease];
         [self updateDisplays];
     }
     return self;
@@ -42,25 +40,22 @@
         return; // early return if in erroneous state
     }
     
-    NSString *prefix = self.previousOperation ? @"= " : @"";
-    NSString *firstSign = self.previousNegative ? @"-" : @"";
     NSString *first = @"";
     NSString *operation = @"";
-    NSString *secondSign = self.currentNegative ? @"-" : @"";
     NSString *second = @"";
 
     if (self.currentOperation) {
-        first = self.previousDigits;
+        first = self.previousDigits.text;
         operation = [NSString stringWithFormat:@" %@ ", self.currentOperation];
-        second = self.currentDigits;  
+        second = self.currentDigits.text;  
     } else {
-        second = self.currentDigits ? self.currentDigits : @"0";
+        second = self.currentDigits.text;
     }
 
     NSString *oldDisplay = self.currentDisplay;
     NSString *newDisplay = [NSString stringWithFormat:
                             @"%@%@%@%@"
-                            , prefix
+                            , self.previousOperation ? @"= " : @""
                             , first ? first : @""
                             , operation
                             , second ? second : @""
@@ -77,8 +72,6 @@
         return; // early return if in erroneous state
     }
 
-    NSString *prefix = @"";
-    NSString *postfix = @"";
     NSString *value = @"";
     
     if (self.previousOperation) {
@@ -89,10 +82,8 @@
     
     NSString *oldDisplay = self.previousDisplay;
     NSString *newDisplay = [NSString stringWithFormat:
-                            @"%@%@%@"
-                            , prefix
+                            @"%@"
                             , value ? value : @""
-                            , postfix
                             ];
     
     if (![oldDisplay isEqualToString:newDisplay]) {
@@ -108,12 +99,12 @@
 
 - (double)previousValue
 {
-    return [self.previousDigits doubleValue];
+    return [self.previousDigits.value doubleValue];
 }
 
 - (double)currentValue
 {
-    return [self.currentDigits doubleValue];
+    return [self.currentDigits.value doubleValue];
 }
 
 - (void)performPendingOperation
@@ -131,13 +122,6 @@
         resultValue = self.previousValue / self.currentValue;
     } else if ([self.currentOperation isEqualToString:@"^"]) {
         resultValue = pow(self.previousValue, self.currentValue);
-//        resultValue = self.previousValue something self.currentValue;
-//    } else if ([self.currentOperation isEqualToString:@" ±=∙∁∶∷∞≈≪≫≝⩪⩫␡↤⇄"]) {
-//        resultValue = self.previousValue something self.currentValue;
-//    } else if ([self.currentOperation isEqualToString:@"√"]) {
-//        resultValue = self.previousValue something self.currentValue;
-//    } else if ([self.currentOperation isEqualToString:@"√"]) {
-//        resultValue = self.previousValue something self.currentValue;
     } else {
         knownOperation = NO;
     }
@@ -165,22 +149,10 @@
     }
     
     if (self.previousOperation) {
-        self.currentDigits = nil;
+        self.currentDigits = [[[Digits alloc] init] autorelease];
     }
     
-    if ([self.currentDigits isEqualToString:@"0"]) {
-        if ([digit isEqualToString:@"0"]) {
-            self.currentDigits = @"0";            
-        } else {
-            self.currentDigits = digit;
-        }
-    } else if (self.currentDigits) {
-        self.currentDigits = [self.currentDigits stringByAppendingString:digit];
-    } else if (!self.currentDigits && [digit isEqualToString:@"."]) {
-        self.currentDigits = @"0."; // keep initial zero if period pressed
-    } else {
-        self.currentDigits = digit;
-    }
+    [self.currentDigits pushDigit:digit];
     
     self.previousOperation = nil;
     [self updateDisplays];
@@ -188,17 +160,7 @@
 
 - (void)periodPressed
 {
-    if (self.previousOperation) {
-        return [self digitPressed:@"."];        
-    } else {
-        unichar period = [@"." characterAtIndex:0];
-        for (int i = 0; i < self.currentDigits.length; i++) {
-            if ([self.currentDigits characterAtIndex:i] == period) {
-                return; // do nothing if current string contains period
-            }
-        }
-        return [self digitPressed:@"."];
-    }
+    
 }
 
 - (void)binaryOperationPressed:(NSString *)operation
@@ -237,8 +199,8 @@
         [self performPendingOperation];
         self.currentDigits = self.result;
     } else {
-        self.previousExpression = [NSString stringWithFormat:@"%@", self.currentDigits ? self.currentDigits : @"0"];
-        self.result = [NSString stringWithFormat:@"%g", self.currentValue];
+        self.previousExpression = [NSString stringWithFormat:@"%@", self.currentDigits.text];
+        self.result = [NSString stringWithFormat:@"%@", self.currentDigits.vale ];
         self.currentDigits = self.result;
         self.previousOperation = @"=";
         self.currentOperation = nil;
@@ -298,6 +260,20 @@
     
 }
 
+- (void)cleanPressed
+{
+    self.previousDisplay = nil;
+    self.currentDisplay = nil;
+    self.previousDigits = [[[Digits alloc] init] autorelease];
+    self.currentDigits = [[[Digits alloc] init] autorelease];
+    self.currentOperation = nil;
+    self.previousOperation = nil;
+    self.previousExpression = nil;
+    self.result = nil;
+    self.error = NO;
+    [self updateDisplays];
+}
+
 - (void)releaseMembers
 {
     self.previousDisplay = nil;
@@ -308,10 +284,6 @@
     self.previousOperation = nil;
     self.previousExpression = nil;
     self.result = nil;
-    self.error = NO;
-    self.previousNegative = NO;
-    self.currentNegative = NO;
-    [self updateDisplays];
 }
 
 - (void)dealloc

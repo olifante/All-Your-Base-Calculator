@@ -7,14 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Digits.h"
 
 
 @interface AllYourBaseModel : NSObject {
     BOOL _error;
-    BOOL _previousNegative;
-    BOOL _currentNegative;
-    NSString *_previousDigits;
-    NSString *_currentDigits;
+    Digits *_previousDigits;
+    Digits *_currentDigits;
     NSString *_currentOperation;
     NSString *_previousOperation;    
     NSString *_previousExpression;
@@ -24,10 +23,8 @@
 }
 
 @property BOOL error;
-@property BOOL previousNegative;
-@property BOOL currentNegative;
-@property (nonatomic, retain) NSString *previousDigits;
-@property (nonatomic, retain) NSString *currentDigits;
+@property (nonatomic, retain) Digits *previousDigits;
+@property (nonatomic, retain) Digits *currentDigits;
 @property (nonatomic, retain) NSString *previousOperation;
 @property (nonatomic, retain) NSString *currentOperation;
 @property (nonatomic, retain) NSString *previousExpression;
