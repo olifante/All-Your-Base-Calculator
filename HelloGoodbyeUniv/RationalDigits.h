@@ -9,8 +9,15 @@
 #import <Foundation/Foundation.h>
 #import "Digits.h"
 
-@interface RationalDigits : Digits {
-    
+@interface RationalDigits: Digits {
+    NSString *_denominatorDigits;
 }
+
+@property (retain) NSString *denominatorDigits;
+
++ (NSString *)convertNumerator:(int)numerator denominator:(int)denominator toBase:(int)someBase;
+
+- (id)initWithNumerator:(int)numerator denominator:(int)denominator;
+- (id)initWithNumerator:(int)numerator denominator:(int)denominator base:(int)someBase;
 
 @end
