@@ -13,6 +13,39 @@
 
 @synthesize denominatorDigits = _denominatorDigits;
 
++ (NSString *)parseDigits:(NSString *)someDigits fromBase:(int)someBase
+{
+    BOOL positive = YES;
+    NSString *allowedDigits = [[Digits allDigits] substringToIndex:someBase];
+    NSCharacterSet *allowedDigitSet = [NSCharacterSet characterSetWithCharactersInString:allowedDigits];
+    NSCharacterSet *forbiddenDigitSet = [allowedDigitSet invertedSet];
+    
+    NSScanner *scanner = [NSScanner scannerWithString:someDigits];
+    
+    [scanner scanString:@" " intoString:NULL];    
+    if ([scanner scanString:@"-" intoString:NULL]) {
+        positive = NO;
+        [scanner scanString:@" " intoString:NULL];    
+    }
+    
+    NSString *numeratorDigits = nil;
+    [scanner scanUpToCharactersFromSet:forbiddenDigitSet intoString:&numeratorDigits];
+    
+    NSString *denominatorDigits = nil;
+    [scanner scanString:@" " intoString:NULL];    
+    if ([scanner scanString:@"/" intoString:NULL]) {
+        [scanner scanString:@" " intoString:NULL];    
+        [scanner scanUpToCharactersFromSet:forbiddenDigitSet intoString:&denominatorDigits];
+    }
+
+    return [NSString stringWithFormat:@"%@%@%@%@"
+            , positive ? @"" : @"-"
+            , numeratorDigits ? numeratorDigits : @""
+            , denominatorDigits ? @"/" : @""
+            , denominatorDigits ? denominatorDigits : @""
+            ];
+}
+
 + (NSString *)convertNumerator:(int)numerator denominator:(int)denominator toBase:(int)someBase
 {
     return @"";

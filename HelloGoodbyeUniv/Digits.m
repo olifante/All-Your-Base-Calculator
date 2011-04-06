@@ -57,19 +57,18 @@ const NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     NSScanner *scanner = [NSScanner scannerWithString:someDigits];
     
     [scanner scanString:@" " intoString:NULL];
-    
     if ([scanner scanString:@"-" intoString:NULL]) {
         positive = NO;
+        [scanner scanString:@" " intoString:NULL];
     }
     
-    NSString *scannedDigits = nil;
-    [scanner scanUpToCharactersFromSet:forbiddenDigitSet intoString:&scannedDigits];
+    NSString *unsignedDigits = nil;
+    [scanner scanUpToCharactersFromSet:forbiddenDigitSet intoString:&unsignedDigits];
     
-    if (positive) {        
-        return scannedDigits;
-    } else {
-        return [@"-" stringByAppendingString:scannedDigits ? scannedDigits : @""];
-    }
+    return [NSString stringWithFormat:@"%@%@"
+            , positive ? @"" : @"-"
+            , unsignedDigits ? unsignedDigits : @""
+            ];
 }
 
 + (NSString *)convertInt:(int)someInt toBase:(int)someBase
@@ -179,14 +178,14 @@ const NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         NSScanner *scanner = [NSScanner scannerWithString:someString];
         
         [scanner scanString:@" " intoString:NULL];
-        
         if ([scanner scanString:@"-" intoString:NULL]) {
             _positive = NO;
+            [scanner scanString:@" " intoString:NULL];
         }
 
-        NSString *scannedDigits = nil;
-        if ([scanner scanUpToCharactersFromSet:self.forbiddenDigitSet intoString:&scannedDigits]) {
-            self.digits = scannedDigits;
+        NSString *unsignedDigits = nil;
+        if ([scanner scanUpToCharactersFromSet:self.forbiddenDigitSet intoString:&unsignedDigits]) {
+            self.digits = unsignedDigits;
         } else {
             self.digits = @"";
         }
