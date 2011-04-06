@@ -40,11 +40,12 @@
 - (id)initWithString:(NSString *)someString base:(int)someBase;
 - (void)pushDigit:(NSString *)digit;
 - (NSString *)popDigit;
-- (Digits *)times:(Digits *)secondOperand;
 - (Digits *)plus:(Digits *)secondOperand;
 - (Digits *)minus:(Digits *)secondOperand;
+- (Digits *)times:(Digits *)secondOperand;
 - (Digits *)divide:(Digits *)secondOperand;
 - (Digits *)negate;
 - (Digits *)invert;
+- (Digits *)pow:(Digits *)secondOperand;
 
 @end

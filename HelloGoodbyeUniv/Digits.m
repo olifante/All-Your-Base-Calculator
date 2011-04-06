@@ -214,34 +214,46 @@ const NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     return lastDigit;
 }
 
-- (Digits *)times:(Digits *)secondOperand
-{
-    return nil;    
-}
-
 - (Digits *)plus:(Digits *)secondOperand
 {
-    return nil;
+    int result = self.intValue + secondOperand.intValue;
+    return [[[Digits alloc] initWithInt:result base:self.base] autorelease];
 }
 
 - (Digits *)minus:(Digits *)secondOperand
 {
-    return nil;
+    int result = self.intValue - secondOperand.intValue;
+    return [[[Digits alloc] initWithInt:result base:self.base] autorelease];
+}
+
+- (Digits *)times:(Digits *)secondOperand
+{
+    int result = self.intValue * secondOperand.intValue;
+    return [[[Digits alloc] initWithInt:result base:self.base] autorelease];
 }
 
 - (Digits *)divide:(Digits *)secondOperand
 {
-    return nil;
+    int result = self.intValue / secondOperand.intValue;
+    return [[[Digits alloc] initWithInt:result base:self.base] autorelease];
 }
 
 - (Digits *)negate
 {
-    return nil;
+    int result = -self.intValue;
+    return [[[Digits alloc] initWithInt:result base:self.base] autorelease];
 }
 
 - (Digits *)invert
 {
-    return nil;
+    int result = 1 / self.intValue;
+    return [[[Digits alloc] initWithInt:result base:self.base] autorelease];
+}
+
+- (Digits *)pow:(Digits *)secondOperand
+{
+    int result = pow(self.intValue, secondOperand.intValue);
+    return [[[Digits alloc] initWithInt:result base:self.base] autorelease];
 }
 
 @end
