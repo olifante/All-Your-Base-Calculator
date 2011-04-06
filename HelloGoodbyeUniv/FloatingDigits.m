@@ -11,4 +11,21 @@
 
 @implementation FloatingDigits
 
+@synthesize fractionalDigits = _fractionalDigits;
+
++ (NSString *)convertDouble:(double)someDouble toBase:(int)someBase
+{
+    return @"";
+}
+
+- (id)initWithDouble:(double)someInt
+{
+    return nil;
+}
+
+- (id)initWithDouble:(double)someInt base:(int)someBase
+{
+    return nil;
+}
+
 @end

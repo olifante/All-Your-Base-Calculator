@@ -9,8 +9,15 @@
 #import <Foundation/Foundation.h>
 #import "Digits.h"
 
-@interface FloatingDigits : Digits {
-    
+@interface FloatingDigits: Digits {
+    NSString *_fractionalDigits;
 }
+
+@property (retain) NSString *fractionalDigits;
+
++ (NSString *)convertDouble:(double)someDouble toBase:(int)someBase;
+
+- (id)initWithDouble:(double)someInt;
+- (id)initWithDouble:(double)someInt base:(int)someBase;
 
 @end
