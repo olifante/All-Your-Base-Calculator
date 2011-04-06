@@ -250,7 +250,7 @@ const NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     return [[[Digits alloc] initWithInt:result base:self.base] autorelease];
 }
 
-- (Digits *)pow:(Digits *)secondOperand
+- (Digits *)power:(Digits *)secondOperand
 {
     int result = pow(self.intValue, secondOperand.intValue);
     return [[[Digits alloc] initWithInt:result base:self.base] autorelease];

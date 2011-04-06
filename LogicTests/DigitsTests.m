@@ -414,4 +414,136 @@
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
+- (void)test0Plus1PlusMinus2 {
+    Digits *first = [[[Digits alloc] initWithString:@"0"] autorelease];
+    STAssertNotNil(first, @"Cannot create Digits instance");
+    Digits *second = [[[Digits alloc] initWithString:@"1"] autorelease];
+    STAssertNotNil(second, @"Cannot create Digits instance");
+    Digits *third = [[[Digits alloc] initWithString:@"-2"] autorelease];
+    STAssertNotNil(third, @"Cannot create Digits instance");
+    Digits *result = [[first plus:second] plus:third];
+    int actual = result.intValue, expected = -1;
+    STAssertTrue(actual == expected, @"'%d' should be equal to '%d'", actual, expected);
+}
+
+- (void)test0Minus1Minus2 {
+    Digits *first = [[[Digits alloc] initWithString:@"0"] autorelease];
+    STAssertNotNil(first, @"Cannot create Digits instance");
+    Digits *second = [[[Digits alloc] initWithString:@"1"] autorelease];
+    STAssertNotNil(second, @"Cannot create Digits instance");
+    Digits *third = [[[Digits alloc] initWithString:@"2"] autorelease];
+    STAssertNotNil(third, @"Cannot create Digits instance");
+    Digits *result = [[first minus:second] minus:third];
+    int actual = result.intValue, expected = -3;
+    STAssertTrue(actual == expected, @"'%d' should be equal to '%d'", actual, expected);
+}
+
+- (void)test0Times1Times2 {
+    Digits *first = [[[Digits alloc] initWithString:@"0"] autorelease];
+    STAssertNotNil(first, @"Cannot create Digits instance");
+    Digits *second = [[[Digits alloc] initWithString:@"1"] autorelease];
+    STAssertNotNil(second, @"Cannot create Digits instance");
+    Digits *third = [[[Digits alloc] initWithString:@"2"] autorelease];
+    STAssertNotNil(third, @"Cannot create Digits instance");
+    Digits *result = [[first times:second] times:third];
+    int actual = result.intValue, expected = 0;
+    STAssertTrue(actual == expected, @"'%d' should be equal to '%d'", actual, expected);
+}
+
+- (void)test1Times2TimesMinus3 {
+    Digits *first = [[[Digits alloc] initWithString:@"1"] autorelease];
+    STAssertNotNil(first, @"Cannot create Digits instance");
+    Digits *second = [[[Digits alloc] initWithString:@"2"] autorelease];
+    STAssertNotNil(second, @"Cannot create Digits instance");
+    Digits *third = [[[Digits alloc] initWithString:@"-3"] autorelease];
+    STAssertNotNil(second, @"Cannot create Digits instance");
+    Digits *result = [[first times:second] times:third];
+    int actual = result.intValue, expected = -6;
+    STAssertTrue(actual == expected, @"'%d' should be equal to '%d'", actual, expected);
+}
+
+- (void)test0Divide1Divide2 {
+    Digits *first = [[[Digits alloc] initWithString:@"0"] autorelease];
+    STAssertNotNil(first, @"Cannot create Digits instance");
+    Digits *second = [[[Digits alloc] initWithString:@"1"] autorelease];
+    STAssertNotNil(second, @"Cannot create Digits instance");
+    Digits *third = [[[Digits alloc] initWithString:@"2"] autorelease];
+    STAssertNotNil(third, @"Cannot create Digits instance");
+    Digits *result = [[first divide:second] divide:third];
+    int actual = result.intValue, expected = 0;
+    STAssertTrue(actual == expected, @"'%d' should be equal to '%d'", actual, expected);
+}
+
+- (void)test1Divide2Divide3 {
+    Digits *first = [[[Digits alloc] initWithString:@"1"] autorelease];
+    STAssertNotNil(first, @"Cannot create Digits instance");
+    Digits *second = [[[Digits alloc] initWithString:@"2"] autorelease];
+    STAssertNotNil(second, @"Cannot create Digits instance");
+    Digits *third = [[[Digits alloc] initWithString:@"3"] autorelease];
+    STAssertNotNil(third, @"Cannot create Digits instance");
+    Digits *result = [[first divide:second] divide:third];
+    int actual = result.intValue, expected = 0;
+    STAssertTrue(actual == expected, @"'%d' should be equal to '%d'", actual, expected);
+}
+
+- (void)test3Divide2Divide1 {
+    Digits *first = [[[Digits alloc] initWithString:@"3"] autorelease];
+    STAssertNotNil(first, @"Cannot create Digits instance");
+    Digits *second = [[[Digits alloc] initWithString:@"2"] autorelease];
+    STAssertNotNil(second, @"Cannot create Digits instance");
+    Digits *third = [[[Digits alloc] initWithString:@"1"] autorelease];
+    STAssertNotNil(third, @"Cannot create Digits instance");
+    Digits *result = [[first divide:second] divide:third];
+    int actual = result.intValue, expected = 1; // result rounded down from 1.5
+    STAssertTrue(actual == expected, @"'%d' should be equal to '%d'", actual, expected);
+}
+
+- (void)test24Divide4DivideMinus3 {
+    Digits *first = [[[Digits alloc] initWithString:@"24"] autorelease];
+    STAssertNotNil(first, @"Cannot create Digits instance");
+    Digits *second = [[[Digits alloc] initWithString:@"4"] autorelease];
+    STAssertNotNil(second, @"Cannot create Digits instance");
+    Digits *third = [[[Digits alloc] initWithString:@"-3"] autorelease];
+    STAssertNotNil(third, @"Cannot create Digits instance");
+    Digits *result = [[first divide:second] divide:third];
+    int actual = result.intValue, expected = -2;
+    STAssertTrue(actual == expected, @"'%d' should be equal to '%d'", actual, expected);
+}
+
+- (void)test0Power1Power2 {
+    Digits *first = [[[Digits alloc] initWithString:@"0"] autorelease];
+    STAssertNotNil(first, @"Cannot create Digits instance");
+    Digits *second = [[[Digits alloc] initWithString:@"1"] autorelease];
+    STAssertNotNil(second, @"Cannot create Digits instance");
+    Digits *third = [[[Digits alloc] initWithString:@"2"] autorelease];
+    STAssertNotNil(third, @"Cannot create Digits instance");
+    Digits *result = [[first power:second] power:third];
+    int actual = result.intValue, expected = 0;
+    STAssertTrue(actual == expected, @"'%d' should be equal to '%d'", actual, expected);
+}
+
+- (void)test1Power2Power3 {
+    Digits *first = [[[Digits alloc] initWithString:@"1"] autorelease];
+    STAssertNotNil(first, @"Cannot create Digits instance");
+    Digits *second = [[[Digits alloc] initWithString:@"2"] autorelease];
+    STAssertNotNil(second, @"Cannot create Digits instance");
+    Digits *third = [[[Digits alloc] initWithString:@"3"] autorelease];
+    STAssertNotNil(third, @"Cannot create Digits instance");
+    Digits *result = [[first power:second] power:third];
+    int actual = result.intValue, expected = 1;
+    STAssertTrue(actual == expected, @"'%d' should be equal to '%d'", actual, expected);
+}
+
+- (void)test2Power3Power4 {
+    Digits *first = [[[Digits alloc] initWithString:@"2"] autorelease];
+    STAssertNotNil(first, @"Cannot create Digits instance");
+    Digits *second = [[[Digits alloc] initWithString:@"3"] autorelease];
+    STAssertNotNil(second, @"Cannot create Digits instance");
+    Digits *third = [[[Digits alloc] initWithString:@"4"] autorelease];
+    STAssertNotNil(third, @"Cannot create Digits instance");
+    Digits *result = [[first power:second] power:third];
+    int actual = result.intValue, expected = 4096;
+    STAssertTrue(actual == expected, @"'%d' should be equal to '%d'", actual, expected);
+}
+
 @end

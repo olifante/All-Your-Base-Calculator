@@ -46,6 +46,6 @@
 - (Digits *)divide:(Digits *)secondOperand;
 - (Digits *)negate;
 - (Digits *)invert;
-- (Digits *)pow:(Digits *)secondOperand;
+- (Digits *)power:(Digits *)secondOperand;
 
 @end
