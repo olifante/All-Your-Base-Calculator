@@ -25,6 +25,56 @@ const NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     return log(operand)/log(base);
 }
 
++ (NSString *)parseDigits:(NSString *)someDigits fromBase:(int)someBase
+{
+    BOOL positive = YES;
+    NSString *allowedDigitsString = [allDigits substringToIndex:someBase];
+    NSCharacterSet *allowedDigits = [NSCharacterSet characterSetWithCharactersInString:allowedDigitsString];
+    NSCharacterSet *forbiddenDigits = [allowedDigits invertedSet];
+    
+    NSScanner *scanner = [NSScanner scannerWithString:someDigits];
+    
+    [scanner scanString:@" " intoString:NULL];
+    
+    if ([scanner scanString:@"-" intoString:NULL]) {
+        positive = NO;
+    }
+    
+    NSString *scannedDigits = nil;
+    [scanner scanUpToCharactersFromSet:forbiddenDigits intoString:&scannedDigits];
+    
+    if (positive) {        
+        return scannedDigits;
+    } else {
+        return [@"-" stringByAppendingString:scannedDigits ? scannedDigits : @""];
+    }
+}
+
++ (NSString *)convertInt:(int)someInt toBase:(int)someBase
+{
+    NSString *allowedDigitsString = [allDigits substringToIndex:someBase];
+    
+    NSMutableString *someMutableDigits = [NSMutableString stringWithString:@""];
+    if (someInt < 0) {
+        [someMutableDigits appendString:@"-"];
+    }
+    
+    int remainder = abs(someInt);
+    int maximumBasePower = floor([Digits log:remainder base:someBase]);
+    int power, quotient;
+    
+    for (int exponent = maximumBasePower; exponent > 0; exponent--) {
+        power = pow(someBase, exponent);
+        quotient = remainder / power;
+        remainder = remainder % power;
+        [someMutableDigits appendFormat:@"%C", [allowedDigitsString characterAtIndex:quotient]];
+    }
+    
+    [someMutableDigits appendFormat:@"%C", [allowedDigitsString characterAtIndex:remainder]];
+    
+    return [[[NSString stringWithString:someMutableDigits] copy] autorelease];    
+}
+
 - (int)intValue
 {
     int length = self.digits.length;
@@ -72,27 +122,8 @@ const NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 - (id)initWithInt:(int)someInt base:(int)someBase
 {
-    NSString *allowedDigitsString = [allDigits substringToIndex:someBase];
-
-    NSMutableString *someMutableDigits = [NSMutableString stringWithString:@""];
-    if (someInt < 0) {
-        [someMutableDigits appendString:@"-"];
-    }
-    
-    int remainder = abs(someInt);
-    int maximumBasePower = floor([Digits log:remainder base:someBase]);
-    int power, quotient;
-    
-    for (int exponent = maximumBasePower; exponent > 0; exponent--) {
-        power = pow(someBase, exponent);
-        quotient = remainder / power;
-        remainder = remainder % power;
-        [someMutableDigits appendFormat:@"%C", [allowedDigitsString characterAtIndex:quotient]];
-    }
-    
-    [someMutableDigits appendFormat:@"%C", [allowedDigitsString characterAtIndex:remainder]];
-        
-    self = [self initWithString:someMutableDigits base:someBase];
+    NSString *someDigits = [Digits convertInt:someInt toBase:someBase];
+    self = [self initWithString:someDigits base:someBase];
     return self;
 }
 

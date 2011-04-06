@@ -31,6 +31,8 @@
 @property (readonly) NSString *text;
 
 + (double)log:(double)operand base:(int)base;
++ (NSString *)parseDigits:(NSString *)someDigits fromBase:(int)someBase;
++ (NSString *)convertInt:(int)someInt toBase:(int)someBase;
 
 - (id)initWithInt:(int)someInt;
 - (id)initWithInt:(int)someInt base:(int)someBase;
