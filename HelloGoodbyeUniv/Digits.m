@@ -73,7 +73,7 @@ const NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 + (NSString *)convertInt:(int)someInt toBase:(int)someBase
 {
-    NSString *allowedDigitsString = [allDigits substringToIndex:someBase];
+    NSString *allowedDigits = [allDigits substringToIndex:someBase];
     
     NSMutableString *someMutableDigits = [NSMutableString stringWithString:@""];
     if (someInt < 0) {
@@ -88,10 +88,10 @@ const NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         power = pow(someBase, exponent);
         quotient = remainder / power;
         remainder = remainder % power;
-        [someMutableDigits appendFormat:@"%C", [allowedDigitsString characterAtIndex:quotient]];
+        [someMutableDigits appendFormat:@"%C", [allowedDigits characterAtIndex:quotient]];
     }
     
-    [someMutableDigits appendFormat:@"%C", [allowedDigitsString characterAtIndex:remainder]];
+    [someMutableDigits appendFormat:@"%C", [allowedDigits characterAtIndex:remainder]];
     
     return [[[NSString stringWithString:someMutableDigits] copy] autorelease];    
 }
@@ -148,28 +148,29 @@ const NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     return self;
 }
 
-- (id)initWithString:(NSString *)someString base:(int)base
+- (id)initWithString:(NSString *)someString base:(int)someBase
 {
     if (!someString) {
+        NSLog(@"someString must not be nil");
         return nil;
     }
 
-    if (!base || (base < 2)) {
+    if (!someBase || (someBase < 2)) {
+        NSLog(@"someBase must be greater than 1");
         return nil;
     }
     
     self = [super init];
     if (self) {
-        _base = base;
+        _base = someBase;
         _positive = YES;
 
-        _allowedDigits = [allDigits substringToIndex:base];
+        _allowedDigits = [allDigits substringToIndex:someBase];
         _allowedDigitSet = [NSCharacterSet characterSetWithCharactersInString:self.allowedDigits];
         _forbiddenDigitSet = [self.allowedDigitSet invertedSet];
         
-        int length = _allowedDigits.length;
         NSMutableDictionary *dict = [[[NSMutableDictionary alloc] init] autorelease];
-        for (int i = 0; i < length; i++) {
+        for (int i = 0; i < someBase; i++) {
             NSString *digit = [NSString stringWithFormat:@"%C", [self.allowedDigits characterAtIndex:i]];
             [dict setObject:[NSNumber numberWithInt:i] forKey:digit]; 
         }
@@ -207,7 +208,13 @@ const NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 - (void)pushDigit:(NSString *)digit
 {
-    if (!digit) {
+    if (!digit || (digit.length != 1)) {
+        NSLog(@"digit must be one single character");
+        return;
+    }
+    
+    if (![self.allowedDigitSet characterIsMember:[digit characterAtIndex:0]]) {
+        NSLog(@"digit '%@' is not an allowed digit", digit);
         return;
     }
     
@@ -261,8 +268,8 @@ const NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 - (Digits *)negate
 {
-    int result = -self.intValue;
-    return [[[Digits alloc] initWithInt:result base:self.base] autorelease];
+    _positive = !_positive;
+    return self;
 }
 
 - (Digits *)invert
