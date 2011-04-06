@@ -16,7 +16,7 @@
 + (NSString *)parseDigits:(NSString *)someDigits fromBase:(int)someBase
 {
     BOOL positive = YES;
-    NSString *allowedDigits = [[Digits allDigits] substringToIndex:someBase];
+    NSString *allowedDigits = [[[Digits allDigits] substringToIndex:someBase] stringByAppendingString:@"/"];
     NSCharacterSet *allowedDigitSet = [NSCharacterSet characterSetWithCharactersInString:allowedDigits];
     NSCharacterSet *forbiddenDigitSet = [allowedDigitSet invertedSet];
     
@@ -28,21 +28,12 @@
         [scanner scanString:@" " intoString:NULL];    
     }
     
-    NSString *numeratorDigits = nil;
-    [scanner scanUpToCharactersFromSet:forbiddenDigitSet intoString:&numeratorDigits];
+    NSString *unsignedDigits = nil;
+    [scanner scanUpToCharactersFromSet:forbiddenDigitSet intoString:&unsignedDigits];
     
-    NSString *denominatorDigits = nil;
-    [scanner scanString:@" " intoString:NULL];    
-    if ([scanner scanString:@"/" intoString:NULL]) {
-        [scanner scanString:@" " intoString:NULL];    
-        [scanner scanUpToCharactersFromSet:forbiddenDigitSet intoString:&denominatorDigits];
-    }
-
-    return [NSString stringWithFormat:@"%@%@%@%@"
+    return [NSString stringWithFormat:@"%@%@"
             , positive ? @"" : @"-"
-            , numeratorDigits ? numeratorDigits : @""
-            , denominatorDigits ? @"/" : @""
-            , denominatorDigits ? denominatorDigits : @""
+            , unsignedDigits ? unsignedDigits : @""
             ];
 }
 

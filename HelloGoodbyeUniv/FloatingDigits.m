@@ -13,6 +13,30 @@
 
 @synthesize fractionalDigits = _fractionalDigits;
 
++ (NSString *)parseDigits:(NSString *)someDigits fromBase:(int)someBase
+{
+    BOOL positive = YES;
+    NSString *allowedDigits = [[[Digits allDigits] substringToIndex:someBase] stringByAppendingString:@"."];
+    NSCharacterSet *allowedDigitSet = [NSCharacterSet characterSetWithCharactersInString:allowedDigits];
+    NSCharacterSet *forbiddenDigitSet = [allowedDigitSet invertedSet];
+    
+    NSScanner *scanner = [NSScanner scannerWithString:someDigits];
+    
+    [scanner scanString:@" " intoString:NULL];    
+    if ([scanner scanString:@"-" intoString:NULL]) {
+        positive = NO;
+        [scanner scanString:@" " intoString:NULL];    
+    }
+    
+    NSString *unsignedDigits = nil;
+    [scanner scanUpToCharactersFromSet:forbiddenDigitSet intoString:&unsignedDigits];
+    
+    return [NSString stringWithFormat:@"%@%@"
+            , positive ? @"" : @"-"
+            , unsignedDigits ? unsignedDigits : @""
+            ];
+}
+
 + (NSString *)convertDouble:(double)someDouble toBase:(int)someBase
 {
     return @"";
