@@ -13,12 +13,34 @@ const NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 @implementation Digits
 
 @synthesize base = _base;
-@synthesize allowedDigitsString = _allowedDigitsString;
 @synthesize allowedDigits = _allowedDigits;
-@synthesize forbiddenDigits = _forbiddenDigits;
+@synthesize allowedDigitSet = _allowedDigitSet;
+@synthesize forbiddenDigitSet = _forbiddenDigitSet;
 @synthesize digitValues = _digitValues;
 @synthesize positive = _positive;
 @synthesize digits = _digits;
+
++ (NSString *)allDigits
+{
+    return [[allDigits copy] autorelease];
+}
+
++ (NSString *)allowedDigitsForBase:(int)someBase
+{
+    return [[Digits allDigits] substringToIndex:someBase];
+}
+
++ (NSCharacterSet *)allowedDigitSetForBase:(int)someBase
+{
+    NSString *allowedDigits = [Digits allowedDigitsForBase:someBase];
+    NSCharacterSet *allowedDigitSet = [NSCharacterSet characterSetWithCharactersInString:allowedDigits];
+    return allowedDigitSet;
+}
+
++ (NSCharacterSet *)forbiddenDigitSetForBase:(int)someBase
+{
+    return [[Digits allowedDigitSetForBase:someBase] invertedSet];
+}
 
 + (double)log:(double)operand base:(int)base
 {
@@ -28,9 +50,9 @@ const NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 + (NSString *)parseDigits:(NSString *)someDigits fromBase:(int)someBase
 {
     BOOL positive = YES;
-    NSString *allowedDigitsString = [allDigits substringToIndex:someBase];
-    NSCharacterSet *allowedDigits = [NSCharacterSet characterSetWithCharactersInString:allowedDigitsString];
-    NSCharacterSet *forbiddenDigits = [allowedDigits invertedSet];
+    NSString *allowedDigits = [allDigits substringToIndex:someBase];
+    NSCharacterSet *allowedDigitSet = [NSCharacterSet characterSetWithCharactersInString:allowedDigits];
+    NSCharacterSet *forbiddenDigitSet = [allowedDigitSet invertedSet];
     
     NSScanner *scanner = [NSScanner scannerWithString:someDigits];
     
@@ -41,7 +63,7 @@ const NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     }
     
     NSString *scannedDigits = nil;
-    [scanner scanUpToCharactersFromSet:forbiddenDigits intoString:&scannedDigits];
+    [scanner scanUpToCharactersFromSet:forbiddenDigitSet intoString:&scannedDigits];
     
     if (positive) {        
         return scannedDigits;
@@ -142,14 +164,14 @@ const NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         _base = base;
         _positive = YES;
 
-        _allowedDigitsString = [allDigits substringToIndex:base];
-        _allowedDigits = [NSCharacterSet characterSetWithCharactersInString:self.allowedDigitsString];
-        _forbiddenDigits = [self.allowedDigits invertedSet];
+        _allowedDigits = [allDigits substringToIndex:base];
+        _allowedDigitSet = [NSCharacterSet characterSetWithCharactersInString:self.allowedDigits];
+        _forbiddenDigitSet = [self.allowedDigitSet invertedSet];
         
-        int length = _allowedDigitsString.length;
+        int length = _allowedDigits.length;
         NSMutableDictionary *dict = [[[NSMutableDictionary alloc] init] autorelease];
         for (int i = 0; i < length; i++) {
-            NSString *digit = [NSString stringWithFormat:@"%C", [self.allowedDigitsString characterAtIndex:i]];
+            NSString *digit = [NSString stringWithFormat:@"%C", [self.allowedDigits characterAtIndex:i]];
             [dict setObject:[NSNumber numberWithInt:i] forKey:digit]; 
         }
         _digitValues = [NSDictionary dictionaryWithDictionary:dict];
@@ -163,7 +185,7 @@ const NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         }
 
         NSString *scannedDigits = nil;
-        if ([scanner scanUpToCharactersFromSet:self.forbiddenDigits intoString:&scannedDigits]) {
+        if ([scanner scanUpToCharactersFromSet:self.forbiddenDigitSet intoString:&scannedDigits]) {
             self.digits = scannedDigits;
         } else {
             self.digits = @"";

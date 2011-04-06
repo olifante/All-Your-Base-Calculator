@@ -13,22 +13,27 @@
     int _base;
     BOOL _positive;
     NSString *_digits;
-    NSString *_allowedDigitsString;
-    NSCharacterSet *_allowedDigits;
-    NSCharacterSet *_forbiddenDigits;
+    NSString *_allowedDigits;
+    NSCharacterSet *_allowedDigitSet;
+    NSCharacterSet *_forbiddenDigitSet;
     NSDictionary *_digitValues;
 }
 
 @property (readonly) int base;
 @property (readonly) BOOL positive;
 @property (retain) NSString *digits;
-@property (readonly, retain) NSString *allowedDigitsString;
-@property (readonly, retain) NSCharacterSet *allowedDigits;
-@property (readonly, retain) NSCharacterSet *forbiddenDigits;
+@property (readonly, retain) NSString *allowedDigits;
+@property (readonly, retain) NSCharacterSet *allowedDigitSet;
+@property (readonly, retain) NSCharacterSet *forbiddenDigitSet;
 @property (readonly, retain) NSDictionary *digitValues;
 @property (readonly) int intValue;
 @property (readonly) NSNumber *value;
 @property (readonly) NSString *text;
+
++ (NSString *)allDigits;
++ (NSString *)allowedDigitsForBase:(int)someBase;
++ (NSCharacterSet *)allowedDigitSetForBase:(int)someBase;
++ (NSCharacterSet *)forbiddenDigitSetForBase:(int)someBase;
 
 + (double)log:(double)operand base:(int)base;
 + (NSString *)parseDigits:(NSString *)someDigits fromBase:(int)someBase;
