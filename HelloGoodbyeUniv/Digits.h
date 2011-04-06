@@ -30,7 +30,10 @@
 @property (readonly) NSNumber *value;
 @property (readonly) NSString *text;
 
-- (id)initWithInt:(int)someInt base:(int)base;
++ (double)log:(double)operand base:(int)base;
+
+- (id)initWithInt:(int)someInt;
+- (id)initWithInt:(int)someInt base:(int)someBase;
 - (id)initWithString:(NSString *)someString;
 - (id)initWithString:(NSString *)someString base:(int)someBase;
 - (void)pushDigit:(NSString *)digit;

@@ -8,7 +8,7 @@
 
 #import "Digits.h"
 
-const NSString *allDigits = @"0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+const NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 @implementation Digits
 
@@ -19,6 +19,11 @@ const NSString *allDigits = @"0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMN
 @synthesize digitValues = _digitValues;
 @synthesize positive = _positive;
 @synthesize digits = _digits;
+
++ (double)log:(double)operand base:(int)base
+{
+    return log(operand)/log(base);
+}
 
 - (int)intValue
 {
@@ -59,9 +64,36 @@ const NSString *allDigits = @"0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMN
     }
 }
 
-- (id)initWithInt:(int)someInt base:(int)base
+- (id)initWithInt:(int)someInt
 {
-    return nil;
+    self = [self initWithInt:someInt base:10];
+    return self;
+}
+
+- (id)initWithInt:(int)someInt base:(int)someBase
+{
+    NSString *allowedDigitsString = [allDigits substringToIndex:someBase];
+
+    NSMutableString *someMutableDigits = [NSMutableString stringWithString:@""];
+    if (someInt < 0) {
+        [someMutableDigits appendString:@"-"];
+    }
+    
+    int remainder = abs(someInt);
+    int maximumBasePower = floor([Digits log:remainder base:someBase]);
+    int power, quotient;
+    
+    for (int exponent = maximumBasePower; exponent > 0; exponent--) {
+        power = pow(someBase, exponent);
+        quotient = remainder / power;
+        remainder = remainder % power;
+        [someMutableDigits appendFormat:@"%C", [allowedDigitsString characterAtIndex:quotient]];
+    }
+    
+    [someMutableDigits appendFormat:@"%C", [allowedDigitsString characterAtIndex:remainder]];
+        
+    self = [self initWithString:someMutableDigits base:someBase];
+    return self;
 }
 
 - (id)initWithString:(NSString *)someString base:(int)base
