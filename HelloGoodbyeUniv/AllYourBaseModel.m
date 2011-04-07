@@ -152,25 +152,22 @@
         return;
     }
     
-    if (!self.currentDigits.unsignedDigits) {
-        if (self.currentOperation) {
-            self.currentOperation = nil;
-            // pressing another operation when no 2nd operand has been input cancels the pending operation
-        } else {
-            NSLog(@"No action - operations do nothing without a 2nd operand");
-            return;
-        }
-    }
-    
-    if (self.currentOperation) {
+    if (!self.currentDigits.unsignedDigits && !self.currentOperation) {
+        NSLog(@"No action - operations do nothing without a 2nd operand");
+    } else if (!self.currentDigits.unsignedDigits && self.currentOperation) {
+        self.currentOperation = operation;
+        // pressing another operation when no 2nd operand has been input cancels the pending operation
+    } else if (self.currentDigits.unsignedDigits && self.currentOperation) {
         [self performPendingOperation];
         self.previousDigits = self.resultDigits;
+        self.currentOperation = operation;
+        self.currentDigits = [[[Digits alloc] init] autorelease];
     } else { // no pending operation
         self.previousDigits = self.currentDigits;
+        self.currentOperation = operation;
+        self.currentDigits = [[[Digits alloc] init] autorelease];
     }
     
-    self.currentOperation = operation;
-    self.currentDigits = [[[Digits alloc] init] autorelease];
     [self updateDisplays];
 }
 
