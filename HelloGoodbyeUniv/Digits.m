@@ -12,13 +12,13 @@ const NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 @implementation Digits
 
-@synthesize base = _base;
-@synthesize allowedDigits = _allowedDigits;
-@synthesize allowedDigitSet = _allowedDigitSet;
-@synthesize forbiddenDigitSet = _forbiddenDigitSet;
-@synthesize digitValues = _digitValues;
-@synthesize positive = _positive;
-@synthesize digits = _digits;
+@synthesize base;
+@synthesize allowedDigits;
+@synthesize allowedDigitSet;
+@synthesize forbiddenDigitSet;
+@synthesize digitValues;
+@synthesize positive;
+@synthesize unsignedDigits;
 
 + (NSString *)allDigits
 {
@@ -98,13 +98,13 @@ const NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 - (int)intValue
 {
-    int length = self.digits.length;
+    int length = self.unsignedDigits.length;
     int accumulator = 0;
     int digitValue = 0;
     for (int i = 0; i < length; i++) {
-        NSString *digit = [NSString stringWithFormat:@"%C", [self.digits characterAtIndex:i]];
+        NSString *digit = [NSString stringWithFormat:@"%C", [self.unsignedDigits characterAtIndex:i]];
         digitValue = [[self.digitValues objectForKey:digit] intValue];
-        accumulator += digitValue * pow(_base, length - 1 - i);
+        accumulator += digitValue * pow(self.base, length - 1 - i);
     }
     
     if (self.positive) {
@@ -119,15 +119,15 @@ const NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     return [NSNumber numberWithInt:[self intValue]];    
 }
 
-- (NSString *)text
+- (NSString *)signedDigits
 {
-    if (self.digits) {
-        if ([self.digits isEqualToString:@""]) {
+    if (self.unsignedDigits) {
+        if ([self.unsignedDigits isEqualToString:@""]) {
             return @"0";
         } else {
             return [NSString stringWithFormat:@"%@%@", 
                     self.positive ? @"" : @"-", 
-                    self.digits];
+                    self.unsignedDigits];
         }
         
     } else {
@@ -162,33 +162,33 @@ const NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     
     self = [super init];
     if (self) {
-        _base = someBase;
-        _positive = YES;
+        self.base = someBase;
+        self.positive = YES;
 
-        _allowedDigits = [allDigits substringToIndex:someBase];
-        _allowedDigitSet = [NSCharacterSet characterSetWithCharactersInString:self.allowedDigits];
-        _forbiddenDigitSet = [self.allowedDigitSet invertedSet];
+        self.allowedDigits = [allDigits substringToIndex:someBase];
+        self.allowedDigitSet = [NSCharacterSet characterSetWithCharactersInString:self.allowedDigits];
+        self.forbiddenDigitSet = [self.allowedDigitSet invertedSet];
         
         NSMutableDictionary *dict = [[[NSMutableDictionary alloc] init] autorelease];
         for (int i = 0; i < someBase; i++) {
             NSString *digit = [NSString stringWithFormat:@"%C", [self.allowedDigits characterAtIndex:i]];
             [dict setObject:[NSNumber numberWithInt:i] forKey:digit]; 
         }
-        _digitValues = [NSDictionary dictionaryWithDictionary:dict];
+        self.digitValues = [NSDictionary dictionaryWithDictionary:dict];
 
         NSScanner *scanner = [NSScanner scannerWithString:someString];
         
         [scanner scanString:@" " intoString:NULL];
         if ([scanner scanString:@"-" intoString:NULL]) {
-            _positive = NO;
+            self.positive = NO;
             [scanner scanString:@" " intoString:NULL];
         }
 
-        NSString *unsignedDigits = nil;
-        if ([scanner scanUpToCharactersFromSet:self.forbiddenDigitSet intoString:&unsignedDigits]) {
-            self.digits = unsignedDigits;
+        NSString *someUnsignedDigits = nil;
+        if ([scanner scanUpToCharactersFromSet:self.forbiddenDigitSet intoString:&someUnsignedDigits]) {
+            self.unsignedDigits = someUnsignedDigits;
         } else {
-            self.digits = @"";
+            self.unsignedDigits = @"";
         }
     }
     return self;
@@ -218,26 +218,26 @@ const NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         return;
     }
     
-    if ([self.digits isEqualToString:@""]) {
+    if ([self.unsignedDigits isEqualToString:@""]) {
         if ([digit isEqualToString:@"0"]) {
             // do not add another zero to a lonely zero            
         } else {
-            self.digits = digit;
+            self.unsignedDigits = digit;
         }
     } else {
-        self.digits = [self.digits stringByAppendingString:digit];
+        self.unsignedDigits = [self.unsignedDigits stringByAppendingString:digit];
     }
 }
 
 - (NSString *)popDigit
 {
     NSString *lastDigit;
-    int length = self.digits.length;
+    int length = self.unsignedDigits.length;
     if (length < 1) {
         lastDigit = nil;
     } else {
-        lastDigit = [self.digits substringFromIndex:length - 1];
-        self.digits = [self.digits substringToIndex:length - 1];
+        lastDigit = [self.unsignedDigits substringFromIndex:length - 1];
+        self.unsignedDigits = [self.unsignedDigits substringToIndex:length - 1];
     }
     return lastDigit;
 }
@@ -268,7 +268,7 @@ const NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 - (Digits *)negate
 {
-    _positive = !_positive;
+    self.positive = !self.positive;
     return self;
 }
 

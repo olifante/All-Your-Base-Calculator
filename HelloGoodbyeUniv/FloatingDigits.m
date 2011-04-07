@@ -11,7 +11,7 @@
 
 @implementation FloatingDigits
 
-@synthesize fractionalDigits = _fractionalDigits;
+@synthesize fractionalDigits;
 
 + (NSString *)parseDigits:(NSString *)someDigits fromBase:(int)someBase
 {

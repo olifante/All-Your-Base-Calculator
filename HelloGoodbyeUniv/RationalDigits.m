@@ -11,7 +11,7 @@
 
 @implementation RationalDigits
 
-@synthesize denominatorDigits = _denominatorDigits;
+@synthesize denominatorDigits;
 
 + (NSString *)parseDigits:(NSString *)someDigits fromBase:(int)someBase
 {

@@ -10,25 +10,25 @@
 
 
 @interface Digits : NSObject {
-    int _base;
-    BOOL _positive;
-    NSString *_digits;
-    NSString *_allowedDigits;
-    NSCharacterSet *_allowedDigitSet;
-    NSCharacterSet *_forbiddenDigitSet;
-    NSDictionary *_digitValues;
+    int base;
+    BOOL positive;
+    NSString *unsignedDigits;
+    NSString *allowedDigits;
+    NSCharacterSet *allowedDigitSet;
+    NSCharacterSet *forbiddenDigitSet;
+    NSDictionary *digitValues;
 }
 
-@property (readonly) int base;
-@property (readonly) BOOL positive;
-@property (retain) NSString *digits;
-@property (readonly, retain) NSString *allowedDigits;
-@property (readonly, retain) NSCharacterSet *allowedDigitSet;
-@property (readonly, retain) NSCharacterSet *forbiddenDigitSet;
-@property (readonly, retain) NSDictionary *digitValues;
+@property int base;
+@property BOOL positive;
+@property (retain) NSString *unsignedDigits;
+@property (readonly) NSString *signedDigits;
+@property (retain) NSString *allowedDigits;
+@property (retain) NSCharacterSet *allowedDigitSet;
+@property (retain) NSCharacterSet *forbiddenDigitSet;
+@property (retain) NSDictionary *digitValues;
 @property (readonly) int intValue;
 @property (readonly) NSNumber *value;
-@property (readonly) NSString *text;
 
 + (NSString *)allDigits;
 + (NSString *)allowedDigitsForBase:(int)someBase;

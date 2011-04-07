@@ -37,10 +37,10 @@
     
     NSString *actual, *expected;
     
-    actual = digits.digits, expected = @"";
+    actual = digits.unsignedDigits, expected = @"";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
     
-    actual = digits.text, expected = @"0";
+    actual = digits.signedDigits, expected = @"0";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
@@ -64,10 +64,10 @@
     
     NSString *actual, *expected;
     
-    actual = digits.digits, expected = @"123";
+    actual = digits.unsignedDigits, expected = @"123";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
     
-    actual = digits.text, expected = @"123";
+    actual = digits.signedDigits, expected = @"123";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
@@ -81,10 +81,10 @@
     
     NSString *actual, *expected;
     
-    actual = digits.digits, expected = @"12";
+    actual = digits.unsignedDigits, expected = @"12";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
     
-    actual = digits.text, expected = @"-12";
+    actual = digits.signedDigits, expected = @"-12";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
@@ -98,10 +98,10 @@
     
     NSString *actual, *expected;
     
-    actual = digits.digits, expected = @"1234567890";
+    actual = digits.unsignedDigits, expected = @"1234567890";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
     
-    actual = digits.text, expected = @"1234567890";
+    actual = digits.signedDigits, expected = @"1234567890";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
@@ -115,10 +115,10 @@
     
     NSString *actual, *expected;
     
-    actual = digits.digits, expected = @"1234567890";
+    actual = digits.unsignedDigits, expected = @"1234567890";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
     
-    actual = digits.text, expected = @"1234567890";
+    actual = digits.signedDigits, expected = @"1234567890";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
@@ -132,10 +132,10 @@
     
     NSString *actual, *expected;
     
-    actual = digits.digits, expected = @"123";
+    actual = digits.unsignedDigits, expected = @"123";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
     
-    actual = digits.text, expected = @"-123";
+    actual = digits.signedDigits, expected = @"-123";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
@@ -151,10 +151,10 @@
     
     NSString *actual, *expected;
     
-    actual = digits.digits, expected = @"";
+    actual = digits.unsignedDigits, expected = @"";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
     
-    actual = digits.text, expected = @"0";
+    actual = digits.signedDigits, expected = @"0";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
@@ -170,10 +170,10 @@
     
     NSString *actual, *expected;
     
-    actual = digits.digits, expected = @"1";
+    actual = digits.unsignedDigits, expected = @"1";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
     
-    actual = digits.text, expected = @"1";
+    actual = digits.signedDigits, expected = @"1";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
@@ -191,10 +191,10 @@
     
     NSString *actual, *expected;
     
-    actual = digits.digits, expected = @"123";
+    actual = digits.unsignedDigits, expected = @"123";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
     
-    actual = digits.text, expected = @"123";
+    actual = digits.signedDigits, expected = @"123";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
@@ -210,10 +210,10 @@
     
     NSString *actual, *expected;
     
-    actual = digits.digits, expected = @"";
+    actual = digits.unsignedDigits, expected = @"";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
     
-    actual = digits.text, expected = @"0";
+    actual = digits.signedDigits, expected = @"0";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
@@ -230,10 +230,10 @@
     
     NSString *actual, *expected;
     
-    actual = digits.digits, expected = @"1";
+    actual = digits.unsignedDigits, expected = @"1";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
     
-    actual = digits.text, expected = @"1";
+    actual = digits.signedDigits, expected = @"1";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
@@ -252,10 +252,10 @@
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
     STAssertTrue(digits.intValue == 0, @"'%@' should be equal to '%d'", digits.intValue, 1);
         
-    actual = digits.digits, expected = @"";
+    actual = digits.unsignedDigits, expected = @"";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
     
-    actual = digits.text, expected = @"0";
+    actual = digits.signedDigits, expected = @"0";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
@@ -276,10 +276,10 @@
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
     STAssertTrue(digits.intValue == 12, @"'%d' should be equal to '%d'", digits.intValue, 12);
     
-    actual = digits.digits, expected = @"12";
+    actual = digits.unsignedDigits, expected = @"12";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
     
-    actual = digits.text, expected = @"12";
+    actual = digits.signedDigits, expected = @"12";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
@@ -293,10 +293,10 @@
     
     NSString *actual, *expected;
     
-    actual = digits.digits, expected = @"1234567890";
+    actual = digits.unsignedDigits, expected = @"1234567890";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
     
-    actual = digits.text, expected = @"1234567890";
+    actual = digits.signedDigits, expected = @"1234567890";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
@@ -310,10 +310,10 @@
     
     NSString *actual, *expected;
     
-    actual = digits.digits, expected = @"1234567890";
+    actual = digits.unsignedDigits, expected = @"1234567890";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
     
-    actual = digits.text, expected = @"-1234567890";
+    actual = digits.signedDigits, expected = @"-1234567890";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
@@ -327,10 +327,10 @@
     
     NSString *actual, *expected;
     
-    actual = digits.digits, expected = @"1001001100101100000001011010010";
+    actual = digits.unsignedDigits, expected = @"1001001100101100000001011010010";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
     
-    actual = digits.text, expected = @"1001001100101100000001011010010";
+    actual = digits.signedDigits, expected = @"1001001100101100000001011010010";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
@@ -344,10 +344,10 @@
     
     NSString *actual, *expected;
     
-    actual = digits.digits, expected = @"1001001100101100000001011010010";
+    actual = digits.unsignedDigits, expected = @"1001001100101100000001011010010";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
     
-    actual = digits.text, expected = @"1001001100101100000001011010010";
+    actual = digits.signedDigits, expected = @"1001001100101100000001011010010";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
@@ -361,10 +361,10 @@
     
     NSString *actual, *expected;
     
-    actual = digits.digits, expected = @"11145401322";
+    actual = digits.unsignedDigits, expected = @"11145401322";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
     
-    actual = digits.text, expected = @"11145401322";
+    actual = digits.signedDigits, expected = @"11145401322";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
@@ -378,10 +378,10 @@
     
     NSString *actual, *expected;
     
-    actual = digits.digits, expected = @"11145401322";
+    actual = digits.unsignedDigits, expected = @"11145401322";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
     
-    actual = digits.text, expected = @"11145401322";
+    actual = digits.signedDigits, expected = @"11145401322";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
@@ -395,10 +395,10 @@
     
     NSString *actual, *expected;
     
-    actual = digits.digits, expected = @"499602D2";
+    actual = digits.unsignedDigits, expected = @"499602D2";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
     
-    actual = digits.text, expected = @"499602D2";
+    actual = digits.signedDigits, expected = @"499602D2";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
@@ -412,10 +412,10 @@
     
     NSString *actual, *expected;
     
-    actual = digits.digits, expected = @"499602D2";
+    actual = digits.unsignedDigits, expected = @"499602D2";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
     
-    actual = digits.text, expected = @"499602D2";
+    actual = digits.signedDigits, expected = @"499602D2";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
@@ -429,10 +429,10 @@
     
     NSString *actual, *expected;
     
-    actual = digits.digits, expected = @"499602D2";
+    actual = digits.unsignedDigits, expected = @"499602D2";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
     
-    actual = digits.text, expected = @"-499602D2";
+    actual = digits.signedDigits, expected = @"-499602D2";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
@@ -446,10 +446,10 @@
     
     NSString *actual, *expected;
     
-    actual = digits.digits, expected = @"499602D2";
+    actual = digits.unsignedDigits, expected = @"499602D2";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
     
-    actual = digits.text, expected = @"-499602D2";
+    actual = digits.signedDigits, expected = @"-499602D2";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
