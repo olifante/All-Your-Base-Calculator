@@ -45,7 +45,7 @@
     NSString *secondOperand = @"";
     
     if (self.currentOperation) {
-        firstOperand = self.previousDigits.signedDigits;
+        firstOperand = self.previousDigits.description;
         paddedOperation = [NSString stringWithFormat:@" %@ ", self.currentOperation];
         secondOperand = self.currentDigits.description;  
     } else {
@@ -132,6 +132,7 @@
 {
     if (self.error) {
         [self releaseMembers];
+        NSLog(@"cleaned up after pressing digit in an erroneous state");
     }
     
     if (self.previousOperation) {
@@ -147,11 +148,13 @@
 - (void)binaryOperationPressed:(NSString *)operation
 {
     if (self.error) {
-        return; // do nothing if in erroneous state
+        NSLog(@"No action - operations do nothing after error");
+        return;
     }
     
     if (!self.currentDigits.unsignedDigits) {
-        return; // do nothing if no 2nd operand has been input
+        NSLog(@"No action - operations do nothing without a 2nd operand");
+        return;
     }
     
     if (self.currentOperation) {
@@ -169,17 +172,21 @@
 - (void)resultPressed
 {
     if (self.error) {
-        return; // do nothing if in erroneous state
+        NSLog(@"No action - result does nothing after error");
+        return;
     }
     
-    if (!self.currentDigits.unsignedDigits) {
-        return; // do nothing if no 2nd operand has been input
-    }
-
     if (self.currentOperation) {
+        if (!self.currentDigits.unsignedDigits) {
+            NSLog(@"No action - operation cannot be performed without a 2nd operand");
+            return;
+        }
         [self performPendingOperation];
         self.currentDigits = self.resultDigits;
     } else {
+        if (!self.currentDigits.unsignedDigits) {
+            self.currentDigits.unsignedDigits = @"";            
+        }
         self.previousExpression = self.currentDigits.description;
         self.resultDigits = self.currentDigits;
         self.previousOperation = @"=";
@@ -193,11 +200,13 @@
 {
     if (self.error) {
         [self releaseMembers];
-        return; // clean up and do nothing if in erroneous state
+        NSLog(@"cleaned up after pressing delete in an erroneous state");
+        return;
     }
     
     if (self.previousOperation) {
-        return; // do not allow results of previous operation to be modified
+        NSLog(@"No action - delete does not alter calculation results");
+        return;
     }
     
     NSString *originalDigits = self.currentDigits.signedDigits;
