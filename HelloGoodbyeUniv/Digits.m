@@ -242,6 +242,11 @@ const NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         return; // early return because the rest of the method is meaningless with bad input
     }
     
+    if (([self.unsignedDigits rangeOfString:@"."].length > 0) && [digit isEqualToString:@"."]) {
+        NSLog(@"digit '%@' already present in unsigned digits '%@'", digit, self.unsignedDigits);
+        return; // early return because the rest of the method is meaningless with bad input
+    }
+    
     if (!self.unsignedDigits) {
         self.unsignedDigits = @"";
     }

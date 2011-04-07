@@ -205,6 +205,29 @@
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
+- (void)testPointPoint {
+    Digits *digits = [[[Digits alloc] init] retain];
+    STAssertNotNil(digits, @"Cannot create Digits instance");
+    
+    [digits pushDigit:@"."];
+    [digits pushDigit:@"."];
+    
+    STAssertTrue(digits.positive == YES, @"should be positive by default");
+    STAssertTrue(digits.base == 10, @"should use decimal base by default");
+    STAssertTrue(digits.intValue == 0, @"'%d' should be equal to '%d'", digits.intValue, 0);
+    
+    NSString *actual, *expected;
+    
+    actual = digits.unsignedDigits, expected = @".";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+    
+    actual = digits.signedDigits, expected = @".";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+    
+    actual = digits.description, expected = @"0.";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+}
+
 - (void)testPoint3 {
     Digits *digits = [[[Digits alloc] init] retain];
     STAssertNotNil(digits, @"Cannot create Digits instance");
