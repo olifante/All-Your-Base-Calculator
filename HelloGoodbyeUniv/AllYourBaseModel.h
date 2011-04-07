@@ -11,23 +11,23 @@
 
 
 @interface AllYourBaseModel : NSObject {
-    BOOL _error;
-    Digits *_previousDigits;
-    Digits *_currentDigits;
-    Digits *_resultDigits;
-    NSString *_currentOperation;
-    NSString *_previousOperation;    
-    NSString *_previousExpression;
-    NSString *_previousDisplay;
-    NSString *_currentDisplay;
+    BOOL error;
+    Digits *currentDigits;
+    Digits *previousDigits;
+    Digits *resultDigits;
+    NSString *currentOperation;
+    NSString *previousOperation;    
+    NSString *previousExpression;
+    NSString *previousDisplay;
+    NSString *currentDisplay;
 }
 
 @property BOOL error;
-@property (nonatomic, retain) Digits *previousDigits;
 @property (nonatomic, retain) Digits *currentDigits;
+@property (nonatomic, retain) Digits *previousDigits;
 @property (nonatomic, retain) Digits *resultDigits;
-@property (nonatomic, retain) NSString *previousOperation;
 @property (nonatomic, retain) NSString *currentOperation;
+@property (nonatomic, retain) NSString *previousOperation;
 @property (nonatomic, retain) NSString *previousExpression;
 @property (nonatomic, retain) NSString *mainDisplay;
 @property (nonatomic, retain) NSString *secondaryDisplay;
@@ -38,6 +38,7 @@
 - (void)digitPressed:(NSString *)digit;
 - (void)binaryOperationPressed:(NSString *)operation;
 - (void)resultPressed;
+- (void)cleanPressed;
 - (void)deletePressed;
 - (void)negatePressed;
 - (void)shiftLeftPressed;
