@@ -39,6 +39,7 @@
 + (NSString *)parseDigits:(NSString *)someDigits fromBase:(int)someBase;
 + (NSString *)convertInt:(int)someInt toBase:(int)someBase;
 
+- (NSString *)description;
 - (id)initWithInt:(int)someInt;
 - (id)initWithInt:(int)someInt base:(int)someBase;
 - (id)initWithString:(NSString *)someString;

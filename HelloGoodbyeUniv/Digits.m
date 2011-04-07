@@ -123,7 +123,7 @@ const NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 {
     if (self.unsignedDigits) {
         if ([self.unsignedDigits isEqualToString:@""]) {
-            return @"0";
+            return @"";
         } else {
             return [NSString stringWithFormat:@"%@%@", 
                     self.positive ? @"" : @"-", 
@@ -132,6 +132,15 @@ const NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         
     } else {
         return nil;
+    }
+}
+
+- (NSString *)description
+{
+    if (self.signedDigits) {
+        return [self.signedDigits isEqual:@""] ? @"0" : self.signedDigits;
+    } else {
+        return @"";
     }
 }
 
@@ -188,7 +197,7 @@ const NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         if ([scanner scanUpToCharactersFromSet:self.forbiddenDigitSet intoString:&someUnsignedDigits]) {
             self.unsignedDigits = someUnsignedDigits;
         } else {
-            self.unsignedDigits = @"";
+            self.unsignedDigits = nil;
         }
     }
     return self;
@@ -216,6 +225,10 @@ const NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     if (![self.allowedDigitSet characterIsMember:[digit characterAtIndex:0]]) {
         NSLog(@"digit '%@' is not an allowed digit", digit);
         return;
+    }
+    
+    if (!self.unsignedDigits) {
+        self.unsignedDigits = @"";
     }
     
     if ([self.unsignedDigits isEqualToString:@""]) {
