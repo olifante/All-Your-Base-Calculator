@@ -17,9 +17,9 @@
 @synthesize currentOperation = _currentOperation;
 @synthesize previousOperation = _previousOperation;
 @synthesize previousExpression = _previousExpression;
-@synthesize result = _result;
-@synthesize previousDisplay = _previousDisplay;
-@synthesize currentDisplay = _currentDisplay;
+@synthesize resultDigits = _resultDigits;
+@synthesize secondaryDisplay = _previousDisplay;
+@synthesize mainDisplay = _currentDisplay;
 
 - (id)init
 {
@@ -36,7 +36,7 @@
 - (void)updateCurrentDisplay
 {
     if (self.error) {
-        self.currentDisplay = [NSString stringWithFormat:@"= %@", self.result];
+        self.mainDisplay = [NSString stringWithFormat:@"= %@", self.resultDigits];
         return; // early return if in erroneous state
     }
     
@@ -45,14 +45,14 @@
     NSString *second = @"";
 
     if (self.currentOperation) {
-        first = self.previousDigits.text;
+        first = self.previousDigits.signedDigits;
         operation = [NSString stringWithFormat:@" %@ ", self.currentOperation];
-        second = self.currentDigits.text;  
+        second = self.currentDigits.signedDigits;  
     } else {
-        second = self.currentDigits.text;
+        second = self.currentDigits.signedDigits;
     }
 
-    NSString *oldDisplay = self.currentDisplay;
+    NSString *oldDisplay = self.mainDisplay;
     NSString *newDisplay = [NSString stringWithFormat:
                             @"%@%@%@%@"
                             , self.previousOperation ? @"= " : @""
@@ -61,14 +61,14 @@
                             , second ? second : @""
                             ];
     if (![oldDisplay isEqualToString:newDisplay]) {
-        self.currentDisplay = newDisplay;
+        self.mainDisplay = newDisplay;
     }
 }
 
 - (void)updatePreviousDisplay
 {
     if (self.error) {
-        self.previousDisplay = self.previousExpression;
+        self.secondaryDisplay = self.previousExpression;
         return; // early return if in erroneous state
     }
 
@@ -80,14 +80,14 @@
         value = nil;
     }
     
-    NSString *oldDisplay = self.previousDisplay;
+    NSString *oldDisplay = self.secondaryDisplay;
     NSString *newDisplay = [NSString stringWithFormat:
                             @"%@"
                             , value ? value : @""
                             ];
     
     if (![oldDisplay isEqualToString:newDisplay]) {
-        self.previousDisplay = newDisplay;
+        self.secondaryDisplay = newDisplay;
     }
 }
 
@@ -97,46 +97,40 @@
     [self updateCurrentDisplay];
 }
 
-- (double)previousValue
-{
-    return [self.previousDigits.value doubleValue];
-}
-
-- (double)currentValue
-{
-    return [self.currentDigits.value doubleValue];
-}
-
 - (void)performPendingOperation
 {
-    double resultValue;
+    Digits *resultDigits;
     BOOL knownOperation = YES;
     
     if ([self.currentOperation isEqualToString:@"+"]) {
-        resultValue = self.previousValue + self.currentValue;
+        resultDigits = [self.previousDigits plus:self.currentDigits];
     } else if ([self.currentOperation isEqualToString:@"-"]) {
-        resultValue = self.previousValue - self.currentValue;
+        resultDigits = [self.previousDigits minus:self.currentDigits];
     } else if ([self.currentOperation isEqualToString:@"×"]) {
-        resultValue = self.previousValue * self.currentValue;
+        resultDigits = [self.previousDigits times:self.currentDigits];
     } else if ([self.currentOperation isEqualToString:@"÷"]) {
-        resultValue = self.previousValue / self.currentValue;
+        resultDigits = [self.previousDigits divide:self.currentDigits];
     } else if ([self.currentOperation isEqualToString:@"^"]) {
-        resultValue = pow(self.previousValue, self.currentValue);
+        resultDigits = [self.previousDigits power:self.currentDigits];
     } else {
         knownOperation = NO;
     }
     
     if (knownOperation) {
-        if (isnan(resultValue)) {
-            self.result = @"(undefined)";
+        if (isnan([resultDigits.value doubleValue])) {
+            self.resultDigits.unsignedDigits = @"(undefined)";
             self.error = YES;
-        } else if (isinf(resultValue)) {
-            self.result = @"(infinity)";
+        } else if (isinf([resultDigits.value doubleValue])) {
+            self.resultDigits.unsignedDigits = @"(infinity)";
             self.error = YES;
         } else {
-            self.result = [NSString stringWithFormat:@"%g", resultValue];
+            self.resultDigits = resultDigits;
         }
-        self.previousExpression = [NSString stringWithFormat:@"%g %@ %g", self.previousValue, self.currentOperation, self.currentValue];
+        self.previousExpression = [NSString stringWithFormat:@"%g %@ %g"
+                                   , [self.previousDigits.value doubleValue]
+                                   , self.currentOperation
+                                   , [self.currentDigits.value doubleValue]
+                                   ];
         self.previousOperation = self.currentOperation;
         self.currentOperation = nil;
     }
@@ -158,30 +152,25 @@
     [self updateDisplays];
 }
 
-- (void)periodPressed
-{
-    
-}
-
 - (void)binaryOperationPressed:(NSString *)operation
 {
     if (self.error) {
         return; // do nothing if in erroneous state
     }
     
-    if (!self.currentDigits) {
+    if (!self.currentDigits.unsignedDigits) {
         return; // do nothing if no 2nd operand has been input
     }
     
     if (self.currentOperation) {
         [self performPendingOperation];
-        self.previousDigits = self.result;
+        self.previousDigits = self.resultDigits;
     } else { // no pending operation
-        self.previousDigits = self.currentDigits ? self.currentDigits : @"0";
+        self.previousDigits = self.currentDigits;
     }
     
     self.currentOperation = operation;
-    self.currentDigits = nil;
+    self.currentDigits = [[[Digits alloc] init] autorelease];
     [self updateDisplays];
 }
 
@@ -197,15 +186,14 @@
 
     if (self.currentOperation) {
         [self performPendingOperation];
-        self.currentDigits = self.result;
+        self.currentDigits = self.resultDigits;
     } else {
-        self.previousExpression = [NSString stringWithFormat:@"%@", self.currentDigits.text];
-        self.result = [NSString stringWithFormat:@"%@", self.currentDigits.vale ];
-        self.currentDigits = self.result;
+        self.previousExpression = self.currentDigits.signedDigits;
+        self.resultDigits = self.currentDigits;
         self.previousOperation = @"=";
         self.currentOperation = nil;
     }
-    self.previousDigits = nil;
+    self.previousDigits = [[[Digits alloc] init] autorelease];
     [self updateDisplays];
 }
 
@@ -220,19 +208,9 @@
         return; // do not allow results of previous operation to be modified
     }
     
-    NSString *newDigits;
-    if (self.currentDigits) {
-        if ([self.currentDigits length] > 1) {
-            newDigits = [self.currentDigits substringToIndex:([self.currentDigits length] - 1)];
-        } else if ([self.currentDigits isEqualToString:@"0"]) {
-            newDigits = @"0";
-        } else {
-            newDigits = nil;
-        }
-        
-        self.currentDigits = newDigits;
-        [self updateDisplays];
-    }
+    NSString *originalDigits = self.currentDigits.signedDigits;
+    NSString *poppedDigit = [self.currentDigits popDigit];
+    NSLog(@"popped digit '%@' from digits '%@'", poppedDigit, originalDigits);
 }
 
 - (void)negatePressed
@@ -262,28 +240,28 @@
 
 - (void)cleanPressed
 {
-    self.previousDisplay = nil;
-    self.currentDisplay = nil;
     self.previousDigits = [[[Digits alloc] init] autorelease];
     self.currentDigits = [[[Digits alloc] init] autorelease];
+    self.resultDigits = [[[Digits alloc] init] autorelease];
+    self.secondaryDisplay = nil;
+    self.mainDisplay = nil;
     self.currentOperation = nil;
     self.previousOperation = nil;
     self.previousExpression = nil;
-    self.result = nil;
     self.error = NO;
     [self updateDisplays];
 }
 
 - (void)releaseMembers
 {
-    self.previousDisplay = nil;
-    self.currentDisplay = nil;
     self.previousDigits = nil;
     self.currentDigits = nil;
+    self.resultDigits = nil;
+    self.secondaryDisplay = nil;
+    self.mainDisplay = nil;
     self.currentOperation = nil;
     self.previousOperation = nil;
     self.previousExpression = nil;
-    self.result = nil;
 }
 
 - (void)dealloc

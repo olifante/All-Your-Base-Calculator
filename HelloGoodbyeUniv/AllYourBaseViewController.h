@@ -27,7 +27,6 @@
 
 - (IBAction)digitPressed:(UIButton *)sender;
 - (IBAction)operationPressed:(UIButton *)sender;
-- (IBAction)periodPressed;
 - (IBAction)resultPressed;
 - (IBAction)deletePressed;
 - (IBAction)cleanPressed;

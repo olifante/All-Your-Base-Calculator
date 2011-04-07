@@ -20,15 +20,15 @@
 
 -(void)updateLabels
 {
-    self.previousDisplayLabel.text = self.model.previousDisplay;
-    self.currentDisplayLabel.text = self.model.currentDisplay;
+    self.previousDisplayLabel.text = self.model.secondaryDisplay;
+    self.currentDisplayLabel.text = self.model.mainDisplay;
     
-    self.previousDigitsLabel.text = self.model.previousDigits.text;
-    self.currentDigitsLabel.text = self.model.currentDigits.text;
+    self.previousDigitsLabel.text = self.model.previousDigits.signedDigits;
+    self.currentDigitsLabel.text = self.model.currentDigits.signedDigits;
     self.currentOperationLabel.text = self.model.currentOperation;
     self.previousOperationLabel.text = self.model.previousOperation;
     self.previousExpressionLabel.text = self.model.previousExpression;
-    self.resultLabel.text = self.model.result;
+    self.resultLabel.text = self.model.resultDigits.signedDigits;
 }
 
 - (IBAction)digitPressed:(UIButton *)sender
@@ -43,11 +43,6 @@
     NSString *operation = sender.titleLabel.text;
     NSLog(@"%@ operation pressed", operation);
     [self.model binaryOperationPressed:operation];
-}
-
-- (IBAction)periodPressed
-{
-    [self.model periodPressed];
 }
 
 - (IBAction)resultPressed
