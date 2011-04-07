@@ -246,6 +246,46 @@
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
+- (void)testPop {
+    Digits *digits = [[[Digits alloc] init] retain];
+    STAssertNotNil(digits, @"Cannot create Digits instance");
+    
+    NSString *actual, *expected;
+    
+    actual = [digits popDigit];
+    STAssertNil(actual, @"'%@' shoud be nil", actual);
+    
+    actual = digits.unsignedDigits;
+    STAssertNil(actual, @"'%@' shoud be nil", actual);
+    
+    actual = digits.signedDigits;
+    STAssertNil(actual, @"'%@' shoud be nil", actual);
+    
+    actual = digits.description, expected = @"";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+}
+
+- (void)testPush0Pop {
+    Digits *digits = [[[Digits alloc] init] retain];
+    STAssertNotNil(digits, @"Cannot create Digits instance");
+    
+    [digits pushDigit:@"0"];
+        
+    NSString *actual, *expected;
+    
+    actual = [digits popDigit], expected = @"";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+
+    actual = digits.unsignedDigits;
+    STAssertNil(actual, @"'%@' shoud be nil", actual);
+    
+    actual = digits.signedDigits;
+    STAssertNil(actual, @"'%@' shoud be nil", actual);
+    
+    actual = digits.description, expected = @"";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+}
+
 - (void)testPush1Pop {
     Digits *digits = [[[Digits alloc] init] retain];
     STAssertNotNil(digits, @"Cannot create Digits instance");
@@ -261,10 +301,38 @@
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
     STAssertTrue(digits.intValue == 0, @"'%@' should be equal to '%d'", digits.intValue, 1);
         
-    actual = digits.unsignedDigits, expected = @"";
-    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+    actual = digits.unsignedDigits;
+    STAssertNil(actual, @"'%@' shoud be nil", actual);
     
-    actual = digits.signedDigits, expected = @"";
+    actual = digits.signedDigits;
+    STAssertNil(actual, @"'%@' shoud be nil", actual);
+
+    actual = digits.description, expected = @"";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+}
+
+- (void)testPushMinusPop {
+    Digits *digits = [[[Digits alloc] init] retain];
+    STAssertNotNil(digits, @"Cannot create Digits instance");
+    STAssertTrue(digits.positive == YES, @"should be positive by default");
+    
+    [digits negate];
+
+    STAssertTrue(digits.positive == NO, @"should be positive by default");
+
+    NSString *actual, *expected;
+    
+    actual = [digits popDigit];
+    STAssertTrue(digits.positive == YES, @"should be positive by default");
+    STAssertNil(actual, @"'%@' shoud be nil", actual);
+    
+    actual = digits.unsignedDigits;
+    STAssertNil(actual, @"'%@' shoud be nil", actual);
+    
+    actual = digits.signedDigits;
+    STAssertNil(actual, @"'%@' shoud be nil", actual);
+    
+    actual = digits.description, expected = @"";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 

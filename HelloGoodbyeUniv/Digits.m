@@ -93,7 +93,7 @@ const NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     
     [someMutableDigits appendFormat:@"%C", [allowedDigits characterAtIndex:remainder]];
     
-    return [[[NSString stringWithString:someMutableDigits] copy] autorelease];    
+    return [NSString stringWithString:someMutableDigits];    
 }
 
 - (int)intValue
@@ -146,7 +146,7 @@ const NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     } else {
         result = @"";
     }
-    return result;
+    return result; // TODO should this be autoreleased?
 }
 
 - (id)initWithInt:(int)someInt
@@ -251,13 +251,25 @@ const NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 {
     NSString *lastDigit;
     int length = self.unsignedDigits.length;
-    if (length < 1) {
+    
+    if (self.unsignedDigits) {
+        if (length == 0) {
+            lastDigit = @"";
+            self.unsignedDigits = nil;
+        } else if (length == 1) {
+            lastDigit = self.unsignedDigits;
+            self.unsignedDigits = nil;
+        } else {
+            lastDigit = [self.unsignedDigits substringFromIndex:length - 1];
+            self.unsignedDigits = [self.unsignedDigits substringToIndex:length - 1];
+        }
+    } else if (!self.positive) {
+        self.positive = !self.positive;
         lastDigit = nil;
     } else {
-        lastDigit = [self.unsignedDigits substringFromIndex:length - 1];
-        self.unsignedDigits = [self.unsignedDigits substringToIndex:length - 1];
+        lastDigit = nil;
     }
-    return lastDigit;
+    return lastDigit; // TODO should this be autoreleased?
 }
 
 - (Digits *)plus:(Digits *)secondOperand
