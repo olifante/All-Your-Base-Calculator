@@ -99,7 +99,13 @@ const NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 - (int)intValue
 {
     int result;
-    int length = self.unsignedDigits.length;
+    int length;
+    NSRange point = [self.unsignedDigits rangeOfString:@"."];
+    if (point.length > 0) {
+        length = point.location;
+    } else {
+        length = self.unsignedDigits.length;
+    }
     int accumulator = 0;
     int digitValue = 0;
     for (int i = 0; i < length; i++) {
@@ -179,7 +185,7 @@ const NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         self.base = someBase;
         self.positive = YES;
 
-        self.allowedDigits = [allDigits substringToIndex:someBase];
+        self.allowedDigits = [[allDigits substringToIndex:someBase] stringByAppendingString:@"."];
         self.allowedDigitSet = [NSCharacterSet characterSetWithCharactersInString:self.allowedDigits];
         self.forbiddenDigitSet = [self.allowedDigitSet invertedSet];
         
@@ -297,12 +303,6 @@ const NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     return [[[Digits alloc] initWithInt:result base:self.base] autorelease];
 }
 
-- (void)negate
-{
-    self.positive = !self.positive;
-    return;
-}
-
 - (Digits *)invert
 {
     int result = 1 / self.intValue;
@@ -313,6 +313,12 @@ const NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 {
     int result = pow(self.intValue, secondOperand.intValue);
     return [[[Digits alloc] initWithInt:result base:self.base] autorelease];
+}
+
+- (void)negate
+{
+    self.positive = !self.positive;
+    return;
 }
 
 @end
