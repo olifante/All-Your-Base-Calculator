@@ -35,7 +35,11 @@
 {
     NSString *digit = sender.titleLabel.text;
     NSLog(@"%@ digit pressed", digit);
-    [self.model digitPressed:digit];
+    if ([digit isEqualToString:@"∙"]) {
+        [self.model digitPressed:@"."];
+    } else {
+        [self.model digitPressed:digit];
+    }
 }
 
 - (IBAction)operationPressed:(UIButton *)sender
