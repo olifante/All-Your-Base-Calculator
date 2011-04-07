@@ -176,23 +176,53 @@
         return;
     }
     
-    if (self.currentOperation) {
-        if (!self.currentDigits.unsignedDigits) {
-            NSLog(@"No action - operation cannot be performed without a 2nd operand");
-            return;
-        }
+//    if (!self.currentDigits.unsignedDigits) {
+//        NSLog(@"No action - operation cannot be performed without a 2nd operand");
+//        return;
+//    }
+
+    if (self.currentOperation && self.currentDigits.unsignedDigits) {
+        NSLog(@"############### path0");
         [self performPendingOperation];
         self.currentDigits = self.resultDigits;
-    } else {
-        if (!self.currentDigits.unsignedDigits) {
-            self.currentDigits.unsignedDigits = @"";            
-        }
-        self.previousExpression = self.currentDigits.description;
+        self.previousDigits = nil;
+    } else if (self.currentOperation && !self.currentDigits.unsignedDigits) {
+        NSLog(@"No action - operation cannot be performed without a 2nd operand");
+        NSLog(@"############### path1"); // test1PlusResult
+        // do nothing
+    } else if (!self.currentOperation && !self.currentDigits.unsignedDigits && self.currentDigits.positive) {
+        NSLog(@"############### path2"); // testResult
+        self.currentDigits = [[[Digits alloc] init] autorelease];
         self.resultDigits = self.currentDigits;
-        self.previousOperation = @"=";
+        self.previousDigits = nil;
         self.currentOperation = nil;
+        self.previousOperation = @"=";
+        self.previousExpression = @"0";
+    } else if (!self.currentOperation && !self.currentDigits.unsignedDigits && !self.currentDigits.positive) {
+        NSLog(@"############### path3"); // testNegateResult
+        self.currentDigits = [[[Digits alloc] init] autorelease];
+        self.previousDigits = nil;
+        self.resultDigits = self.currentDigits;
+        self.currentOperation = nil;
+        self.previousOperation = @"=";
+        self.previousExpression = @"0";
+    } else if (!self.currentOperation && self.currentDigits.unsignedDigits && self.currentDigits.positive) {
+        NSLog(@"############### path4");
+        self.resultDigits = self.currentDigits;
+        self.previousDigits = nil;
+        self.currentOperation = nil;
+        self.previousOperation = @"=";
+        self.previousExpression = self.currentDigits.description;
+    } else if (!self.currentOperation && self.currentDigits.unsignedDigits && !self.currentDigits.positive) {
+        NSLog(@"############### path5"); // test1NegateResult
+        self.resultDigits = self.currentDigits;
+        self.previousDigits = nil;
+        self.currentOperation = nil;
+        self.previousOperation = @"=";
+        self.previousExpression = self.currentDigits.description;
+    } else {
+        NSLog(@"############### path6");
     }
-    self.previousDigits = nil;
     [self updateDisplays];
 }
 

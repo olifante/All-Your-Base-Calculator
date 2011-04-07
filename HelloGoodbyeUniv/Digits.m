@@ -245,6 +245,7 @@ const NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     } else {
         self.unsignedDigits = [self.unsignedDigits stringByAppendingString:digit];
     }
+    return;
 }
 
 - (NSString *)popDigit
@@ -299,6 +300,7 @@ const NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 - (void)negate
 {
     self.positive = !self.positive;
+    return;
 }
 
 - (Digits *)invert
