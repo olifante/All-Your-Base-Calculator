@@ -33,5 +33,6 @@
 - (IBAction)squareRootPressed;
 - (IBAction)cubeRootPressed;
 - (IBAction)reciprocalPressed;
+- (IBAction)negatePressed;
 
 @end

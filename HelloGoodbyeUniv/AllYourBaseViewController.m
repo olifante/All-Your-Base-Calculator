@@ -60,7 +60,21 @@
 - (IBAction)cleanPressed
 {
     NSLog(@"clean button pressed");
-    [self.model releaseMembers];
+    [self.model cleanPressed];
+}
+
+- (IBAction)reciprocalPressed
+{
+    NSLog(@"reciprocal button pressed");
+    [self.model binaryOperationPressed:@"^"];
+    [self.model negatePressed];
+    [self.model digitPressed:@"1"];    
+}
+
+- (IBAction)negatePressed
+{
+    NSLog(@"negate button pressed");
+    [self.model negatePressed];
 }
 
 - (IBAction)squareRootPressed
@@ -84,14 +98,6 @@
     [self.model digitPressed:@"3"];
     [self.model digitPressed:@"3"];
     [self.model resultPressed];
-}
-
-- (IBAction)reciprocalPressed
-{
-    NSLog(@"reciprocal button pressed");
-    [self.model binaryOperationPressed:@"^"];
-    [self.model negatePressed];
-    [self.model digitPressed:@"1"];    
 }
 
 - (void)releaseMembers

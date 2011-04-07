@@ -18,7 +18,7 @@
     {
         self.model = [[[AllYourBaseModel alloc] init] autorelease];
         for (NSString *name in [NSArray arrayWithObjects:
-                                @"previousDisplay", @"currentDisplay",
+                                @"mainDisplay", @"secondaryDisplay",
 //                                @"previousDigits", @"currentDigits",
 //                                @"previousOperation", @"currentOperation",
 //                                @"previousExpression", @"result",
