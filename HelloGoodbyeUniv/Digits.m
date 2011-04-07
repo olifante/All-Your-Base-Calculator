@@ -147,8 +147,12 @@ const NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 - (NSString *)description
 {
     NSString *result;
-    if (self.signedDigits) {
-        result = [self.signedDigits isEqual:@""] ? @"0" : self.signedDigits;
+    if (self.signedDigits && [self.signedDigits isEqualToString:@""]) {
+        result = @"0";
+    } else if (self.signedDigits && ([self.signedDigits characterAtIndex:0] == [@"." characterAtIndex:0])) {
+        result = [@"0" stringByAppendingString:self.signedDigits];
+    } else if (self.signedDigits) {
+        result = self.signedDigits;
     } else {
         result = @"";
     }
