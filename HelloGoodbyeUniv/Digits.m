@@ -98,6 +98,7 @@ const NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 - (int)intValue
 {
+    int result;
     int length = self.unsignedDigits.length;
     int accumulator = 0;
     int digitValue = 0;
@@ -108,10 +109,11 @@ const NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     }
     
     if (self.positive) {
-        return accumulator;
+        result = accumulator;
     } else {
-        return -accumulator;
+        result = -accumulator;
     }
+    return result;
 }
 
 - (NSNumber *)value
@@ -121,27 +123,30 @@ const NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 - (NSString *)signedDigits
 {
-    if (self.unsignedDigits) {
-        if ([self.unsignedDigits isEqualToString:@""]) {
-            return @"";
-        } else {
-            return [NSString stringWithFormat:@"%@%@", 
-                    self.positive ? @"" : @"-", 
-                    self.unsignedDigits];
-        }
-        
+    NSString *result;
+    if (self.unsignedDigits && [self.unsignedDigits isEqualToString:@""]) {
+        result = self.positive ? @"" : @"-";
+    } else if (self.unsignedDigits && ![self.unsignedDigits isEqualToString:@""]) {
+        result = [NSString stringWithFormat:@"%@%@", 
+                self.positive ? @"" : @"-", 
+                self.unsignedDigits];
+    } else if (!self.unsignedDigits && !self.positive) {
+        result = @"-";
     } else {
-        return nil;
+        result = nil;
     }
+    return result;
 }
 
 - (NSString *)description
 {
+    NSString *result;
     if (self.signedDigits) {
-        return [self.signedDigits isEqual:@""] ? @"0" : self.signedDigits;
+        result = [self.signedDigits isEqual:@""] ? @"0" : self.signedDigits;
     } else {
-        return @"";
+        result = @"";
     }
+    return result;
 }
 
 - (id)initWithInt:(int)someInt
@@ -161,12 +166,12 @@ const NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 {
     if (!someString) {
         NSLog(@"someString must not be nil");
-        return nil;
+        return nil; // early return because it's useless to invoke [super init]
     }
 
     if (!someBase || (someBase < 2)) {
         NSLog(@"someBase must be greater than 1");
-        return nil;
+        return nil; // early return because it's useless to invoke [super init]
     }
     
     self = [super init];
@@ -219,12 +224,12 @@ const NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 {
     if (!digit || (digit.length != 1)) {
         NSLog(@"digit must be one single character");
-        return;
+        return; // early return because the rest of the method is meaningless with bad input
     }
     
     if (![self.allowedDigitSet characterIsMember:[digit characterAtIndex:0]]) {
         NSLog(@"digit '%@' is not an allowed digit", digit);
-        return;
+        return; // early return because the rest of the method is meaningless with bad input
     }
     
     if (!self.unsignedDigits) {
@@ -279,10 +284,9 @@ const NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     return [[[Digits alloc] initWithInt:result base:self.base] autorelease];
 }
 
-- (Digits *)negate
+- (void)negate
 {
     self.positive = !self.positive;
-    return self;
 }
 
 - (Digits *)invert

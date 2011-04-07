@@ -50,8 +50,8 @@
 - (Digits *)minus:(Digits *)secondOperand;
 - (Digits *)times:(Digits *)secondOperand;
 - (Digits *)divide:(Digits *)secondOperand;
-- (Digits *)negate;
 - (Digits *)invert;
 - (Digits *)power:(Digits *)secondOperand;
+- (void)negate;
 
 @end
