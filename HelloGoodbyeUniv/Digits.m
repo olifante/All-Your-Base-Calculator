@@ -125,7 +125,7 @@ const NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 {
     NSString *result;
     if (self.unsignedDigits && [self.unsignedDigits isEqualToString:@""]) {
-        result = self.positive ? @"" : @"-";
+        result = self.positive ? @"" : @"-0";
     } else if (self.unsignedDigits && ![self.unsignedDigits isEqualToString:@""]) {
         result = [NSString stringWithFormat:@"%@%@", 
                 self.positive ? @"" : @"-", 

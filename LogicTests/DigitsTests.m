@@ -700,10 +700,10 @@
     actual = digits.unsignedDigits, expected = @"";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
     
-    actual = digits.signedDigits, expected = @"-";
+    actual = digits.signedDigits, expected = @"-0";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
     
-    actual = digits.description, expected = @"-";
+    actual = digits.description, expected = @"-0";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
@@ -723,10 +723,10 @@
     actual = digits.unsignedDigits, expected = @"";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
     
-    actual = digits.signedDigits, expected = @"-";
+    actual = digits.signedDigits, expected = @"-0";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
     
-    actual = digits.description, expected = @"-";
+    actual = digits.description, expected = @"-0";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 

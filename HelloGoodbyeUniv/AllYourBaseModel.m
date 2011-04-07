@@ -176,20 +176,14 @@
         return;
     }
     
-//    if (!self.currentDigits.unsignedDigits) {
-//        NSLog(@"No action - operation cannot be performed without a 2nd operand");
-//        return;
-//    }
-
     if (self.currentOperation && self.currentDigits.unsignedDigits) {
-        NSLog(@"############### path0");
+        NSLog(@"############### path0"); // test1Plus2Result
         [self performPendingOperation];
         self.currentDigits = self.resultDigits;
         self.previousDigits = nil;
     } else if (self.currentOperation && !self.currentDigits.unsignedDigits) {
         NSLog(@"No action - operation cannot be performed without a 2nd operand");
         NSLog(@"############### path1"); // test1PlusResult
-        // do nothing
     } else if (!self.currentOperation && !self.currentDigits.unsignedDigits && self.currentDigits.positive) {
         NSLog(@"############### path2"); // testResult
         self.currentDigits = [[[Digits alloc] init] autorelease];
@@ -199,15 +193,10 @@
         self.previousOperation = @"=";
         self.previousExpression = @"0";
     } else if (!self.currentOperation && !self.currentDigits.unsignedDigits && !self.currentDigits.positive) {
+        NSLog(@"No action - negate is waiting for digits to be input");
         NSLog(@"############### path3"); // testNegateResult
-        self.currentDigits = [[[Digits alloc] init] autorelease];
-        self.previousDigits = nil;
-        self.resultDigits = self.currentDigits;
-        self.currentOperation = nil;
-        self.previousOperation = @"=";
-        self.previousExpression = @"0";
     } else if (!self.currentOperation && self.currentDigits.unsignedDigits && self.currentDigits.positive) {
-        NSLog(@"############### path4");
+        NSLog(@"############### path4"); // test1Result
         self.resultDigits = self.currentDigits;
         self.previousDigits = nil;
         self.currentOperation = nil;
@@ -221,7 +210,8 @@
         self.previousOperation = @"=";
         self.previousExpression = self.currentDigits.description;
     } else {
-        NSLog(@"############### path6");
+        NSLog(@"############### path6"); // no tests, this condition should not be reached
+        assert(NO);
     }
     [self updateDisplays];
 }
