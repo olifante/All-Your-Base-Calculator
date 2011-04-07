@@ -79,6 +79,40 @@
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
+- (void) test1Plus2TimesClean {
+    [calculator digitPressed:@"1"];
+    [calculator binaryOperationPressed:@"+"];
+    [calculator digitPressed:@"2"];
+    [calculator binaryOperationPressed:@"*"];
+    [calculator cleanPressed];
+
+    NSString *actual, *expected;
+    
+    actual = calculator.previousDigits.description;
+    STAssertNil(actual, @"'%@' shoud be nil", actual);
+    
+    actual = calculator.currentDigits.description, expected = @"";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+    
+    actual = calculator.currentOperation;
+    STAssertNil(actual, @"'%@' shoud be nil", actual);
+    
+    actual = calculator.previousOperation;
+    STAssertNil(actual, @"'%@' shoud be nil", actual);
+    
+    actual = calculator.previousExpression;
+    STAssertNil(actual, @"'%@' shoud be nil", actual);
+    
+    actual = calculator.resultDigits.description;
+    STAssertNil(actual, @"'%@' shoud be nil", actual);
+    
+    actual = calculator.secondaryDisplay, expected = @"";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+    
+    actual = calculator.mainDisplay, expected = @"0";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+}
+
 - (void) test1 {
     [calculator digitPressed:@"1"];
     
@@ -959,9 +993,7 @@
     [calculator digitPressed:@"4"];
     [calculator resultPressed];
     NSString *actual, *expected;
-    actual = calculator.resultDigits.description, expected = @"18";
-    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
-    actual = calculator.resultDigits.signedDigits, expected = @"-18";
+    actual = calculator.resultDigits.description, expected = @"-18";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 

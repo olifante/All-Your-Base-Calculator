@@ -47,9 +47,9 @@
     if (self.currentOperation) {
         firstOperand = self.previousDigits.signedDigits;
         paddedOperation = [NSString stringWithFormat:@" %@ ", self.currentOperation];
-        secondOperand = self.currentDigits.signedDigits;  
+        secondOperand = self.currentDigits.description;  
     } else {
-        secondOperand = self.currentDigits.description;
+        secondOperand = [self.currentDigits.description isEqualToString:@""] ? @"0" : self.currentDigits.description;
     }
 
     NSString *oldDisplay = self.mainDisplay;
