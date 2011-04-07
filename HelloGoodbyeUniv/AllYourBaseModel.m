@@ -98,9 +98,9 @@
         operationResultDigits = [self.previousDigits plus:self.currentDigits];
     } else if ([self.currentOperation isEqualToString:@"-"]) {
         operationResultDigits = [self.previousDigits minus:self.currentDigits];
-    } else if ([self.currentOperation isEqualToString:@"×"]) {
+    } else if ([self.currentOperation isEqualToString:@"*"]) {
         operationResultDigits = [self.previousDigits times:self.currentDigits];
-    } else if ([self.currentOperation isEqualToString:@"÷"]) {
+    } else if ([self.currentOperation isEqualToString:@"/"]) {
         operationResultDigits = [self.previousDigits divide:self.currentDigits];
     } else if ([self.currentOperation isEqualToString:@"^"]) {
         operationResultDigits = [self.previousDigits power:self.currentDigits];
@@ -153,8 +153,13 @@
     }
     
     if (!self.currentDigits.unsignedDigits) {
-        NSLog(@"No action - operations do nothing without a 2nd operand");
-        return;
+        if (self.currentOperation) {
+            self.currentOperation = nil;
+            // pressing another operation when no 2nd operand has been input cancels the pending operation
+        } else {
+            NSLog(@"No action - operations do nothing without a 2nd operand");
+            return;
+        }
     }
     
     if (self.currentOperation) {

@@ -473,7 +473,7 @@
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
-- (void)testMinusPop {
+- (void)testNegatePop {
     Digits *digits = [[[Digits alloc] init] retain];
     STAssertNotNil(digits, @"Cannot create Digits instance");
     STAssertTrue(digits.positive == YES, @"should be positive by default");
