@@ -217,6 +217,18 @@
 
 - (void)negatePressed
 {
+    if (self.error) {
+        NSLog(@"No action - negate does nothing after error");
+        return;
+    }
+    
+    if (self.previousOperation) {
+        self.previousOperation = nil;
+        self.previousExpression = nil;  
+        self.resultDigits = nil;
+        self.currentDigits = [[[Digits alloc] init] autorelease];
+    }
+
     [self.currentDigits negate];
     [self updateDisplays];    
 }
