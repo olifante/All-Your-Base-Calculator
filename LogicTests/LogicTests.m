@@ -330,6 +330,39 @@
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
+- (void) test1PlusNegateTimes {
+    [calculator digitPressed:@"1"];
+    [calculator binaryOperationPressed:@"+"];
+    [calculator negatePressed];
+    [calculator binaryOperationPressed:@"*"];
+    
+    NSString *actual, *expected;
+    
+    actual = calculator.previousDigits.description, expected = @"1";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+    
+    actual = calculator.currentDigits.description, expected = @"-";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+    
+    actual = calculator.currentOperation, expected = @"+";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+    
+    actual = calculator.previousOperation;
+    STAssertNil(actual, @"'%@' shoud be nil", actual);
+    
+    actual = calculator.previousExpression;
+    STAssertNil(actual, @"'%@' shoud be nil", actual);
+    
+    actual = calculator.resultDigits.description;
+    STAssertNil(actual, @"'%@' shoud be nil", actual);
+    
+    actual = calculator.secondaryDisplay, expected = @"";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+    
+    actual = calculator.mainDisplay, expected = @"1 + -";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+}
+
 - (void) test1Plus2 {
     [calculator digitPressed:@"1"];
     [calculator binaryOperationPressed:@"+"];

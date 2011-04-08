@@ -155,8 +155,12 @@
     if (!self.currentDigits.unsignedDigits && !self.currentOperation) {
         NSLog(@"No action - operations do nothing without a 2nd operand");
     } else if (!self.currentDigits.unsignedDigits && self.currentOperation) {
-        self.currentOperation = operation;
-        // pressing another operation when no 2nd operand has been input cancels the pending operation
+        if (self.currentDigits.positive) {
+            self.currentOperation = operation;
+            // pressing another operation when no 2nd operand digit or minus sign has been input cancels the pending operation
+        } else {
+            // pressing another operation when a minus sign has been input does nothing            
+        }
     } else if (self.currentDigits.unsignedDigits && self.currentOperation) {
         [self performPendingOperation];
         self.previousDigits = self.resultDigits;
