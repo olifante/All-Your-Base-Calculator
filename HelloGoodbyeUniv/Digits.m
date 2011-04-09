@@ -290,38 +290,62 @@ const NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 - (Digits *)plus:(Digits *)secondOperand
 {
-    int result = self.intValue + secondOperand.intValue;
-    return [[[Digits alloc] initWithInt:result base:self.base] autorelease];
+    if (!secondOperand) {
+        return nil;
+    } else {
+        int result = self.intValue + secondOperand.intValue;
+        return [[[Digits alloc] initWithInt:result base:self.base] autorelease];
+    }
 }
 
 - (Digits *)minus:(Digits *)secondOperand
 {
-    int result = self.intValue - secondOperand.intValue;
-    return [[[Digits alloc] initWithInt:result base:self.base] autorelease];
+    if (!secondOperand) {
+        return nil;
+    } else {
+        int result = self.intValue - secondOperand.intValue;
+        return [[[Digits alloc] initWithInt:result base:self.base] autorelease];
+    }
 }
 
 - (Digits *)times:(Digits *)secondOperand
 {
-    int result = self.intValue * secondOperand.intValue;
-    return [[[Digits alloc] initWithInt:result base:self.base] autorelease];
+    if (!secondOperand) {
+        return nil;
+    } else {
+        int result = self.intValue * secondOperand.intValue;
+        return [[[Digits alloc] initWithInt:result base:self.base] autorelease];
+    }
 }
 
 - (Digits *)divide:(Digits *)secondOperand
 {
-    int result = self.intValue / secondOperand.intValue;
-    return [[[Digits alloc] initWithInt:result base:self.base] autorelease];
+    if (!secondOperand || (secondOperand.intValue == 0)) {
+        return nil;
+    } else {
+        int result = self.intValue / secondOperand.intValue;
+        return [[[Digits alloc] initWithInt:result base:self.base] autorelease];
+    }
 }
 
 - (Digits *)invert
 {
-    int result = 1 / self.intValue;
-    return [[[Digits alloc] initWithInt:result base:self.base] autorelease];
+    if (self.intValue == 0) {
+        return nil;
+    } else {
+        int result = 1 / self.intValue;
+        return [[[Digits alloc] initWithInt:result base:self.base] autorelease];
+    }
 }
 
 - (Digits *)power:(Digits *)secondOperand
 {
-    int result = pow(self.intValue, secondOperand.intValue);
-    return [[[Digits alloc] initWithInt:result base:self.base] autorelease];
+    if (!secondOperand || ((self.intValue == 0) && (secondOperand.intValue == 0))) {
+        return nil;
+    } else {
+        int result = pow(self.intValue, secondOperand.intValue);
+        return [[[Digits alloc] initWithInt:result base:self.base] autorelease];
+    }
 }
 
 - (void)negate

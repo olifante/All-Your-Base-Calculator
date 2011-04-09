@@ -740,6 +740,55 @@
     STAssertTrue(actual == expected, @"'%d' should be equal to '%d'", actual, expected);
 }
 
+- (void)test1TimesNil {
+    Digits *first = [[[Digits alloc] initWithString:@"1"] autorelease];
+    STAssertNotNil(first, @"Cannot create Digits instance");
+    Digits *second = nil;
+    Digits *result = [first times:second];
+    STAssertNil(result, @"'%@' should be nil", result);
+}
+
+- (void)test1DivideNil {
+    Digits *first = [[[Digits alloc] initWithString:@"1"] autorelease];
+    STAssertNotNil(first, @"Cannot create Digits instance");
+    Digits *second = nil;
+    Digits *result = [first divide:second];
+    STAssertNil(result, @"'%@' should be nil", result);
+}
+
+- (void)test1Divide0 {
+    Digits *first = [[[Digits alloc] initWithString:@"1"] autorelease];
+    STAssertNotNil(first, @"Cannot create Digits instance");
+    Digits *second = [[[Digits alloc] initWithString:@"0"] autorelease];
+    STAssertNotNil(second, @"Cannot create Digits instance");
+    Digits *result = [first divide:second];
+    STAssertNil(result, @"'%@' should be nil", result);
+}
+
+- (void)test0PowerNil {
+    Digits *first = [[[Digits alloc] initWithString:@"0"] autorelease];
+    STAssertNotNil(first, @"Cannot create Digits instance");
+    Digits *second = nil;
+    Digits *result = [first power:second];
+    STAssertNil(result, @"'%@' should be nil", result);
+}
+
+- (void)test0Power0 {
+    Digits *first = [[[Digits alloc] initWithString:@"0"] autorelease];
+    STAssertNotNil(first, @"Cannot create Digits instance");
+    Digits *second = [[[Digits alloc] initWithString:@"0"] autorelease];
+    STAssertNotNil(second, @"Cannot create Digits instance");
+    Digits *result = [first power:second];
+    STAssertNil(result, @"'%@' should be nil", result);
+}
+
+- (void)test0Invert {
+    Digits *first = [[[Digits alloc] initWithString:@"0"] autorelease];
+    STAssertNotNil(first, @"Cannot create Digits instance");
+    Digits *result = [first invert];
+    STAssertNil(result, @"'%@' should be nil", result);
+}
+
 - (void)test0Divide1Divide2 {
     Digits *first = [[[Digits alloc] initWithString:@"0"] autorelease];
     STAssertNotNil(first, @"Cannot create Digits instance");
