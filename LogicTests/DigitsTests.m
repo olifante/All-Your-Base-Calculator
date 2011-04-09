@@ -779,11 +779,23 @@
     STAssertNil(result, @"'%@' should be nil", result);
 }
 
+- (void)test0PowerMinus1 {
+    Digits *first = [[[Digits alloc] initWithString:@"0"] autorelease];
+    STAssertNotNil(first, @"Cannot create Digits instance");
+    Digits *second = [[[Digits alloc] initWithString:@"-1"] autorelease];
+    STAssertNotNil(second, @"Cannot create Digits instance");
+    Digits *result = [first power:second withError:NULL];
+    STAssertNil(result, @"'%@' should be nil", result);
+}
+
 - (void)test0Invert {
     Digits *first = [[[Digits alloc] initWithString:@"0"] autorelease];
     STAssertNotNil(first, @"Cannot create Digits instance");
+//    NSError *error = nil;
+//    Digits *result = [first invertWithError:&error];
     Digits *result = [first invertWithError:NULL];
     STAssertNil(result, @"'%@' should be nil", result);
+//    STAssertNotNil(error, @"'%@' should not be nil", error);
 }
 
 - (void)test0Divide1Divide2 {

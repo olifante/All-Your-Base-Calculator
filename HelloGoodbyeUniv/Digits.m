@@ -360,7 +360,7 @@ const NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 {
     if (!secondOperand) {
         return nil;
-    } else if ((self.intValue <= 0) && (secondOperand.intValue == 0)) {
+    } else if ((self.intValue <= 0) && (secondOperand.intValue < 1)) {
         if (error) {            
             NSDictionary *userDict = [[NSDictionary dictionaryWithObjectsAndKeys:
                                        NSLocalizedString(@"raised 0 to a non-positive exponent", @""),
