@@ -11,7 +11,6 @@
 
 
 @interface AllYourBaseModel : NSObject {
-    BOOL error;
     Digits *currentDigits;
     Digits *previousDigits;
     Digits *resultDigits;
@@ -20,9 +19,10 @@
     NSString *previousExpression;
     NSString *previousDisplay;
     NSString *currentDisplay;
+    NSError *error;
+    BOOL erroneousState;
 }
 
-@property BOOL error;
 @property (nonatomic, retain) Digits *currentDigits;
 @property (nonatomic, retain) Digits *previousDigits;
 @property (nonatomic, retain) Digits *resultDigits;
@@ -31,10 +31,12 @@
 @property (nonatomic, retain) NSString *previousExpression;
 @property (nonatomic, retain) NSString *mainDisplay;
 @property (nonatomic, retain) NSString *secondaryDisplay;
+@property (nonatomic, retain) NSError *error;
+@property BOOL erroneousState;
 
 - (id)init;
 - (void)updateDisplays;
-- (void)performPendingOperation;
+- (void)performPendingOperationWithError:(NSError **)operationError;
 - (void)digitPressed:(NSString *)digit;
 - (void)binaryOperationPressed:(NSString *)operation;
 - (void)resultPressed;

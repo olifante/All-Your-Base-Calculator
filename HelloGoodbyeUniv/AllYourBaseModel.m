@@ -11,7 +11,6 @@
 
 @implementation AllYourBaseModel
 
-@synthesize error;
 @synthesize currentDigits;
 @synthesize previousDigits;
 @synthesize currentOperation;
@@ -20,12 +19,15 @@
 @synthesize resultDigits;
 @synthesize secondaryDisplay;
 @synthesize mainDisplay;
+@synthesize error;
+@synthesize erroneousState;
 
 - (id)init
 {
     self = [super init];
     if (self) {
-        self.error = NO;
+        self.erroneousState = NO;
+        self.error = nil;
         self.previousDigits = nil;
         self.currentDigits = [[[Digits alloc] init] autorelease];
         [self updateDisplays];
@@ -33,10 +35,10 @@
     return self;
 }
 
-- (void)updateCurrentDisplay
+- (void)updateMainDisplay
 {
-    if (self.error) {
-        self.mainDisplay = [NSString stringWithFormat:@"= %@", self.resultDigits];
+    if (self.erroneousState) {
+        self.mainDisplay = [self.error description];
         return; // early return if in erroneous state
     }
 
@@ -65,9 +67,9 @@
     }
 }
 
-- (void)updatePreviousDisplay
+- (void)updateSecondaryDisplay
 {
-    if (self.error) {
+    if (self.erroneousState) {
         self.secondaryDisplay = self.previousExpression;
         return; // early return if in erroneous state
     }
@@ -85,52 +87,56 @@
 
 - (void)updateDisplays
 {
-    [self updatePreviousDisplay];
-    [self updateCurrentDisplay];
+    [self updateSecondaryDisplay];
+    [self updateMainDisplay];
 }
 
-- (void)performPendingOperation
+- (void)performPendingOperationWithError:(NSError **)operationError
 {
     Digits *operationResultDigits;
-    BOOL knownOperation = YES;
     
     if ([self.currentOperation isEqualToString:@"+"]) {
-        operationResultDigits = [self.previousDigits plus:self.currentDigits];
+        operationResultDigits = [self.previousDigits plus:self.currentDigits withError:operationError];
     } else if ([self.currentOperation isEqualToString:@"-"]) {
-        operationResultDigits = [self.previousDigits minus:self.currentDigits];
+        operationResultDigits = [self.previousDigits minus:self.currentDigits withError:operationError];
     } else if ([self.currentOperation isEqualToString:@"*"]) {
-        operationResultDigits = [self.previousDigits times:self.currentDigits];
+        operationResultDigits = [self.previousDigits times:self.currentDigits withError:operationError];
     } else if ([self.currentOperation isEqualToString:@"/"]) {
-        operationResultDigits = [self.previousDigits divide:self.currentDigits];
+        operationResultDigits = [self.previousDigits divide:self.currentDigits withError:operationError];
     } else if ([self.currentOperation isEqualToString:@"^"]) {
-        operationResultDigits = [self.previousDigits power:self.currentDigits];
+        operationResultDigits = [self.previousDigits power:self.currentDigits withError:operationError];
     } else {
-        knownOperation = NO;
+        NSLog(@"unknown operation '%@'", self.currentOperation);
+        if (operationError) {            
+            NSDictionary *userDict = [[NSDictionary dictionaryWithObjectsAndKeys:
+                                       NSLocalizedString(@"unknown opeartion", @""),
+                                       NSLocalizedDescriptionKey,
+                                       nil] autorelease];
+            NSError *localError = [[[NSError alloc] initWithDomain:NSCocoaErrorDomain code:EPERM userInfo:userDict] autorelease];
+            *operationError = localError;
+        }
     }
     
-    if (knownOperation) {
-        if (isnan([operationResultDigits.value doubleValue])) {
-            self.resultDigits.unsignedDigits = @"(undefined)";
-            self.error = YES;
-        } else if (isinf([operationResultDigits.value doubleValue])) {
-            self.resultDigits.unsignedDigits = @"(infinity)";
-            self.error = YES;
-        } else {
-            self.resultDigits = operationResultDigits;
-        }
-        self.previousExpression = [NSString stringWithFormat:@"%@ %@ %@"
-                                   , self.previousDigits ? self.previousDigits.description : @""
-                                   , self.currentOperation ? self.currentOperation : @""
-                                   , self.currentDigits ? self.currentDigits.description : @""
-                                   ];
-        self.previousOperation = self.currentOperation;
-        self.currentOperation = nil;
+    self.previousExpression = [NSString stringWithFormat:@"%@ %@ %@"
+                               , self.previousDigits ? self.previousDigits.description : @""
+                               , self.currentOperation ? self.currentOperation : @""
+                               , self.currentDigits ? self.currentDigits.description : @""
+                               ];
+    self.previousOperation = self.currentOperation;
+    self.currentOperation = nil;        
+
+    if (operationResultDigits) {
+        self.resultDigits = operationResultDigits;
+    } else if (operationError) {
+        self.resultDigits = nil;
+        self.erroneousState = YES;
+        self.error = *operationError;
     }
 }
 
 - (void)digitPressed:(NSString *)digit
 {
-    if (self.error) {
+    if (self.erroneousState) {
         [self releaseMembers];
         NSLog(@"cleaned up after pressing digit in an erroneous state");
     }
@@ -145,9 +151,9 @@
     [self updateDisplays];
 }
 
-- (void)binaryOperationPressed:(NSString *)operation
+- (void)binaryOperationPressed:(NSString *)operation 
 {
-    if (self.error) {
+    if (self.erroneousState) {
         NSLog(@"No action - operations do nothing after error");
         return;
     }
@@ -162,7 +168,7 @@
             // pressing another operation when a minus sign has been input does nothing            
         }
     } else if (self.currentDigits.unsignedDigits && self.currentOperation) {
-        [self performPendingOperation];
+        [self performPendingOperationWithError:NULL];
         self.previousDigits = self.resultDigits;
         self.currentOperation = operation;
         self.currentDigits = [[[Digits alloc] init] autorelease];
@@ -177,14 +183,14 @@
 
 - (void)resultPressed
 {
-    if (self.error) {
+    if (self.erroneousState) {
         NSLog(@"No action - result does nothing after error");
         return;
     }
     
     if (self.currentOperation && self.currentDigits.unsignedDigits) {
         NSLog(@"############### path0"); // test1Plus2Result
-        [self performPendingOperation];
+        [self performPendingOperationWithError:NULL];
         self.currentDigits = self.resultDigits;
         self.previousDigits = nil;
     } else if (self.currentOperation && !self.currentDigits.unsignedDigits) {
@@ -224,7 +230,7 @@
 
 - (void)deletePressed
 {
-    if (self.error) {
+    if (self.erroneousState) {
         [self releaseMembers];
         NSLog(@"cleaned up after pressing delete in an erroneous state");
         return;
@@ -243,10 +249,12 @@
 
 - (void)negatePressed
 {
-    if (self.error) {
+
+    if (self.erroneousState) {
         NSLog(@"No action - negate does nothing after error");
         return;
     }
+
     
     if (self.previousOperation) {
         self.previousOperation = nil;
@@ -255,7 +263,8 @@
         self.currentDigits = [[[Digits alloc] init] autorelease];
     }
 
-    [self.currentDigits negate];
+    NSError *operationError = nil;
+    [self.currentDigits negateWithError:&operationError];
     [self updateDisplays];    
 }
 
@@ -289,7 +298,8 @@
     self.currentOperation = nil;
     self.previousOperation = nil;
     self.previousExpression = nil;
-    self.error = NO;
+    self.error = nil;
+    self.erroneousState = NO;
     [self updateDisplays];
 }
 
@@ -303,6 +313,7 @@
     self.currentOperation = nil;
     self.previousOperation = nil;
     self.previousExpression = nil;
+    self.error = nil;
 }
 
 - (void)dealloc
