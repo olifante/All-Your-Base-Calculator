@@ -325,11 +325,12 @@ const NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     } else if (secondOperand.intValue == 0) {
         if (error) {            
             NSDictionary *userDict = [[NSDictionary dictionaryWithObjectsAndKeys:
-                                       NSLocalizedString(@"divided by 0", @""),
+                                       NSLocalizedString(@"cannot divide by 0", @""),
                                        NSLocalizedDescriptionKey,
-                                       nil] autorelease];
+                                       nil] retain];
             NSError *localError = [[[NSError alloc] initWithDomain:NSCocoaErrorDomain code:EPERM userInfo:userDict] autorelease];
             *error = localError;
+            [userDict release];
         }
         return nil;
     } else {
@@ -343,11 +344,12 @@ const NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     if (self.intValue == 0) {
         if (error) {            
             NSDictionary *userDict = [[NSDictionary dictionaryWithObjectsAndKeys:
-                                       NSLocalizedString(@"divided by 0", @""),
+                                       NSLocalizedString(@"cannot invert 0", @""),
                                        NSLocalizedDescriptionKey,
-                                       nil] autorelease];
+                                       nil] retain];
             NSError *localError = [[[NSError alloc] initWithDomain:NSCocoaErrorDomain code:EPERM userInfo:userDict] autorelease];
             *error = localError;
+            [userDict release];
         }
         return nil;
     } else {
@@ -360,14 +362,15 @@ const NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 {
     if (!secondOperand) {
         return nil;
-    } else if ((self.intValue <= 0) && (secondOperand.intValue < 1)) {
+    } else if ((self.intValue <= 0) && (secondOperand.intValue <= 0)) {
         if (error) {            
             NSDictionary *userDict = [[NSDictionary dictionaryWithObjectsAndKeys:
-                                       NSLocalizedString(@"raised 0 to a non-positive exponent", @""),
+                                       NSLocalizedString(@"0 only has positive powers", @""),
                                        NSLocalizedDescriptionKey,
-                                       nil] autorelease];
+                                       nil] retain];
             NSError *localError = [[[NSError alloc] initWithDomain:NSCocoaErrorDomain code:EPERM userInfo:userDict] autorelease];
             *error = localError;
+            [userDict release];
         }
         return nil;
     } else {

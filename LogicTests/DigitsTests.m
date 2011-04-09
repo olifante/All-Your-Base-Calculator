@@ -758,8 +758,15 @@
     STAssertNotNil(first, @"Cannot create Digits instance");
     Digits *second = [[[Digits alloc] initWithString:@"0"] autorelease];
     STAssertNotNil(second, @"Cannot create Digits instance");
-    Digits *result = [first divide:second withError:NULL];
+
+    NSError *error = nil;
+    Digits *result = [first divide:second withError:&error];
+
     STAssertNil(result, @"'%@' should be nil", result);
+    STAssertNotNil(error, @"'%@' should not be nil", result);
+    NSString *actual, *expected;
+    actual = [error localizedDescription], expected = @"cannot divide by 0";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
 - (void)test0PowerNil {
@@ -775,8 +782,15 @@
     STAssertNotNil(first, @"Cannot create Digits instance");
     Digits *second = [[[Digits alloc] initWithString:@"0"] autorelease];
     STAssertNotNil(second, @"Cannot create Digits instance");
-    Digits *result = [first power:second withError:NULL];
+
+    NSError *error = nil;
+    Digits *result = [first power:second withError:&error];
+    
     STAssertNil(result, @"'%@' should be nil", result);
+    STAssertNotNil(error, @"'%@' should not be nil", result);
+    NSString *actual, *expected;
+    actual = [error localizedDescription], expected = @"0 only has positive powers";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
 - (void)test0PowerMinus1 {
@@ -784,18 +798,29 @@
     STAssertNotNil(first, @"Cannot create Digits instance");
     Digits *second = [[[Digits alloc] initWithString:@"-1"] autorelease];
     STAssertNotNil(second, @"Cannot create Digits instance");
-    Digits *result = [first power:second withError:NULL];
+    
+    NSError *error = nil;
+    Digits *result = [first power:second withError:&error];
+
     STAssertNil(result, @"'%@' should be nil", result);
+    STAssertNotNil(error, @"'%@' should not be nil", result);
+    NSString *actual, *expected;
+    actual = [error localizedDescription], expected = @"0 only has positive powers";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
 - (void)test0Invert {
     Digits *first = [[[Digits alloc] initWithString:@"0"] autorelease];
     STAssertNotNil(first, @"Cannot create Digits instance");
-//    NSError *error = nil;
-//    Digits *result = [first invertWithError:&error];
-    Digits *result = [first invertWithError:NULL];
+
+    NSError *error = nil;
+    Digits *result = [first invertWithError:&error];
+
     STAssertNil(result, @"'%@' should be nil", result);
-//    STAssertNotNil(error, @"'%@' should not be nil", error);
+    STAssertNotNil(error, @"'%@' should not be nil", result);
+    NSString *actual, *expected;
+    actual = [error localizedDescription], expected = @"cannot invert 0";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
 - (void)test0Divide1Divide2 {
