@@ -19,7 +19,7 @@
 
 @interface DigitsTests : SenTestCase {
 @private
-//    Digits *digits;
+
 }
 
 @end

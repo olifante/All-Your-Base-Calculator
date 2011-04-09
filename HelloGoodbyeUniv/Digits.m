@@ -288,7 +288,7 @@ const NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     return lastDigit; // TODO should this be autoreleased?
 }
 
-- (Digits *)plus:(Digits *)secondOperand
+- (Digits *)plus:(Digits *)secondOperand withError:(NSError **)error
 {
     if (!secondOperand) {
         return nil;
@@ -298,7 +298,7 @@ const NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     }
 }
 
-- (Digits *)minus:(Digits *)secondOperand
+- (Digits *)minus:(Digits *)secondOperand withError:(NSError **)error
 {
     if (!secondOperand) {
         return nil;
@@ -308,7 +308,7 @@ const NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     }
 }
 
-- (Digits *)times:(Digits *)secondOperand
+- (Digits *)times:(Digits *)secondOperand withError:(NSError **)error
 {
     if (!secondOperand) {
         return nil;
@@ -318,9 +318,19 @@ const NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     }
 }
 
-- (Digits *)divide:(Digits *)secondOperand
+- (Digits *)divide:(Digits *)secondOperand withError:(NSError **)error
 {
-    if (!secondOperand || (secondOperand.intValue == 0)) {
+    if (!secondOperand) {
+        return nil;
+    } else if (secondOperand.intValue == 0) {
+        if (error) {            
+            NSDictionary *userDict = [[NSDictionary dictionaryWithObjectsAndKeys:
+                                       NSLocalizedString(@"divided by 0", @""),
+                                       NSLocalizedDescriptionKey,
+                                       nil] autorelease];
+            NSError *localError = [[[NSError alloc] initWithDomain:NSCocoaErrorDomain code:EPERM userInfo:userDict] autorelease];
+            *error = localError;
+        }
         return nil;
     } else {
         int result = self.intValue / secondOperand.intValue;
@@ -328,9 +338,17 @@ const NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     }
 }
 
-- (Digits *)invert
+- (Digits *)invertWithError:(NSError **)error
 {
     if (self.intValue == 0) {
+        if (error) {            
+            NSDictionary *userDict = [[NSDictionary dictionaryWithObjectsAndKeys:
+                                       NSLocalizedString(@"divided by 0", @""),
+                                       NSLocalizedDescriptionKey,
+                                       nil] autorelease];
+            NSError *localError = [[[NSError alloc] initWithDomain:NSCocoaErrorDomain code:EPERM userInfo:userDict] autorelease];
+            *error = localError;
+        }
         return nil;
     } else {
         int result = 1 / self.intValue;
@@ -338,9 +356,19 @@ const NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     }
 }
 
-- (Digits *)power:(Digits *)secondOperand
+- (Digits *)power:(Digits *)secondOperand withError:(NSError **)error
 {
-    if (!secondOperand || ((self.intValue == 0) && (secondOperand.intValue == 0))) {
+    if (!secondOperand) {
+        return nil;
+    } else if ((self.intValue <= 0) && (secondOperand.intValue == 0)) {
+        if (error) {            
+            NSDictionary *userDict = [[NSDictionary dictionaryWithObjectsAndKeys:
+                                       NSLocalizedString(@"raised 0 to a non-positive exponent", @""),
+                                       NSLocalizedDescriptionKey,
+                                       nil] autorelease];
+            NSError *localError = [[[NSError alloc] initWithDomain:NSCocoaErrorDomain code:EPERM userInfo:userDict] autorelease];
+            *error = localError;
+        }
         return nil;
     } else {
         int result = pow(self.intValue, secondOperand.intValue);
@@ -348,7 +376,7 @@ const NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     }
 }
 
-- (void)negate
+- (void)negateWithError:(NSError **)error
 {
     self.positive = !self.positive;
     return;

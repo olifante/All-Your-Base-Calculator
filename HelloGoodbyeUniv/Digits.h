@@ -46,12 +46,12 @@
 - (id)initWithString:(NSString *)someString base:(int)someBase;
 - (void)pushDigit:(NSString *)digit;
 - (NSString *)popDigit;
-- (Digits *)plus:(Digits *)secondOperand;
-- (Digits *)minus:(Digits *)secondOperand;
-- (Digits *)times:(Digits *)secondOperand;
-- (Digits *)divide:(Digits *)secondOperand;
-- (Digits *)invert;
-- (Digits *)power:(Digits *)secondOperand;
-- (void)negate;
+- (Digits *)plus:(Digits *)secondOperand withError:(NSError **)error;
+- (Digits *)minus:(Digits *)secondOperand withError:(NSError **)error;
+- (Digits *)times:(Digits *)secondOperand withError:(NSError **)error;
+- (Digits *)divide:(Digits *)secondOperand withError:(NSError **)error;
+- (Digits *)invertWithError:(NSError **)error;
+- (Digits *)power:(Digits *)secondOperand withError:(NSError **)error;
+- (void)negateWithError:(NSError **)error;
 
 @end

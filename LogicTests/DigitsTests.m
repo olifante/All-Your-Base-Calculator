@@ -16,13 +16,10 @@
     [super setUp];
     
     NSLog(@"%@ setUp", self.name);
-//    digits = [[[Digits alloc] init] retain];
-//    STAssertNotNil(digits, @"Cannot create Digits instance");
 }
 
 - (void)tearDown
 {
-//    [digits release];
     NSLog(@"%@ tearDown", self.name);
     
     [super tearDown];
@@ -478,7 +475,7 @@
     STAssertNotNil(digits, @"Cannot create Digits instance");
     STAssertTrue(digits.positive == YES, @"should be positive by default");
     
-    [digits negate];
+    [digits negateWithError:NULL];
 
     STAssertTrue(digits.positive == NO, @"should be positive by default");
 
@@ -699,7 +696,7 @@
     STAssertNotNil(second, @"Cannot create Digits instance");
     Digits *third = [[[Digits alloc] initWithString:@"-2"] autorelease];
     STAssertNotNil(third, @"Cannot create Digits instance");
-    Digits *result = [[first plus:second] plus:third];
+    Digits *result = [[first plus:second withError:NULL] plus:third withError:NULL];
     int actual = result.intValue, expected = -1;
     STAssertTrue(actual == expected, @"'%d' should be equal to '%d'", actual, expected);
 }
@@ -711,7 +708,7 @@
     STAssertNotNil(second, @"Cannot create Digits instance");
     Digits *third = [[[Digits alloc] initWithString:@"2"] autorelease];
     STAssertNotNil(third, @"Cannot create Digits instance");
-    Digits *result = [[first minus:second] minus:third];
+    Digits *result = [[first minus:second withError:NULL] minus:third withError:NULL];
     int actual = result.intValue, expected = -3;
     STAssertTrue(actual == expected, @"'%d' should be equal to '%d'", actual, expected);
 }
@@ -723,7 +720,7 @@
     STAssertNotNil(second, @"Cannot create Digits instance");
     Digits *third = [[[Digits alloc] initWithString:@"2"] autorelease];
     STAssertNotNil(third, @"Cannot create Digits instance");
-    Digits *result = [[first times:second] times:third];
+    Digits *result = [[first times:second withError:NULL] times:third withError:NULL];
     int actual = result.intValue, expected = 0;
     STAssertTrue(actual == expected, @"'%d' should be equal to '%d'", actual, expected);
 }
@@ -735,7 +732,7 @@
     STAssertNotNil(second, @"Cannot create Digits instance");
     Digits *third = [[[Digits alloc] initWithString:@"-3"] autorelease];
     STAssertNotNil(second, @"Cannot create Digits instance");
-    Digits *result = [[first times:second] times:third];
+    Digits *result = [[first times:second withError:NULL] times:third withError:NULL];
     int actual = result.intValue, expected = -6;
     STAssertTrue(actual == expected, @"'%d' should be equal to '%d'", actual, expected);
 }
@@ -744,7 +741,7 @@
     Digits *first = [[[Digits alloc] initWithString:@"1"] autorelease];
     STAssertNotNil(first, @"Cannot create Digits instance");
     Digits *second = nil;
-    Digits *result = [first times:second];
+    Digits *result = [first times:second withError:NULL];
     STAssertNil(result, @"'%@' should be nil", result);
 }
 
@@ -752,7 +749,7 @@
     Digits *first = [[[Digits alloc] initWithString:@"1"] autorelease];
     STAssertNotNil(first, @"Cannot create Digits instance");
     Digits *second = nil;
-    Digits *result = [first divide:second];
+    Digits *result = [first divide:second withError:NULL];
     STAssertNil(result, @"'%@' should be nil", result);
 }
 
@@ -761,7 +758,7 @@
     STAssertNotNil(first, @"Cannot create Digits instance");
     Digits *second = [[[Digits alloc] initWithString:@"0"] autorelease];
     STAssertNotNil(second, @"Cannot create Digits instance");
-    Digits *result = [first divide:second];
+    Digits *result = [first divide:second withError:NULL];
     STAssertNil(result, @"'%@' should be nil", result);
 }
 
@@ -769,7 +766,7 @@
     Digits *first = [[[Digits alloc] initWithString:@"0"] autorelease];
     STAssertNotNil(first, @"Cannot create Digits instance");
     Digits *second = nil;
-    Digits *result = [first power:second];
+    Digits *result = [first power:second withError:NULL];
     STAssertNil(result, @"'%@' should be nil", result);
 }
 
@@ -778,14 +775,14 @@
     STAssertNotNil(first, @"Cannot create Digits instance");
     Digits *second = [[[Digits alloc] initWithString:@"0"] autorelease];
     STAssertNotNil(second, @"Cannot create Digits instance");
-    Digits *result = [first power:second];
+    Digits *result = [first power:second withError:NULL];
     STAssertNil(result, @"'%@' should be nil", result);
 }
 
 - (void)test0Invert {
     Digits *first = [[[Digits alloc] initWithString:@"0"] autorelease];
     STAssertNotNil(first, @"Cannot create Digits instance");
-    Digits *result = [first invert];
+    Digits *result = [first invertWithError:NULL];
     STAssertNil(result, @"'%@' should be nil", result);
 }
 
@@ -796,7 +793,7 @@
     STAssertNotNil(second, @"Cannot create Digits instance");
     Digits *third = [[[Digits alloc] initWithString:@"2"] autorelease];
     STAssertNotNil(third, @"Cannot create Digits instance");
-    Digits *result = [[first divide:second] divide:third];
+    Digits *result = [[first divide:second withError:NULL] divide:third withError:NULL];
     int actual = result.intValue, expected = 0;
     STAssertTrue(actual == expected, @"'%d' should be equal to '%d'", actual, expected);
 }
@@ -808,7 +805,7 @@
     STAssertNotNil(second, @"Cannot create Digits instance");
     Digits *third = [[[Digits alloc] initWithString:@"3"] autorelease];
     STAssertNotNil(third, @"Cannot create Digits instance");
-    Digits *result = [[first divide:second] divide:third];
+    Digits *result = [[first divide:second withError:NULL] divide:third withError:NULL];
     int actual = result.intValue, expected = 0;
     STAssertTrue(actual == expected, @"'%d' should be equal to '%d'", actual, expected);
 }
@@ -820,7 +817,7 @@
     STAssertNotNil(second, @"Cannot create Digits instance");
     Digits *third = [[[Digits alloc] initWithString:@"1"] autorelease];
     STAssertNotNil(third, @"Cannot create Digits instance");
-    Digits *result = [[first divide:second] divide:third];
+    Digits *result = [[first divide:second withError:NULL] divide:third withError:NULL];
     int actual = result.intValue, expected = 1; // result rounded down from 1.5
     STAssertTrue(actual == expected, @"'%d' should be equal to '%d'", actual, expected);
 }
@@ -832,7 +829,7 @@
     STAssertNotNil(second, @"Cannot create Digits instance");
     Digits *third = [[[Digits alloc] initWithString:@"-3"] autorelease];
     STAssertNotNil(third, @"Cannot create Digits instance");
-    Digits *result = [[first divide:second] divide:third];
+    Digits *result = [[first divide:second withError:NULL] divide:third withError:NULL];
     int actual = result.intValue, expected = -2;
     STAssertTrue(actual == expected, @"'%d' should be equal to '%d'", actual, expected);
 }
@@ -844,7 +841,7 @@
     STAssertNotNil(second, @"Cannot create Digits instance");
     Digits *third = [[[Digits alloc] initWithString:@"2"] autorelease];
     STAssertNotNil(third, @"Cannot create Digits instance");
-    Digits *result = [[first power:second] power:third];
+    Digits *result = [[first power:second withError:NULL] power:third withError:NULL];
     int actual = result.intValue, expected = 0;
     STAssertTrue(actual == expected, @"'%d' should be equal to '%d'", actual, expected);
 }
@@ -856,7 +853,7 @@
     STAssertNotNil(second, @"Cannot create Digits instance");
     Digits *third = [[[Digits alloc] initWithString:@"3"] autorelease];
     STAssertNotNil(third, @"Cannot create Digits instance");
-    Digits *result = [[first power:second] power:third];
+    Digits *result = [[first power:second withError:NULL] power:third withError:NULL];
     int actual = result.intValue, expected = 1;
     STAssertTrue(actual == expected, @"'%d' should be equal to '%d'", actual, expected);
 }
@@ -868,7 +865,7 @@
     STAssertNotNil(second, @"Cannot create Digits instance");
     Digits *third = [[[Digits alloc] initWithString:@"4"] autorelease];
     STAssertNotNil(third, @"Cannot create Digits instance");
-    Digits *result = [[first power:second] power:third];
+    Digits *result = [[first power:second withError:NULL] power:third withError:NULL];
     int actual = result.intValue, expected = 4096;
     STAssertTrue(actual == expected, @"'%d' should be equal to '%d'", actual, expected);
 }
@@ -877,7 +874,7 @@
     Digits *digits = [[[Digits alloc] init] retain];
     STAssertNotNil(digits, @"Cannot create Digits instance");
     
-    [digits negate];
+    [digits negateWithError:NULL];
     
     STAssertTrue(digits.positive == NO, @"should be positive by default");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
@@ -900,7 +897,7 @@
     STAssertNotNil(digits, @"Cannot create Digits instance");
     
     [digits pushDigit:@"0"];
-    [digits negate];
+    [digits negateWithError:NULL];
     
     STAssertTrue(digits.positive == NO, @"should be positive by default");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
@@ -922,7 +919,7 @@
     Digits *digits = [[[Digits alloc] init] retain];
     STAssertNotNil(digits, @"Cannot create Digits instance");
     
-    [digits negate];
+    [digits negateWithError:NULL];
     [digits pushDigit:@"0"];
     
     STAssertTrue(digits.positive == NO, @"should be positive by default");
@@ -946,7 +943,7 @@
     STAssertNotNil(digits, @"Cannot create Digits instance");
     
     [digits pushDigit:@"1"];
-    [digits negate];
+    [digits negateWithError:NULL];
     
     STAssertTrue(digits.positive == NO, @"should be positive by default");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
@@ -968,7 +965,7 @@
     Digits *digits = [[[Digits alloc] init] retain];
     STAssertNotNil(digits, @"Cannot create Digits instance");
     
-    [digits negate];
+    [digits negateWithError:NULL];
     [digits pushDigit:@"1"];
     
     STAssertTrue(digits.positive == NO, @"should be positive by default");
