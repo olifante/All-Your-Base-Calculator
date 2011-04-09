@@ -1395,7 +1395,7 @@
     actual = calculator.secondaryDisplay, expected = @"0 / 0";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
     
-    actual = calculator.mainDisplay, expected = @"= (undefined)";
+    actual = calculator.mainDisplay, expected = @"cannot divide by 0";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
@@ -1428,7 +1428,7 @@
     actual = calculator.secondaryDisplay, expected = @"0 / 0";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
     
-    actual = calculator.mainDisplay, expected = @"= (undefined)";
+    actual = calculator.mainDisplay, expected = @"cannot divide by 0";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
@@ -1495,7 +1495,7 @@
     actual = calculator.secondaryDisplay, expected = @"0 / 0";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
     
-    actual = calculator.mainDisplay, expected = @"= (undefined)";
+    actual = calculator.mainDisplay, expected = @"cannot divide by 0";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
@@ -1528,7 +1528,7 @@
     actual = calculator.secondaryDisplay, expected = @"0 / 0";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
     
-    actual = calculator.mainDisplay, expected = @"= (undefined)";
+    actual = calculator.mainDisplay, expected = @"cannot divide by 0";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 

@@ -20,13 +20,11 @@
 @synthesize secondaryDisplay;
 @synthesize mainDisplay;
 @synthesize error;
-@synthesize erroneousState;
 
 - (id)init
 {
     self = [super init];
     if (self) {
-        self.erroneousState = NO;
         self.error = nil;
         self.previousDigits = nil;
         self.currentDigits = [[[Digits alloc] init] autorelease];
@@ -37,8 +35,8 @@
 
 - (void)updateMainDisplay
 {
-    if (self.erroneousState) {
-        self.mainDisplay = [self.error description];
+    if (self.error) {
+        self.mainDisplay = [self.error localizedDescription];
         return; // early return if in erroneous state
     }
 
@@ -69,7 +67,7 @@
 
 - (void)updateSecondaryDisplay
 {
-    if (self.erroneousState) {
+    if (self.error) {
         self.secondaryDisplay = self.previousExpression;
         return; // early return if in erroneous state
     }
@@ -93,7 +91,7 @@
 
 - (void)performPendingOperationWithError:(NSError **)operationError
 {
-    Digits *operationResultDigits;
+    Digits *operationResultDigits = nil;
     
     if ([self.currentOperation isEqualToString:@"+"]) {
         operationResultDigits = [self.previousDigits plus:self.currentDigits withError:operationError];
@@ -124,20 +122,13 @@
                                ];
     self.previousOperation = self.currentOperation;
     self.currentOperation = nil;        
-
-    if (operationResultDigits) {
-        self.resultDigits = operationResultDigits;
-    } else if (operationError) {
-        self.resultDigits = nil;
-        self.erroneousState = YES;
-        self.error = *operationError;
-    }
+    self.resultDigits = operationResultDigits;
 }
 
 - (void)digitPressed:(NSString *)digit
 {
-    if (self.erroneousState) {
-        [self releaseMembers];
+    if (self.error) {
+        [self cleanPressed];
         NSLog(@"cleaned up after pressing digit in an erroneous state");
     }
     
@@ -153,7 +144,7 @@
 
 - (void)binaryOperationPressed:(NSString *)operation 
 {
-    if (self.erroneousState) {
+    if (self.error) {
         NSLog(@"No action - operations do nothing after error");
         return;
     }
@@ -168,10 +159,17 @@
             // pressing another operation when a minus sign has been input does nothing            
         }
     } else if (self.currentDigits.unsignedDigits && self.currentOperation) {
-        [self performPendingOperationWithError:NULL];
-        self.previousDigits = self.resultDigits;
-        self.currentOperation = operation;
-        self.currentDigits = [[[Digits alloc] init] autorelease];
+        NSError *operationError = nil;
+        [self performPendingOperationWithError:&operationError];
+
+        if (!self.resultDigits && operationError) {
+            NSLog(@"binary operation error after chaining operation");
+            self.error = operationError;
+        } else {            
+            self.previousDigits = self.resultDigits;
+            self.currentOperation = operation;
+            self.currentDigits = [[[Digits alloc] init] autorelease];
+        }
     } else { // no pending operation
         self.previousDigits = self.currentDigits;
         self.currentOperation = operation;
@@ -183,16 +181,24 @@
 
 - (void)resultPressed
 {
-    if (self.erroneousState) {
+    if (self.error) {
         NSLog(@"No action - result does nothing after error");
         return;
     }
     
     if (self.currentOperation && self.currentDigits.unsignedDigits) {
         NSLog(@"############### path0"); // test1Plus2Result
-        [self performPendingOperationWithError:NULL];
-        self.currentDigits = self.resultDigits;
-        self.previousDigits = nil;
+        NSError *operationError = nil;
+        [self performPendingOperationWithError:&operationError];
+
+        if (!self.resultDigits && operationError) {
+            NSLog(@"binary operation error after pressing result");
+            self.error = operationError;
+        } else {            
+            self.currentDigits = self.resultDigits;
+            self.previousDigits = nil;
+            self.currentOperation = nil;
+        }
     } else if (self.currentOperation && !self.currentDigits.unsignedDigits) {
         NSLog(@"No action - operation cannot be performed without a 2nd operand");
         NSLog(@"############### path1"); // test1PlusResult
@@ -230,8 +236,8 @@
 
 - (void)deletePressed
 {
-    if (self.erroneousState) {
-        [self releaseMembers];
+    if (self.error) {
+        [self cleanPressed];
         NSLog(@"cleaned up after pressing delete in an erroneous state");
         return;
     }
@@ -250,7 +256,7 @@
 - (void)negatePressed
 {
 
-    if (self.erroneousState) {
+    if (self.error) {
         NSLog(@"No action - negate does nothing after error");
         return;
     }
@@ -299,7 +305,6 @@
     self.previousOperation = nil;
     self.previousExpression = nil;
     self.error = nil;
-    self.erroneousState = NO;
     [self updateDisplays];
 }
 

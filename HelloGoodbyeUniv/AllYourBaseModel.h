@@ -20,7 +20,6 @@
     NSString *previousDisplay;
     NSString *currentDisplay;
     NSError *error;
-    BOOL erroneousState;
 }
 
 @property (nonatomic, retain) Digits *currentDigits;
@@ -32,7 +31,6 @@
 @property (nonatomic, retain) NSString *mainDisplay;
 @property (nonatomic, retain) NSString *secondaryDisplay;
 @property (nonatomic, retain) NSError *error;
-@property BOOL erroneousState;
 
 - (id)init;
 - (void)updateDisplays;
