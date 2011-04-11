@@ -32,6 +32,22 @@
 @property (nonatomic, retain) NSString *secondaryDisplay;
 @property (nonatomic, retain) NSError *error;
 
++ (unichar)plus;
++ (unichar)minus;
++ (unichar)times;
++ (unichar)divide;
++ (unichar)negate;
++ (unichar)negative;
++ (unichar)point;
+
++ (NSString *)plusString;
++ (NSString *)minusString;
++ (NSString *)timesString;
++ (NSString *)divideString;
++ (NSString *)negateString;
++ (NSString *)negativeString;
++ (NSString *)pointString;
+
 - (id)init;
 - (void)updateDisplays;
 - (void)performPendingOperationWithError:(NSError **)operationError;

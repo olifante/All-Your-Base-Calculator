@@ -8,7 +8,23 @@
 
 #import "Digits.h"
 
-const NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+//const unichar point = 0x2027; // ‧ HYPHENATION POINT
+//const unichar point = 0x2219; // ∙ BULLET OPERATOR
+//const unichar negative = 0x002d; // - HYPHEN-MINUS
+//const unichar negative = 0xfe63; // ﹣ SMALL HYPHEN-MINUS
+//const unichar negative = 0x02d7; // ˗ MODIFIER LETTER MINUS SIGN
+
+static NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+//static NSString *hexaVigesimal = @"ABCDEFGHIJKLMNOPQRSTUVWXYZ"; // 'A' == 0, 'Z' == 25
+//static NSString *base64 = @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"; // 'A' == 0, '/' == 63
+//static NSString *base64url = @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_"; // 'A' == 0, '_' == 63
+//static NSString *base32 = @"ABCDEFGHIJKLMNOPQRSTUVWXYZ234567"; // 'A' == 0, '7' == 31 (RFC 4648)
+//static NSString *base36 = @"abcdefghijklmnopqrstuvwxyz0123456789/"; // 'a' == 0, '9' == 35
+//static NSString *crockfordBase32 = @"0123456789ABCDEFGHJKMNPQRSTVWXYZ"; // 'Z' == 31, I, L, O and U excluded
+
+static NSString *divideErrorMessage = @"x/y needs y!=0";
+static NSString *invertErrorMessage = @"1/x needs x!=0";
+static NSString *powerErrorMessage = @"0^x needs x>0";
 
 @implementation Digits
 
@@ -20,9 +36,29 @@ const NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 @synthesize positive;
 @synthesize unsignedDigits;
 
+//+ (unichar)pointChar { return point; }
+//+ (unichar)negativeChar { return negative; }
+//+ (NSString *)pointString { return [NSString stringWithFormat:@"%C", point]; }
+//+ (NSString *)negativeString { return [NSString stringWithFormat:@"%C", negative]; }
+
 + (NSString *)allDigits
 {
     return [[allDigits copy] autorelease];
+}
+
++ (NSString *)divideErrorMessage
+{
+    return [[divideErrorMessage copy] autorelease];
+}
+
++ (NSString *)invertErrorMessage
+{
+    return [[invertErrorMessage copy] autorelease];
+}
+
++ (NSString *)powerErrorMessage
+{
+    return [[powerErrorMessage copy] autorelease];
 }
 
 + (NSString *)allowedDigitsForBase:(int)someBase
@@ -100,9 +136,9 @@ const NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 {
     int result;
     int length;
-    NSRange point = [self.unsignedDigits rangeOfString:@"."];
-    if (point.length > 0) {
-        length = point.location;
+    NSRange pointRange = [self.unsignedDigits rangeOfString:@"."];
+    if (pointRange.length > 0) {
+        length = pointRange.location;
     } else {
         length = self.unsignedDigits.length;
     }
@@ -325,7 +361,7 @@ const NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     } else if (secondOperand.intValue == 0) {
         if (error) {            
             NSDictionary *userDict = [[NSDictionary dictionaryWithObjectsAndKeys:
-                                       NSLocalizedString(@"cannot divide by 0", @""),
+                                       NSLocalizedString(divideErrorMessage, @""),
                                        NSLocalizedDescriptionKey,
                                        nil] retain];
             NSError *localError = [[[NSError alloc] initWithDomain:NSCocoaErrorDomain code:EPERM userInfo:userDict] autorelease];
@@ -344,7 +380,7 @@ const NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     if (self.intValue == 0) {
         if (error) {            
             NSDictionary *userDict = [[NSDictionary dictionaryWithObjectsAndKeys:
-                                       NSLocalizedString(@"cannot invert 0", @""),
+                                       NSLocalizedString(invertErrorMessage, @""),
                                        NSLocalizedDescriptionKey,
                                        nil] retain];
             NSError *localError = [[[NSError alloc] initWithDomain:NSCocoaErrorDomain code:EPERM userInfo:userDict] autorelease];
@@ -365,7 +401,7 @@ const NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     } else if ((self.intValue <= 0) && (secondOperand.intValue <= 0)) {
         if (error) {            
             NSDictionary *userDict = [[NSDictionary dictionaryWithObjectsAndKeys:
-                                       NSLocalizedString(@"0 only has positive powers", @""),
+                                       NSLocalizedString(powerErrorMessage, @""),
                                        NSLocalizedDescriptionKey,
                                        nil] retain];
             NSError *localError = [[[NSError alloc] initWithDomain:NSCocoaErrorDomain code:EPERM userInfo:userDict] autorelease];

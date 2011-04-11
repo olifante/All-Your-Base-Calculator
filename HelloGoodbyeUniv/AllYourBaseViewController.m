@@ -46,13 +46,7 @@
 {
     NSString *operation = sender.titleLabel.text;
     NSLog(@"%@ operation pressed", operation);
-    if ([operation isEqualToString:@"×"]) {
-        [self.model binaryOperationPressed:@"*"];
-    } else if ([operation isEqualToString:@"÷"]) {
-            [self.model binaryOperationPressed:@"/"];
-    } else {
-        [self.model binaryOperationPressed:operation];
-    }
+    [self.model binaryOperationPressed:operation];
 }
 
 - (IBAction)resultPressed

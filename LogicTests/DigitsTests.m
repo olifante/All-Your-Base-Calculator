@@ -765,7 +765,7 @@
     STAssertNil(result, @"'%@' should be nil", result);
     STAssertNotNil(error, @"'%@' should not be nil", result);
     NSString *actual, *expected;
-    actual = [error localizedDescription], expected = @"cannot divide by 0";
+    actual = [error localizedDescription], expected = [Digits divideErrorMessage];
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
@@ -789,7 +789,7 @@
     STAssertNil(result, @"'%@' should be nil", result);
     STAssertNotNil(error, @"'%@' should not be nil", result);
     NSString *actual, *expected;
-    actual = [error localizedDescription], expected = @"0 only has positive powers";
+    actual = [error localizedDescription], expected = [Digits powerErrorMessage];
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
@@ -805,7 +805,7 @@
     STAssertNil(result, @"'%@' should be nil", result);
     STAssertNotNil(error, @"'%@' should not be nil", result);
     NSString *actual, *expected;
-    actual = [error localizedDescription], expected = @"0 only has positive powers";
+    actual = [error localizedDescription], expected = [Digits powerErrorMessage];
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
@@ -819,7 +819,7 @@
     STAssertNil(result, @"'%@' should be nil", result);
     STAssertNotNil(error, @"'%@' should not be nil", result);
     NSString *actual, *expected;
-    actual = [error localizedDescription], expected = @"cannot invert 0";
+    actual = [error localizedDescription], expected = [Digits invertErrorMessage];
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 

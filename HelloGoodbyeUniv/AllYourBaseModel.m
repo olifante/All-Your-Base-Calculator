@@ -8,6 +8,16 @@
 
 #import "AllYourBaseModel.h"
 
+const unichar plus = 0x002b; // + PLUS SIGN
+const unichar minus = 0x2212; // − MINUS SIGN
+const unichar times = 0x00d7; // × MULTIPLICATION SIGN
+const unichar divide = 0x00f7; // ÷ DIVISION SIGN
+const unichar negate = 0x2213; // ∓ MINUS-OR-PLUS SIGN
+const unichar negative = 0x002d; // - HYPHEN-MINUS
+//const unichar negative = 0xfe63; // ﹣ SMALL HYPHEN-MINUS
+//const unichar negative = 0x02d7; // ˗ MODIFIER LETTER MINUS SIGN
+const unichar point = 0x2027; // ‧ HYPHENATION POINT
+//const unichar point = 0x2219; // ∙ BULLET OPERATOR
 
 @implementation AllYourBaseModel
 
@@ -20,6 +30,22 @@
 @synthesize secondaryDisplay;
 @synthesize mainDisplay;
 @synthesize error;
+
++ (unichar)plus { return plus; }
++ (unichar)minus { return minus; }
++ (unichar)times { return times; }
++ (unichar)divide { return divide; }
++ (unichar)negate { return negate; }
++ (unichar)negative { return negative; }
++ (unichar)point { return point; }
+
++ (NSString *)plusString { return [NSString stringWithFormat:@"%C", plus]; }
++ (NSString *)minusString { return [NSString stringWithFormat:@"%C", minus]; }
++ (NSString *)timesString { return [NSString stringWithFormat:@"%C", times]; }
++ (NSString *)divideString { return [NSString stringWithFormat:@"%C", divide]; }
++ (NSString *)negateString { return [NSString stringWithFormat:@"%C", negate]; }
++ (NSString *)negativeString { return [NSString stringWithFormat:@"%C", negative]; }
++ (NSString *)pointString { return [NSString stringWithFormat:@"%C", point]; }
 
 - (id)init
 {
@@ -88,13 +114,13 @@
 {
     Digits *operationResultDigits = nil;
     
-    if ([self.currentOperation isEqualToString:@"+"]) {
+    if ([self.currentOperation characterAtIndex:0] == plus) {
         operationResultDigits = [self.previousDigits plus:self.currentDigits withError:operationError];
-    } else if ([self.currentOperation isEqualToString:@"-"]) {
+    } else if ([self.currentOperation characterAtIndex:0] == minus) {
         operationResultDigits = [self.previousDigits minus:self.currentDigits withError:operationError];
-    } else if ([self.currentOperation isEqualToString:@"*"]) {
+    } else if ([self.currentOperation characterAtIndex:0] == times) {
         operationResultDigits = [self.previousDigits times:self.currentDigits withError:operationError];
-    } else if ([self.currentOperation isEqualToString:@"/"]) {
+    } else if ([self.currentOperation characterAtIndex:0] == divide) {
         operationResultDigits = [self.previousDigits divide:self.currentDigits withError:operationError];
     } else if ([self.currentOperation isEqualToString:@"^"]) {
         operationResultDigits = [self.previousDigits power:self.currentDigits withError:operationError];

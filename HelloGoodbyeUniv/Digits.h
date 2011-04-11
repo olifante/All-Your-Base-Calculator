@@ -16,7 +16,7 @@
     NSString *allowedDigits;
     NSCharacterSet *allowedDigitSet;
     NSCharacterSet *forbiddenDigitSet;
-    NSDictionary *digitValues;
+    NSDictionary *digitValues;    
 }
 
 @property int base;
@@ -30,7 +30,15 @@
 @property (readonly) int intValue;
 @property (readonly) NSNumber *value;
 
+//+ (unichar)point;
+//+ (unichar)negativeChar;
+//+ (NSString *)pointString;
+//+ (NSString *)negativeString;
+
 + (NSString *)allDigits;
++ (NSString *)divideErrorMessage;
++ (NSString *)invertErrorMessage;
++ (NSString *)powerErrorMessage;
 + (NSString *)allowedDigitsForBase:(int)someBase;
 + (NSCharacterSet *)allowedDigitSetForBase:(int)someBase;
 + (NSCharacterSet *)forbiddenDigitSetForBase:(int)someBase;
