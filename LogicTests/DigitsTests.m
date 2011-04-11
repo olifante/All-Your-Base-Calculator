@@ -28,7 +28,7 @@
 - (void)testInit {
     Digits *digits = [[[Digits alloc] init] retain];
     STAssertNotNil(digits, @"Cannot create Digits instance");
-    STAssertTrue(digits.positive == YES, @"should be positive by default");
+    STAssertTrue(digits.startsWithMinus == NO, @"");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
     STAssertTrue(digits.intValue == 0, @"'%d' should be equal to '%d'", digits.intValue, 0);
     
@@ -58,7 +58,7 @@
     
     Digits *digits = [[[Digits alloc] initWithString:@"  123 "] retain];
     STAssertNotNil(digits, @"Cannot create Digits instance");
-    STAssertTrue(digits.positive == YES, @"should be positive by default");
+    STAssertTrue(digits.startsWithMinus == NO, @"");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
     STAssertTrue(digits.intValue == 123, @"'%d' should be equal to '%d'", digits.intValue, 123);
     
@@ -75,7 +75,7 @@
     
     Digits *digits = [[[Digits alloc] initWithString:@"-12"] retain];
     STAssertNotNil(digits, @"Cannot create Digits instance");
-    STAssertTrue(digits.positive == NO, @"should be positive by default");
+    STAssertTrue(digits.startsWithMinus == YES, @"");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
     STAssertTrue(digits.intValue == -12, @"'%d' should be equal to '%d'", digits.intValue, -12);
     
@@ -92,7 +92,7 @@
     
     Digits *digits = [[[Digits alloc] initWithString:@"1234567890"] retain];
     STAssertNotNil(digits, @"Cannot create Digits instance");
-    STAssertTrue(digits.positive == YES, @"should be positive by default");
+    STAssertTrue(digits.startsWithMinus == NO, @"");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
     STAssertTrue(digits.intValue == 1234567890, @"'%d' should be equal to '%d'", digits.intValue, 1234567890);
     
@@ -109,7 +109,7 @@
     
     Digits *digits = [[[Digits alloc] initWithString:@"1234567890abc"] retain];
     STAssertNotNil(digits, @"Cannot create Digits instance");
-    STAssertTrue(digits.positive == YES, @"should be positive by default");
+    STAssertTrue(digits.startsWithMinus == NO, @"");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
     STAssertTrue(digits.intValue == 1234567890, @"'%d' should be equal to '%d'", digits.intValue, 1234567890);
     
@@ -126,7 +126,7 @@
     
     Digits *digits = [[[Digits alloc] initWithString:@"  -123abc456 "] retain];
     STAssertNotNil(digits, @"Cannot create Digits instance");
-    STAssertTrue(digits.positive == NO, @"should be positive by default");
+    STAssertTrue(digits.startsWithMinus == YES, @"");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
     STAssertTrue(digits.intValue == -123, @"'%d' should be equal to '%d'", digits.intValue, -123);
     
@@ -145,7 +145,7 @@
 
     [digits pushDigit:@"0"];
     
-    STAssertTrue(digits.positive == YES, @"should be positive by default");
+    STAssertTrue(digits.startsWithMinus == NO, @"");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
     STAssertTrue(digits.intValue == 0, @"'%d' should be equal to '%d'", digits.intValue, 0);
     
@@ -167,7 +167,7 @@
     
     [digits pushDigit:@"1"];
     
-    STAssertTrue(digits.positive == YES, @"should be positive by default");
+    STAssertTrue(digits.startsWithMinus == NO, @"");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
     STAssertTrue(digits.intValue == 1, @"'%d' should be equal to '%d'", digits.intValue, 1);
     
@@ -186,7 +186,7 @@
     
     [digits pushDigit:@"."];
     
-    STAssertTrue(digits.positive == YES, @"should be positive by default");
+    STAssertTrue(digits.startsWithMinus == NO, @"");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
     STAssertTrue(digits.intValue == 0, @"'%d' should be equal to '%d'", digits.intValue, 0);
     
@@ -209,7 +209,7 @@
     [digits pushDigit:@"."];
     [digits pushDigit:@"."];
     
-    STAssertTrue(digits.positive == YES, @"should be positive by default");
+    STAssertTrue(digits.startsWithMinus == NO, @"");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
     STAssertTrue(digits.intValue == 0, @"'%d' should be equal to '%d'", digits.intValue, 0);
     
@@ -232,7 +232,7 @@
     [digits pushDigit:@"."];
     [digits pushDigit:@"3"];
     
-    STAssertTrue(digits.positive == YES, @"should be positive by default");
+    STAssertTrue(digits.startsWithMinus == NO, @"");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
     STAssertTrue(digits.intValue == 0, @"'%d' should be equal to '%d'", digits.intValue, 0);
     
@@ -255,7 +255,7 @@
     [digits pushDigit:@"0"];
     [digits pushDigit:@"."];
     
-    STAssertTrue(digits.positive == YES, @"should be positive by default");
+    STAssertTrue(digits.startsWithMinus == NO, @"");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
     STAssertTrue(digits.intValue == 0, @"'%d' should be equal to '%d'", digits.intValue, 0);
     
@@ -278,7 +278,7 @@
     [digits pushDigit:@"1"];
     [digits pushDigit:@"."];
     
-    STAssertTrue(digits.positive == YES, @"should be positive by default");
+    STAssertTrue(digits.startsWithMinus == NO, @"");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
     STAssertTrue(digits.intValue == 1, @"'%d' should be equal to '%d'", digits.intValue, 1);
     
@@ -302,7 +302,7 @@
     [digits pushDigit:@"."];
     [digits pushDigit:@"1"];
     
-    STAssertTrue(digits.positive == YES, @"should be positive by default");
+    STAssertTrue(digits.startsWithMinus == NO, @"");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
     STAssertTrue(digits.intValue == 0, @"'%d' should be equal to '%d'", digits.intValue, 0);
     
@@ -326,7 +326,7 @@
     [digits pushDigit:@"."];
     [digits pushDigit:@"2"];
     
-    STAssertTrue(digits.positive == YES, @"should be positive by default");
+    STAssertTrue(digits.startsWithMinus == NO, @"");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
     STAssertTrue(digits.intValue == 1, @"'%d' should be equal to '%d'", digits.intValue, 1);
     
@@ -350,7 +350,7 @@
     [digits pushDigit:@"2"];    
     [digits pushDigit:@"3"];    
 
-    STAssertTrue(digits.positive == YES, @"should be positive by default");
+    STAssertTrue(digits.startsWithMinus == NO, @"");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
     STAssertTrue(digits.intValue == 123, @"'%d' should be equal to '%d'", digits.intValue, 123);
     
@@ -369,7 +369,7 @@
     
     [digits pushDigit:@"123"];    
     
-    STAssertTrue(digits.positive == YES, @"should be positive by default");
+    STAssertTrue(digits.startsWithMinus == NO, @"");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
     STAssertTrue(digits.intValue == 0, @"'%d' should be equal to '%d'", digits.intValue, 0);
     
@@ -392,7 +392,7 @@
     [digits pushDigit:@"1"];    
     [digits pushDigit:@"A"];    
     
-    STAssertTrue(digits.positive == YES, @"should be positive by default");
+    STAssertTrue(digits.startsWithMinus == NO, @"");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
     STAssertTrue(digits.intValue == 1, @"'%d' should be equal to '%d'", digits.intValue, 1);
     
@@ -456,7 +456,7 @@
     actual = [digits popDigit], expected = @"1";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
     
-    STAssertTrue(digits.positive == YES, @"should be positive by default");
+    STAssertTrue(digits.startsWithMinus == NO, @"");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
     STAssertTrue(digits.intValue == 0, @"'%@' should be equal to '%d'", digits.intValue, 1);
         
@@ -473,17 +473,17 @@
 - (void)testNegatePop {
     Digits *digits = [[[Digits alloc] init] retain];
     STAssertNotNil(digits, @"Cannot create Digits instance");
-    STAssertTrue(digits.positive == YES, @"should be positive by default");
+    STAssertTrue(digits.startsWithMinus == NO, @"");
     
-    [digits negateWithError:NULL];
+    [digits negate];
 
-    STAssertTrue(digits.positive == NO, @"should be positive by default");
+    STAssertTrue(digits.startsWithMinus == YES, @"");
 
     NSString *actual, *expected;
     
-    actual = [digits popDigit];
-    STAssertTrue(digits.positive == YES, @"should be positive by default");
-    STAssertNil(actual, @"'%@' shoud be nil", actual);
+    actual = [digits popDigit], expected = @"-";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+    STAssertTrue(digits.startsWithMinus == NO, @"");
     
     actual = digits.unsignedDigits;
     STAssertNil(actual, @"'%@' shoud be nil", actual);
@@ -508,7 +508,7 @@
     actual = [digits popDigit], expected = @"3";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
         
-    STAssertTrue(digits.positive == YES, @"should be positive by default");
+    STAssertTrue(digits.startsWithMinus == NO, @"");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
     STAssertTrue(digits.intValue == 12, @"'%d' should be equal to '%d'", digits.intValue, 12);
     
@@ -523,7 +523,7 @@
     
     Digits *digits = [[[Digits alloc] initWithInt:1234567890] retain];
     STAssertNotNil(digits, @"Cannot create Digits instance");
-    STAssertTrue(digits.positive == YES, @"should be positive by default");
+    STAssertTrue(digits.startsWithMinus == NO, @"");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
     STAssertTrue(digits.intValue == 1234567890, @"'%d' should be equal to '%@'", digits.intValue, 1234567890);
     
@@ -540,7 +540,7 @@
     
     Digits *digits = [[[Digits alloc] initWithInt:-1234567890] retain];
     STAssertNotNil(digits, @"Cannot create Digits instance");
-    STAssertTrue(digits.positive == NO, @"should be positive by default");
+    STAssertTrue(digits.startsWithMinus == YES, @"");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
     STAssertTrue(digits.intValue == -1234567890, @"'%d' should be equal to '%@'", digits.intValue, -1234567890);
     
@@ -557,7 +557,7 @@
     
     Digits *digits = [[[Digits alloc] initWithInt:1234567890 base:2] retain];
     STAssertNotNil(digits, @"Cannot create Digits instance");
-    STAssertTrue(digits.positive == YES, @"should be positive by default");
+    STAssertTrue(digits.startsWithMinus == NO, @"");
     STAssertTrue(digits.base == 2, @"should use decimal base by default");
     STAssertTrue(digits.intValue == 1234567890, @"'%d' should be equal to '%@'", digits.intValue, 1234567890);
     
@@ -574,7 +574,7 @@
     
     Digits *digits = [[[Digits alloc] initWithString:@"1001001100101100000001011010010" base:2] retain];
     STAssertNotNil(digits, @"Cannot create Digits instance");
-    STAssertTrue(digits.positive == YES, @"should be positive by default");
+    STAssertTrue(digits.startsWithMinus == NO, @"");
     STAssertTrue(digits.base == 2, @"should use decimal base by default");
     STAssertTrue(digits.intValue == 1234567890, @"'%d' should be equal to '%@'", digits.intValue, 1234567890);
     
@@ -591,7 +591,7 @@
     
     Digits *digits = [[[Digits alloc] initWithInt:1234567890 base:8] retain];
     STAssertNotNil(digits, @"Cannot create Digits instance");
-    STAssertTrue(digits.positive == YES, @"should be positive by default");
+    STAssertTrue(digits.startsWithMinus == NO, @"");
     STAssertTrue(digits.base == 8, @"should use decimal base by default");
     STAssertTrue(digits.intValue == 1234567890, @"'%d' should be equal to '%@'", digits.intValue, 1234567890);
     
@@ -608,7 +608,7 @@
     
     Digits *digits = [[[Digits alloc] initWithString:@"11145401322" base:8] retain];
     STAssertNotNil(digits, @"Cannot create Digits instance");
-    STAssertTrue(digits.positive == YES, @"should be positive by default");
+    STAssertTrue(digits.startsWithMinus == NO, @"");
     STAssertTrue(digits.base == 8, @"should use decimal base by default");
     STAssertTrue(digits.intValue == 1234567890, @"'%d' should be equal to '%@'", digits.intValue, 1234567890);
     
@@ -625,7 +625,7 @@
     
     Digits *digits = [[[Digits alloc] initWithInt:1234567890 base:16] retain];
     STAssertNotNil(digits, @"Cannot create Digits instance");
-    STAssertTrue(digits.positive == YES, @"should be positive by default");
+    STAssertTrue(digits.startsWithMinus == NO, @"");
     STAssertTrue(digits.base == 16, @"should use decimal base by default");
     STAssertTrue(digits.intValue == 1234567890, @"'%d' should be equal to '%@'", digits.intValue, 1234567890);
     
@@ -642,7 +642,7 @@
     
     Digits *digits = [[[Digits alloc] initWithString:@"499602D2" base:16] retain];
     STAssertNotNil(digits, @"Cannot create Digits instance");
-    STAssertTrue(digits.positive == YES, @"should be positive by default");
+    STAssertTrue(digits.startsWithMinus == NO, @"");
     STAssertTrue(digits.base == 16, @"should use decimal base by default");
     STAssertTrue(digits.intValue == 1234567890, @"'%d' should be equal to '%d'", digits.intValue, 1234567890);
     
@@ -659,7 +659,7 @@
     
     Digits *digits = [[[Digits alloc] initWithInt:-1234567890 base:16] retain];
     STAssertNotNil(digits, @"Cannot create Digits instance");
-    STAssertTrue(digits.positive == NO, @"should be positive by default");
+    STAssertTrue(digits.startsWithMinus == YES, @"");
     STAssertTrue(digits.base == 16, @"should use decimal base by default");
     STAssertTrue(digits.intValue == -1234567890, @"'%d' should be equal to '%@'", digits.intValue, -1234567890);
     
@@ -676,7 +676,7 @@
     
     Digits *digits = [[[Digits alloc] initWithString:@"-499602D2" base:16] retain];
     STAssertNotNil(digits, @"Cannot create Digits instance");
-    STAssertTrue(digits.positive == NO, @"should be positive by default");
+    STAssertTrue(digits.startsWithMinus == YES, @"");
     STAssertTrue(digits.base == 16, @"should use decimal base by default");
     STAssertTrue(digits.intValue == -1234567890, @"'%d' should be equal to '%d'", digits.intValue, -1234567890);
     
@@ -926,16 +926,16 @@
     Digits *digits = [[[Digits alloc] init] retain];
     STAssertNotNil(digits, @"Cannot create Digits instance");
     
-    [digits negateWithError:NULL];
+    [digits negate];
     
-    STAssertTrue(digits.positive == NO, @"should be positive by default");
+    STAssertTrue(digits.startsWithMinus == YES, @"");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
     STAssertTrue(digits.intValue == 0, @"'%d' should be equal to '%d'", digits.intValue, 0);
     
     NSString *actual, *expected;
     
-    actual = digits.unsignedDigits;
-    STAssertNil(actual, @"'%@' shoud be nil", actual);
+    actual = digits.unsignedDigits, expected = @"";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
     
     actual = digits.signedDigits, expected = @"-";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
@@ -949,9 +949,9 @@
     STAssertNotNil(digits, @"Cannot create Digits instance");
     
     [digits pushDigit:@"0"];
-    [digits negateWithError:NULL];
+    [digits negate];
     
-    STAssertTrue(digits.positive == NO, @"should be positive by default");
+    STAssertTrue(digits.startsWithMinus == YES, @"");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
     STAssertTrue(digits.intValue == 0, @"'%d' should be equal to '%d'", digits.intValue, 0);
     
@@ -960,10 +960,10 @@
     actual = digits.unsignedDigits, expected = @"";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
     
-    actual = digits.signedDigits, expected = @"-0";
+    actual = digits.signedDigits, expected = @"-";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
     
-    actual = digits.description, expected = @"-0";
+    actual = digits.description, expected = @"0";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
@@ -971,10 +971,10 @@
     Digits *digits = [[[Digits alloc] init] retain];
     STAssertNotNil(digits, @"Cannot create Digits instance");
     
-    [digits negateWithError:NULL];
+    [digits negate];
     [digits pushDigit:@"0"];
     
-    STAssertTrue(digits.positive == NO, @"should be positive by default");
+    STAssertTrue(digits.startsWithMinus == YES, @"");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
     STAssertTrue(digits.intValue == 0, @"'%d' should be equal to '%d'", digits.intValue, 0);
     
@@ -983,7 +983,7 @@
     actual = digits.unsignedDigits, expected = @"";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
     
-    actual = digits.signedDigits, expected = @"-0";
+    actual = digits.signedDigits, expected = @"-";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
     
     actual = digits.description, expected = @"-0";
@@ -995,9 +995,9 @@
     STAssertNotNil(digits, @"Cannot create Digits instance");
     
     [digits pushDigit:@"1"];
-    [digits negateWithError:NULL];
+    [digits negate];
     
-    STAssertTrue(digits.positive == NO, @"should be positive by default");
+    STAssertTrue(digits.startsWithMinus == YES, @"");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
     STAssertTrue(digits.intValue == -1, @"'%d' should be equal to '%d'", digits.intValue, -1);
     
@@ -1017,10 +1017,10 @@
     Digits *digits = [[[Digits alloc] init] retain];
     STAssertNotNil(digits, @"Cannot create Digits instance");
     
-    [digits negateWithError:NULL];
+    [digits negate];
     [digits pushDigit:@"1"];
     
-    STAssertTrue(digits.positive == NO, @"should be positive by default");
+    STAssertTrue(digits.startsWithMinus == YES, @"");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
     STAssertTrue(digits.intValue == -1, @"'%d' should be equal to '%d'", digits.intValue, -1);
     

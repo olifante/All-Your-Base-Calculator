@@ -22,18 +22,106 @@ const char *zeroPowerOfZeroErrorMessage = "0 ^ 0 undefined";
 const char *negativePowerOfZeroErrorMessage = "0 ^ -1 undefined";
 const char *fractionalPowerOfNegativeErrorMessage = "-1 ^ .5 undefined";
 
+const unichar negativeChar = 0x002d; // - HYPHEN-MINUS
+//const unichar negativeChar = 0xfe63; // ﹣ SMALL HYPHEN-MINUS
+//const unichar negativeChar = 0x02d7; // ˗ MODIFIER LETTER MINUS SIGN
+const unichar pointChar = 0x2027; // ‧ HYPHENATION POINT
+//const unichar pointChar = 0x2219; // ∙ BULLET OPERATOR
+
 @implementation Digits
 
 @synthesize base;
-@synthesize positive;
-@synthesize unsignedDigits, allowedDigits;
+@synthesize signedDigits, allowedDigits;
 @synthesize allowedDigitSet, forbiddenDigitSet;
 @synthesize digitValues;
+
+- (int)intValue
+{
+    int result;
+    int length;
+    NSRange pointRange = [self.unsignedDigits rangeOfString:@"."];
+    if (pointRange.length > 0) {
+        length = pointRange.location;
+    } else {
+        length = self.unsignedDigits.length;
+    }
+    int accumulator = 0;
+    int digitValue = 0;
+    for (int i = 0; i < length; i++) {
+        NSString *digit = [NSString stringWithFormat:@"%C", [self.unsignedDigits characterAtIndex:i]];
+        digitValue = [[self.digitValues objectForKey:digit] intValue];
+        accumulator += digitValue * pow(self.base, length - 1 - i);
+    }
+    
+    if (self.startsWithMinus) {
+        result = -accumulator;
+    } else {
+        result = accumulator;
+    }
+    return result;
+}
+
+- (NSNumber *)value
+{
+    return [NSNumber numberWithInt:[self intValue]];    
+}
+
+- (NSString *)unsignedDigits
+{
+    NSString *result;
+    if (!self.signedDigits) {
+        result = nil;
+    } else if ([self.signedDigits isEqualToString:@""]) {
+        result = @"";
+    } else if (self.startsWithMinus) {
+        result = [self.signedDigits substringFromIndex:1];
+    } else {
+        result = [[self.signedDigits copy] autorelease];
+    }
+    return result;
+}
+
+- (BOOL)isEmpty
+{
+    return [Digits isEmpty:self.signedDigits];
+}
+
+- (BOOL)startsWithMinus
+{
+    return [Digits startsWithMinus:self.signedDigits];
+}
+
+- (BOOL)startsWithPoint
+{
+    return [Digits startsWithPoint:self.unsignedDigits];
+}
+
+- (BOOL)containsPoint
+{
+    return [Digits containsPoint:self.signedDigits];
+}
+
+- (unichar)zeroChar
+{
+    return [self.allowedDigits characterAtIndex:0];
+}
+
 
 + (NSString *)allDigits
 {
     return [[allDigits copy] autorelease];
 }
+
++ (NSString *)pointString
+{
+    return [NSString stringWithFormat:@"%C", pointChar];
+}
+
++ (NSString *)negativeString
+{
+    return [NSString stringWithFormat:@"%C", negativeChar];
+}
+
 
 + (NSString *)divideErrorMessage
 {
@@ -60,6 +148,7 @@ const char *fractionalPowerOfNegativeErrorMessage = "-1 ^ .5 undefined";
     return [NSString stringWithUTF8String:fractionalPowerOfNegativeErrorMessage];
 }
 
+
 + (NSString *)allowedDigitsForBase:(int)someBase
 {
     return [[Digits allDigits] substringToIndex:someBase];
@@ -77,6 +166,7 @@ const char *fractionalPowerOfNegativeErrorMessage = "-1 ^ .5 undefined";
     return [[Digits allowedDigitSetForBase:someBase] invertedSet];
 }
 
+
 + (double)log:(double)operand base:(int)base
 {
     return log(operand)/log(base);
@@ -84,25 +174,25 @@ const char *fractionalPowerOfNegativeErrorMessage = "-1 ^ .5 undefined";
 
 + (NSString *)parseDigits:(NSString *)someDigits fromBase:(int)someBase
 {
-    BOOL positive = YES;
     NSString *allowedDigits = [allDigits substringToIndex:someBase];
     NSCharacterSet *allowedDigitSet = [NSCharacterSet characterSetWithCharactersInString:allowedDigits];
     NSCharacterSet *forbiddenDigitSet = [allowedDigitSet invertedSet];
     
     NSScanner *scanner = [NSScanner scannerWithString:someDigits];
-    
     [scanner scanString:@" " intoString:NULL];
+    
+    NSString *negativePrefix = @"";
     if ([scanner scanString:@"-" intoString:NULL]) {
-        positive = NO;
+        negativePrefix = @"-";
         [scanner scanString:@" " intoString:NULL];
     }
     
-    NSString *unsignedDigits = nil;
-    [scanner scanUpToCharactersFromSet:forbiddenDigitSet intoString:&unsignedDigits];
+    NSString *signedDigits = nil;
+    [scanner scanUpToCharactersFromSet:forbiddenDigitSet intoString:&signedDigits];
     
     return [NSString stringWithFormat:@"%@%@"
-            , positive ? @"" : @"-"
-            , unsignedDigits ? unsignedDigits : @""
+            , negativePrefix
+            , signedDigits ? signedDigits : @""
             ];
 }
 
@@ -131,68 +221,45 @@ const char *fractionalPowerOfNegativeErrorMessage = "-1 ^ .5 undefined";
     return [NSString stringWithString:someMutableDigits];    
 }
 
-- (int)intValue
+
++ (BOOL)startsWithMinus:(NSString *)someString
 {
-    int result;
-    int length;
-    NSRange pointRange = [self.unsignedDigits rangeOfString:@"."];
-    if (pointRange.length > 0) {
-        length = pointRange.location;
+    BOOL result;
+    if (!someString || [someString length] == 0) {
+        result = NO;
     } else {
-        length = self.unsignedDigits.length;
-    }
-    int accumulator = 0;
-    int digitValue = 0;
-    for (int i = 0; i < length; i++) {
-        NSString *digit = [NSString stringWithFormat:@"%C", [self.unsignedDigits characterAtIndex:i]];
-        digitValue = [[self.digitValues objectForKey:digit] intValue];
-        accumulator += digitValue * pow(self.base, length - 1 - i);
-    }
-    
-    if (self.positive) {
-        result = accumulator;
-    } else {
-        result = -accumulator;
+        result = [[someString substringToIndex:1] isEqualToString:@"-"];
     }
     return result;
 }
 
-- (NSNumber *)value
++ (BOOL)startsWithPoint:(NSString *)digitString
 {
-    return [NSNumber numberWithInt:[self intValue]];    
-}
-
-- (NSString *)signedDigits
-{
-    NSString *result;
-    if (self.unsignedDigits && [self.unsignedDigits isEqualToString:@""]) {
-        result = self.positive ? @"" : @"-0";
-    } else if (self.unsignedDigits && ![self.unsignedDigits isEqualToString:@""]) {
-        result = [NSString stringWithFormat:@"%@%@", 
-                self.positive ? @"" : @"-", 
-                self.unsignedDigits];
-    } else if (!self.unsignedDigits && !self.positive) {
-        result = @"-";
+    BOOL result;
+    if (!digitString || [digitString length] == 0) {
+        result = NO;
     } else {
-        result = nil;
+        result = ([[digitString substringToIndex:1] isEqualToString:@"."]);
     }
     return result;
 }
 
-- (NSString *)description
++ (BOOL)containsPoint:(NSString *)digitString
 {
-    NSString *result;
-    if (self.signedDigits && [self.signedDigits isEqualToString:@""]) {
-        result = @"0";
-    } else if (self.signedDigits && ([self.signedDigits characterAtIndex:0] == [@"." characterAtIndex:0])) {
-        result = [@"0" stringByAppendingString:self.signedDigits];
-    } else if (self.signedDigits) {
-        result = self.signedDigits;
-    } else {
-        result = @"";
-    }
-    return result; // TODO should this be autoreleased?
+    return [digitString rangeOfString:@"."].length > 0;
 }
+
++ (BOOL)isEmpty:(NSString *)digitString
+{
+    BOOL result;
+    if (!digitString || [digitString length] != 0) {
+        result = NO;
+    } else {
+        result = YES;
+    }
+    return result;
+}
+
 
 - (id)initWithInt:(int)someInt
 {
@@ -213,7 +280,7 @@ const char *fractionalPowerOfNegativeErrorMessage = "-1 ^ .5 undefined";
         NSLog(@"someString must not be nil");
         return nil; // early return because it's useless to invoke [super init]
     }
-
+    
     if (!someBase || (someBase < 2)) {
         NSLog(@"someBase must be greater than 1");
         return nil; // early return because it's useless to invoke [super init]
@@ -222,8 +289,7 @@ const char *fractionalPowerOfNegativeErrorMessage = "-1 ^ .5 undefined";
     self = [super init];
     if (self) {
         self.base = someBase;
-        self.positive = YES;
-
+        
         self.allowedDigits = [[allDigits substringToIndex:someBase] stringByAppendingString:@"."];
         self.allowedDigitSet = [NSCharacterSet characterSetWithCharactersInString:self.allowedDigits];
         self.forbiddenDigitSet = [self.allowedDigitSet invertedSet];
@@ -234,20 +300,20 @@ const char *fractionalPowerOfNegativeErrorMessage = "-1 ^ .5 undefined";
             [dict setObject:[NSNumber numberWithInt:i] forKey:digit]; 
         }
         self.digitValues = [NSDictionary dictionaryWithDictionary:dict];
-
-        NSScanner *scanner = [NSScanner scannerWithString:someString];
+        
+        NSScanner *scanner = [NSScanner scannerWithString:someString];        
         
         [scanner scanString:@" " intoString:NULL];
+        
+        NSString *negativePrefix = @"";
         if ([scanner scanString:@"-" intoString:NULL]) {
-            self.positive = NO;
+            negativePrefix = @"-";
             [scanner scanString:@" " intoString:NULL];
         }
-
-        NSString *someUnsignedDigits = nil;
-        if ([scanner scanUpToCharactersFromSet:self.forbiddenDigitSet intoString:&someUnsignedDigits]) {
-            self.unsignedDigits = someUnsignedDigits;
-        } else {
-            self.unsignedDigits = nil;
+        
+        NSString *someSignedDigits = nil;
+        if ([scanner scanUpToCharactersFromSet:self.forbiddenDigitSet intoString:&someSignedDigits]) {
+            self.signedDigits = [negativePrefix stringByAppendingString:someSignedDigits];
         }
     }
     return self;
@@ -265,35 +331,81 @@ const char *fractionalPowerOfNegativeErrorMessage = "-1 ^ .5 undefined";
     return self;
 }
 
+
+- (NSString *)description
+{
+    NSString *result;
+    if (!self.signedDigits) {
+        result = @"";
+    } else if (self.isEmpty) {
+        result = @"0";
+    } else if (self.startsWithPoint) {
+        result = [NSString stringWithFormat:@"%@0%@"
+                  , self.startsWithMinus ? @"-" : @""
+                  , self.unsignedDigits
+                  ];
+    } else {
+        result = [NSString stringWithFormat:@"%@%@"
+                  , self.startsWithMinus ? @"-" : @""
+                  , self.unsignedDigits
+                  ];
+    }
+    return result;
+}
+
+
+- (BOOL)isZero:(NSString *)digitString
+{
+    BOOL result;
+    if (!digitString || [digitString length] != 1) {
+        result = NO;
+    } else {
+        result = ([digitString characterAtIndex:0] == self.zeroChar);
+    }
+    return result;
+}
+
+- (BOOL)isDigit:(NSString *)digitString
+{
+    BOOL result;
+    if (digitString && (digitString.length == 1) && [self.allowedDigitSet characterIsMember:[digitString characterAtIndex:0]]) {
+        result = YES;
+    } else {
+        result = NO;
+    }
+    return result;
+}
+
+
 - (void)pushDigit:(NSString *)digit
 {
-    if (!digit || (digit.length != 1)) {
-        NSLog(@"digit must be one single character");
-        return; // early return because the rest of the method is meaningless with bad input
-    }
-    
-    if (![self.allowedDigitSet characterIsMember:[digit characterAtIndex:0]]) {
+    if (![self isDigit:digit]) {
         NSLog(@"digit '%@' is not an allowed digit", digit);
         return; // early return because the rest of the method is meaningless with bad input
     }
     
-    if (([self.unsignedDigits rangeOfString:@"."].length > 0) && [digit isEqualToString:@"."]) {
-        NSLog(@"digit '%@' already present in unsigned digits '%@'", digit, self.unsignedDigits);
+    if ([digit isEqualToString:@"."] && [self containsPoint]) {
+        NSLog(@"digit '%@' already present in signed digits '%@'", digit, self.signedDigits);
         return; // early return because the rest of the method is meaningless with bad input
     }
     
-    if (!self.unsignedDigits) {
-        self.unsignedDigits = @"";
+    if ([digit isEqualToString:@"-"]) {
+        [self negate];
+        return; // early return because negate method took over
     }
     
-    if ([self.unsignedDigits isEqualToString:@""]) {
-        if ([digit isEqualToString:@"0"]) {
-            // do not add another zero to a lonely zero            
+    if (([self isZero:digit]) && [self isEmpty]) {
+        return; // early return because we never add a leading zero
+    } 
+    
+    if (!self.unsignedDigits) {
+        if ([self isZero:digit]) {
+            self.signedDigits = @"";
         } else {
-            self.unsignedDigits = digit;
+            self.signedDigits = digit;          
         }
     } else {
-        self.unsignedDigits = [self.unsignedDigits stringByAppendingString:digit];
+        self.signedDigits = [self.signedDigits stringByAppendingString:digit];
     }
     return;
 }
@@ -301,27 +413,25 @@ const char *fractionalPowerOfNegativeErrorMessage = "-1 ^ .5 undefined";
 - (NSString *)popDigit
 {
     NSString *lastDigit;
-    int length = self.unsignedDigits.length;
+    int length = self.signedDigits.length;
     
-    if (self.unsignedDigits) {
+    if (self.signedDigits) {
         if (length == 0) {
             lastDigit = @"";
-            self.unsignedDigits = nil;
+            self.signedDigits = nil;
         } else if (length == 1) {
-            lastDigit = self.unsignedDigits;
-            self.unsignedDigits = nil;
+            lastDigit = [[self.signedDigits copy] autorelease];
+            self.signedDigits = nil;
         } else {
-            lastDigit = [self.unsignedDigits substringFromIndex:length - 1];
-            self.unsignedDigits = [self.unsignedDigits substringToIndex:length - 1];
+            lastDigit = [self.signedDigits substringFromIndex:length - 1];
+            self.signedDigits = [self.signedDigits substringToIndex:length - 1];
         }
-    } else if (!self.positive) {
-        self.positive = !self.positive;
-        lastDigit = nil;
     } else {
         lastDigit = nil;
     }
-    return lastDigit; // TODO should this be autoreleased?
+    return lastDigit;
 }
+
 
 - (Digits *)plus:(Digits *)secondOperand withError:(NSError **)error
 {
@@ -419,26 +529,35 @@ const char *fractionalPowerOfNegativeErrorMessage = "-1 ^ .5 undefined";
             [userDict release];
         }
         return nil;
-//    } else if ((self.intValue < 0) && (secondOperand.intValue == 0)) {
-//        if (error) {            
-//            NSDictionary *userDict = [[NSDictionary dictionaryWithObjectsAndKeys:
-//                                       NSLocalizedString([Digits fractionalPowerOfNegativeErrorMessage], @""),
-//                                       NSLocalizedDescriptionKey,
-//                                       nil] retain];
-//            NSError *localError = [[[NSError alloc] initWithDomain:NSCocoaErrorDomain code:EPERM userInfo:userDict] autorelease];
-//            *error = localError;
-//            [userDict release];
-//        }
-//        return nil;
+    } else if ((self.intValue < 0) && ([secondOperand containsPoint])) {
+        if (error) {            
+            NSDictionary *userDict = [[NSDictionary dictionaryWithObjectsAndKeys:
+                                       NSLocalizedString([Digits fractionalPowerOfNegativeErrorMessage], @""),
+                                       NSLocalizedDescriptionKey,
+                                       nil] retain];
+            NSError *localError = [[[NSError alloc] initWithDomain:NSCocoaErrorDomain code:EPERM userInfo:userDict] autorelease];
+            *error = localError;
+            [userDict release];
+        }
+        return nil;
     } else {
         int result = pow(self.intValue, secondOperand.intValue);
         return [[[Digits alloc] initWithInt:result base:self.base] autorelease];
     }
 }
 
-- (void)negateWithError:(NSError **)error
+
+- (void)negate
 {
-    self.positive = !self.positive;
+    if (!self.signedDigits) {
+        self.signedDigits = @"";
+    }
+    
+    if (self.startsWithMinus) {
+        self.signedDigits = [self.signedDigits substringFromIndex:1];
+    } else {
+        self.signedDigits = [@"-" stringByAppendingString:self.signedDigits];
+    }
     return;
 }
 
