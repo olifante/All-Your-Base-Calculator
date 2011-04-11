@@ -789,7 +789,7 @@
     STAssertNil(result, @"'%@' should be nil", result);
     STAssertNotNil(error, @"'%@' should not be nil", result);
     NSString *actual, *expected;
-    actual = [error localizedDescription], expected = [Digits powerErrorMessage];
+    actual = [error localizedDescription], expected = [Digits zeroPowerOfZeroErrorMessage];
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
@@ -805,10 +805,25 @@
     STAssertNil(result, @"'%@' should be nil", result);
     STAssertNotNil(error, @"'%@' should not be nil", result);
     NSString *actual, *expected;
-    actual = [error localizedDescription], expected = [Digits powerErrorMessage];
+    actual = [error localizedDescription], expected = [Digits negativePowerOfZeroErrorMessage];
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
+- (void)testMinus1PowerPoint5 {
+    Digits *first = [[[Digits alloc] initWithString:@"-1"] autorelease];
+    STAssertNotNil(first, @"Cannot create Digits instance");
+    Digits *second = [[[Digits alloc] initWithString:@".5"] autorelease];
+    STAssertNotNil(second, @"Cannot create Digits instance");
+    
+    NSError *error = nil;
+    Digits *result = [first power:second withError:&error];
+    
+    STAssertNil(result, @"'%@' should be nil", result);
+    STAssertNotNil(error, @"'%@' should not be nil", result);
+    NSString *actual, *expected;
+    actual = [error localizedDescription], expected = [Digits fractionalPowerOfNegativeErrorMessage];
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+}
 - (void)test0Invert {
     Digits *first = [[[Digits alloc] initWithString:@"0"] autorelease];
     STAssertNotNil(first, @"Cannot create Digits instance");

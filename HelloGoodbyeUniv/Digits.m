@@ -16,9 +16,11 @@ static NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklm
 //static NSString *base36 = @"abcdefghijklmnopqrstuvwxyz0123456789/"; // 'a' == 0, '9' == 35
 //static NSString *crockfordBase32 = @"0123456789ABCDEFGHJKMNPQRSTVWXYZ"; // 'Z' == 31, I, L, O and U excluded
 
-const char *divideErrorMessage = "x \xc3\xb7 0 undefined";
+const char *divideErrorMessage = "x \xc3\xb7 0 undefined"; // UTF8 sequence for 0x00f7 ÷ DIVISION SIGN is \xc3\xb7
 const char *invertErrorMessage = "1 \xc3\xb7 0 undefined";
-const char *powerErrorMessage = "0 ^ 0 undefined";
+const char *zeroPowerOfZeroErrorMessage = "0 ^ 0 undefined";
+const char *negativePowerOfZeroErrorMessage = "0 ^ -1 undefined";
+const char *fractionalPowerOfNegativeErrorMessage = "-1 ^ .5 undefined";
 
 @implementation Digits
 
@@ -43,9 +45,19 @@ const char *powerErrorMessage = "0 ^ 0 undefined";
     return [NSString stringWithUTF8String:invertErrorMessage];
 }
 
-+ (NSString *)powerErrorMessage
++ (NSString *)zeroPowerOfZeroErrorMessage
 {
-    return [NSString stringWithUTF8String:powerErrorMessage];
+    return [NSString stringWithUTF8String:zeroPowerOfZeroErrorMessage];
+}
+
++ (NSString *)negativePowerOfZeroErrorMessage
+{
+    return [NSString stringWithUTF8String:negativePowerOfZeroErrorMessage];
+}
+
++ (NSString *)fractionalPowerOfNegativeErrorMessage
+{
+    return [NSString stringWithUTF8String:fractionalPowerOfNegativeErrorMessage];
 }
 
 + (NSString *)allowedDigitsForBase:(int)someBase
@@ -385,10 +397,10 @@ const char *powerErrorMessage = "0 ^ 0 undefined";
 {
     if (!secondOperand) {
         return nil;
-    } else if ((self.intValue <= 0) && (secondOperand.intValue <= 0)) {
+    } else if ((self.intValue == 0) && (secondOperand.intValue == 0)) {
         if (error) {            
             NSDictionary *userDict = [[NSDictionary dictionaryWithObjectsAndKeys:
-                                       NSLocalizedString([Digits powerErrorMessage], @""),
+                                       NSLocalizedString([Digits zeroPowerOfZeroErrorMessage], @""),
                                        NSLocalizedDescriptionKey,
                                        nil] retain];
             NSError *localError = [[[NSError alloc] initWithDomain:NSCocoaErrorDomain code:EPERM userInfo:userDict] autorelease];
@@ -396,6 +408,28 @@ const char *powerErrorMessage = "0 ^ 0 undefined";
             [userDict release];
         }
         return nil;
+    } else if ((self.intValue == 0) && (secondOperand.intValue < 0)) {
+        if (error) {            
+            NSDictionary *userDict = [[NSDictionary dictionaryWithObjectsAndKeys:
+                                       NSLocalizedString([Digits negativePowerOfZeroErrorMessage], @""),
+                                       NSLocalizedDescriptionKey,
+                                       nil] retain];
+            NSError *localError = [[[NSError alloc] initWithDomain:NSCocoaErrorDomain code:EPERM userInfo:userDict] autorelease];
+            *error = localError;
+            [userDict release];
+        }
+        return nil;
+//    } else if ((self.intValue < 0) && (secondOperand.intValue == 0)) {
+//        if (error) {            
+//            NSDictionary *userDict = [[NSDictionary dictionaryWithObjectsAndKeys:
+//                                       NSLocalizedString([Digits fractionalPowerOfNegativeErrorMessage], @""),
+//                                       NSLocalizedDescriptionKey,
+//                                       nil] retain];
+//            NSError *localError = [[[NSError alloc] initWithDomain:NSCocoaErrorDomain code:EPERM userInfo:userDict] autorelease];
+//            *error = localError;
+//            [userDict release];
+//        }
+//        return nil;
     } else {
         int result = pow(self.intValue, secondOperand.intValue);
         return [[[Digits alloc] initWithInt:result base:self.base] autorelease];

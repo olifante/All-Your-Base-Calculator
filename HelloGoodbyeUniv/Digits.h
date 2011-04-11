@@ -33,7 +33,9 @@
 + (NSString *)allDigits;
 + (NSString *)divideErrorMessage;
 + (NSString *)invertErrorMessage;
-+ (NSString *)powerErrorMessage;
++ (NSString *)zeroPowerOfZeroErrorMessage;
++ (NSString *)negativePowerOfZeroErrorMessage;
++ (NSString *)fractionalPowerOfNegativeErrorMessage;
 + (NSString *)allowedDigitsForBase:(int)someBase;
 + (NSCharacterSet *)allowedDigitSetForBase:(int)someBase;
 + (NSCharacterSet *)forbiddenDigitSetForBase:(int)someBase;
