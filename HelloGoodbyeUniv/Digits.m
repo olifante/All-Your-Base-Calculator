@@ -8,12 +8,6 @@
 
 #import "Digits.h"
 
-const unichar pointChar = 0x2027; // ‧ HYPHENATION POINT
-//const unichar pointChar = 0x2219; // ∙ BULLET OPERATOR
-//const unichar negativeChar = 0x002d; // - HYPHEN-MINUS
-const unichar negativeChar = 0xfe63; // ﹣ SMALL HYPHEN-MINUS
-//const unichar negativeChar = 0x02d7; // ˗ MODIFIER LETTER MINUS SIGN
-
 static NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 //static NSString *hexaVigesimal = @"ABCDEFGHIJKLMNOPQRSTUVWXYZ"; // 'A' == 0, 'Z' == 25
 //static NSString *base64 = @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"; // 'A' == 0, '/' == 63
@@ -22,24 +16,17 @@ static NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklm
 //static NSString *base36 = @"abcdefghijklmnopqrstuvwxyz0123456789/"; // 'a' == 0, '9' == 35
 //static NSString *crockfordBase32 = @"0123456789ABCDEFGHJKMNPQRSTVWXYZ"; // 'Z' == 31, I, L, O and U excluded
 
-static NSString *divideErrorMessage = @"x/0 undefined";
-static NSString *invertErrorMessage = @"1/0 undefined";
-static NSString *powerErrorMessage = @"0^0 undefined";
+const char *divideErrorMessage = "x \xc3\xb7 0 undefined";
+const char *invertErrorMessage = "1 \xc3\xb7 0 undefined";
+const char *powerErrorMessage = "0 ^ 0 undefined";
 
 @implementation Digits
 
 @synthesize base;
-@synthesize allowedDigits;
-@synthesize allowedDigitSet;
-@synthesize forbiddenDigitSet;
-@synthesize digitValues;
 @synthesize positive;
-@synthesize unsignedDigits;
-
-+ (unichar)pointChar { return pointChar; }
-+ (unichar)negativeChar { return negativeChar; }
-+ (NSString *)pointString { return [NSString stringWithFormat:@"%C", pointChar]; }
-+ (NSString *)negativeString { return [NSString stringWithFormat:@"%C", negativeChar]; }
+@synthesize unsignedDigits, allowedDigits;
+@synthesize allowedDigitSet, forbiddenDigitSet;
+@synthesize digitValues;
 
 + (NSString *)allDigits
 {
@@ -48,17 +35,17 @@ static NSString *powerErrorMessage = @"0^0 undefined";
 
 + (NSString *)divideErrorMessage
 {
-    return [[divideErrorMessage copy] autorelease];
+    return [NSString stringWithUTF8String:divideErrorMessage];
 }
 
 + (NSString *)invertErrorMessage
 {
-    return [[invertErrorMessage copy] autorelease];
+    return [NSString stringWithUTF8String:invertErrorMessage];
 }
 
 + (NSString *)powerErrorMessage
 {
-    return [[powerErrorMessage copy] autorelease];
+    return [NSString stringWithUTF8String:powerErrorMessage];
 }
 
 + (NSString *)allowedDigitsForBase:(int)someBase
@@ -361,7 +348,7 @@ static NSString *powerErrorMessage = @"0^0 undefined";
     } else if (secondOperand.intValue == 0) {
         if (error) {            
             NSDictionary *userDict = [[NSDictionary dictionaryWithObjectsAndKeys:
-                                       NSLocalizedString(divideErrorMessage, @""),
+                                       NSLocalizedString([Digits divideErrorMessage], @""),
                                        NSLocalizedDescriptionKey,
                                        nil] retain];
             NSError *localError = [[[NSError alloc] initWithDomain:NSCocoaErrorDomain code:EPERM userInfo:userDict] autorelease];
@@ -380,7 +367,7 @@ static NSString *powerErrorMessage = @"0^0 undefined";
     if (self.intValue == 0) {
         if (error) {            
             NSDictionary *userDict = [[NSDictionary dictionaryWithObjectsAndKeys:
-                                       NSLocalizedString(invertErrorMessage, @""),
+                                       NSLocalizedString([Digits invertErrorMessage], @""),
                                        NSLocalizedDescriptionKey,
                                        nil] retain];
             NSError *localError = [[[NSError alloc] initWithDomain:NSCocoaErrorDomain code:EPERM userInfo:userDict] autorelease];
@@ -401,7 +388,7 @@ static NSString *powerErrorMessage = @"0^0 undefined";
     } else if ((self.intValue <= 0) && (secondOperand.intValue <= 0)) {
         if (error) {            
             NSDictionary *userDict = [[NSDictionary dictionaryWithObjectsAndKeys:
-                                       NSLocalizedString(powerErrorMessage, @""),
+                                       NSLocalizedString([Digits powerErrorMessage], @""),
                                        NSLocalizedDescriptionKey,
                                        nil] retain];
             NSError *localError = [[[NSError alloc] initWithDomain:NSCocoaErrorDomain code:EPERM userInfo:userDict] autorelease];
