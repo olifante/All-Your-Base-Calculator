@@ -8,11 +8,11 @@
 
 #import "Digits.h"
 
-//const unichar point = 0x2027; // ‧ HYPHENATION POINT
-//const unichar point = 0x2219; // ∙ BULLET OPERATOR
-//const unichar negative = 0x002d; // - HYPHEN-MINUS
-//const unichar negative = 0xfe63; // ﹣ SMALL HYPHEN-MINUS
-//const unichar negative = 0x02d7; // ˗ MODIFIER LETTER MINUS SIGN
+const unichar pointChar = 0x2027; // ‧ HYPHENATION POINT
+//const unichar pointChar = 0x2219; // ∙ BULLET OPERATOR
+//const unichar negativeChar = 0x002d; // - HYPHEN-MINUS
+const unichar negativeChar = 0xfe63; // ﹣ SMALL HYPHEN-MINUS
+//const unichar negativeChar = 0x02d7; // ˗ MODIFIER LETTER MINUS SIGN
 
 static NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 //static NSString *hexaVigesimal = @"ABCDEFGHIJKLMNOPQRSTUVWXYZ"; // 'A' == 0, 'Z' == 25
@@ -22,9 +22,9 @@ static NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklm
 //static NSString *base36 = @"abcdefghijklmnopqrstuvwxyz0123456789/"; // 'a' == 0, '9' == 35
 //static NSString *crockfordBase32 = @"0123456789ABCDEFGHJKMNPQRSTVWXYZ"; // 'Z' == 31, I, L, O and U excluded
 
-static NSString *divideErrorMessage = @"x/y needs y!=0";
-static NSString *invertErrorMessage = @"1/x needs x!=0";
-static NSString *powerErrorMessage = @"0^x needs x>0";
+static NSString *divideErrorMessage = @"x/0 undefined";
+static NSString *invertErrorMessage = @"1/0 undefined";
+static NSString *powerErrorMessage = @"0^0 undefined";
 
 @implementation Digits
 
@@ -36,10 +36,10 @@ static NSString *powerErrorMessage = @"0^x needs x>0";
 @synthesize positive;
 @synthesize unsignedDigits;
 
-//+ (unichar)pointChar { return point; }
-//+ (unichar)negativeChar { return negative; }
-//+ (NSString *)pointString { return [NSString stringWithFormat:@"%C", point]; }
-//+ (NSString *)negativeString { return [NSString stringWithFormat:@"%C", negative]; }
++ (unichar)pointChar { return pointChar; }
++ (unichar)negativeChar { return negativeChar; }
++ (NSString *)pointString { return [NSString stringWithFormat:@"%C", pointChar]; }
++ (NSString *)negativeString { return [NSString stringWithFormat:@"%C", negativeChar]; }
 
 + (NSString *)allDigits
 {

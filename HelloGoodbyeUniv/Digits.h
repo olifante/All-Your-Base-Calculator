@@ -30,10 +30,10 @@
 @property (readonly) int intValue;
 @property (readonly) NSNumber *value;
 
-//+ (unichar)point;
-//+ (unichar)negativeChar;
-//+ (NSString *)pointString;
-//+ (NSString *)negativeString;
++ (unichar)pointChar;
++ (unichar)negativeChar;
++ (NSString *)pointString;
++ (NSString *)negativeString;
 
 + (NSString *)allDigits;
 + (NSString *)divideErrorMessage;
