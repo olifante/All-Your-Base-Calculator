@@ -8,17 +8,6 @@
 
 #import "AllYourBaseModel.h"
 
-const unichar plus = 0x002b; // + PLUS SIGN
-const unichar minus = 0x2212; // − MINUS SIGN
-const unichar times = 0x00d7; // × MULTIPLICATION SIGN
-const unichar divide = 0x00f7; // ÷ DIVISION SIGN
-const unichar negate = 0x2213; // ∓ MINUS-OR-PLUS SIGN
-const unichar negative = 0x002d; // - HYPHEN-MINUS
-//const unichar negative = 0xfe63; // ﹣ SMALL HYPHEN-MINUS
-//const unichar negative = 0x02d7; // ˗ MODIFIER LETTER MINUS SIGN
-const unichar point = 0x2027; // ‧ HYPHENATION POINT
-//const unichar point = 0x2219; // ∙ BULLET OPERATOR
-
 @implementation AllYourBaseModel
 
 @synthesize currentDigits;
@@ -30,22 +19,6 @@ const unichar point = 0x2027; // ‧ HYPHENATION POINT
 @synthesize secondaryDisplay;
 @synthesize mainDisplay;
 @synthesize error;
-
-+ (unichar)plus { return plus; }
-+ (unichar)minus { return minus; }
-+ (unichar)times { return times; }
-+ (unichar)divide { return divide; }
-+ (unichar)negate { return negate; }
-+ (unichar)negative { return negative; }
-+ (unichar)point { return point; }
-
-+ (NSString *)plusString { return [NSString stringWithFormat:@"%C", plus]; }
-+ (NSString *)minusString { return [NSString stringWithFormat:@"%C", minus]; }
-+ (NSString *)timesString { return [NSString stringWithFormat:@"%C", times]; }
-+ (NSString *)divideString { return [NSString stringWithFormat:@"%C", divide]; }
-+ (NSString *)negateString { return [NSString stringWithFormat:@"%C", negate]; }
-+ (NSString *)negativeString { return [NSString stringWithFormat:@"%C", negative]; }
-+ (NSString *)pointString { return [NSString stringWithFormat:@"%C", point]; }
 
 - (id)init
 {
@@ -114,13 +87,13 @@ const unichar point = 0x2027; // ‧ HYPHENATION POINT
 {
     Digits *operationResultDigits = nil;
     
-    if ([self.currentOperation characterAtIndex:0] == plus) {
+    if ([self.currentOperation isEqualToString:@"+"]) {
         operationResultDigits = [self.previousDigits plus:self.currentDigits withError:operationError];
-    } else if ([self.currentOperation characterAtIndex:0] == minus) {
+    } else if ([self.currentOperation isEqualToString:@"-"]) {
         operationResultDigits = [self.previousDigits minus:self.currentDigits withError:operationError];
-    } else if ([self.currentOperation characterAtIndex:0] == times) {
+    } else if ([self.currentOperation isEqualToString:@"*"]) {
         operationResultDigits = [self.previousDigits times:self.currentDigits withError:operationError];
-    } else if ([self.currentOperation characterAtIndex:0] == divide) {
+    } else if ([self.currentOperation isEqualToString:@"/"]) {
         operationResultDigits = [self.previousDigits divide:self.currentDigits withError:operationError];
     } else if ([self.currentOperation isEqualToString:@"^"]) {
         operationResultDigits = [self.previousDigits power:self.currentDigits withError:operationError];
@@ -167,7 +140,7 @@ const unichar point = 0x2027; // ‧ HYPHENATION POINT
     if (!self.currentDigits.unsignedDigits && !self.currentOperation) {
         NSLog(@"No action - operations do nothing without a 2nd operand");
     } else if (!self.currentDigits.unsignedDigits && self.currentOperation) {
-        if (self.currentDigits.positive) {
+        if (!self.currentDigits.startsWithMinus) {
             self.currentOperation = operation;
             // pressing another operation when no 2nd operand digit or minus sign has been input cancels the pending operation
         } else {
@@ -208,7 +181,6 @@ const unichar point = 0x2027; // ‧ HYPHENATION POINT
     }
     
     if (self.currentOperation && self.currentDigits.unsignedDigits) {
-        NSLog(@"############### path0"); // test1Plus2Result
         NSError *operationError = nil;
         [self performPendingOperationWithError:&operationError];
 
@@ -227,34 +199,28 @@ const unichar point = 0x2027; // ‧ HYPHENATION POINT
             self.currentOperation = nil;        }
     } else if (self.currentOperation && !self.currentDigits.unsignedDigits) {
         NSLog(@"No action - operation cannot be performed without a 2nd operand");
-        NSLog(@"############### path1"); // test1PlusResult
-    } else if (!self.currentOperation && !self.currentDigits.unsignedDigits && self.currentDigits.positive) {
-        NSLog(@"############### path2"); // testResult
+    } else if (!self.currentOperation && !self.currentDigits.unsignedDigits && self.currentDigits.startsWithMinus) {
         self.currentDigits = [[[Digits alloc] init] autorelease];
         self.resultDigits = self.currentDigits;
         self.previousDigits = nil;
         self.currentOperation = nil;
         self.previousOperation = @"=";
         self.previousExpression = @"0";
-    } else if (!self.currentOperation && !self.currentDigits.unsignedDigits && !self.currentDigits.positive) {
+    } else if (!self.currentOperation && !self.currentDigits.unsignedDigits && !self.currentDigits.startsWithMinus) {
         NSLog(@"No action - negate is waiting for digits to be input");
-        NSLog(@"############### path3"); // testNegateResult
-    } else if (!self.currentOperation && self.currentDigits.unsignedDigits && self.currentDigits.positive) {
-        NSLog(@"############### path4"); // test1Result
+    } else if (!self.currentOperation && self.currentDigits.unsignedDigits && self.currentDigits.startsWithMinus) {
         self.resultDigits = self.currentDigits;
         self.previousDigits = nil;
         self.currentOperation = nil;
         self.previousOperation = @"=";
         self.previousExpression = self.currentDigits.description;
-    } else if (!self.currentOperation && self.currentDigits.unsignedDigits && !self.currentDigits.positive) {
-        NSLog(@"############### path5"); // test1NegateResult
+    } else if (!self.currentOperation && self.currentDigits.unsignedDigits && !self.currentDigits.startsWithMinus) {
         self.resultDigits = self.currentDigits;
         self.previousDigits = nil;
         self.currentOperation = nil;
         self.previousOperation = @"=";
         self.previousExpression = self.currentDigits.description;
     } else {
-        NSLog(@"############### path6"); // no tests, this condition should not be reached
         assert(NO);
     }
     [self updateDisplays];
@@ -286,7 +252,6 @@ const unichar point = 0x2027; // ‧ HYPHENATION POINT
         NSLog(@"No action - negate does nothing after error");
         return;
     }
-
     
     if (self.previousOperation) {
         self.previousOperation = nil;
@@ -295,8 +260,7 @@ const unichar point = 0x2027; // ‧ HYPHENATION POINT
         self.currentDigits = [[[Digits alloc] init] autorelease];
     }
 
-    NSError *operationError = nil;
-    [self.currentDigits negateWithError:&operationError];
+    [self.currentDigits negate];
     [self updateDisplays];    
 }
 

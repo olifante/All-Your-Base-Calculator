@@ -8,6 +8,16 @@
 
 #import "AllYourBaseViewController.h"
 
+const unichar plus = 0x002b; // + PLUS SIGN
+const unichar minus = 0x2212; // − MINUS SIGN
+const unichar times = 0x00d7; // × MULTIPLICATION SIGN
+const unichar divide = 0x00f7; // ÷ DIVISION SIGN
+//const unichar point = 0x2027; // ‧ HYPHENATION POINT
+const unichar point = 0x2219; // ∙ BULLET OPERATOR
+const unichar negate = 0x2213; // ∓ MINUS-OR-PLUS SIGN
+const unichar negative = 0x002d; // - HYPHEN-MINUS
+//const unichar negative = 0xfe63; // ﹣ SMALL HYPHEN-MINUS
+//const unichar negative = 0x02d7; // ˗ MODIFIER LETTER MINUS SIGN
 
 @implementation AllYourBaseViewController
 
@@ -18,24 +28,11 @@
 @synthesize previousDisplayLabel, currentDisplayLabel;
 @synthesize previousDigitsLabel, currentDigitsLabel, currentOperationLabel, previousOperationLabel, previousExpressionLabel, resultLabel;
 
--(void)updateLabels
-{
-    self.previousDisplayLabel.text = self.model.secondaryDisplay;
-    self.currentDisplayLabel.text = self.model.mainDisplay;
-    
-    self.previousDigitsLabel.text = self.model.previousDigits.signedDigits;
-    self.currentDigitsLabel.text = self.model.currentDigits.signedDigits;
-    self.currentOperationLabel.text = self.model.currentOperation;
-    self.previousOperationLabel.text = self.model.previousOperation;
-    self.previousExpressionLabel.text = self.model.previousExpression;
-    self.resultLabel.text = self.model.resultDigits.signedDigits;
-}
-
 - (IBAction)digitPressed:(UIButton *)sender
 {
     NSString *digit = sender.titleLabel.text;
     NSLog(@"%@ digit pressed", digit);
-    if ([digit isEqualToString:@"∙"]) {
+    if ([digit isEqualToString:[self pointString]]) {
         [self.model digitPressed:@"."];
     } else {
         [self.model digitPressed:digit];
@@ -46,7 +43,17 @@
 {
     NSString *operation = sender.titleLabel.text;
     NSLog(@"%@ operation pressed", operation);
-    [self.model binaryOperationPressed:operation];
+    if ([operation isEqualToString:[self plusString]]) {
+        [self.model binaryOperationPressed:@"+"];
+    } else if ([operation isEqualToString:[self minusString]]) {
+        [self.model binaryOperationPressed:@"-"];
+    } else if ([operation isEqualToString:[self timesString]]) {
+        [self.model binaryOperationPressed:@"*"];
+    } else if ([operation isEqualToString:[self divideString]]) {
+        [self.model binaryOperationPressed:@"/"];
+    } else {
+        [self.model binaryOperationPressed:operation];
+    }
 }
 
 - (IBAction)resultPressed
@@ -102,6 +109,27 @@
     [self.model digitPressed:@"3"];
     [self.model digitPressed:@"3"];
     [self.model resultPressed];
+}
+
+- (NSString *)plusString { return [NSString stringWithFormat:@"%C", plus]; }
+- (NSString *)minusString { return [NSString stringWithFormat:@"%C", minus]; }
+- (NSString *)timesString { return [NSString stringWithFormat:@"%C", times]; }
+- (NSString *)divideString { return [NSString stringWithFormat:@"%C", divide]; }
+- (NSString *)negateString { return [NSString stringWithFormat:@"%C", negate]; }
+- (NSString *)negativeString { return [NSString stringWithFormat:@"%C", negative]; }
+- (NSString *)pointString { return [NSString stringWithFormat:@"%C", point]; }
+
+- (void)updateLabels
+{
+    self.previousDisplayLabel.text = self.model.secondaryDisplay;
+    self.currentDisplayLabel.text = self.model.mainDisplay;
+    
+    self.previousDigitsLabel.text = self.model.previousDigits.signedDigits;
+    self.currentDigitsLabel.text = self.model.currentDigits.signedDigits;
+    self.currentOperationLabel.text = self.model.currentOperation;
+    self.previousOperationLabel.text = self.model.previousOperation;
+    self.previousExpressionLabel.text = self.model.previousExpression;
+    self.resultLabel.text = self.model.resultDigits.signedDigits;
 }
 
 - (void)releaseMembers
