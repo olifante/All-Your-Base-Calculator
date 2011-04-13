@@ -43,7 +43,8 @@
         paddedOperation = [NSString stringWithFormat:@" %@ ", self.currentOperation];
         secondOperand = self.currentDigits.description;  
     } else {
-        secondOperand = [self.currentDigits.description isEqualToString:@""] ? @"0" : self.currentDigits.description;
+//        secondOperand = [self.currentDigits.description isEqualToString:@""] ? @"0" : self.currentDigits.description;
+        secondOperand = self.currentDigits.description;
     }
 
     NSString *oldDisplay = self.mainDisplay;
