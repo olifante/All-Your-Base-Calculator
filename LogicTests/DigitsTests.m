@@ -934,8 +934,8 @@
     
     NSString *actual, *expected;
     
-    actual = digits.unsignedDigits, expected = @"";
-    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+    actual = digits.unsignedDigits;
+    STAssertNil(actual, @"'%@' shoud be nil", actual);
     
     actual = digits.signedDigits, expected = @"-";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
@@ -957,13 +957,13 @@
     
     NSString *actual, *expected;
     
-    actual = digits.unsignedDigits, expected = @"";
-    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
-    
+    actual = digits.unsignedDigits;
+    STAssertNil(actual, @"'%@' shoud be nil", actual);
+
     actual = digits.signedDigits, expected = @"-";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
     
-    actual = digits.description, expected = @"0";
+    actual = digits.description, expected = @"-";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
@@ -980,8 +980,8 @@
     
     NSString *actual, *expected;
     
-    actual = digits.unsignedDigits, expected = @"";
-    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+    actual = digits.unsignedDigits;
+    STAssertNil(actual, @"'%@' shoud be nil", actual);
     
     actual = digits.signedDigits, expected = @"-";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);

@@ -71,8 +71,8 @@ const unichar pointChar = 0x2027; // ‧ HYPHENATION POINT
     NSString *result;
     if (!self.signedDigits) {
         result = nil;
-    } else if ([self.signedDigits isEqualToString:@""]) {
-        result = @"";
+    } else if ([self.signedDigits isEqualToString:@"-"]) {
+        result = nil;
     } else if (self.startsWithMinus) {
         result = [self.signedDigits substringFromIndex:1];
     } else {
@@ -334,22 +334,35 @@ const unichar pointChar = 0x2027; // ‧ HYPHENATION POINT
 
 - (NSString *)description
 {
+    NSString *negativePrefix = @"";
+    NSString *zeroPrefix = @"";
     NSString *result;
+
+    if (self.startsWithMinus) {
+        zeroPrefix = @"-";
+    }
+
+    if (self.startsWithPoint) {
+        zeroPrefix = @"0";
+    }
+
     if (!self.signedDigits) {
         result = @"";
-    } else if (self.isEmpty) {
+    } else
+    if ([self.signedDigits isEqualToString:@""]) {
         result = @"0";
-    } else if (self.startsWithPoint) {
-        result = [NSString stringWithFormat:@"%@0%@"
-                  , self.startsWithMinus ? @"-" : @""
-                  , self.unsignedDigits
-                  ];
-    } else {
-        result = [NSString stringWithFormat:@"%@%@"
-                  , self.startsWithMinus ? @"-" : @""
-                  , self.unsignedDigits
+    } else
+    if ([self.signedDigits isEqualToString:@"-"]) {
+        result = @"-0";
+    } else 
+    {        
+        result = [NSString stringWithFormat:@"%@%@%@"
+                  , negativePrefix
+                  , zeroPrefix
+                  , self.unsignedDigits ? self.unsignedDigits : @""
                   ];
     }
+    
     return result;
 }
 
@@ -359,7 +372,8 @@ const unichar pointChar = 0x2027; // ‧ HYPHENATION POINT
     BOOL result;
     if (!digitString || [digitString length] != 1) {
         result = NO;
-    } else {
+    } else 
+    {
         result = ([digitString characterAtIndex:0] == self.zeroChar);
     }
     return result;
@@ -370,7 +384,8 @@ const unichar pointChar = 0x2027; // ‧ HYPHENATION POINT
     BOOL result;
     if (digitString && (digitString.length == 1) && [self.allowedDigitSet characterIsMember:[digitString characterAtIndex:0]]) {
         result = YES;
-    } else {
+    } else 
+    {
         result = NO;
     }
     return result;
@@ -390,23 +405,22 @@ const unichar pointChar = 0x2027; // ‧ HYPHENATION POINT
     }
     
     if ([digit isEqualToString:@"-"]) {
-        [self negate];
-        return; // early return because negate method took over
+        return [self negate]; // hand job over to negate method
     }
     
-    if (([self isZero:digit]) && [self isEmpty]) {
-        return; // early return because we never add a leading zero
-    } 
-    
-    if (!self.unsignedDigits) {
-        if ([self isZero:digit]) {
-            self.signedDigits = @"";
-        } else {
-            self.signedDigits = digit;          
-        }
-    } else {
+    if ([self isZero:digit] && !self.signedDigits) {
+        self.signedDigits = @"";
+    } else
+    if ([self isZero:digit] && self.signedDigits && !self.unsignedDigits) {
+        self.signedDigits = @"-";
+    } else
+    if (!self.signedDigits) {
+        self.signedDigits = digit;          
+    } else 
+    {
         self.signedDigits = [self.signedDigits stringByAppendingString:digit];
     }
+    
     return;
 }
 
@@ -550,12 +564,18 @@ const unichar pointChar = 0x2027; // ‧ HYPHENATION POINT
 - (void)negate
 {
     if (!self.signedDigits) {
+        self.signedDigits = @"-";
+    } else
+    if ([self.signedDigits isEqualToString:@"-"]) {
         self.signedDigits = @"";
-    }
-    
+    } else
+    if ([self.signedDigits isEqualToString:@""]) {
+        self.signedDigits = @"-";
+    } else
     if (self.startsWithMinus) {
-        self.signedDigits = [self.signedDigits substringFromIndex:1];
-    } else {
+        self.signedDigits = self.unsignedDigits;
+    } else
+    {
         self.signedDigits = [@"-" stringByAppendingString:self.signedDigits];
     }
     return;
