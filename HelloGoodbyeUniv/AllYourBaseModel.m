@@ -180,7 +180,11 @@
         return;
     }
     
-    if (self.currentOperation && self.currentDigits.unsignedDigits) {
+    if (!self.currentDigits.unsignedDigits && self.currentOperation) {
+        NSLog(@"No action - pending operation cannot be performed without a 2nd operand");
+    } else if (!self.currentDigits.unsignedDigits && !self.currentOperation) {
+        NSLog(@"No action - result cannot be performed on empty operand");
+    } else if (self.currentDigits.unsignedDigits && self.currentOperation) {
         NSError *operationError = nil;
         [self performPendingOperationWithError:&operationError];
 
@@ -197,29 +201,27 @@
             self.currentDigits = self.resultDigits;
             self.previousOperation = self.currentOperation;
             self.currentOperation = nil;        }
-    } else if (self.currentOperation && !self.currentDigits.unsignedDigits) {
-        NSLog(@"No action - operation cannot be performed without a 2nd operand");
-    } else if (!self.currentOperation && !self.currentDigits.unsignedDigits && self.currentDigits.startsWithMinus) {
-        self.currentDigits = [[[Digits alloc] init] autorelease];
-        self.resultDigits = self.currentDigits;
-        self.previousDigits = nil;
-        self.currentOperation = nil;
-        self.previousOperation = @"=";
-        self.previousExpression = @"0";
-    } else if (!self.currentOperation && !self.currentDigits.unsignedDigits && !self.currentDigits.startsWithMinus) {
-        NSLog(@"No action - negate is waiting for digits to be input");
-    } else if (!self.currentOperation && self.currentDigits.unsignedDigits && self.currentDigits.startsWithMinus) {
-        self.resultDigits = self.currentDigits;
-        self.previousDigits = nil;
-        self.currentOperation = nil;
-        self.previousOperation = @"=";
-        self.previousExpression = self.currentDigits.description;
-    } else if (!self.currentOperation && self.currentDigits.unsignedDigits && !self.currentDigits.startsWithMinus) {
+//    } else if (!self.currentOperation && self.currentDigits.unsignedDigits && self.currentDigits.startsWithMinus) {
+//        self.currentDigits = [[[Digits alloc] init] autorelease];
+//        self.resultDigits = self.currentDigits;
+//        self.previousDigits = nil;
+//        self.currentOperation = nil;
+//        self.previousOperation = @"=";
+//        self.previousExpression = @"0";
+//    } else if (!self.currentOperation && !self.currentDigits.unsignedDigits && !self.currentDigits.startsWithMinus) {
+//        NSLog(@"No action - negate is waiting for digits to be input");
+    } else if (self.currentDigits.unsignedDigits && !self.currentOperation) {
         self.resultDigits = self.currentDigits;
         self.previousDigits = nil;
         self.currentOperation = nil;
         self.previousOperation = @"=";
         self.previousExpression = self.currentDigits.description;
+//    } else if (!self.currentOperation && self.currentDigits.unsignedDigits && !self.currentDigits.startsWithMinus) {
+//        self.resultDigits = self.currentDigits;
+//        self.previousDigits = nil;
+//        self.currentOperation = nil;
+//        self.previousOperation = @"=";
+//        self.previousExpression = self.currentDigits.description;
     } else {
         assert(NO);
     }
