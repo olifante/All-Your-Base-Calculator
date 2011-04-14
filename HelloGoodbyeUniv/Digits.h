@@ -11,27 +11,48 @@
 
 @interface Digits : NSObject {
     int base;
-    NSString *signedDigits;
-    NSString *allowedDigits;
-    NSCharacterSet *allowedDigitSet;
-    NSCharacterSet *forbiddenDigitSet;
+    
+    NSString *signedDigits, *allowedDigits;
+    NSCharacterSet *allowedDigitSet, *forbiddenDigitSet;
     NSDictionary *digitValues;    
 }
 
 @property int base;
 
-@property (retain) NSString *signedDigits, *allowedDigits;
-@property (retain) NSCharacterSet *allowedDigitSet, *forbiddenDigitSet;
-@property (retain) NSDictionary *digitValues;
+@property (nonatomic, retain) NSString *signedDigits, *allowedDigits;
+@property (nonatomic, retain) NSCharacterSet *allowedDigitSet, *forbiddenDigitSet;
+@property (nonatomic, retain) NSDictionary *digitValues;
 
-@property (readonly) int intValue;
-@property (readonly) NSNumber *value;
-@property (readonly) NSString *unsignedDigits;
-@property (readonly) BOOL isEmpty;
-@property (readonly) BOOL startsWithMinus;
-@property (readonly) BOOL startsWithPoint;
-@property (readonly) BOOL containsPoint;
-@property (readonly) unichar zeroChar;
+- (void)dealloc;
+- (NSString *)description;
+- (id)init;
+- (id)initWithInt:(int)someInt;
+- (id)initWithInt:(int)someInt base:(int)someBase;
+- (id)initWithString:(NSString *)someString;
+- (id)initWithString:(NSString *)someString base:(int)someBase;
+
+@property (nonatomic, readonly) int intValue;
+@property (nonatomic, readonly) NSNumber *value;
+@property (nonatomic, readonly) NSString *unsignedDigits;
+@property (nonatomic, readonly) BOOL isEmpty;
+@property (nonatomic, readonly) BOOL startsWithMinus;
+@property (nonatomic, readonly) BOOL startsWithPoint;
+@property (nonatomic, readonly) BOOL containsPoint;
+@property (nonatomic, readonly) unichar zeroChar;
+
+- (void)pushDigit:(NSString *)digit;
+- (NSString *)popDigit;
+- (void)negate;
+
+- (Digits *)plus:(Digits *)secondOperand withError:(NSError **)error;
+- (Digits *)minus:(Digits *)secondOperand withError:(NSError **)error;
+- (Digits *)times:(Digits *)secondOperand withError:(NSError **)error;
+- (Digits *)divide:(Digits *)secondOperand withError:(NSError **)error;
+- (Digits *)invertWithError:(NSError **)error;
+- (Digits *)power:(Digits *)secondOperand withError:(NSError **)error;
+
+- (BOOL)isZero:(NSString *)digitString;
+- (BOOL)isDigit:(NSString *)digitString;
 
 + (NSString *)allDigits;
 + (NSString *)pointString;
@@ -55,27 +76,5 @@
 + (BOOL)startsWithPoint:(NSString *)digitString;
 + (BOOL)containsPoint:(NSString *)digitString;
 + (BOOL)isEmpty:(NSString *)digitString;
-
-- (id)initWithInt:(int)someInt;
-- (id)initWithInt:(int)someInt base:(int)someBase;
-- (id)initWithString:(NSString *)someString;
-- (id)initWithString:(NSString *)someString base:(int)someBase;
-
-- (NSString *)description;
-
-- (BOOL)isZero:(NSString *)digitString;
-- (BOOL)isDigit:(NSString *)digitString;
-
-- (void)pushDigit:(NSString *)digit;
-- (NSString *)popDigit;
-
-- (Digits *)plus:(Digits *)secondOperand withError:(NSError **)error;
-- (Digits *)minus:(Digits *)secondOperand withError:(NSError **)error;
-- (Digits *)times:(Digits *)secondOperand withError:(NSError **)error;
-- (Digits *)divide:(Digits *)secondOperand withError:(NSError **)error;
-- (Digits *)invertWithError:(NSError **)error;
-- (Digits *)power:(Digits *)secondOperand withError:(NSError **)error;
-
-- (void)negate;
 
 @end

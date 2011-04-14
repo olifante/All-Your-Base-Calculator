@@ -69,7 +69,6 @@
     self = [super init];
     if (self) {
         self.base = someBase;
-        self.positive = YES;
         
         self.allowedDigits = [self.allowedDigits stringByAppendingString:@"."];
         self.allowedDigitSet = [NSCharacterSet characterSetWithCharactersInString:self.allowedDigits];
@@ -83,18 +82,15 @@
         self.digitValues = [NSDictionary dictionaryWithDictionary:dict];
         
         NSScanner *scanner = [NSScanner scannerWithString:someString];
-        
         [scanner scanString:@" " intoString:NULL];
-        if ([scanner scanString:@"-" intoString:NULL]) {
-            self.positive = NO;
+        
+        NSString *someSignedDigits = nil;
+        if ([scanner scanString:[Digits negativeString] intoString:&someSignedDigits]) {
             [scanner scanString:@" " intoString:NULL];
         }
         
-        NSString *someUnsignedDigits = nil;
-        if ([scanner scanUpToCharactersFromSet:self.forbiddenDigitSet intoString:&someUnsignedDigits]) {
-            self.unsignedDigits = someUnsignedDigits;
-        } else {
-            self.unsignedDigits = nil;
+        if ([scanner scanUpToCharactersFromSet:self.forbiddenDigitSet intoString:&someSignedDigits]) {
+            self.signedDigits = someSignedDigits;
         }
     }
     return self;
