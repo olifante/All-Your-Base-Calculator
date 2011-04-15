@@ -157,8 +157,8 @@ const unichar pointChar = 0x2027; // ‧ HYPHENATION POINT
 
 - (int)intValue
 {
-    int result;
-    int length;
+    int result = 0;
+    int length = 0;
     NSRange pointRange = [self.unsignedDigits rangeOfString:@"."];
     if (pointRange.length > 0) {
         length = pointRange.location;
@@ -414,7 +414,10 @@ const unichar pointChar = 0x2027; // ‧ HYPHENATION POINT
         }
         return nil;
     } else {
-        int result = pow(self.intValue, secondOperand.intValue);
+        int result = 0;
+        int firstInt = self.intValue;
+        int secondInt = secondOperand.intValue;
+        result = pow(firstInt, secondInt);
         return [[[Digits alloc] initWithInt:result base:self.base] autorelease];
     }
 }
