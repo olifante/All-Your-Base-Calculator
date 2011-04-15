@@ -21,6 +21,20 @@
 @property (retain) IBOutlet UILabel *previousDisplayLabel, *currentDisplayLabel;
 @property (retain) IBOutlet UILabel *previousDigitsLabel, *currentDigitsLabel, *currentOperationLabel, *previousOperationLabel, *previousExpressionLabel, *resultLabel;
 
+- (void)releaseMembers;
+
+- (void)dealloc;
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context;
+
+- (void)viewDidUnload;
+- (void)viewDidLoad;
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation;
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil;
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil model:(AllYourBaseModel *)model;
+
+- (void)updateLabels;
+
 - (IBAction)digitPressed:(UIButton *)sender;
 - (IBAction)operationPressed:(UIButton *)sender;
 - (IBAction)resultPressed;
@@ -38,10 +52,5 @@
 - (NSString *)negateString;
 - (NSString *)negativeString;
 - (NSString *)pointString;
-
-- (void)updateLabels;
-- (void)releaseMembers;
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil model:(AllYourBaseModel *)model;
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context;
 
 @end

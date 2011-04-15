@@ -23,10 +23,96 @@ const unichar negative = 0x002d; // - HYPHEN-MINUS
 
 @synthesize landscapeViewController;
 @synthesize isShowingLandscapeView;
-
 @synthesize model;
+
+# pragma mark outlets
+
 @synthesize previousDisplayLabel, currentDisplayLabel;
 @synthesize previousDigitsLabel, currentDigitsLabel, currentOperationLabel, previousOperationLabel, previousExpressionLabel, resultLabel;
+
+# pragma mark release method
+
+- (void)releaseMembers
+{
+    self.previousDisplayLabel = nil;
+    self.currentDisplayLabel = nil;
+    
+    self.previousDigitsLabel = nil;
+    self.currentDigitsLabel = nil;
+    self.currentOperationLabel = nil;
+    self.previousOperationLabel = nil;
+    self.previousExpressionLabel = nil;
+    self.resultLabel = nil;
+    
+    self.model = nil;
+    self.landscapeViewController = nil;
+}
+
+# pragma mark NSObject overridden methods
+
+- (void)dealloc
+{
+    [self releaseMembers];
+    [super dealloc];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    NSLog(@"%@ observed keyPath:%@", [self class], keyPath);
+    [self updateLabels];
+}
+
+# pragma mark UIViewController overridden methods
+
+- (void)viewDidUnload
+{
+    [super viewDidUnload];
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    [self updateLabels];
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    return (interfaceOrientation == UIInterfaceOrientationPortrait || interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown);
+}
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [self initWithNibName:nibNameOrNil bundle:nibBundleOrNil model:nil];
+    return self;
+}
+
+# pragma mark own initializers
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil model:(AllYourBaseModel *)model
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        // initialization code
+    }
+    return self;
+}
+
+# pragma mark instance methods
+
+- (void)updateLabels
+{
+    self.previousDisplayLabel.text = self.model.secondaryDisplay;
+    self.currentDisplayLabel.text = self.model.mainDisplay;
+    
+    self.previousDigitsLabel.text = self.model.previousDigits.signedDigits;
+    self.currentDigitsLabel.text = self.model.currentDigits.signedDigits;
+    self.currentOperationLabel.text = self.model.currentOperation;
+    self.previousOperationLabel.text = self.model.previousOperation;
+    self.previousExpressionLabel.text = self.model.previousExpression;
+    self.resultLabel.text = self.model.resultDigits.signedDigits;
+}
+
+# pragma mark actions
 
 - (IBAction)digitPressed:(UIButton *)sender
 {
@@ -111,6 +197,8 @@ const unichar negative = 0x002d; // - HYPHEN-MINUS
     [self.model resultPressed];
 }
 
+# pragma mark symbol accessor methods
+
 - (NSString *)plusString { return [NSString stringWithFormat:@"%C", plus]; }
 - (NSString *)minusString { return [NSString stringWithFormat:@"%C", minus]; }
 - (NSString *)timesString { return [NSString stringWithFormat:@"%C", times]; }
@@ -118,78 +206,5 @@ const unichar negative = 0x002d; // - HYPHEN-MINUS
 - (NSString *)negateString { return [NSString stringWithFormat:@"%C", negate]; }
 - (NSString *)negativeString { return [NSString stringWithFormat:@"%C", negative]; }
 - (NSString *)pointString { return [NSString stringWithFormat:@"%C", point]; }
-
-- (void)updateLabels
-{
-    self.previousDisplayLabel.text = self.model.secondaryDisplay;
-    self.currentDisplayLabel.text = self.model.mainDisplay;
-    
-    self.previousDigitsLabel.text = self.model.previousDigits.signedDigits;
-    self.currentDigitsLabel.text = self.model.currentDigits.signedDigits;
-    self.currentOperationLabel.text = self.model.currentOperation;
-    self.previousOperationLabel.text = self.model.previousOperation;
-    self.previousExpressionLabel.text = self.model.previousExpression;
-    self.resultLabel.text = self.model.resultDigits.signedDigits;
-}
-
-- (void)releaseMembers
-{
-    self.previousDisplayLabel = nil;
-    self.currentDisplayLabel = nil;
-    
-    self.previousDigitsLabel = nil;
-    self.currentDigitsLabel = nil;
-    self.currentOperationLabel = nil;
-    self.previousOperationLabel = nil;
-    self.previousExpressionLabel = nil;
-    self.resultLabel = nil;
-    
-    self.model = nil;
-    self.landscapeViewController = nil;
-}
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [self initWithNibName:nibNameOrNil bundle:nibBundleOrNil model:nil];
-    return self;
-}
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil model:(AllYourBaseModel *)model
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // initialization code
-    }
-    return self;
-}
-
-- (void)dealloc
-{
-    [self releaseMembers];
-    [super dealloc];
-}
-
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    [self updateLabels];
-}
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return (interfaceOrientation == UIInterfaceOrientationPortrait || interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown);
-}
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-{
-    NSLog(@"%@ observed keyPath:%@", [self class], keyPath);
-    [self updateLabels];
-}
 
 @end

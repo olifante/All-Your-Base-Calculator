@@ -20,6 +20,7 @@
 @synthesize mainDisplay;
 @synthesize error;
 
+# pragma mark overridden methods
 - (id)init
 {
     self = [super init];
@@ -31,6 +32,29 @@
     }
     return self;
 }
+
+- (void)dealloc
+{
+    [self releaseMembers];
+    [super dealloc];
+}
+
+# pragma mark instance methods
+
+- (void)releaseMembers
+{
+    self.previousDigits = nil;
+    self.currentDigits = nil;
+    self.resultDigits = nil;
+    self.secondaryDisplay = nil;
+    self.mainDisplay = nil;
+    self.currentOperation = nil;
+    self.previousOperation = nil;
+    self.previousExpression = nil;
+    self.error = nil;
+}
+
+# pragma mark -
 
 - (void)updateMainDisplay
 {
@@ -84,6 +108,8 @@
     [self updateMainDisplay];
 }
 
+# pragma mark -
+
 - (void)performPendingOperationWithError:(NSError **)operationError
 {
     Digits *operationResultDigits = nil;
@@ -114,20 +140,43 @@
     self.resultDigits = operationResultDigits;
 }
 
-- (void)digitPressed:(NSString *)digit
+- (void)resultPressed
 {
     if (self.error) {
-        NSLog(@"No action - digits do nothing after error");
+        NSLog(@"No action - result does nothing after error");
         return;
     }
     
-    if (self.previousOperation) {
-        self.currentDigits = [[[Digits alloc] init] autorelease];
+    if (!self.currentDigits.unsignedDigits && self.currentOperation) {
+        NSLog(@"No action - pending operation cannot be performed without a 2nd operand");
+    } else if (!self.currentDigits.unsignedDigits && !self.currentOperation) {
+        NSLog(@"No action - result cannot be performed on empty operand");
+    } else if (self.currentDigits.unsignedDigits && self.currentOperation) {
+        NSError *operationError = nil;
+        [self performPendingOperationWithError:&operationError];
+        
+        if (!self.resultDigits && operationError) {
+            NSLog(@"binary operation error after pressing result");
+            self.error = operationError;
+        } else {            
+            self.previousExpression = [NSString stringWithFormat:@"%@ %@ %@"
+                                       , self.previousDigits ? self.previousDigits.description : @""
+                                       , self.currentOperation ? self.currentOperation : @""
+                                       , self.currentDigits ? self.currentDigits.description : @""
+                                       ];
+            self.previousDigits = nil;
+            self.currentDigits = self.resultDigits;
+            self.previousOperation = self.currentOperation;
+            self.currentOperation = nil;        }
+    } else if (self.currentDigits.unsignedDigits && !self.currentOperation) {
+        self.resultDigits = self.currentDigits;
+        self.previousDigits = nil;
+        self.currentOperation = nil;
+        self.previousOperation = @"=";
+        self.previousExpression = self.currentDigits.description;
+    } else {
+        assert(NO);
     }
-    
-    [self.currentDigits pushDigit:digit];
-    
-    self.previousOperation = nil;
     [self updateDisplays];
 }
 
@@ -150,7 +199,7 @@
     } else if (self.currentDigits.unsignedDigits && self.currentOperation) {
         NSError *operationError = nil;
         [self performPendingOperationWithError:&operationError];
-
+        
         if (!self.resultDigits && operationError) {
             NSLog(@"binary operation error after chaining operation");
             self.error = operationError;
@@ -174,58 +223,20 @@
     [self updateDisplays];
 }
 
-- (void)resultPressed
+- (void)digitPressed:(NSString *)digit
 {
     if (self.error) {
-        NSLog(@"No action - result does nothing after error");
+        NSLog(@"No action - digits do nothing after error");
         return;
     }
     
-    if (!self.currentDigits.unsignedDigits && self.currentOperation) {
-        NSLog(@"No action - pending operation cannot be performed without a 2nd operand");
-    } else if (!self.currentDigits.unsignedDigits && !self.currentOperation) {
-        NSLog(@"No action - result cannot be performed on empty operand");
-    } else if (self.currentDigits.unsignedDigits && self.currentOperation) {
-        NSError *operationError = nil;
-        [self performPendingOperationWithError:&operationError];
-
-        if (!self.resultDigits && operationError) {
-            NSLog(@"binary operation error after pressing result");
-            self.error = operationError;
-        } else {            
-            self.previousExpression = [NSString stringWithFormat:@"%@ %@ %@"
-                                       , self.previousDigits ? self.previousDigits.description : @""
-                                       , self.currentOperation ? self.currentOperation : @""
-                                       , self.currentDigits ? self.currentDigits.description : @""
-                                       ];
-            self.previousDigits = nil;
-            self.currentDigits = self.resultDigits;
-            self.previousOperation = self.currentOperation;
-            self.currentOperation = nil;        }
-//    } else if (!self.currentOperation && self.currentDigits.unsignedDigits && self.currentDigits.startsWithMinus) {
-//        self.currentDigits = [[[Digits alloc] init] autorelease];
-//        self.resultDigits = self.currentDigits;
-//        self.previousDigits = nil;
-//        self.currentOperation = nil;
-//        self.previousOperation = @"=";
-//        self.previousExpression = @"0";
-//    } else if (!self.currentOperation && !self.currentDigits.unsignedDigits && !self.currentDigits.startsWithMinus) {
-//        NSLog(@"No action - negate is waiting for digits to be input");
-    } else if (self.currentDigits.unsignedDigits && !self.currentOperation) {
-        self.resultDigits = self.currentDigits;
-        self.previousDigits = nil;
-        self.currentOperation = nil;
-        self.previousOperation = @"=";
-        self.previousExpression = self.currentDigits.description;
-//    } else if (!self.currentOperation && self.currentDigits.unsignedDigits && !self.currentDigits.startsWithMinus) {
-//        self.resultDigits = self.currentDigits;
-//        self.previousDigits = nil;
-//        self.currentOperation = nil;
-//        self.previousOperation = @"=";
-//        self.previousExpression = self.currentDigits.description;
-    } else {
-        assert(NO);
+    if (self.previousOperation) {
+        self.currentDigits = [[[Digits alloc] init] autorelease];
     }
+    
+    [self.currentDigits pushDigit:digit];
+    
+    self.previousOperation = nil;
     [self updateDisplays];
 }
 
@@ -267,6 +278,13 @@
     [self updateDisplays];    
 }
 
+- (void)cleanPressed
+{
+    [self releaseMembers];
+    self.currentDigits = [[[Digits alloc] init] autorelease];
+    [self updateDisplays];
+}
+
 - (void)shiftLeftPressed
 {
     
@@ -285,39 +303,6 @@
 - (void)EEPressed
 {
     
-}
-
-- (void)cleanPressed
-{
-    self.currentDigits = [[[Digits alloc] init] autorelease];
-    self.previousDigits = nil;
-    self.resultDigits = nil;
-    self.secondaryDisplay = nil;
-    self.mainDisplay = nil;
-    self.currentOperation = nil;
-    self.previousOperation = nil;
-    self.previousExpression = nil;
-    self.error = nil;
-    [self updateDisplays];
-}
-
-- (void)releaseMembers
-{
-    self.previousDigits = nil;
-    self.currentDigits = nil;
-    self.resultDigits = nil;
-    self.secondaryDisplay = nil;
-    self.mainDisplay = nil;
-    self.currentOperation = nil;
-    self.previousOperation = nil;
-    self.previousExpression = nil;
-    self.error = nil;
-}
-
-- (void)dealloc
-{
-    [self releaseMembers];
-    [super dealloc];
 }
 
 @end
