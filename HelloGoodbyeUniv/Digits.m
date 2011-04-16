@@ -310,37 +310,51 @@ const unichar pointChar = 0x2027; // ‧ HYPHENATION POINT
 {
     if (!secondOperand) {
         return nil;
-    } else {
-        int result = self.intValue + secondOperand.intValue;
-        return [[[Digits alloc] initWithInt:result base:self.base] autorelease];
     }
+    
+    int firstOperandValue = self.intValue;
+    int secondOperandValue = secondOperand.intValue;
+    
+    int result = firstOperandValue + secondOperandValue;
+    return [[[Digits alloc] initWithInt:result base:self.base] autorelease];
 }
 
 - (Digits *)minus:(Digits *)secondOperand withError:(NSError **)error
 {
     if (!secondOperand) {
         return nil;
-    } else {
-        int result = self.intValue - secondOperand.intValue;
-        return [[[Digits alloc] initWithInt:result base:self.base] autorelease];
     }
+
+    int firstOperandValue = self.intValue;
+    int secondOperandValue = secondOperand.intValue;
+    
+    int result = firstOperandValue - secondOperandValue;
+    return [[[Digits alloc] initWithInt:result base:self.base] autorelease];
 }
 
 - (Digits *)times:(Digits *)secondOperand withError:(NSError **)error
 {
     if (!secondOperand) {
         return nil;
-    } else {
-        int result = self.intValue * secondOperand.intValue;
-        return [[[Digits alloc] initWithInt:result base:self.base] autorelease];
     }
+    
+    int firstOperandValue = self.intValue;
+    int secondOperandValue = secondOperand.intValue;
+    
+    int result = firstOperandValue * secondOperandValue;
+    return [[[Digits alloc] initWithInt:result base:self.base] autorelease];
 }
 
 - (Digits *)divide:(Digits *)secondOperand withError:(NSError **)error
 {
     if (!secondOperand) {
         return nil;
-    } else if (secondOperand.intValue == 0) {
+    }
+    
+    int firstOperandValue = self.intValue;
+    int secondOperandValue = secondOperand.intValue;
+    
+    if (secondOperandValue == 0) {
         if (error) {            
             NSDictionary *userDict = [[NSDictionary dictionaryWithObjectsAndKeys:
                                        NSLocalizedString([Digits divideErrorMessage], @""),
@@ -352,14 +366,16 @@ const unichar pointChar = 0x2027; // ‧ HYPHENATION POINT
         }
         return nil;
     } else {
-        int result = self.intValue / secondOperand.intValue;
+        int result = firstOperandValue / secondOperandValue;
         return [[[Digits alloc] initWithInt:result base:self.base] autorelease];
     }
 }
 
 - (Digits *)invertWithError:(NSError **)error
 {
-    if (self.intValue == 0) {
+    int operandValue = self.intValue;
+
+    if (operandValue == 0) {
         if (error) {            
             NSDictionary *userDict = [[NSDictionary dictionaryWithObjectsAndKeys:
                                        NSLocalizedString([Digits invertErrorMessage], @""),
@@ -371,7 +387,7 @@ const unichar pointChar = 0x2027; // ‧ HYPHENATION POINT
         }
         return nil;
     } else {
-        int result = 1 / self.intValue;
+        int result = 1 / operandValue;
         return [[[Digits alloc] initWithInt:result base:self.base] autorelease];
     }
 }
@@ -380,7 +396,12 @@ const unichar pointChar = 0x2027; // ‧ HYPHENATION POINT
 {
     if (!secondOperand) {
         return nil;
-    } else if ((self.intValue == 0) && (secondOperand.intValue == 0)) {
+    } 
+    
+    int firstOperandValue = self.intValue;
+    int secondOperandValue = secondOperand.intValue;
+    
+    if ((firstOperandValue == 0) && (secondOperandValue == 0)) {
         if (error) {            
             NSDictionary *userDict = [[NSDictionary dictionaryWithObjectsAndKeys:
                                        NSLocalizedString([Digits zeroPowerOfZeroErrorMessage], @""),
@@ -391,7 +412,7 @@ const unichar pointChar = 0x2027; // ‧ HYPHENATION POINT
             [userDict release];
         }
         return nil;
-    } else if ((self.intValue == 0) && (secondOperand.intValue < 0)) {
+    } else if ((firstOperandValue == 0) && (secondOperandValue < 0)) {
         if (error) {            
             NSDictionary *userDict = [[NSDictionary dictionaryWithObjectsAndKeys:
                                        NSLocalizedString([Digits negativePowerOfZeroErrorMessage], @""),
@@ -402,7 +423,7 @@ const unichar pointChar = 0x2027; // ‧ HYPHENATION POINT
             [userDict release];
         }
         return nil;
-    } else if ((self.intValue < 0) && ([secondOperand containsPoint])) {
+    } else if ((firstOperandValue < 0) && ([secondOperand containsPoint])) {
         if (error) {            
             NSDictionary *userDict = [[NSDictionary dictionaryWithObjectsAndKeys:
                                        NSLocalizedString([Digits fractionalPowerOfNegativeErrorMessage], @""),
@@ -414,10 +435,7 @@ const unichar pointChar = 0x2027; // ‧ HYPHENATION POINT
         }
         return nil;
     } else {
-        int result = 0;
-        int firstInt = self.intValue;
-        int secondInt = secondOperand.intValue;
-        result = pow(firstInt, secondInt);
+        int result = pow(firstOperandValue, secondOperandValue);
         return [[[Digits alloc] initWithInt:result base:self.base] autorelease];
     }
 }
