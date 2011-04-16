@@ -24,6 +24,7 @@
 		F1648E9B13415EBF004D0E12 /* AllYourBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F1648E9913415EBF004D0E12 /* AllYourBaseViewController.m */; };
 		F1893596134A423A00F805B0 /* DigitsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F1893595134A423A00F805B0 /* DigitsTests.m */; };
 		F197BD7B13422BFD0056F74C /* AllYourBaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F197BD7A13422BFD0056F74C /* AllYourBaseModel.m */; };
+		F19FB2531359EB8E0076D882 /* FloatingDigitsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F19FB2521359EB8E0076D882 /* FloatingDigitsTests.m */; };
 		F1ADD8CA133E55830050EB59 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1ADD8C9133E55830050EB59 /* UIKit.framework */; };
 		F1ADD8CC133E55830050EB59 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1ADD8CB133E55830050EB59 /* Foundation.framework */; };
 		F1ADD8CE133E55830050EB59 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1ADD8CD133E55830050EB59 /* CoreGraphics.framework */; };
@@ -77,6 +78,8 @@
 		F1893595134A423A00F805B0 /* DigitsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DigitsTests.m; sourceTree = "<group>"; };
 		F197BD7913422BFD0056F74C /* AllYourBaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllYourBaseModel.h; sourceTree = "<group>"; };
 		F197BD7A13422BFD0056F74C /* AllYourBaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllYourBaseModel.m; sourceTree = "<group>"; };
+		F19FB2511359EB8E0076D882 /* FloatingDigitsTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FloatingDigitsTests.h; sourceTree = "<group>"; };
+		F19FB2521359EB8E0076D882 /* FloatingDigitsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FloatingDigitsTests.m; sourceTree = "<group>"; };
 		F1ADD8C5133E55830050EB59 /* AllYourBase.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AllYourBase.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1ADD8C9133E55830050EB59 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		F1ADD8CB133E55830050EB59 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -132,6 +135,8 @@
 			children = (
 				F1893594134A423A00F805B0 /* DigitsTests.h */,
 				F1893595134A423A00F805B0 /* DigitsTests.m */,
+				F19FB2511359EB8E0076D882 /* FloatingDigitsTests.h */,
+				F19FB2521359EB8E0076D882 /* FloatingDigitsTests.m */,
 				F121974C1343BA6F00507A37 /* LogicTests.h */,
 				F121974E1343BA6F00507A37 /* LogicTests.m */,
 				F12197461343BA6F00507A37 /* Supporting Files */,
@@ -383,6 +388,7 @@
 				F11DA726134A14E200797005 /* Digits.m in Sources */,
 				F1273BFB134C8590004FA297 /* RationalDigits.m in Sources */,
 				F1273BFF134C86DD004FA297 /* FloatingDigits.m in Sources */,
+				F19FB2531359EB8E0076D882 /* FloatingDigitsTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
