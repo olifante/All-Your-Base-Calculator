@@ -30,7 +30,7 @@
     STAssertNotNil(digits, @"Cannot create Digits instance");
     STAssertTrue(digits.startsWithMinus == NO, @"");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
-    STAssertTrue(digits.doubleValue == 0, @"'%g' should be equal to '%g'", digits.doubleValue, 0);
+    STAssertTrue(digits.doubleValue == 0, @"'%f' should be equal to '%f'", digits.doubleValue, 0);
     
     NSString *actual, *expected;
     
@@ -60,7 +60,7 @@
     STAssertNotNil(digits, @"Cannot create Digits instance");
     STAssertTrue(digits.startsWithMinus == NO, @"");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
-    STAssertTrue(digits.doubleValue == 123, @"'%g' should be equal to '%g'", digits.doubleValue, 123);
+    STAssertTrue(digits.doubleValue == 123, @"'%f' should be equal to '%f'", digits.doubleValue, 123);
     
     NSString *actual, *expected;
     
@@ -71,13 +71,13 @@
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
-- (void)testInitWithMinus12 {
+- (void)testInitWithNegative12 {
     
     FloatingDigits *digits = [[[FloatingDigits alloc] initWithString:@"-12"] retain];
     STAssertNotNil(digits, @"Cannot create Digits instance");
     STAssertTrue(digits.startsWithMinus == YES, @"");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
-    STAssertTrue(digits.doubleValue == -12, @"'%g' should be equal to '%g'", digits.doubleValue, -12);
+    STAssertTrue(digits.doubleValue == -12., @"'%f' should be equal to '%f'", digits.doubleValue, -12.);
     
     NSString *actual, *expected;
     
@@ -94,7 +94,7 @@
     STAssertNotNil(digits, @"Cannot create Digits instance");
     STAssertTrue(digits.startsWithMinus == NO, @"");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
-    STAssertTrue(digits.doubleValue == 1234567890, @"'%g' should be equal to '%g'", digits.doubleValue, 1234567890);
+    STAssertTrue(digits.doubleValue == 1234567890., @"'%f' should be equal to '%f'", digits.doubleValue, 1234567890.);
     
     NSString *actual, *expected;
     
@@ -111,7 +111,7 @@
     STAssertNotNil(digits, @"Cannot create Digits instance");
     STAssertTrue(digits.startsWithMinus == NO, @"");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
-    STAssertTrue(digits.doubleValue == 1234567890, @"'%g' should be equal to '%g'", digits.doubleValue, 1234567890);
+    STAssertTrue(digits.doubleValue == 1234567890., @"'%f' should be equal to '%f'", digits.doubleValue, 1234567890.);
     
     NSString *actual, *expected;
     
@@ -122,13 +122,13 @@
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
-- (void)testInitWithSpaceMinus123abc456SpaceSpace {
+- (void)testInitWithSpaceNegative123abc456SpaceSpace {
     
     FloatingDigits *digits = [[[FloatingDigits alloc] initWithString:@"  -123abc456 "] retain];
     STAssertNotNil(digits, @"Cannot create Digits instance");
     STAssertTrue(digits.startsWithMinus == YES, @"");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
-    STAssertTrue(digits.doubleValue == -123, @"'%g' should be equal to '%g'", digits.doubleValue, -123);
+    STAssertTrue(digits.doubleValue == -123., @"'%f' should be equal to '%f'", digits.doubleValue, -123.);
     
     NSString *actual, *expected;
     
@@ -147,7 +147,7 @@
     
     STAssertTrue(digits.startsWithMinus == NO, @"");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
-    STAssertTrue(digits.doubleValue == 0, @"'%g' should be equal to '%g'", digits.doubleValue, 0);
+    STAssertTrue(digits.doubleValue == 0, @"'%f' should be equal to '%f'", digits.doubleValue, 0);
     
     NSString *actual, *expected;
     
@@ -170,7 +170,7 @@
     
     STAssertTrue(digits.startsWithMinus == NO, @"");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
-    STAssertTrue(digits.doubleValue == 0, @"'%g' should be equal to '%g'", digits.doubleValue, 0);
+    STAssertTrue(digits.doubleValue == 0, @"'%f' should be equal to '%f'", digits.doubleValue, 0);
     
     NSString *actual, *expected;
     
@@ -192,7 +192,7 @@
     
     STAssertTrue(digits.startsWithMinus == NO, @"");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
-    STAssertTrue(digits.doubleValue == 1, @"'%g' should be equal to '%g'", digits.doubleValue, 1);
+    STAssertTrue(digits.doubleValue == 1, @"'%f' should be equal to '%f'", digits.doubleValue, 1);
     
     NSString *actual, *expected;
     
@@ -211,7 +211,7 @@
     
     STAssertTrue(digits.startsWithMinus == NO, @"");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
-    STAssertTrue(digits.doubleValue == 0, @"'%g' should be equal to '%g'", digits.doubleValue, 0);
+    STAssertTrue(digits.doubleValue == 0, @"'%f' should be equal to '%f'", digits.doubleValue, 0);
     
     NSString *actual, *expected;
     
@@ -234,7 +234,7 @@
     
     STAssertTrue(digits.startsWithMinus == NO, @"");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
-    STAssertTrue(digits.doubleValue == 0, @"'%g' should be equal to '%g'", digits.doubleValue, 0);
+    STAssertTrue(digits.doubleValue == 0, @"'%f' should be equal to '%f'", digits.doubleValue, 0);
     
     NSString *actual, *expected;
     
@@ -257,7 +257,7 @@
     
     STAssertTrue(digits.startsWithMinus == NO, @"");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
-    STAssertTrue(digits.doubleValue == 0, @"'%g' should be equal to '%g'", digits.doubleValue, 0);
+    STAssertTrue(digits.doubleValue == 0, @"'%f' should be equal to '%f'", digits.doubleValue, 0);
     
     NSString *actual, *expected;
     
@@ -280,7 +280,7 @@
     
     STAssertTrue(digits.startsWithMinus == NO, @"");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
-    STAssertTrue(digits.doubleValue == 0, @"'%g' should be equal to '%g'", digits.doubleValue, 0);
+    STAssertTrue(digits.doubleValue == 0, @"'%f' should be equal to '%f'", digits.doubleValue, 0);
     
     NSString *actual, *expected;
     
@@ -302,7 +302,7 @@
     
     STAssertTrue(digits.startsWithMinus == YES, @"");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
-    STAssertTrue(digits.doubleValue == 0, @"'%g' should be equal to '%g'", digits.doubleValue, 0);
+    STAssertTrue(digits.doubleValue == 0, @"'%f' should be equal to '%f'", digits.doubleValue, 0);
     
     NSString *actual, *expected;
     
@@ -325,7 +325,7 @@
     
     STAssertTrue(digits.startsWithMinus == YES, @"");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
-    STAssertTrue(digits.doubleValue == 0, @"'%g' should be equal to '%g'", digits.doubleValue, 0);
+    STAssertTrue(digits.doubleValue == 0, @"'%f' should be equal to '%f'", digits.doubleValue, 0);
     
     NSString *actual, *expected;
     
@@ -348,7 +348,7 @@
     
     STAssertTrue(digits.startsWithMinus == YES, @"");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
-    STAssertTrue(digits.doubleValue == 0, @"'%g' should be equal to '%g'", digits.doubleValue, 0);
+    STAssertTrue(digits.doubleValue == 0, @"'%f' should be equal to '%f'", digits.doubleValue, 0);
     
     NSString *actual, *expected;
     
@@ -371,7 +371,7 @@
     
     STAssertTrue(digits.startsWithMinus == NO, @"");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
-    STAssertTrue(digits.doubleValue == 1, @"'%g' should be equal to '%g'", digits.doubleValue, 1);
+    STAssertTrue(digits.doubleValue == 1, @"'%f' should be equal to '%f'", digits.doubleValue, 1);
     
     NSString *actual, *expected;
     
@@ -395,7 +395,7 @@
     
     STAssertTrue(digits.startsWithMinus == NO, @"");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
-    STAssertTrue(digits.doubleValue == 0, @"'%g' should be equal to '%g'", digits.doubleValue, 0);
+    STAssertTrue(digits.doubleValue == 0, @"'%f' should be equal to '%f'", digits.doubleValue, 0);
     
     NSString *actual, *expected;
     
@@ -419,7 +419,7 @@
     
     STAssertTrue(digits.startsWithMinus == NO, @"");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
-    STAssertTrue(digits.doubleValue == 1, @"'%g' should be equal to '%g'", digits.doubleValue, 1);
+    STAssertTrue(digits.doubleValue == 1, @"'%f' should be equal to '%f'", digits.doubleValue, 1);
     
     NSString *actual, *expected;
     
@@ -443,7 +443,7 @@
     
     STAssertTrue(digits.startsWithMinus == NO, @"");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
-    STAssertTrue(digits.doubleValue == 123, @"'%g' should be equal to '%g'", digits.doubleValue, 123);
+    STAssertTrue(digits.doubleValue == 123, @"'%f' should be equal to '%f'", digits.doubleValue, 123);
     
     NSString *actual, *expected;
     
@@ -462,7 +462,7 @@
     
     STAssertTrue(digits.startsWithMinus == NO, @"");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
-    STAssertTrue(digits.doubleValue == 0, @"'%g' should be equal to '%g'", digits.doubleValue, 0);
+    STAssertTrue(digits.doubleValue == 0, @"'%f' should be equal to '%f'", digits.doubleValue, 0);
     
     NSString *actual, *expected;
     
@@ -485,7 +485,7 @@
     
     STAssertTrue(digits.startsWithMinus == NO, @"");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
-    STAssertTrue(digits.doubleValue == 1, @"'%g' should be equal to '%g'", digits.doubleValue, 1);
+    STAssertTrue(digits.doubleValue == 1, @"'%f' should be equal to '%f'", digits.doubleValue, 1);
     
     NSString *actual, *expected;
     
@@ -627,7 +627,7 @@
     
     STAssertTrue(digits.startsWithMinus == NO, @"");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
-    STAssertTrue(digits.doubleValue == 12, @"'%g' should be equal to '%g'", digits.doubleValue, 12);
+    STAssertTrue(digits.doubleValue == 12, @"'%f' should be equal to '%f'", digits.doubleValue, 12);
     
     actual = digits.unsignedDigits, expected = @"12";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
@@ -636,13 +636,13 @@
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
-- (void)testInitWithIntNegative46656 {
+- (void)testInitWithDoubleNegative46656 {
     
-    FloatingDigits *digits = [[[FloatingDigits alloc] initWithInt:-46656] retain];
+    FloatingDigits *digits = [[[FloatingDigits alloc] initWithDouble:-46656] retain];
     STAssertNotNil(digits, @"Cannot create Digits instance");
     STAssertTrue(digits.startsWithMinus == YES, @"");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
-    STAssertTrue(digits.doubleValue == -46656, @"'%g' should be equal to '%g'", digits.doubleValue, -46656);
+    STAssertTrue(digits.doubleValue == -46656., @"'%f' should be equal to '%f'", digits.doubleValue, -46656.);
     
     NSString *actual, *expected;
     
@@ -650,16 +650,16 @@
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
     
     actual = digits.signedDigits, expected = @"-46656";
-    STAssertTrue([actual isEqualToString:expected], @"'%g' should be equal to '%g'", actual, expected);
+    STAssertTrue([actual isEqualToString:expected], @"'%f' should be equal to '%f'", actual, expected);
 }
 
-- (void)testInitWithInt0 {
+- (void)testInitWithDouble0 {
     
-    FloatingDigits *digits = [[[FloatingDigits alloc] initWithInt:0] retain];
+    FloatingDigits *digits = [[[FloatingDigits alloc] initWithDouble:0] retain];
     STAssertNotNil(digits, @"Cannot create Digits instance");
     STAssertTrue(digits.startsWithMinus == NO, @"");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
-    STAssertTrue(digits.doubleValue == 0, @"'%g' should be equal to '%g'", digits.doubleValue, 0);
+    STAssertTrue(digits.doubleValue == 0., @"'%f' should be equal to '%f'", digits.doubleValue, 0.);
     
     NSString *actual, *expected;
     
@@ -670,13 +670,13 @@
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
-- (void)testInitWithInt1234567890 {
+- (void)testInitWithDouble1234567890 {
     
-    FloatingDigits *digits = [[[FloatingDigits alloc] initWithInt:1234567890] retain];
+    FloatingDigits *digits = [[[FloatingDigits alloc] initWithDouble:1234567890] retain];
     STAssertNotNil(digits, @"Cannot create Digits instance");
     STAssertTrue(digits.startsWithMinus == NO, @"");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
-    STAssertTrue(digits.doubleValue == 1234567890, @"'%g' should be equal to '%g'", digits.doubleValue, 1234567890);
+    STAssertTrue(digits.doubleValue == 1234567890., @"'%f' should be equal to '%f'", digits.doubleValue, 1234567890.);
     
     NSString *actual, *expected;
     
@@ -687,13 +687,13 @@
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
-- (void)testInitWithIntNegative1234567890 {
+- (void)testInitWithDoubleNegative1234567890 {
     
-    FloatingDigits *digits = [[[FloatingDigits alloc] initWithInt:-1234567890] retain];
+    FloatingDigits *digits = [[[FloatingDigits alloc] initWithDouble:-1234567890] retain];
     STAssertNotNil(digits, @"Cannot create Digits instance");
     STAssertTrue(digits.startsWithMinus == YES, @"");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
-    STAssertTrue(digits.doubleValue == -1234567890, @"'%g' should be equal to '%g'", digits.doubleValue, -1234567890);
+    STAssertTrue(digits.doubleValue == -1234567890., @"'%f' should be equal to '%f'", digits.doubleValue, -1234567890.);
     
     NSString *actual, *expected;
     
@@ -701,16 +701,16 @@
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
     
     actual = digits.signedDigits, expected = @"-1234567890";
-    STAssertTrue([actual isEqualToString:expected], @"'%g' should be equal to '%g'", actual, expected);
+    STAssertTrue([actual isEqualToString:expected], @"'%f' should be equal to '%f'", actual, expected);
 }
 
-- (void)testInitWithInt1234567890Base2 {
+- (void)testInitWithDouble1234567890Base2 {
     
-    FloatingDigits *digits = [[[FloatingDigits alloc] initWithInt:1234567890 base:2] retain];
+    FloatingDigits *digits = [[[FloatingDigits alloc] initWithDouble:1234567890 base:2] retain];
     STAssertNotNil(digits, @"Cannot create Digits instance");
     STAssertTrue(digits.startsWithMinus == NO, @"");
     STAssertTrue(digits.base == 2, @"should use decimal base by default");
-    STAssertTrue(digits.doubleValue == 1234567890, @"'%g' should be equal to '%g'", digits.doubleValue, 1234567890);
+    STAssertTrue(digits.doubleValue == 1234567890., @"'%f' should be equal to '%f'", digits.doubleValue, 1234567890.);
     
     NSString *actual, *expected;
     
@@ -721,13 +721,13 @@
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
-- (void)testInitWithInt2147483647 { // maximum int value on 32 bits architectures like the iPhone
+- (void)testInitWithDouble2147483647 { // maximum int value on 32 bits architectures like the iPhone
     
-    FloatingDigits *digits = [[[FloatingDigits alloc] initWithInt:2147483647] retain];
+    FloatingDigits *digits = [[[FloatingDigits alloc] initWithDouble:2147483647] retain];
     STAssertNotNil(digits, @"Cannot create Digits instance");
     STAssertTrue(digits.startsWithMinus == NO, @"");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
-    STAssertTrue(digits.doubleValue == 0x7fffffff, @"'%x' should be equal to '%x'", digits.doubleValue, 0x7fffffff);
+    STAssertTrue(digits.doubleValue == 0x7fffffff.p0, @"'%a' should be equal to '%a'", digits.doubleValue, 0x7fffffff.p0);
     
     NSString *actual, *expected;
     
@@ -735,22 +735,22 @@
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
     
     actual = digits.signedDigits, expected = @"2147483647";
-    STAssertTrue([actual isEqualToString:expected], @"'%g' should be equal to '%g'", actual, expected);
+    STAssertTrue([actual isEqualToString:expected], @"'%f' should be equal to '%f'", actual, expected);
 }
 
-- (void)testInitWithInt2147483648 {
+- (void)testInitWithDouble2147483648 {
     
-    FloatingDigits *digits = [[[FloatingDigits alloc] initWithInt:2147483648] retain];
+    FloatingDigits *digits = [[[FloatingDigits alloc] initWithDouble:2147483648] retain];
     STAssertNil(digits, @"Should not be able to create Digits instance");
 }
 
-- (void)testInitWithIntNegative2147483648 { // minimum int value on 32 bits architectures like the iPhone
+- (void)testInitWithDoubleNegative2147483648 { // minimum int value on 32 bits architectures like the iPhone
     
-    FloatingDigits *digits = [[[FloatingDigits alloc] initWithInt:-2147483648] retain];
+    FloatingDigits *digits = [[[FloatingDigits alloc] initWithDouble:-2147483648] retain];
     STAssertNotNil(digits, @"Cannot create Digits instance");
     STAssertTrue(digits.startsWithMinus == YES, @"");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
-    STAssertTrue(digits.doubleValue == -0x80000000, @"'%x' should be equal to '%d'", digits.doubleValue, -0x80000000);
+    STAssertTrue(digits.doubleValue == -0x80000000.p0, @"'%a' should be equal to '%a'", digits.doubleValue, -0x80000000.p0);
     
     NSString *actual, *expected;
     
@@ -761,9 +761,9 @@
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
-- (void)testInitWithIntNegative2147483649 {
+- (void)testInitWithDoubleNegative2147483649 {
     
-    FloatingDigits *digits = [[[FloatingDigits alloc] initWithInt:-2147483649] retain];
+    FloatingDigits *digits = [[[FloatingDigits alloc] initWithDouble:-2147483649] retain];
     STAssertNil(digits, @"Should not be able to create Digits instance");
 }
 
@@ -773,7 +773,7 @@
     STAssertNotNil(digits, @"Cannot create Digits instance");
     STAssertTrue(digits.startsWithMinus == NO, @"");
     STAssertTrue(digits.base == 2, @"should use decimal base by default");
-    STAssertTrue(digits.doubleValue == 1234567890, @"'%g' should be equal to '%g'", digits.doubleValue, 1234567890);
+    STAssertTrue(digits.doubleValue == 1234567890., @"'%f' should be equal to '%f'", digits.doubleValue, 1234567890.);
     
     NSString *actual, *expected;
     
@@ -784,13 +784,13 @@
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
-- (void)testInitWithInt1234567890Base8 {
+- (void)testInitWithDouble1234567890Base8 {
     
-    FloatingDigits *digits = [[[FloatingDigits alloc] initWithInt:1234567890 base:8] retain];
+    FloatingDigits *digits = [[[FloatingDigits alloc] initWithDouble:1234567890 base:8] retain];
     STAssertNotNil(digits, @"Cannot create Digits instance");
     STAssertTrue(digits.startsWithMinus == NO, @"");
     STAssertTrue(digits.base == 8, @"should use decimal base by default");
-    STAssertTrue(digits.doubleValue == 1234567890, @"'%g' should be equal to '%g'", digits.doubleValue, 1234567890);
+    STAssertTrue(digits.doubleValue == 1234567890., @"'%f' should be equal to '%f'", digits.doubleValue, 1234567890.);
     
     NSString *actual, *expected;
     
@@ -807,7 +807,7 @@
     STAssertNotNil(digits, @"Cannot create Digits instance");
     STAssertTrue(digits.startsWithMinus == NO, @"");
     STAssertTrue(digits.base == 8, @"should use decimal base by default");
-    STAssertTrue(digits.doubleValue == 1234567890, @"'%g' should be equal to '%g'", digits.doubleValue, 1234567890);
+    STAssertTrue(digits.doubleValue == 1234567890., @"'%f' should be equal to '%f'", digits.doubleValue, 1234567890.);
     
     NSString *actual, *expected;
     
@@ -818,13 +818,13 @@
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
-- (void)testInitWithInt1234567890Base16 {
+- (void)testInitWithDouble1234567890Base16 {
     
-    FloatingDigits *digits = [[[FloatingDigits alloc] initWithInt:1234567890 base:16] retain];
+    FloatingDigits *digits = [[[FloatingDigits alloc] initWithDouble:1234567890 base:16] retain];
     STAssertNotNil(digits, @"Cannot create Digits instance");
     STAssertTrue(digits.startsWithMinus == NO, @"");
     STAssertTrue(digits.base == 16, @"should use decimal base by default");
-    STAssertTrue(digits.doubleValue == 1234567890, @"'%g' should be equal to '%g'", digits.doubleValue, 1234567890);
+    STAssertTrue(digits.doubleValue == 1234567890., @"'%f' should be equal to '%f'", digits.doubleValue, 1234567890.);
     
     NSString *actual, *expected;
     
@@ -841,7 +841,7 @@
     STAssertNotNil(digits, @"Cannot create Digits instance");
     STAssertTrue(digits.startsWithMinus == NO, @"");
     STAssertTrue(digits.base == 16, @"should use decimal base by default");
-    STAssertTrue(digits.doubleValue == 1234567890, @"'%g' should be equal to '%g'", digits.doubleValue, 1234567890);
+    STAssertTrue(digits.doubleValue == 1234567890., @"'%f' should be equal to '%f'", digits.doubleValue, 1234567890.);
     
     NSString *actual, *expected;
     
@@ -852,13 +852,13 @@
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
-- (void)testInitWithIntNegative1234567890Base16 {
+- (void)testInitWithDoubleNegative1234567890Base16 {
     
-    FloatingDigits *digits = [[[FloatingDigits alloc] initWithInt:-1234567890 base:16] retain];
+    FloatingDigits *digits = [[[FloatingDigits alloc] initWithDouble:-1234567890 base:16] retain];
     STAssertNotNil(digits, @"Cannot create Digits instance");
     STAssertTrue(digits.startsWithMinus == YES, @"");
     STAssertTrue(digits.base == 16, @"should use decimal base by default");
-    STAssertTrue(digits.doubleValue == -1234567890, @"'%g' should be equal to '%g'", digits.doubleValue, -1234567890);
+    STAssertTrue(digits.doubleValue == -1234567890., @"'%f' should be equal to '%f'", digits.doubleValue, -1234567890.);
     
     NSString *actual, *expected;
     
@@ -875,7 +875,7 @@
     STAssertNotNil(digits, @"Cannot create Digits instance");
     STAssertTrue(digits.startsWithMinus == YES, @"");
     STAssertTrue(digits.base == 16, @"should use decimal base by default");
-    STAssertTrue(digits.doubleValue == -1234567890, @"'%g' should be equal to '%g'", digits.doubleValue, -1234567890);
+    STAssertTrue(digits.doubleValue == -1234567890., @"'%f' should be equal to '%f'", digits.doubleValue, -1234567890.);
     
     NSString *actual, *expected;
     
@@ -895,7 +895,7 @@
     STAssertNotNil(third, @"Cannot create Digits instance");
     FloatingDigits *result = (FloatingDigits *)[[first plus:second withError:NULL] plus:third withError:NULL];
     double actual = result.doubleValue, expected = -1.0;
-    STAssertTrue(actual == expected, @"'%g' should be equal to '%g'", actual, expected);
+    STAssertTrue(actual == expected, @"'%f' should be equal to '%f'", actual, expected);
 }
 
 - (void)test0Minus1Minus2 {
@@ -907,7 +907,7 @@
     STAssertNotNil(third, @"Cannot create Digits instance");
     FloatingDigits *result = (FloatingDigits *)[[first minus:second withError:NULL] minus:third withError:NULL];
     double actual = result.doubleValue, expected = -3.0;
-    STAssertTrue(actual == expected, @"'%g' should be equal to '%g'", actual, expected);
+    STAssertTrue(actual == expected, @"'%f' should be equal to '%f'", actual, expected);
 }
 
 - (void)test0Times1Times2 {
@@ -919,7 +919,7 @@
     STAssertNotNil(third, @"Cannot create Digits instance");
     FloatingDigits *result = (FloatingDigits *)[[first times:second withError:NULL] times:third withError:NULL];
     double actual = result.doubleValue, expected = 0.0;
-    STAssertTrue(actual == expected, @"'%g' should be equal to '%g'", actual, expected);
+    STAssertTrue(actual == expected, @"'%f' should be equal to '%f'", actual, expected);
 }
 
 - (void)test1Times2TimesMinus3 {
@@ -931,7 +931,7 @@
     STAssertNotNil(second, @"Cannot create Digits instance");
     FloatingDigits *result = (FloatingDigits *)[[first times:second withError:NULL] times:third withError:NULL];
     double actual = result.doubleValue, expected = -6.0;
-    STAssertTrue(actual == expected, @"'%g' should be equal to '%g'", actual, expected);
+    STAssertTrue(actual == expected, @"'%f' should be equal to '%f'", actual, expected);
 }
 
 - (void)test1TimesNil {
@@ -1032,7 +1032,7 @@
     FloatingDigits *result = (FloatingDigits *)[first times:second withError:&error];
     
     double actual = result.doubleValue, expected = -93312;
-    STAssertTrue(actual == expected, @"'%g' should be equal to '%g'", actual, expected);
+    STAssertTrue(actual == expected, @"'%f' should be equal to '%f'", actual, expected);
 }
 
 - (void)testNegative46656Power2 {
@@ -1045,7 +1045,7 @@
     FloatingDigits *result = (FloatingDigits *)[first power:second withError:&error];
     
     double actual = result.doubleValue, expected = 2176782336;
-    STAssertTrue(actual == expected, @"'%g' should be equal to '%g'", actual, expected);
+    STAssertTrue(actual == expected, @"'%f' should be equal to '%f'", actual, expected);
 }
 
 - (void)test0Invert {
@@ -1071,7 +1071,7 @@
     STAssertNotNil(third, @"Cannot create Digits instance");
     FloatingDigits *result = (FloatingDigits *)[[first divide:second withError:NULL] divide:third withError:NULL];
     double actual = result.doubleValue, expected = 0;
-    STAssertTrue(actual == expected, @"'%g' should be equal to '%g'", actual, expected);
+    STAssertTrue(actual == expected, @"'%f' should be equal to '%f'", actual, expected);
 }
 
 - (void)test1Divide2Divide3 {
@@ -1083,7 +1083,7 @@
     STAssertNotNil(third, @"Cannot create Digits instance");
     FloatingDigits *result = (FloatingDigits *)[[first divide:second withError:NULL] divide:third withError:NULL];
     double actual = result.doubleValue, expected = 0;
-    STAssertTrue(actual == expected, @"'%g' should be equal to '%g'", actual, expected);
+    STAssertTrue(actual == expected, @"'%f' should be equal to '%f'", actual, expected);
 }
 
 - (void)test3Divide2Divide1 {
@@ -1095,7 +1095,7 @@
     STAssertNotNil(third, @"Cannot create Digits instance");
     FloatingDigits *result = (FloatingDigits *)[[first divide:second withError:NULL] divide:third withError:NULL];
     double actual = result.doubleValue, expected = 1; // result rounded down from 1.5
-    STAssertTrue(actual == expected, @"'%g' should be equal to '%g'", actual, expected);
+    STAssertTrue(actual == expected, @"'%f' should be equal to '%f'", actual, expected);
 }
 
 - (void)test24Divide4DivideNegative3 {
@@ -1107,7 +1107,7 @@
     STAssertNotNil(third, @"Cannot create Digits instance");
     FloatingDigits *result = (FloatingDigits *)[[first divide:second withError:NULL] divide:third withError:NULL];
     double actual = result.doubleValue, expected = -2;
-    STAssertTrue(actual == expected, @"'%g' should be equal to '%g'", actual, expected);
+    STAssertTrue(actual == expected, @"'%f' should be equal to '%f'", actual, expected);
 }
 
 - (void)test0Power1Power2 {
@@ -1119,7 +1119,7 @@
     STAssertNotNil(third, @"Cannot create Digits instance");
     FloatingDigits *result = (FloatingDigits *)[[first power:second withError:NULL] power:third withError:NULL];
     double actual = result.doubleValue, expected = 0;
-    STAssertTrue(actual == expected, @"'%g' should be equal to '%g'", actual, expected);
+    STAssertTrue(actual == expected, @"'%f' should be equal to '%f'", actual, expected);
 }
 
 - (void)test1Power2Power3 {
@@ -1131,7 +1131,7 @@
     STAssertNotNil(third, @"Cannot create Digits instance");
     FloatingDigits *result = (FloatingDigits *)[[first power:second withError:NULL] power:third withError:NULL];
     double actual = result.doubleValue, expected = 1;
-    STAssertTrue(actual == expected, @"'%g' should be equal to '%g'", actual, expected);
+    STAssertTrue(actual == expected, @"'%f' should be equal to '%f'", actual, expected);
 }
 
 - (void)test2Power3Power4 {
@@ -1143,7 +1143,7 @@
     STAssertNotNil(third, @"Cannot create Digits instance");
     FloatingDigits *result = (FloatingDigits *)[[first power:second withError:NULL] power:third withError:NULL];
     double actual = result.doubleValue, expected = 4096;
-    STAssertTrue(actual == expected, @"'%g' should be equal to '%g'", actual, expected);
+    STAssertTrue(actual == expected, @"'%f' should be equal to '%f'", actual, expected);
 }
 
 - (void)testNegate {
@@ -1154,7 +1154,7 @@
     
     STAssertTrue(digits.startsWithMinus == YES, @"");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
-    STAssertTrue(digits.doubleValue == 0, @"'%g' should be equal to '%g'", digits.doubleValue, 0);
+    STAssertTrue(digits.doubleValue == 0, @"'%f' should be equal to '%f'", digits.doubleValue, 0);
     
     NSString *actual, *expected;
     
@@ -1177,7 +1177,7 @@
     
     STAssertTrue(digits.startsWithMinus == YES, @"");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
-    STAssertTrue(digits.doubleValue == 0, @"'%g' should be equal to '%g'", digits.doubleValue, 0);
+    STAssertTrue(digits.doubleValue == 0, @"'%f' should be equal to '%f'", digits.doubleValue, 0);
     
     NSString *actual, *expected;
     
@@ -1200,7 +1200,7 @@
     
     STAssertTrue(digits.startsWithMinus == YES, @"");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
-    STAssertTrue(digits.doubleValue == 0, @"'%g' should be equal to '%g'", digits.doubleValue, 0);
+    STAssertTrue(digits.doubleValue == 0, @"'%f' should be equal to '%f'", digits.doubleValue, 0);
     
     NSString *actual, *expected;
     
@@ -1223,7 +1223,7 @@
     
     STAssertTrue(digits.startsWithMinus == YES, @"");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
-    STAssertTrue(digits.doubleValue == -1, @"'%g' should be equal to '%g'", digits.doubleValue, -1);
+    STAssertTrue(digits.doubleValue == -1, @"'%f' should be equal to '%f'", digits.doubleValue, -1);
     
     NSString *actual, *expected;
     
@@ -1246,7 +1246,7 @@
     
     STAssertTrue(digits.startsWithMinus == YES, @"");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
-    STAssertTrue(digits.doubleValue == -1, @"'%g' should be equal to '%g'", digits.doubleValue, -1);
+    STAssertTrue(digits.doubleValue == -1, @"'%f' should be equal to '%f'", digits.doubleValue, -1);
     
     NSString *actual, *expected;
     
