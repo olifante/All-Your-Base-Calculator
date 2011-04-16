@@ -544,27 +544,32 @@ const unichar pointChar = 0x2027; // ‧ HYPHENATION POINT
 
 + (NSString *)convertInt:(int)someInt toBase:(int)someBase
 {
-    NSString *allowedDigits = [allDigits substringToIndex:someBase];
-    
-    NSMutableString *someMutableDigits = [NSMutableString stringWithString:@""];
-    if (someInt < 0) {
-        [someMutableDigits appendString:@"-"];
+    if (someInt == 0) {
+        return @"0";
+    } else
+    {
+        NSString *allowedDigits = [allDigits substringToIndex:someBase];
+        
+        NSMutableString *someMutableDigits = [NSMutableString stringWithString:@""];
+        if (someInt < 0) {
+            [someMutableDigits appendString:@"-"];
+        }
+        
+        unsigned int remainder = abs(someInt);
+        unsigned int maximumBasePower = floor([Digits log:remainder base:someBase]);
+        unsigned int power, quotient;
+        
+        for (unsigned int exponent = maximumBasePower; exponent > 0; exponent--) {
+            power = pow(someBase, exponent);
+            quotient = remainder / power;
+            remainder = remainder % power;
+            [someMutableDigits appendFormat:@"%C", [allowedDigits characterAtIndex:quotient]];
+        }
+        
+        [someMutableDigits appendFormat:@"%C", [allowedDigits characterAtIndex:remainder]];
+        
+        return [NSString stringWithString:someMutableDigits];
     }
-    
-    unsigned int remainder = abs(someInt);
-    int maximumBasePower = floor([Digits log:remainder base:someBase]);
-    int power, quotient;
-    
-    for (int exponent = maximumBasePower; exponent > 0; exponent--) {
-        power = pow(someBase, exponent);
-        quotient = remainder / power;
-        remainder = remainder % power;
-        [someMutableDigits appendFormat:@"%C", [allowedDigits characterAtIndex:quotient]];
-    }
-    
-    [someMutableDigits appendFormat:@"%C", [allowedDigits characterAtIndex:remainder]];
-    
-    return [NSString stringWithString:someMutableDigits];    
 }
 
 # pragma mark -
