@@ -16,11 +16,11 @@ static NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklm
 //static NSString *base36 = @"abcdefghijklmnopqrstuvwxyz0123456789/"; // 'a' == 0, '9' == 35
 //static NSString *crockfordBase32 = @"0123456789ABCDEFGHJKMNPQRSTVWXYZ"; // 'Z' == 31, I, L, O and U excluded
 
-const char *divideErrorMessage = "x \xc3\xb7 0 undefined"; // UTF8 sequence for 0x00f7 ÷ DIVISION SIGN is \xc3\xb7
+const char *divideErrorMessage = "m \xc3\xb7 0 undefined"; // UTF8 sequence for 0x00f7 ÷ DIVISION SIGN is \xc3\xb7
 const char *invertErrorMessage = "1 \xc3\xb7 0 undefined";
 const char *zeroPowerOfZeroErrorMessage = "0 ^ 0 undefined";
-const char *negativePowerOfZeroErrorMessage = "0 ^ -1 undefined";
-const char *fractionalPowerOfNegativeErrorMessage = "-1 ^ .5 undefined";
+const char *negativePowerOfZeroErrorMessage = "0 ^ -m undefined";
+const char *fractionalPowerOfNegativeErrorMessage = "-m ^ 1/n undefined";
 
 const unichar negativeChar = 0x002d; // - HYPHEN-MINUS
 //const unichar negativeChar = 0xfe63; // ﹣ SMALL HYPHEN-MINUS
