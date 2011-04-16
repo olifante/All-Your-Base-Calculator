@@ -294,7 +294,7 @@
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
-- (void)testMinus {
+- (void)testNegative {
     Digits *digits = [[[Digits alloc] init] retain];
     STAssertNotNil(digits, @"Cannot create Digits instance");
     
@@ -316,7 +316,7 @@
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
-- (void)testMinusPoint {
+- (void)testNegativePoint {
     Digits *digits = [[[Digits alloc] init] retain];
     STAssertNotNil(digits, @"Cannot create Digits instance");
     
@@ -339,7 +339,7 @@
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
-- (void)testPointMinus {
+- (void)testPointNegative {
     Digits *digits = [[[Digits alloc] init] retain];
     STAssertNotNil(digits, @"Cannot create Digits instance");
     
@@ -670,7 +670,7 @@
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
-- (void)testInitWithIntMinus1234567890 {
+- (void)testInitWithIntNegative1234567890 {
     
     Digits *digits = [[[Digits alloc] initWithInt:-1234567890] retain];
     STAssertNotNil(digits, @"Cannot create Digits instance");
@@ -702,6 +702,52 @@
     
     actual = digits.signedDigits, expected = @"1001001100101100000001011010010";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+}
+
+- (void)testInitWithInt2147483647 { // maximum int value on 32 bits architectures like the iPhone
+    
+    Digits *digits = [[[Digits alloc] initWithInt:2147483647] retain];
+    STAssertNotNil(digits, @"Cannot create Digits instance");
+    STAssertTrue(digits.startsWithMinus == NO, @"");
+    STAssertTrue(digits.base == 10, @"should use decimal base by default");
+    STAssertTrue(digits.intValue == 0x7fffffff, @"'%x' should be equal to '%x'", digits.intValue, 0x7fffffff);
+    
+    NSString *actual, *expected;
+    
+    actual = digits.unsignedDigits, expected = @"2147483647";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+    
+    actual = digits.signedDigits, expected = @"2147483647";
+    STAssertTrue([actual isEqualToString:expected], @"'%d' should be equal to '%d'", actual, expected);
+}
+
+- (void)testInitWithInt2147483648 {
+    
+    Digits *digits = [[[Digits alloc] initWithInt:2147483648] retain];
+    STAssertNil(digits, @"Should not be able to create Digits instance");
+}
+
+- (void)testInitWithIntNegative2147483648 { // minimum int value on 32 bits architectures like the iPhone
+    
+    Digits *digits = [[[Digits alloc] initWithInt:-2147483648] retain];
+    STAssertNotNil(digits, @"Cannot create Digits instance");
+    STAssertTrue(digits.startsWithMinus == YES, @"");
+    STAssertTrue(digits.base == 10, @"should use decimal base by default");
+    STAssertTrue(digits.intValue == -0x80000000, @"'%x' should be equal to '%d'", digits.intValue, -0x80000000);
+    
+    NSString *actual, *expected;
+    
+    actual = digits.unsignedDigits, expected = @"2147483648";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+    
+    actual = digits.signedDigits, expected = @"-2147483648";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+}
+
+- (void)testInitWithIntNegative2147483649 {
+    
+    Digits *digits = [[[Digits alloc] initWithInt:-2147483649] retain];
+    STAssertNil(digits, @"Should not be able to create Digits instance");
 }
 
 - (void)testInitWithString1001001100101100000001011010010Base2 {
@@ -789,7 +835,7 @@
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
-- (void)testInitWithIntMinus1234567890Base16 {
+- (void)testInitWithIntNegative1234567890Base16 {
     
     Digits *digits = [[[Digits alloc] initWithInt:-1234567890 base:16] retain];
     STAssertNotNil(digits, @"Cannot create Digits instance");
@@ -806,7 +852,7 @@
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
-- (void)testInitWithMinus499602D2Base16 {
+- (void)testInitWithNegative499602D2Base16 {
     
     Digits *digits = [[[Digits alloc] initWithString:@"-499602D2" base:16] retain];
     STAssertNotNil(digits, @"Cannot create Digits instance");
@@ -927,7 +973,7 @@
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
-- (void)test0PowerMinus1 {
+- (void)test0PowerNegative1 {
     Digits *first = [[[Digits alloc] initWithString:@"0"] autorelease];
     STAssertNotNil(first, @"Cannot create Digits instance");
     Digits *second = [[[Digits alloc] initWithString:@"-1"] autorelease];
@@ -943,7 +989,7 @@
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
-- (void)testMinus1PowerPoint5 {
+- (void)testNegative1PowerPoint5 {
     Digits *first = [[[Digits alloc] initWithString:@"-1"] autorelease];
     STAssertNotNil(first, @"Cannot create Digits instance");
     Digits *second = [[[Digits alloc] initWithString:@".5"] autorelease];
@@ -959,7 +1005,7 @@
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
-- (void)testMinus46656Times2 {
+- (void)testNegative46656Times2 {
     Digits *first = [[[Digits alloc] initWithString:@"-46656"] autorelease];
     STAssertNotNil(first, @"Cannot create Digits instance");
     Digits *second = [[[Digits alloc] initWithString:@"2"] autorelease];
@@ -972,7 +1018,7 @@
     STAssertTrue(actual == expected, @"'%d' should be equal to '%d'", actual, expected);
 }
 
-- (void)testMinus46656Power2 {
+- (void)testNegative46656Power2 {
     Digits *first = [[[Digits alloc] initWithString:@"-46656"] autorelease];
     STAssertNotNil(first, @"Cannot create Digits instance");
     Digits *second = [[[Digits alloc] initWithString:@"2"] autorelease];
@@ -1035,7 +1081,7 @@
     STAssertTrue(actual == expected, @"'%d' should be equal to '%d'", actual, expected);
 }
 
-- (void)test24Divide4DivideMinus3 {
+- (void)test24Divide4DivideNegative3 {
     Digits *first = [[[Digits alloc] initWithString:@"24"] autorelease];
     STAssertNotNil(first, @"Cannot create Digits instance");
     Digits *second = [[[Digits alloc] initWithString:@"4"] autorelease];
