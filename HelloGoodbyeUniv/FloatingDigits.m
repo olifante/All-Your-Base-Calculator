@@ -16,28 +16,13 @@ static NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklm
 
 - (double)doubleValue
 {
-    double result = 0;
-    int length = 0;
-    NSRange pointRange = [self.unsignedDigits rangeOfString:@"."];
-    if (pointRange.length > 0) {
-        length = pointRange.location;
-    } else {
-        length = self.unsignedDigits.length;
+    if (self.signedDigits) {
+        const char *char_string = [self.signedDigits UTF8String];
+        return strtol(char_string, NULL, self.base);       
+    } else
+    {
+        return 0.;
     }
-    double accumulator = 0;
-    unsigned int digitValue = 0;
-    for (int i = 0; i < length; i++) {
-        NSString *digit = [NSString stringWithFormat:@"%C", [self.unsignedDigits characterAtIndex:i]];
-        digitValue = [[self.digitValues objectForKey:digit] intValue];
-        accumulator += digitValue * pow(self.base, length - 1 - i);
-    }
-    
-    if (self.startsWithMinus) {
-        result = -accumulator;
-    } else {
-        result = accumulator;
-    }
-    return result;
 }
 
 + (NSString *)parseDigits:(NSString *)someDigits fromBase:(int)someBase
@@ -70,6 +55,12 @@ static NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklm
         return @"0";
     } else
     {
+        double i, f;
+        f = modf(someDouble, &i);
+        assert(someDouble == f + i);
+        assert(f < 1.0);
+        assert(i == ceil(i));
+        
         NSString *allowedDigits = [allDigits substringToIndex:someBase];
         
         NSMutableString *someMutableDigits = [NSMutableString stringWithString:@""];
@@ -77,14 +68,14 @@ static NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklm
             [someMutableDigits appendString:@"-"];
         }
         
-        unsigned int remainder = abs(someDouble);
-        unsigned int maximumBasePower = floor([Digits log:remainder base:someBase]);
-        unsigned int power, quotient;
+        double remainder = fabs(i);
+        int maximumBasePower = floor([Digits log:remainder base:someBase]);
+        double power, quotient;
         
         for (unsigned int exponent = maximumBasePower; exponent > 0; exponent--) {
             power = pow(someBase, exponent);
             quotient = remainder / power;
-            remainder = remainder % power;
+            remainder = fmod(remainder, power);
             [someMutableDigits appendFormat:@"%C", [allowedDigits characterAtIndex:quotient]];
         }
         
@@ -102,8 +93,8 @@ static NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklm
 
 - (id)initWithDouble:(double)someDouble base:(int)someBase
 {
-    NSLog(@"method stub");
-    self = [self initWithString:@"" base:10];
+    NSString *someDigits = [FloatingDigits convertDouble:someDouble toBase:someBase];
+    self = [self initWithString:someDigits base:someBase];
     return self;
 }
 

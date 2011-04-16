@@ -157,28 +157,13 @@ const unichar pointChar = 0x2027; // ‧ HYPHENATION POINT
 
 - (int)intValue
 {
-    int result = 0;
-    int length = 0;
-    NSRange pointRange = [self.unsignedDigits rangeOfString:@"."];
-    if (pointRange.length > 0) {
-        length = pointRange.location;
-    } else {
-        length = self.unsignedDigits.length;
+    if (self.signedDigits) {
+        const char *char_string = [self.signedDigits UTF8String];
+        return strtol(char_string, NULL, self.base);       
+    } else
+    {
+        return 0;
     }
-    unsigned int accumulator = 0;
-    unsigned int digitValue = 0;
-    for (int i = 0; i < length; i++) {
-        NSString *digit = [NSString stringWithFormat:@"%C", [self.unsignedDigits characterAtIndex:i]];
-        digitValue = [[self.digitValues objectForKey:digit] intValue];
-        accumulator += digitValue * pow(self.base, length - 1 - i);
-    }
-    
-    if (self.startsWithMinus) {
-        result = -accumulator;
-    } else {
-        result = accumulator;
-    }
-    return result;
 }
 
 - (NSNumber *)value
