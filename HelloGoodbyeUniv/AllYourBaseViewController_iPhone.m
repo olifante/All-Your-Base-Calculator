@@ -14,17 +14,8 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil model:(AllYourBaseModel *)model
 {
     self = [super initWithNibName:@"AllYourBaseViewController_iPhone" bundle:nil model:nil];;
-    if (self)
-    {
+    if (self) {
         self.model = [[[AllYourBaseModel alloc] init] autorelease];
-        for (NSString *name in [NSArray arrayWithObjects:
-                          @"mainDisplay", @"secondaryDisplay",
-//                          @"previousDigits", @"currentDigits",
-//                          @"previousOperation", @"currentOperation",
-//                          @"previousExpression", @"result",
-                          nil]) {
-            [self.model addObserver:self forKeyPath:name options:NSKeyValueObservingOptionNew context:nil];
-        }
         self.isShowingLandscapeView = NO;
         self.landscapeViewController = [[[AllYourBaseViewController_iPhoneL alloc]
                                          initWithNibName:@"AllYourBaseViewController_iPhoneL"

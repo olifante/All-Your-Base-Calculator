@@ -64,16 +64,29 @@ const unichar negative = 0x002d; // - HYPHEN-MINUS
 
 # pragma mark UIViewController overridden methods
 
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    for (NSString *name in [NSArray arrayWithObjects:
+                            @"mainDisplay", @"secondaryDisplay",
+                            nil]) {
+        [self.model addObserver:self forKeyPath:name options:NSKeyValueObservingOptionNew context:nil];
+    }
+    
     [self updateLabels];
 }
+
+- (void)viewDidUnload {
+    [super viewDidUnload];
+    
+    for (NSString *name in [NSArray arrayWithObjects:
+                            @"mainDisplay", @"secondaryDisplay",
+                            nil]) {
+        [self.model removeObserver:self forKeyPath:name];
+    }
+}
+
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {

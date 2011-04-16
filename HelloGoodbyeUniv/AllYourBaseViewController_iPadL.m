@@ -16,14 +16,6 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil model:nil];
     if (self) {
         self.model = model;
-        for (NSString *name in [NSArray arrayWithObjects:
-                                @"mainDisplay", @"secondaryDisplay",
-//                                @"previousDigits", @"currentDigits",
-//                                @"previousOperation", @"currentOperation",
-//                                @"previousExpression", @"result",
-                                nil]) {
-            [self.model addObserver:self forKeyPath:name options:NSKeyValueObservingOptionNew context:nil];
-        }
     }
     return self;
 }
