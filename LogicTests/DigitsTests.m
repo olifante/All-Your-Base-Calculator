@@ -743,7 +743,7 @@
 //    Digits *digits = [[[Digits alloc] initWithInt:2147483648] retain];
 //    STAssertNil(digits, @"Should not be able to create Digits instance");
 //}
-
+//
 //- (void)testInitWithIntNegative2147483648 { // minimum int value on 32 bits architectures like the iPhone
 //    
 //    Digits *digits = [[[Digits alloc] initWithInt:-2147483648] retain];
@@ -760,7 +760,7 @@
 //    actual = digits.signedDigits, expected = @"-2147483648";
 //    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 //}
-
+//
 //- (void)testInitWithIntNegative2147483649 {
 //    
 //    Digits *digits = [[[Digits alloc] initWithInt:-2147483649] retain];

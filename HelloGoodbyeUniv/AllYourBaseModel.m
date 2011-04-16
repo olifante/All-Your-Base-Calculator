@@ -250,13 +250,13 @@
     NSString *originalDigits = self.currentDigits.signedDigits;
     NSString *poppedDigit = [self.currentDigits popDigit];
     NSLog(@"popped digit '%@' from digits '%@'", poppedDigit, originalDigits);
-    [self updateDisplays];    
 
     if (self.error) {
         self.error = nil;
         NSLog(@"cleaned error after pressing delete");
-        return;
     }
+
+    [self updateDisplays];    
 }
 
 - (void)negatePressed
