@@ -64,19 +64,19 @@ const unichar pointChar = 0x2027; // ‧ HYPHENATION POINT
     if (!self.signedDigits) {
         result = @"";
     } else
-        if ([self.signedDigits isEqualToString:@""]) {
-            result = @"0";
-        } else
-            if ([self.signedDigits isEqualToString:@"-"]) {
-                result = @"-";
-            } else 
-            {        
-                result = [NSString stringWithFormat:@"%@%@%@"
-                          , negativePrefix
-                          , zeroPrefix
-                          , self.unsignedDigits ? self.unsignedDigits : @""
-                          ];
-            }
+    if ([self.signedDigits isEqualToString:@""]) {
+        result = @"0";
+    } else
+    if ([self.signedDigits isEqualToString:@"-"]) {
+        result = @"-";
+    } else 
+    {        
+        result = [NSString stringWithFormat:@"%@%@%@"
+                  , negativePrefix
+                  , zeroPrefix
+                  , self.unsignedDigits ? self.unsignedDigits : @""
+                  ];
+    }
     
     return result;
 }
@@ -89,16 +89,16 @@ const unichar pointChar = 0x2027; // ‧ HYPHENATION POINT
 
 # pragma mark initializers
 
-- (id)initWithInt:(int)someInt
-{
-    self = [self initWithInt:someInt base:10];
-    return self;
-}
-
 - (id)initWithInt:(int)someInt base:(int)someBase
 {
     NSString *someDigits = [Digits convertInt:someInt toBase:someBase];
     self = [self initWithString:someDigits base:someBase];
+    return self;
+}
+
+- (id)initWithInt:(int)someInt
+{
+    self = [self initWithInt:someInt base:10];
     return self;
 }
 
@@ -165,8 +165,8 @@ const unichar pointChar = 0x2027; // ‧ HYPHENATION POINT
     } else {
         length = self.unsignedDigits.length;
     }
-    int accumulator = 0;
-    int digitValue = 0;
+    unsigned int accumulator = 0;
+    unsigned int digitValue = 0;
     for (int i = 0; i < length; i++) {
         NSString *digit = [NSString stringWithFormat:@"%C", [self.unsignedDigits characterAtIndex:i]];
         digitValue = [[self.digitValues objectForKey:digit] intValue];
@@ -551,7 +551,7 @@ const unichar pointChar = 0x2027; // ‧ HYPHENATION POINT
         [someMutableDigits appendString:@"-"];
     }
     
-    int remainder = abs(someInt);
+    unsigned int remainder = abs(someInt);
     int maximumBasePower = floor([Digits log:remainder base:someBase]);
     int power, quotient;
     
