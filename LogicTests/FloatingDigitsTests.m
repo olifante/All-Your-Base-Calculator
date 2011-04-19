@@ -721,9 +721,9 @@
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
-- (void)testInitWithDouble2147483647 { // maximum int value on 32 bits architectures like the iPhone
+- (void)testInitWithDouble0x7fffffff { // maximum int value on 32 bits architectures like the iPhone
     
-    FloatingDigits *digits = [[[FloatingDigits alloc] initWithDouble:2147483647] retain];
+    FloatingDigits *digits = [[[FloatingDigits alloc] initWithDouble:0x7fffffff.p0] retain];
     STAssertNotNil(digits, @"Cannot create Digits instance");
     STAssertTrue(digits.startsWithMinus == NO, @"");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
@@ -738,19 +738,30 @@
     STAssertTrue([actual isEqualToString:expected], @"'%f' should be equal to '%f'", actual, expected);
 }
 
-- (void)testInitWithDouble2147483648 {
+- (void)testInitWithDouble0x80000000 {
     
-    FloatingDigits *digits = [[[FloatingDigits alloc] initWithDouble:2147483648] retain];
-    STAssertNil(digits, @"Should not be able to create Digits instance");
+    FloatingDigits *digits = [[[FloatingDigits alloc] initWithDouble:0x80000000.p0] retain];
+    STAssertNotNil(digits, @"Cannot create Digits instance");
+    STAssertTrue(digits.startsWithMinus == NO, @"");
+    STAssertTrue(digits.base == 10, @"should use decimal base by default");
+    STAssertTrue(digits.doubleValue == 0x80000000.p0, @"'%f' should be equal to '%f'", digits.doubleValue, 0x80000000.p0);
+    
+    NSString *actual, *expected;
+    
+    actual = digits.unsignedDigits, expected = @"2147483648";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+    
+    actual = digits.signedDigits, expected = @"2147483648";
+    STAssertTrue([actual isEqualToString:expected], @"'%f' should be equal to '%f'", actual, expected);
 }
 
-- (void)testInitWithDoubleNegative2147483648 { // minimum int value on 32 bits architectures like the iPhone
+- (void)testInitWithDoubleNegative0x80000000 { // minimum int value on 32 bits architectures like the iPhone
     
-    FloatingDigits *digits = [[[FloatingDigits alloc] initWithDouble:-2147483648] retain];
+    FloatingDigits *digits = [[[FloatingDigits alloc] initWithDouble:-0x80000000.p0] retain];
     STAssertNotNil(digits, @"Cannot create Digits instance");
     STAssertTrue(digits.startsWithMinus == YES, @"");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
-    STAssertTrue(digits.doubleValue == -0x80000000.p0, @"'%a' should be equal to '%a'", digits.doubleValue, -0x80000000.p0);
+    STAssertTrue(digits.doubleValue == -0x80000000.p0, @"'%f' should be equal to '%f'", digits.doubleValue, -0x80000000.p0);
     
     NSString *actual, *expected;
     
@@ -761,10 +772,21 @@
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
-- (void)testInitWithDoubleNegative2147483649 {
+- (void)testInitWithDoubleNegative0x80000001 {
     
-    FloatingDigits *digits = [[[FloatingDigits alloc] initWithDouble:-2147483649] retain];
-    STAssertNil(digits, @"Should not be able to create Digits instance");
+    FloatingDigits *digits = [[[FloatingDigits alloc] initWithDouble:-0x80000001.p0] retain];
+    STAssertNotNil(digits, @"Cannot create Digits instance");
+    STAssertTrue(digits.startsWithMinus == YES, @"");
+    STAssertTrue(digits.base == 10, @"should use decimal base by default");
+    STAssertTrue(digits.doubleValue == -0x80000001.p0, @"'%f' should be equal to '%f'", digits.doubleValue, -0x80000001.p0);
+    
+    NSString *actual, *expected;
+    
+    actual = digits.unsignedDigits, expected = @"2147483649";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+    
+    actual = digits.signedDigits, expected = @"-2147483649";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
 - (void)testInitWithString1001001100101100000001011010010Base2 {
@@ -1044,7 +1066,7 @@
     NSError *error = nil;
     FloatingDigits *result = (FloatingDigits *)[first power:second withError:&error];
     
-    double actual = result.doubleValue, expected = 2176782336;
+    double actual = result.doubleValue, expected = 2176782336.;
     STAssertTrue(actual == expected, @"'%f' should be equal to '%f'", actual, expected);
 }
 
@@ -1074,17 +1096,17 @@
     STAssertTrue(actual == expected, @"'%f' should be equal to '%f'", actual, expected);
 }
 
-- (void)test1Divide2Divide3 {
-    FloatingDigits *first = [[[FloatingDigits alloc] initWithString:@"1"] autorelease];
-    STAssertNotNil(first, @"Cannot create Digits instance");
-    FloatingDigits *second = [[[FloatingDigits alloc] initWithString:@"2"] autorelease];
-    STAssertNotNil(second, @"Cannot create Digits instance");
-    FloatingDigits *third = [[[FloatingDigits alloc] initWithString:@"3"] autorelease];
-    STAssertNotNil(third, @"Cannot create Digits instance");
-    FloatingDigits *result = (FloatingDigits *)[[first divide:second withError:NULL] divide:third withError:NULL];
-    double actual = result.doubleValue, expected = 0;
-    STAssertTrue(actual == expected, @"'%f' should be equal to '%f'", actual, expected);
-}
+//- (void)test1Divide2Divide3 {
+//    FloatingDigits *first = [[[FloatingDigits alloc] initWithString:@"1"] autorelease];
+//    STAssertNotNil(first, @"Cannot create Digits instance");
+//    FloatingDigits *second = [[[FloatingDigits alloc] initWithString:@"2"] autorelease];
+//    STAssertNotNil(second, @"Cannot create Digits instance");
+//    FloatingDigits *third = [[[FloatingDigits alloc] initWithString:@"3"] autorelease];
+//    STAssertNotNil(third, @"Cannot create Digits instance");
+//    FloatingDigits *result = (FloatingDigits *)[[first divide:second withError:NULL] divide:third withError:NULL];
+//    double actual = result.doubleValue, expected = 0;
+//    STAssertTrue(actual == expected, @"'%f' should be equal to '%f'", actual, expected);
+//}
 
 - (void)test3Divide2Divide1 {
     FloatingDigits *first = [[[FloatingDigits alloc] initWithString:@"3"] autorelease];

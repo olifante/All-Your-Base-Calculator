@@ -650,7 +650,7 @@
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
     
     actual = digits.signedDigits, expected = @"-46656";
-    STAssertTrue([actual isEqualToString:expected], @"'%d' should be equal to '%d'", actual, expected);
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
 - (void)testInitWithInt0 {
@@ -701,7 +701,7 @@
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
     
     actual = digits.signedDigits, expected = @"-1234567890";
-    STAssertTrue([actual isEqualToString:expected], @"'%d' should be equal to '%d'", actual, expected);
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
 - (void)testInitWithInt1234567890Base2 {
@@ -721,9 +721,9 @@
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
-- (void)testInitWithInt2147483647 { // maximum int value on 32 bits architectures like the iPhone
+- (void)testInitWithInt0x7fffffff { // maximum int value on 32 bits architectures like the iPhone
     
-    Digits *digits = [[[Digits alloc] initWithInt:2147483647] retain];
+    Digits *digits = [[[Digits alloc] initWithInt:0x7fffffff] retain];
     STAssertNotNil(digits, @"Cannot create Digits instance");
     STAssertTrue(digits.startsWithMinus == NO, @"");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
@@ -735,37 +735,59 @@
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
     
     actual = digits.signedDigits, expected = @"2147483647";
-    STAssertTrue([actual isEqualToString:expected], @"'%d' should be equal to '%d'", actual, expected);
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
-//- (void)testInitWithInt2147483648 {
-//    
-//    Digits *digits = [[[Digits alloc] initWithInt:2147483648] retain];
-//    STAssertNil(digits, @"Should not be able to create Digits instance");
-//}
-//
-//- (void)testInitWithIntNegative2147483648 { // minimum int value on 32 bits architectures like the iPhone
-//    
-//    Digits *digits = [[[Digits alloc] initWithInt:-2147483648] retain];
-//    STAssertNotNil(digits, @"Cannot create Digits instance");
-//    STAssertTrue(digits.startsWithMinus == YES, @"");
-//    STAssertTrue(digits.base == 10, @"should use decimal base by default");
-//    STAssertTrue(digits.intValue == -0x80000000, @"'%x' should be equal to '%d'", digits.intValue, -0x80000000);
-//    
-//    NSString *actual, *expected;
-//    
-//    actual = digits.unsignedDigits, expected = @"2147483648";
-//    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
-//    
-//    actual = digits.signedDigits, expected = @"-2147483648";
-//    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
-//}
-//
-//- (void)testInitWithIntNegative2147483649 {
-//    
-//    Digits *digits = [[[Digits alloc] initWithInt:-2147483649] retain];
-//    STAssertNil(digits, @"Should not be able to create Digits instance");
-//}
+- (void)testInitWithInt0x80000000 { // 0x7fffffff + 1 overflows to -0x80000000 instead of -0x80000000
+    
+    Digits *digits = [[[Digits alloc] initWithInt:0x80000000] retain];
+    STAssertNotNil(digits, @"Cannot create Digits instance");
+    STAssertTrue(digits.startsWithMinus == NO, @"");
+    STAssertTrue(digits.base == 10, @"should use decimal base by default");
+    STAssertTrue(digits.intValue == 0x80000000, @"'%x' should be equal to '%x'", digits.intValue, 0x80000000);
+    
+    NSString *actual, *expected;
+    
+    actual = digits.unsignedDigits, expected = @"2147483648";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+    
+    actual = digits.signedDigits, expected = @"2147483648";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+}
+
+- (void)testInitWithIntNegative0x80000000 { // minimum int value on 32 bits architectures like the iPhone
+    
+    Digits *digits = [[[Digits alloc] initWithInt:-0x80000000] retain];
+    STAssertNotNil(digits, @"Cannot create Digits instance");
+    STAssertTrue(digits.startsWithMinus == YES, @"");
+    STAssertTrue(digits.base == 10, @"should use decimal base by default");
+    STAssertTrue(digits.intValue == -0x80000000, @"'%x' should be equal to '%x'", digits.intValue, -0x80000000);
+    
+    NSString *actual, *expected;
+    
+    actual = digits.unsignedDigits, expected = @"2147483648";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+    
+    actual = digits.signedDigits, expected = @"-2147483648";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+}
+
+- (void)testInitWithIntNegative0x800000001 { // -0x80000000 - 1 overflows to -1 instead of -0x80000001
+    
+    Digits *digits = [[[Digits alloc] initWithInt:-0x800000001] retain];
+    STAssertNotNil(digits, @"Cannot create Digits instance");
+    STAssertTrue(digits.startsWithMinus == YES, @"");
+    STAssertTrue(digits.base == 10, @"should use decimal base by default");
+    STAssertTrue(digits.intValue == -0x80000001, @"'%x' should be equal to '%x'", digits.intValue, -0x80000001);
+    
+    NSString *actual, *expected;
+    
+    actual = digits.unsignedDigits, expected = @"2147483649";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+    
+    actual = digits.signedDigits, expected = @"-2147483649";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+}
 
 - (void)testInitWithString1001001100101100000001011010010Base2 {
     
