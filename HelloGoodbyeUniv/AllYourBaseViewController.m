@@ -21,7 +21,8 @@ const unichar negative = 0x002d; // - HYPHEN-MINUS
 
 @implementation AllYourBaseViewController
 
-@synthesize landscapeViewController;
+@synthesize portraitView;
+@synthesize landscapeView;
 @synthesize isShowingLandscapeView;
 @synthesize model;
 
@@ -45,7 +46,8 @@ const unichar negative = 0x002d; // - HYPHEN-MINUS
     self.resultLabel = nil;
     
     self.model = nil;
-    self.landscapeViewController = nil;
+    self.landscapeView = nil;
+    self.portraitView = nil;
 }
 
 # pragma mark NSObject overridden methods
@@ -90,7 +92,7 @@ const unichar negative = 0x002d; // - HYPHEN-MINUS
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    return (interfaceOrientation == UIInterfaceOrientationPortrait || interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown);
+    return YES;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil

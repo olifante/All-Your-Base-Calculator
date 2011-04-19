@@ -13,14 +13,11 @@
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil model:(AllYourBaseModel *)theModel
 {
-    self = [super initWithNibName:@"AllYourBaseViewController_iPhone" bundle:nil model:theModel];;
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil model:theModel];;
     if (self) {
         self.isShowingLandscapeView = NO;
-        self.landscapeViewController = [[[AllYourBaseViewController_iPhoneL alloc]
-                                         initWithNibName:@"AllYourBaseViewController_iPhoneL"
-                                         bundle:nil
-                                         model:theModel] autorelease];
-        
+        [self.view addSubview:self.portraitView];
+        self.portraitView.frame = self.view.bounds;
         [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(orientationChanged:)
@@ -33,17 +30,18 @@
 - (void)orientationChanged:(NSNotification *)notification
 {
     UIDeviceOrientation deviceOrientation = [UIDevice currentDevice].orientation;
-    if (UIDeviceOrientationIsLandscape(deviceOrientation) &&
-        !self.isShowingLandscapeView)
+    if (UIDeviceOrientationIsLandscape(deviceOrientation) && !self.isShowingLandscapeView)
     {
-        [self presentModalViewController:self.landscapeViewController
-                                animated:NO];
+        [self.portraitView removeFromSuperview];
+        [self.view addSubview:self.landscapeView];
+        self.landscapeView.frame = self.view.bounds;
         self.isShowingLandscapeView = YES;
     }
-    else if (UIDeviceOrientationIsPortrait(deviceOrientation) &&
-             self.isShowingLandscapeView)
+    else if (UIDeviceOrientationIsPortrait(deviceOrientation) && self.isShowingLandscapeView)
     {
-        [self dismissModalViewControllerAnimated:NO];
+        [self.landscapeView removeFromSuperview];
+        [self.view addSubview:self.portraitView];
+        self.portraitView.frame = self.view.bounds;
         self.isShowingLandscapeView = NO;
     }
 }

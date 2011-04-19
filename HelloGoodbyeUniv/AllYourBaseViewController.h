@@ -14,7 +14,8 @@
     
 }
 
-@property (retain) AllYourBaseViewController *landscapeViewController;
+@property(nonatomic,retain) IBOutlet UIView *portraitView;
+@property(nonatomic,retain) IBOutlet UIView *landscapeView;
 @property BOOL isShowingLandscapeView;
 @property (retain) AllYourBaseModel *model;
 

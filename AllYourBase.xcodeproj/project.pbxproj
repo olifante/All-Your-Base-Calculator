@@ -26,7 +26,7 @@
 		F1893596134A423A00F805B0 /* DigitsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F1893595134A423A00F805B0 /* DigitsTests.m */; };
 		F197BD7B13422BFD0056F74C /* AllYourBaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F197BD7A13422BFD0056F74C /* AllYourBaseModel.m */; };
 		F19FB2551359ECFF0076D882 /* FloatingDigitsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F19FB2521359EB8E0076D882 /* FloatingDigitsTests.m */; };
-		F19FB260135A41F90076D882 /* AllYourBaseViewController_iPhone 2.xib in Resources */ = {isa = PBXBuildFile; fileRef = F19FB25F135A41F80076D882 /* AllYourBaseViewController_iPhone 2.xib */; };
+		F19FB260135A41F90076D882 /* AllYourBaseViewController_iPhone2.xib in Resources */ = {isa = PBXBuildFile; fileRef = F19FB25F135A41F80076D882 /* AllYourBaseViewController_iPhone2.xib */; };
 		F1ADD8CA133E55830050EB59 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1ADD8C9133E55830050EB59 /* UIKit.framework */; };
 		F1ADD8CC133E55830050EB59 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1ADD8CB133E55830050EB59 /* Foundation.framework */; };
 		F1ADD8CE133E55830050EB59 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1ADD8CD133E55830050EB59 /* CoreGraphics.framework */; };
@@ -86,7 +86,7 @@
 		F197BD7A13422BFD0056F74C /* AllYourBaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllYourBaseModel.m; sourceTree = "<group>"; };
 		F19FB2511359EB8E0076D882 /* FloatingDigitsTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FloatingDigitsTests.h; sourceTree = "<group>"; };
 		F19FB2521359EB8E0076D882 /* FloatingDigitsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = FloatingDigitsTests.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		F19FB25F135A41F80076D882 /* AllYourBaseViewController_iPhone 2.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "AllYourBaseViewController_iPhone 2.xib"; sourceTree = "<group>"; };
+		F19FB25F135A41F80076D882 /* AllYourBaseViewController_iPhone2.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllYourBaseViewController_iPhone2.xib; sourceTree = "<group>"; };
 		F1ADD8C5133E55830050EB59 /* AllYourBase.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AllYourBase.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1ADD8C9133E55830050EB59 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		F1ADD8CB133E55830050EB59 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -240,7 +240,7 @@
 				F1ADD8EE133E56440050EB59 /* AllYourBaseViewController_iPhone.h */,
 				F1ADD8EF133E56440050EB59 /* AllYourBaseViewController_iPhone.m */,
 				F1ADD8F0133E56440050EB59 /* AllYourBaseViewController_iPhone.xib */,
-				F19FB25F135A41F80076D882 /* AllYourBaseViewController_iPhone 2.xib */,
+				F19FB25F135A41F80076D882 /* AllYourBaseViewController_iPhone2.xib */,
 				F145DEDC1340DFA000CCC887 /* AllYourBaseViewController_iPhoneL.h */,
 				F145DEDD1340DFA000CCC887 /* AllYourBaseViewController_iPhoneL.m */,
 				F145DEDE1340DFA000CCC887 /* AllYourBaseViewController_iPhoneL.xib */,
@@ -354,7 +354,7 @@
 				F1ADD8F7133E56720050EB59 /* AllYourBaseViewController_iPad.xib in Resources */,
 				F145DEE01340DFA000CCC887 /* AllYourBaseViewController_iPhoneL.xib in Resources */,
 				F145DEE51340ED4000CCC887 /* AllYourBaseViewController_iPadL.xib in Resources */,
-				F19FB260135A41F90076D882 /* AllYourBaseViewController_iPhone 2.xib in Resources */,
+				F19FB260135A41F90076D882 /* AllYourBaseViewController_iPhone2.xib in Resources */,
 				F1C7BFB9135E0D440055500F /* AllYourBaseViewController_iPhoneL 2.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

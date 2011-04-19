@@ -17,10 +17,6 @@
     if (self) {
         self.model = [[[AllYourBaseModel alloc] init] autorelease];
         self.isShowingLandscapeView = NO;
-        self.landscapeViewController = [[[AllYourBaseViewController_iPadL alloc]
-                                         initWithNibName:@"AllYourBaseViewController_iPadL"
-                                         bundle:nil
-                                         model:self.model] autorelease];
         
         [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
         [[NSNotificationCenter defaultCenter] addObserver:self
@@ -37,14 +33,11 @@
     if (UIDeviceOrientationIsLandscape(deviceOrientation) &&
         !self.isShowingLandscapeView)
     {
-        [self presentModalViewController:self.landscapeViewController
-                                animated:NO];
         self.isShowingLandscapeView = YES;
     }
     else if (UIDeviceOrientationIsPortrait(deviceOrientation) &&
              self.isShowingLandscapeView)
     {
-        [self dismissModalViewControllerAnimated:NO];
         self.isShowingLandscapeView = NO;
     }
 }
