@@ -18,7 +18,7 @@ static NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklm
 {
     if (self.signedDigits) {
         const char *char_string = [self.signedDigits UTF8String];
-        return strtol(char_string, NULL, self.base);       
+        return strtoll(char_string, NULL, self.base);       
     } else
     {
         return 0.;
@@ -28,7 +28,7 @@ static NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklm
 + (NSString *)parseDigits:(NSString *)someDigits fromBase:(int)someBase
 {
     BOOL positive = YES;
-    NSString *allowedDigits = [[[Digits allDigits] substringToIndex:someBase] stringByAppendingString:@"."];
+    NSString *allowedDigits = [[allDigits substringToIndex:someBase] stringByAppendingString:@"."];
     NSCharacterSet *allowedDigitSet = [NSCharacterSet characterSetWithCharactersInString:allowedDigits];
     NSCharacterSet *forbiddenDigitSet = [allowedDigitSet invertedSet];
     
@@ -70,7 +70,8 @@ static NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklm
         
         double remainder = fabs(i);
         int maximumBasePower = floor([Digits log:remainder base:someBase]);
-        double power, quotient;
+        double power;
+        unsigned int quotient;
         
         for (unsigned int exponent = maximumBasePower; exponent > 0; exponent--) {
             power = pow(someBase, exponent);
@@ -155,53 +156,53 @@ static NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklm
     return self;
 }
 
-- (FloatingDigits *)plus:(FloatingDigits *)secondOperand withError:(NSError **)error
+- (Digits *)plus:(Digits *)secondOperand withError:(NSError **)error
 {
     if (!secondOperand) {
         return nil;
     }
 
-    double firstOperandValue = self.doubleValue;
-    double secondOperandValue = secondOperand.doubleValue;
+    double firstOperandValue = ((FloatingDigits *)self).doubleValue;
+    double secondOperandValue = ((FloatingDigits *)secondOperand).doubleValue;
 
     double result = firstOperandValue + secondOperandValue;
     return [[[FloatingDigits alloc] initWithDouble:result base:self.base] autorelease];
 }
 
-- (FloatingDigits *)minus:(FloatingDigits *)secondOperand withError:(NSError **)error
+- (Digits *)minus:(Digits *)secondOperand withError:(NSError **)error
 {
     if (!secondOperand) {
         return nil;
     }
 
-    double firstOperandValue = self.doubleValue;
-    double secondOperandValue = secondOperand.doubleValue;
+    double firstOperandValue = ((FloatingDigits *)self).doubleValue;
+    double secondOperandValue = ((FloatingDigits *)secondOperand).doubleValue;
     
     double result = firstOperandValue - secondOperandValue;
     return [[[FloatingDigits alloc] initWithDouble:result base:self.base] autorelease];
 }
 
-- (FloatingDigits *)times:(FloatingDigits *)secondOperand withError:(NSError **)error
+- (Digits *)times:(Digits *)secondOperand withError:(NSError **)error
 {
     if (!secondOperand) {
         return nil;
     }
     
-    double firstOperandValue = self.doubleValue;
-    double secondOperandValue = secondOperand.doubleValue;
+    double firstOperandValue = ((FloatingDigits *)self).doubleValue;
+    double secondOperandValue = ((FloatingDigits *)secondOperand).doubleValue;
     
     double result = firstOperandValue * secondOperandValue;
     return [[[FloatingDigits alloc] initWithDouble:result base:self.base] autorelease];
 }
 
-- (FloatingDigits *)divide:(FloatingDigits *)secondOperand withError:(NSError **)error
+- (Digits *)divide:(Digits *)secondOperand withError:(NSError **)error
 {
     if (!secondOperand) {
         return nil;
     } 
     
-    double firstOperandValue = self.doubleValue;
-    double secondOperandValue = secondOperand.doubleValue;
+    double firstOperandValue = ((FloatingDigits *)self).doubleValue;
+    double secondOperandValue = ((FloatingDigits *)secondOperand).doubleValue;
 
     if (secondOperandValue == 0) {
         if (error) {            
@@ -220,9 +221,9 @@ static NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklm
     }
 }
 
-- (FloatingDigits *)invertWithError:(NSError **)error
+- (Digits *)invertWithError:(NSError **)error
 {
-    double operandValue = self.doubleValue;
+    double operandValue = ((FloatingDigits *)self).doubleValue;
     
     if (operandValue == 0) {
         if (error) {            
@@ -241,14 +242,14 @@ static NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklm
     }
 }
 
-- (FloatingDigits *)power:(FloatingDigits *)secondOperand withError:(NSError **)error
+- (Digits *)power:(Digits *)secondOperand withError:(NSError **)error
 {
     if (!secondOperand) {
         return nil;
     }
     
-    double firstOperandValue = self.doubleValue;
-    double secondOperandValue = secondOperand.doubleValue;
+    double firstOperandValue = ((FloatingDigits *)self).doubleValue;
+    double secondOperandValue = ((FloatingDigits *)secondOperand).doubleValue;
 
     if ((firstOperandValue == 0) && (secondOperandValue == 0)) {
         if (error) {            

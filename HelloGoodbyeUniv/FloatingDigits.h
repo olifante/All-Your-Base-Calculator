@@ -25,11 +25,11 @@
 - (id)initWithString:(NSString *)someString base:(int)someBase;
 - (id)initWithString:(NSString *)someString;
 
-- (FloatingDigits *)plus:(FloatingDigits *)secondOperand withError:(NSError **)error;
-- (FloatingDigits *)minus:(FloatingDigits *)secondOperand withError:(NSError **)error;
-- (FloatingDigits *)times:(FloatingDigits *)secondOperand withError:(NSError **)error;
-- (FloatingDigits *)divide:(FloatingDigits *)secondOperand withError:(NSError **)error;
-- (FloatingDigits *)invertWithError:(NSError **)error;
-- (FloatingDigits *)power:(FloatingDigits *)secondOperand withError:(NSError **)error;
+- (Digits *)plus:(Digits *)secondOperand withError:(NSError **)error;
+- (Digits *)minus:(Digits *)secondOperand withError:(NSError **)error;
+- (Digits *)times:(Digits *)secondOperand withError:(NSError **)error;
+- (Digits *)divide:(Digits *)secondOperand withError:(NSError **)error;
+- (Digits *)invertWithError:(NSError **)error;
+- (Digits *)power:(Digits *)secondOperand withError:(NSError **)error;
 
 @end
