@@ -11,6 +11,10 @@
 /* gcd: compute greatest common divisor between p and q */
 int gcd(int p, int q) {
     int	r;
-    if ((r = p%q) == 0) return q;
-    else return gcd(q, r);
+    if ((r = p%q) == 0) {
+        return q;        
+    }
+    else {
+        return gcd(q, r);        
+    }
 }
