@@ -41,6 +41,7 @@
 		F1ADD8F2133E56440050EB59 /* AllYourBaseViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = F1ADD8F0133E56440050EB59 /* AllYourBaseViewController_iPhone.xib */; };
 		F1ADD8F6133E56720050EB59 /* AllYourBaseViewController_iPad.m in Sources */ = {isa = PBXBuildFile; fileRef = F1ADD8F4133E56720050EB59 /* AllYourBaseViewController_iPad.m */; };
 		F1ADD8F7133E56720050EB59 /* AllYourBaseViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = F1ADD8F5133E56720050EB59 /* AllYourBaseViewController_iPad.xib */; };
+		F1C7BF60135DD17E0055500F /* gcd.c in Sources */ = {isa = PBXBuildFile; fileRef = F1C7BF5E135DD17E0055500F /* gcd.c */; };
 		F1EC2934133FFA3000E5C619 /* NKString.m in Sources */ = {isa = PBXBuildFile; fileRef = F1EC2933133FFA2F00E5C619 /* NKString.m */; };
 /* End PBXBuildFile section */
 
@@ -107,6 +108,8 @@
 		F1ADD8F3133E56720050EB59 /* AllYourBaseViewController_iPad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllYourBaseViewController_iPad.h; sourceTree = "<group>"; };
 		F1ADD8F4133E56720050EB59 /* AllYourBaseViewController_iPad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllYourBaseViewController_iPad.m; sourceTree = "<group>"; };
 		F1ADD8F5133E56720050EB59 /* AllYourBaseViewController_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllYourBaseViewController_iPad.xib; sourceTree = "<group>"; };
+		F1C7BF5E135DD17E0055500F /* gcd.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gcd.c; sourceTree = "<group>"; };
+		F1C7BF5F135DD17E0055500F /* gcd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gcd.h; sourceTree = "<group>"; };
 		F1EC2932133FFA2F00E5C619 /* NKString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NKString.h; sourceTree = "<group>"; };
 		F1EC2933133FFA2F00E5C619 /* NKString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NKString.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -193,6 +196,8 @@
 			children = (
 				F15A0AF4135A655000058DB5 /* itoa.c */,
 				F15A0AF5135A655000058DB5 /* itoa.h */,
+				F1C7BF5E135DD17E0055500F /* gcd.c */,
+				F1C7BF5F135DD17E0055500F /* gcd.h */,
 				F1EC2932133FFA2F00E5C619 /* NKString.h */,
 				F1EC2933133FFA2F00E5C619 /* NKString.m */,
 				F11DA724134A14E200797005 /* Digits.h */,
@@ -399,6 +404,7 @@
 				F1273BFB134C8590004FA297 /* RationalDigits.m in Sources */,
 				F1273BFF134C86DD004FA297 /* FloatingDigits.m in Sources */,
 				F15A0AF6135A655000058DB5 /* itoa.c in Sources */,
+				F1C7BF60135DD17E0055500F /* gcd.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
