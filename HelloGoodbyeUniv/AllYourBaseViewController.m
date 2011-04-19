@@ -101,11 +101,16 @@ const unichar negative = 0x002d; // - HYPHEN-MINUS
 
 # pragma mark own initializers
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil model:(AllYourBaseModel *)model
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil model:(AllYourBaseModel *)theModel
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // initialization code
+        if (theModel) {
+            self.model = theModel;
+        } else
+        {
+            self.model = [[[AllYourBaseModel alloc] init] autorelease];
+        }
     }
     return self;
 }

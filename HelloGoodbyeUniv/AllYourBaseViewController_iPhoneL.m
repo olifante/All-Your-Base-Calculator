@@ -11,15 +11,6 @@
 
 @implementation AllYourBaseViewController_iPhoneL
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil model:(AllYourBaseModel *)model
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil model:nil];
-    if (self) {
-        self.model = model;
-    }
-    return self;
-}
-
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationLandscapeLeft || interfaceOrientation == UIInterfaceOrientationLandscapeRight);

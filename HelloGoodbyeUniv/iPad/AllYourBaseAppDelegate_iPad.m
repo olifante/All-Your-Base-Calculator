@@ -13,9 +13,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    self.viewController = [[AllYourBaseViewController_iPad alloc] init];
-    self.window.rootViewController = self.viewController;
-    [self.window addSubview:self.viewController.view];
+    self.tabBarViewController = [[AllYourBaseViewController_iPad alloc] init];
+    self.window.rootViewController = self.tabBarViewController;
+    [self.window addSubview:self.tabBarViewController.view];
     [self.window makeKeyAndVisible];
     return YES;
 }

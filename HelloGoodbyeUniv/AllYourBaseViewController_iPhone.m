@@ -11,16 +11,15 @@
 
 @implementation AllYourBaseViewController_iPhone
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil model:(AllYourBaseModel *)model
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil model:(AllYourBaseModel *)theModel
 {
-    self = [super initWithNibName:@"AllYourBaseViewController_iPhone" bundle:nil model:nil];;
+    self = [super initWithNibName:@"AllYourBaseViewController_iPhone" bundle:nil model:theModel];;
     if (self) {
-        self.model = [[[AllYourBaseModel alloc] init] autorelease];
         self.isShowingLandscapeView = NO;
         self.landscapeViewController = [[[AllYourBaseViewController_iPhoneL alloc]
                                          initWithNibName:@"AllYourBaseViewController_iPhoneL"
                                          bundle:nil
-                                         model:self.model] autorelease];
+                                         model:theModel] autorelease];
         
         [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
         [[NSNotificationCenter defaultCenter] addObserver:self

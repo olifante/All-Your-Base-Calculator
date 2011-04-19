@@ -13,9 +13,25 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    self.viewController = [[AllYourBaseViewController_iPhone alloc] init];
-    self.window.rootViewController = self.viewController;
-    [self.window addSubview:self.viewController.view];
+    AllYourBaseModel *theModel = [[[AllYourBaseModel alloc] init] autorelease];
+    UITabBarController *tbc = [[UITabBarController alloc] init];
+    UIViewController *vc1 = [[AllYourBaseViewController_iPhone alloc] 
+                             initWithNibName:nil 
+                             bundle:nil 
+                             model:theModel
+                             ];
+    UIViewController *vc2 = [[AllYourBaseViewController_iPhoneL alloc] 
+                             initWithNibName:@"AllYourBaseViewController_iPhone 2" 
+                             bundle:nil 
+                             model:theModel
+                             ];
+    vc1.title = @"view1";
+    vc2.title = @"view2";
+    tbc.viewControllers = [NSArray arrayWithObjects: vc1, vc2, nil];
+    self.tabBarViewController = tbc;
+//    self.tabBarViewController = [[AllYourBaseViewController_iPhone alloc] init];
+    self.window.rootViewController = self.tabBarViewController;
+    [self.window addSubview:self.tabBarViewController.view];
     [self.window makeKeyAndVisible];
     return YES;
 }

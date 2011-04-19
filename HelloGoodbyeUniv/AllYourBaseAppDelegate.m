@@ -12,7 +12,7 @@
 
 
 @synthesize window=_window;
-@synthesize viewController;
+@synthesize tabBarViewController;
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
@@ -55,7 +55,7 @@
 
 - (void)dealloc
 {
-    self.viewController = nil;
+    self.tabBarViewController = nil;
     [_window release];
     [super dealloc];
 }
