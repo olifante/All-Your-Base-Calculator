@@ -42,6 +42,7 @@
 		F1ADD8F6133E56720050EB59 /* AllYourBaseViewController_iPad.m in Sources */ = {isa = PBXBuildFile; fileRef = F1ADD8F4133E56720050EB59 /* AllYourBaseViewController_iPad.m */; };
 		F1ADD8F7133E56720050EB59 /* AllYourBaseViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = F1ADD8F5133E56720050EB59 /* AllYourBaseViewController_iPad.xib */; };
 		F1C7BF60135DD17E0055500F /* gcd.c in Sources */ = {isa = PBXBuildFile; fileRef = F1C7BF5E135DD17E0055500F /* gcd.c */; };
+		F1C7BFB9135E0D440055500F /* AllYourBaseViewController_iPhoneL 2.xib in Resources */ = {isa = PBXBuildFile; fileRef = F1C7BFB8135E0D440055500F /* AllYourBaseViewController_iPhoneL 2.xib */; };
 		F1EC2934133FFA3000E5C619 /* NKString.m in Sources */ = {isa = PBXBuildFile; fileRef = F1EC2933133FFA2F00E5C619 /* NKString.m */; };
 /* End PBXBuildFile section */
 
@@ -110,6 +111,7 @@
 		F1ADD8F5133E56720050EB59 /* AllYourBaseViewController_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllYourBaseViewController_iPad.xib; sourceTree = "<group>"; };
 		F1C7BF5E135DD17E0055500F /* gcd.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gcd.c; sourceTree = "<group>"; };
 		F1C7BF5F135DD17E0055500F /* gcd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gcd.h; sourceTree = "<group>"; };
+		F1C7BFB8135E0D440055500F /* AllYourBaseViewController_iPhoneL 2.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "AllYourBaseViewController_iPhoneL 2.xib"; sourceTree = "<group>"; };
 		F1EC2932133FFA2F00E5C619 /* NKString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NKString.h; sourceTree = "<group>"; };
 		F1EC2933133FFA2F00E5C619 /* NKString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NKString.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -242,6 +244,7 @@
 				F145DEDC1340DFA000CCC887 /* AllYourBaseViewController_iPhoneL.h */,
 				F145DEDD1340DFA000CCC887 /* AllYourBaseViewController_iPhoneL.m */,
 				F145DEDE1340DFA000CCC887 /* AllYourBaseViewController_iPhoneL.xib */,
+				F1C7BFB8135E0D440055500F /* AllYourBaseViewController_iPhoneL 2.xib */,
 				F1ADD8DC133E55830050EB59 /* AllYourBaseAppDelegate_iPhone.h */,
 				F1ADD8DD133E55830050EB59 /* AllYourBaseAppDelegate_iPhone.m */,
 				F1ADD8DF133E55830050EB59 /* MainWindow_iPhone.xib */,
@@ -352,6 +355,7 @@
 				F145DEE01340DFA000CCC887 /* AllYourBaseViewController_iPhoneL.xib in Resources */,
 				F145DEE51340ED4000CCC887 /* AllYourBaseViewController_iPadL.xib in Resources */,
 				F19FB260135A41F90076D882 /* AllYourBaseViewController_iPhone 2.xib in Resources */,
+				F1C7BFB9135E0D440055500F /* AllYourBaseViewController_iPhoneL 2.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
