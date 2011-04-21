@@ -27,7 +27,7 @@
     if (self) {
         self.error = nil;
         self.previousDigits = nil;
-        self.currentDigits = [[[Digits alloc] init] autorelease];
+        self.currentDigits = [[[FloatingDigits alloc] init] autorelease];
         [self updateDisplays];
     }
     return self;
@@ -210,14 +210,14 @@
                                        , self.currentDigits ? self.currentDigits.description : @""
                                        ];
             self.previousDigits = self.resultDigits;
-            self.currentDigits = [[[Digits alloc] init] autorelease];
+            self.currentDigits = [[[FloatingDigits alloc] init] autorelease];
             self.previousOperation = self.currentOperation;
             self.currentOperation = operation;
         }
     } else { // no pending operation
         self.previousDigits = self.currentDigits;
         self.currentOperation = operation;
-        self.currentDigits = [[[Digits alloc] init] autorelease];
+        self.currentDigits = [[[FloatingDigits alloc] init] autorelease];
     }
     
     [self updateDisplays];
@@ -231,7 +231,7 @@
     }
     
     if (self.previousOperation) {
-        self.currentDigits = [[[Digits alloc] init] autorelease];
+        self.currentDigits = [[[FloatingDigits alloc] init] autorelease];
     }
     
     [self.currentDigits pushDigit:digit];
@@ -271,7 +271,7 @@
         self.previousOperation = nil;
         self.previousExpression = nil;  
         self.resultDigits = nil;
-        self.currentDigits = [[[Digits alloc] init] autorelease];
+        self.currentDigits = [[[FloatingDigits alloc] init] autorelease];
     }
 
     [self.currentDigits negate];
@@ -281,7 +281,7 @@
 - (void)cleanPressed
 {
     [self releaseMembers];
-    self.currentDigits = [[[Digits alloc] init] autorelease];
+    self.currentDigits = [[[FloatingDigits alloc] init] autorelease];
     [self updateDisplays];
 }
 

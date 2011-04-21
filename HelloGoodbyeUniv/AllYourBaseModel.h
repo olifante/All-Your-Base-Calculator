@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "FloatingDigits.h"
 #import "Digits.h"
 
 
