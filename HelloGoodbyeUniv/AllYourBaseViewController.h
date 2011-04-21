@@ -20,7 +20,7 @@
 @property (retain) AllYourBaseModel *model;
 
 @property (retain) IBOutlet UILabel *previousDisplayLabel, *currentDisplayLabel;
-@property (retain) IBOutlet UILabel *previousDigitsLabel, *currentDigitsLabel, *currentOperationLabel, *previousOperationLabel, *previousExpressionLabel, *resultLabel;
+@property (retain) IBOutlet UILabel *previousDisplayLabelLandscape, *currentDisplayLabelLandscape;
 
 - (void)releaseMembers;
 

@@ -485,7 +485,6 @@
 						<string key="NSFrame">{{257, 347}, {62, 62}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">1</int>
 							<bytes key="NSRGB">MC41MzE4ODQzMTI2IDAuMDY4NDY3MjI5NiAwLjA2ODA1NjUyMzgAA</bytes>
@@ -926,7 +925,6 @@
 						<string key="NSFrame">{{434, 207}, {42, 42}}</string>
 						<reference key="NSSuperview" ref="252974062"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">1</int>
 							<bytes key="NSRGB">MC41MzE4ODQzMTI2IDAuMDY4NDY3MjI5NiAwLjA2ODA1NjUyMzgAA</bytes>
@@ -1396,7 +1394,6 @@
 				<string key="NSFrameSize">{320, 460}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
-				<reference key="NSNextKeyView"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">3</int>
 					<bytes key="NSWhite">MQA</bytes>
@@ -1810,6 +1807,22 @@
 						<int key="IBEventType">7</int>
 					</object>
 					<int key="connectionID">321</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">previousDisplayLabelLandscape</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="568377369"/>
+					</object>
+					<int key="connectionID">322</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">currentDisplayLabelLandscape</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="659878478"/>
+					</object>
+					<int key="connectionID">323</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -2431,7 +2444,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">321</int>
+			<int key="maxID">323</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -2524,27 +2537,19 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>currentDigitsLabel</string>
 							<string>currentDisplayLabel</string>
-							<string>currentOperationLabel</string>
+							<string>currentDisplayLabelLandscape</string>
 							<string>landscapeView</string>
 							<string>portraitView</string>
-							<string>previousDigitsLabel</string>
 							<string>previousDisplayLabel</string>
-							<string>previousExpressionLabel</string>
-							<string>previousOperationLabel</string>
-							<string>resultLabel</string>
+							<string>previousDisplayLabelLandscape</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>UILabel</string>
 							<string>UILabel</string>
-							<string>UILabel</string>
 							<string>UIView</string>
 							<string>UIView</string>
-							<string>UILabel</string>
-							<string>UILabel</string>
-							<string>UILabel</string>
 							<string>UILabel</string>
 							<string>UILabel</string>
 						</object>
@@ -2553,29 +2558,21 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>currentDigitsLabel</string>
 							<string>currentDisplayLabel</string>
-							<string>currentOperationLabel</string>
+							<string>currentDisplayLabelLandscape</string>
 							<string>landscapeView</string>
 							<string>portraitView</string>
-							<string>previousDigitsLabel</string>
 							<string>previousDisplayLabel</string>
-							<string>previousExpressionLabel</string>
-							<string>previousOperationLabel</string>
-							<string>resultLabel</string>
+							<string>previousDisplayLabelLandscape</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<object class="IBToOneOutletInfo">
-								<string key="name">currentDigitsLabel</string>
-								<string key="candidateClassName">UILabel</string>
-							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">currentDisplayLabel</string>
 								<string key="candidateClassName">UILabel</string>
 							</object>
 							<object class="IBToOneOutletInfo">
-								<string key="name">currentOperationLabel</string>
+								<string key="name">currentDisplayLabelLandscape</string>
 								<string key="candidateClassName">UILabel</string>
 							</object>
 							<object class="IBToOneOutletInfo">
@@ -2587,23 +2584,11 @@
 								<string key="candidateClassName">UIView</string>
 							</object>
 							<object class="IBToOneOutletInfo">
-								<string key="name">previousDigitsLabel</string>
-								<string key="candidateClassName">UILabel</string>
-							</object>
-							<object class="IBToOneOutletInfo">
 								<string key="name">previousDisplayLabel</string>
 								<string key="candidateClassName">UILabel</string>
 							</object>
 							<object class="IBToOneOutletInfo">
-								<string key="name">previousExpressionLabel</string>
-								<string key="candidateClassName">UILabel</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">previousOperationLabel</string>
-								<string key="candidateClassName">UILabel</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">resultLabel</string>
+								<string key="name">previousDisplayLabelLandscape</string>
 								<string key="candidateClassName">UILabel</string>
 							</object>
 						</object>

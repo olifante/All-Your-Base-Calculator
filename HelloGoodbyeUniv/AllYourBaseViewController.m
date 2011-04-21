@@ -29,7 +29,7 @@ const unichar negative = 0x002d; // - HYPHEN-MINUS
 # pragma mark outlets
 
 @synthesize previousDisplayLabel, currentDisplayLabel;
-@synthesize previousDigitsLabel, currentDigitsLabel, currentOperationLabel, previousOperationLabel, previousExpressionLabel, resultLabel;
+@synthesize previousDisplayLabelLandscape, currentDisplayLabelLandscape;
 
 # pragma mark release method
 
@@ -37,14 +37,9 @@ const unichar negative = 0x002d; // - HYPHEN-MINUS
 {
     self.previousDisplayLabel = nil;
     self.currentDisplayLabel = nil;
-    
-    self.previousDigitsLabel = nil;
-    self.currentDigitsLabel = nil;
-    self.currentOperationLabel = nil;
-    self.previousOperationLabel = nil;
-    self.previousExpressionLabel = nil;
-    self.resultLabel = nil;
-    
+    self.previousDisplayLabelLandscape = nil;
+    self.currentDisplayLabelLandscape = nil;
+        
     self.model = nil;
     self.landscapeView = nil;
     self.portraitView = nil;
@@ -124,12 +119,8 @@ const unichar negative = 0x002d; // - HYPHEN-MINUS
     self.previousDisplayLabel.text = self.model.secondaryDisplay;
     self.currentDisplayLabel.text = self.model.mainDisplay;
     
-    self.previousDigitsLabel.text = self.model.previousDigits.signedDigits;
-    self.currentDigitsLabel.text = self.model.currentDigits.signedDigits;
-    self.currentOperationLabel.text = self.model.currentOperation;
-    self.previousOperationLabel.text = self.model.previousOperation;
-    self.previousExpressionLabel.text = self.model.previousExpression;
-    self.resultLabel.text = self.model.resultDigits.signedDigits;
+    self.previousDisplayLabelLandscape.text = self.model.secondaryDisplay;
+    self.currentDisplayLabelLandscape.text = self.model.mainDisplay;
 }
 
 # pragma mark actions
