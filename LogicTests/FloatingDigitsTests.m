@@ -1284,97 +1284,133 @@
 
 - (void)testConvert65536ToBase16 {
     NSString *actual, *expected;
-    actual = [Digits convertInt:65536 toBase:16], expected = @"10000";
+    actual = [FloatingDigits convertDouble:65536 toBase:16], expected = @"10000";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
 - (void)testConvert65535ToBase16 {
     NSString *actual, *expected;
-    actual = [Digits convertInt:65535 toBase:16], expected = @"FFFF";
+    actual = [FloatingDigits convertDouble:65535 toBase:16], expected = @"FFFF";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
 - (void)testConvert65536ToBase2 {
     NSString *actual, *expected;
-    actual = [Digits convertInt:65536 toBase:2], expected = @"10000000000000000";
+    actual = [FloatingDigits convertDouble:65536 toBase:2], expected = @"10000000000000000";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
 - (void)testConvert65535ToBase2 {
     NSString *actual, *expected;
-    actual = [Digits convertInt:65535 toBase:2], expected = @"1111111111111111";
+    actual = [FloatingDigits convertDouble:65535 toBase:2], expected = @"1111111111111111";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
 - (void)testConvertNegative65536ToBase16 {
     NSString *actual, *expected;
-    actual = [Digits convertInt:-65536 toBase:16], expected = @"-10000";
+    actual = [FloatingDigits convertDouble:-65536 toBase:16], expected = @"-10000";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
 - (void)testConvertNegative65535ToBase16 {
     NSString *actual, *expected;
-    actual = [Digits convertInt:-65535 toBase:16], expected = @"-FFFF";
+    actual = [FloatingDigits convertDouble:-65535 toBase:16], expected = @"-FFFF";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
 - (void)testConvertNegative65536ToBase2 {
     NSString *actual, *expected;
-    actual = [Digits convertInt:-65536 toBase:2], expected = @"-10000000000000000";
+    actual = [FloatingDigits convertDouble:-65536 toBase:2], expected = @"-10000000000000000";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
 - (void)testConvertNegative65535ToBase2 {
     NSString *actual, *expected;
-    actual = [Digits convertInt:-65535 toBase:2], expected = @"-1111111111111111";
+    actual = [FloatingDigits convertDouble:-65535 toBase:2], expected = @"-1111111111111111";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
 - (void)testConvert46656ToBase16 {
     NSString *actual, *expected;
-    actual = [Digits convertInt:46656 toBase:16], expected = @"B640";
+    actual = [FloatingDigits convertDouble:46656 toBase:16], expected = @"B640";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
 - (void)testConvertNegative46656ToBase16 {
     NSString *actual, *expected;
-    actual = [Digits convertInt:-46656 toBase:16], expected = @"-B640";
+    actual = [FloatingDigits convertDouble:-46656 toBase:16], expected = @"-B640";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
 - (void)testConvert46656ToBase2 {
     NSString *actual, *expected;
-    actual = [Digits convertInt:46656 toBase:2], expected = @"1011011001000000";
+    actual = [FloatingDigits convertDouble:46656 toBase:2], expected = @"1011011001000000";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
 - (void)testConvertNegative46656ToBase2 {
     NSString *actual, *expected;
-    actual = [Digits convertInt:-46656 toBase:2], expected = @"-1011011001000000";
+    actual = [FloatingDigits convertDouble:-46656 toBase:2], expected = @"-1011011001000000";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
 - (void)testConvert0ToBase10 {
     NSString *actual, *expected;
-    actual = [Digits convertInt:0 toBase:10], expected = @"0";
+    actual = [FloatingDigits convertDouble:0 toBase:10], expected = @"0";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
 - (void)testConvertNegative0ToBase10 {
     NSString *actual, *expected;
-    actual = [Digits convertInt:-0 toBase:10], expected = @"0";
+    actual = [FloatingDigits convertDouble:-0 toBase:10], expected = @"0";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
 - (void)testConvert1ToBase10 {
     NSString *actual, *expected;
-    actual = [Digits convertInt:1 toBase:10], expected = @"1";
+    actual = [FloatingDigits convertDouble:1 toBase:10], expected = @"1";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
 - (void)testConvertNegative1ToBase10 {
     NSString *actual, *expected;
-    actual = [Digits convertInt:-1 toBase:10], expected = @"-1";
+    actual = [FloatingDigits convertDouble:-1 toBase:10], expected = @"-1";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+}
+
+- (void)testConvert0Point1ToBase10 {
+    NSString *actual, *expected;
+    actual = [FloatingDigits convertDouble:0.1 toBase:10], expected = @"0.1";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+}
+
+- (void)testConvert10Point1ToBase10 {
+    NSString *actual, *expected;
+    actual = [FloatingDigits convertDouble:10.1 toBase:10], expected = @"10.1";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+}
+
+- (void)testConvert1Point1ToBase10 {
+    NSString *actual, *expected;
+    actual = [FloatingDigits convertDouble:1.1 toBase:10], expected = @"1.1";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+}
+
+- (void)testConvertNegative0Point1ToBase10 {
+    NSString *actual, *expected;
+    actual = [FloatingDigits convertDouble:-0.1 toBase:10], expected = @"-0.1";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+}
+
+- (void)testConvertNegative10PointToBase10 {
+    NSString *actual, *expected;
+    actual = [FloatingDigits convertDouble:-10.1 toBase:10], expected = @"-10.1";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+}
+
+- (void)testConvertNegative1Point1ToBase10 {
+    NSString *actual, *expected;
+    actual = [FloatingDigits convertDouble:-1.1 toBase:10], expected = @"-1.1";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 

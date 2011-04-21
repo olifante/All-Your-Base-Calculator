@@ -61,28 +61,36 @@ static NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklm
         assert(f < 1.0);
         assert(i == ceil(i));
         
-        NSString *allowedDigits = [allDigits substringToIndex:someBase];
+        NSString *integralDigits = [Digits convertInt:i toBase:someBase];
         
-        NSMutableString *someMutableDigits = [NSMutableString stringWithString:@""];
-        if (someDouble < 0) {
-            [someMutableDigits appendString:@"-"];
-        }
-        
-        double remainder = fabs(i);
-        int maximumBasePower = floor([Digits log:remainder base:someBase]);
-        double power;
-        unsigned int quotient;
-        
-        for (unsigned int exponent = maximumBasePower; exponent > 0; exponent--) {
-            power = pow(someBase, exponent);
-            quotient = remainder / power;
-            remainder = fmod(remainder, power);
-            [someMutableDigits appendFormat:@"%C", [allowedDigits characterAtIndex:quotient]];
-        }
-        
-        [someMutableDigits appendFormat:@"%C", [allowedDigits characterAtIndex:remainder]];
-        
-        return [NSString stringWithString:someMutableDigits];
+//        NSString *allowedDigits = [allDigits substringToIndex:someBase];
+//        
+//        NSMutableString *someMutableDigits = [NSMutableString stringWithString:@""];
+//        if (someDouble < 0) {
+//            [someMutableDigits appendString:@"-"];
+//        }
+//        
+//        if (fabs(i) != 0.) {
+//            int maximumBasePower = floor([Digits log:fabs(i) base:someBase]);            
+//            double remainder = fabs(i);
+//            double power;
+//            unsigned int quotient;
+//            
+//            for (unsigned int exponent = maximumBasePower; exponent > 0; exponent--) {
+//                power = pow(someBase, exponent);
+//                quotient = remainder / power;
+//                remainder = fmod(remainder, power);
+//                [someMutableDigits appendFormat:@"%C", [allowedDigits characterAtIndex:quotient]];
+//            }
+//        } else
+//        {
+//            [someMutableDigits appendFormat:@"%C", [allowedDigits characterAtIndex:0]];            
+//        }
+//        
+//        [someMutableDigits appendFormat:@"%C", [allowedDigits characterAtIndex:0]];
+//        
+//        return [NSString stringWithString:someMutableDigits];
+        return integralDigits;
     }
 }
 
