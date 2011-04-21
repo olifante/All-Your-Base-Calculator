@@ -11,13 +11,13 @@
 
 @implementation AllYourBaseViewController_iPad
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil model:(AllYourBaseModel *)model
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil model:(AllYourBaseModel *)theModel
 {
-    self = [super initWithNibName:@"AllYourBaseViewController_iPad" bundle:nil model:nil];;
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil model:theModel];;
     if (self) {
-        self.model = [[[AllYourBaseModel alloc] init] autorelease];
         self.isShowingLandscapeView = NO;
-        
+        [self.view addSubview:self.portraitView];
+        self.portraitView.frame = self.view.bounds;
         [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(orientationChanged:)
@@ -25,21 +25,6 @@
                                                    object:nil];
     }
     return self;
-}
-
-- (void)orientationChanged:(NSNotification *)notification
-{
-    UIDeviceOrientation deviceOrientation = [UIDevice currentDevice].orientation;
-    if (UIDeviceOrientationIsLandscape(deviceOrientation) &&
-        !self.isShowingLandscapeView)
-    {
-        self.isShowingLandscapeView = YES;
-    }
-    else if (UIDeviceOrientationIsPortrait(deviceOrientation) &&
-             self.isShowingLandscapeView)
-    {
-        self.isShowingLandscapeView = NO;
-    }
 }
 
 @end

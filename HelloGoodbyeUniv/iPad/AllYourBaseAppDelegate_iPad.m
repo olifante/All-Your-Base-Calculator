@@ -13,7 +13,25 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    self.tabBarViewController = [[AllYourBaseViewController_iPad alloc] init];
+    AllYourBaseModel *theModel = [[[AllYourBaseModel alloc] init] autorelease];
+    UITabBarController *tbc = [[[UITabBarController alloc] init] autorelease];
+    UIViewController *vc1 = [[[AllYourBaseViewController_iPad alloc] 
+                              initWithNibName:nil 
+                              bundle:nil 
+                              model:theModel
+                              ] autorelease];
+    vc1.title = @"Decimal";
+    UIViewController *vc2 = [[[AllYourBaseViewController_iPad alloc] 
+                              initWithNibName:@"AllYourBaseViewController_iPad2" 
+                              bundle:nil 
+                              model:theModel
+                              ] autorelease];
+    vc2.title = @"Standard Decimal";
+    tbc.viewControllers = [NSArray arrayWithObjects: 
+                           vc1, 
+                           vc2,
+                           nil];
+    self.tabBarViewController = tbc;
     self.window.rootViewController = self.tabBarViewController;
     [self.window addSubview:self.tabBarViewController.view];
     [self.window makeKeyAndVisible];
