@@ -54,4 +54,5 @@
 - (NSString *)negativeString;
 - (NSString *)pointString;
 
+- (void)orientationChanged:(NSNotification *)notification;
 @end

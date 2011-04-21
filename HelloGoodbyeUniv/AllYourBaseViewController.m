@@ -218,4 +218,22 @@ const unichar negative = 0x002d; // - HYPHEN-MINUS
 - (NSString *)negativeString { return [NSString stringWithFormat:@"%C", negative]; }
 - (NSString *)pointString { return [NSString stringWithFormat:@"%C", point]; }
 
+- (void)orientationChanged:(NSNotification *)notification
+{
+    UIDeviceOrientation deviceOrientation = [UIDevice currentDevice].orientation;
+    if (UIDeviceOrientationIsLandscape(deviceOrientation) && !self.isShowingLandscapeView)
+    {
+        [self.portraitView removeFromSuperview];
+        [self.view addSubview:self.landscapeView];
+        self.landscapeView.frame = self.view.bounds;
+        self.isShowingLandscapeView = YES;
+    }
+    else if (UIDeviceOrientationIsPortrait(deviceOrientation) && self.isShowingLandscapeView)
+    {
+        [self.landscapeView removeFromSuperview];
+        [self.view addSubview:self.portraitView];
+        self.portraitView.frame = self.view.bounds;
+        self.isShowingLandscapeView = NO;
+    }
+}
 @end

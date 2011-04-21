@@ -8,12 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "AllYourBaseViewController.h"
-#import "AllYourBaseViewController_iPhoneL.h"
 
 @interface AllYourBaseViewController_iPhone : AllYourBaseViewController {
     
 }
 
-- (void)orientationChanged:(NSNotification *)notification;
 
 @end
