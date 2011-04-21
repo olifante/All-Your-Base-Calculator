@@ -17,7 +17,7 @@
     if (self) {
         self.isShowingLandscapeView = NO;
         [self.view addSubview:self.portraitView];
-        self.portraitView.frame = self.view.bounds;
+//        self.portraitView.frame = self.view.bounds;
         [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(orientationChanged:)

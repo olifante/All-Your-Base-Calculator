@@ -225,14 +225,14 @@ const unichar negative = 0x002d; // - HYPHEN-MINUS
     {
         [self.portraitView removeFromSuperview];
         [self.view addSubview:self.landscapeView];
-        self.landscapeView.frame = self.view.bounds;
+//        self.landscapeView.frame = self.view.bounds;
         self.isShowingLandscapeView = YES;
     }
     else if (UIDeviceOrientationIsPortrait(deviceOrientation) && self.isShowingLandscapeView)
     {
         [self.landscapeView removeFromSuperview];
         [self.view addSubview:self.portraitView];
-        self.portraitView.frame = self.view.bounds;
+//        self.portraitView.frame = self.view.bounds;
         self.isShowingLandscapeView = NO;
     }
 }
