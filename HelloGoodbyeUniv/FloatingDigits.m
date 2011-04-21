@@ -62,16 +62,33 @@ static NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklm
         assert(i == ceil(i));
         
         NSString *signedIntegralDigits = [Digits convertInt:i toBase:someBase];
+        NSString *trimmedFractionalDigits = @"";
+        
+//        NSString *allowedDigits = [allDigits substringToIndex:someBase];
+//        unichar zero = [allowedDigits characterAtIndex:0];
         
         if (f != 0.) {            
-            NSString *unsignedFractionalDecimalDigits = [NSString stringWithFormat:@"%f", fabs(f)];
-            NSString *unsignedFractionalDecimalDigitsAfterPoint = [unsignedFractionalDecimalDigits substringFromIndex:2];
-            
-            return [NSString stringWithFormat:@"%@.%@", signedIntegralDigits, unsignedFractionalDecimalDigitsAfterPoint];
-        } else
-        {
-            return signedIntegralDigits;
+            NSString *unsignedFractionalDecimalDigits = [[NSString stringWithFormat:@"%f", fabs(f)] substringFromIndex:1]; // ignore leading zero
+            NSError *error = NULL;
+            NSRegularExpression *regex \
+            = [NSRegularExpression 
+               regularExpressionWithPattern:@"0+$" // TODO build regex using zero unichar
+               options:NSRegularExpressionCaseInsensitive
+               error:&error
+               ];
+            trimmedFractionalDigits \
+            = [regex
+               stringByReplacingMatchesInString:unsignedFractionalDecimalDigits
+               options:0
+               range:NSMakeRange(0, [unsignedFractionalDecimalDigits length])
+               withTemplate:@"" // trim final zeros
+               ];
         }
+        return [NSString 
+                stringWithFormat:@"%@%@"
+                , signedIntegralDigits
+                , trimmedFractionalDigits
+                ];
     }
 }
 

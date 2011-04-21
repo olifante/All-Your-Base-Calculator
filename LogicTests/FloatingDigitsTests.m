@@ -1096,17 +1096,17 @@
     STAssertTrue(actual == expected, @"'%f' should be equal to '%f'", actual, expected);
 }
 
-//- (void)test1Divide2Divide3 {
-//    FloatingDigits *first = [[[FloatingDigits alloc] initWithString:@"1"] autorelease];
-//    STAssertNotNil(first, @"Cannot create Digits instance");
-//    FloatingDigits *second = [[[FloatingDigits alloc] initWithString:@"2"] autorelease];
-//    STAssertNotNil(second, @"Cannot create Digits instance");
-//    FloatingDigits *third = [[[FloatingDigits alloc] initWithString:@"3"] autorelease];
-//    STAssertNotNil(third, @"Cannot create Digits instance");
-//    FloatingDigits *result = (FloatingDigits *)[[first divide:second withError:NULL] divide:third withError:NULL];
-//    double actual = result.doubleValue, expected = 0;
-//    STAssertTrue(actual == expected, @"'%f' should be equal to '%f'", actual, expected);
-//}
+- (void)test1Divide2Divide3 {
+    FloatingDigits *first = [[[FloatingDigits alloc] initWithString:@"1"] autorelease];
+    STAssertNotNil(first, @"Cannot create Digits instance");
+    FloatingDigits *second = [[[FloatingDigits alloc] initWithString:@"2"] autorelease];
+    STAssertNotNil(second, @"Cannot create Digits instance");
+    FloatingDigits *third = [[[FloatingDigits alloc] initWithString:@"3"] autorelease];
+    STAssertNotNil(third, @"Cannot create Digits instance");
+    FloatingDigits *result = (FloatingDigits *)[[first divide:second withError:NULL] divide:third withError:NULL];
+    double actual = result.doubleValue, expected = 0;
+    STAssertTrue(actual == expected, @"'%f' should be equal to '%f'", actual, expected);
+}
 
 - (void)test3Divide2Divide1 {
     FloatingDigits *first = [[[FloatingDigits alloc] initWithString:@"3"] autorelease];
