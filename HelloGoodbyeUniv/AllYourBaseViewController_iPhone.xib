@@ -1194,7 +1194,7 @@
 					<object class="IBUIButton" id="329684420">
 						<reference key="NSNextResponder" ref="252974062"/>
 						<int key="NSvFlags">301</int>
-						<string key="NSFrame">{{133, 164}, {42, 42}}</string>
+						<string key="NSFrame">{{47, 164}, {42, 42}}</string>
 						<reference key="NSSuperview" ref="252974062"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="540673038"/>
@@ -1230,7 +1230,7 @@
 					<object class="IBUIButton" id="1007914355">
 						<reference key="NSNextResponder" ref="252974062"/>
 						<int key="NSvFlags">301</int>
-						<string key="NSFrame">{{47, 164}, {42, 42}}</string>
+						<string key="NSFrame">{{133, 164}, {42, 42}}</string>
 						<reference key="NSSuperview" ref="252974062"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="773251280"/>
@@ -1266,7 +1266,7 @@
 					<object class="IBUIButton" id="412304971">
 						<reference key="NSNextResponder" ref="252974062"/>
 						<int key="NSvFlags">301</int>
-						<string key="NSFrame">{{133, 207}, {42, 42}}</string>
+						<string key="NSFrame">{{47, 207}, {42, 42}}</string>
 						<reference key="NSSuperview" ref="252974062"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="68417206"/>
@@ -1284,7 +1284,7 @@
 					<object class="IBUIButton" id="458167042">
 						<reference key="NSNextResponder" ref="252974062"/>
 						<int key="NSvFlags">301</int>
-						<string key="NSFrame">{{47, 207}, {42, 42}}</string>
+						<string key="NSFrame">{{133, 207}, {42, 42}}</string>
 						<reference key="NSSuperview" ref="252974062"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="346713441"/>
@@ -2019,14 +2019,10 @@
 							<reference ref="540673038"/>
 							<reference ref="210518948"/>
 							<reference ref="725467895"/>
-							<reference ref="412304971"/>
-							<reference ref="458167042"/>
 							<reference ref="838172115"/>
 							<reference ref="647205984"/>
 							<reference ref="346713441"/>
-							<reference ref="1007914355"/>
 							<reference ref="773251280"/>
-							<reference ref="329684420"/>
 							<reference ref="613773187"/>
 							<reference ref="595612382"/>
 							<reference ref="222597332"/>
@@ -2040,6 +2036,10 @@
 							<reference ref="812476609"/>
 							<reference ref="494432700"/>
 							<reference ref="568377369"/>
+							<reference ref="1007914355"/>
+							<reference ref="458167042"/>
+							<reference ref="329684420"/>
+							<reference ref="412304971"/>
 						</object>
 						<reference key="parent" ref="0"/>
 						<string key="objectName">Landscape View</string>
