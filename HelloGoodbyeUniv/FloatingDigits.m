@@ -153,7 +153,7 @@ static NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklm
         return nil; // early return because it's useless to invoke [super init]
     }
     
-    self = [super initWithString:someString base:someBase];
+    self = [super initWithString:@"" base:someBase];
     if (self) {
         self.base = someBase;
         

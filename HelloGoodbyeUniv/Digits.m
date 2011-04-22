@@ -550,7 +550,7 @@ const unichar pointChar = 0x2027; // ‧ HYPHENATION POINT
     NSString *result = @"";
     NSString *allowedDigits = [allDigits substringToIndex:someBase];
     int negative = signbit(someInt);
-    unsigned long long int absoluteValue = abs(someInt);
+    unsigned long long int absoluteValue = llabs(someInt);
     
     if (absoluteValue == 0) {
 

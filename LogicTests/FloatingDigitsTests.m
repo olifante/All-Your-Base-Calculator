@@ -992,6 +992,16 @@
     STAssertTrue(actual == expected, @"'%f' should be equal to '%f'", actual, expected);
 }
 
+- (void)testInitWithString1073741824Times2 {
+    FloatingDigits *first = [[[FloatingDigits alloc] initWithString:@"1073741824"] autorelease];
+    STAssertNotNil(first, @"Cannot create Digits instance");
+    FloatingDigits *second = [[[FloatingDigits alloc] initWithString:@"2"] autorelease];
+    STAssertNotNil(second, @"Cannot create Digits instance");
+    FloatingDigits *result = (FloatingDigits *)[first times:second withError:NULL];
+    double actual = result.doubleValue, expected = 0x80000000.p0;
+    STAssertTrue(actual == expected, @"'%qx' should be equal to '%qx'", actual, expected);
+}
+
 - (void)testInitWithString0Point1 {
     FloatingDigits *digits = [[[FloatingDigits alloc] initWithString:@"0.1"] autorelease];
     STAssertNotNil(digits, @"Cannot create Digits instance");
