@@ -257,7 +257,7 @@
     
     STAssertTrue(digits.startsWithMinus == NO, @"");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
-    STAssertTrue(digits.doubleValue == 0.3, @"'%f' should be equal to '%f'", digits.doubleValue, 0.3);
+    STAssertEqualsWithAccuracy(digits.doubleValue, 0.3, 0.0000000000000001, @"");
     
     NSString *actual, *expected;
     
@@ -281,7 +281,7 @@
     
     STAssertTrue(digits.startsWithMinus == YES, @"");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
-    STAssertTrue(digits.doubleValue == -0.2, @"'%f' should be equal to '%f'", digits.doubleValue, -0.2);
+    STAssertEqualsWithAccuracy(digits.doubleValue, -0.2, 0.0000000000000001, @"");
     
     NSString *actual, *expected;
     
@@ -305,7 +305,7 @@
     
     STAssertTrue(digits.startsWithMinus == YES, @"");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
-    STAssertTrue(digits.doubleValue == -0.5, @"'%f' should be equal to '%f'", digits.doubleValue, -0.5);
+    STAssertEqualsWithAccuracy(digits.doubleValue, -0.5, 0.0000000000000001, @"");
     
     NSString *actual, *expected;
     
@@ -1197,7 +1197,32 @@
     STAssertNotNil(third, @"Cannot create Digits instance");
     FloatingDigits *result = (FloatingDigits *)[[first divide:second withError:NULL] divide:third withError:NULL];
     double actual = result.doubleValue, expected = 0.166667;
-    STAssertTrue(actual == expected, @"'%f' should be equal to '%f'", actual, expected);
+    STAssertEqualsWithAccuracy(actual, expected, 10, @"");
+    STAssertEqualsWithAccuracy(actual, expected, 1, @"");
+    STAssertEqualsWithAccuracy(actual, expected, 0.1, @"");
+    STAssertEqualsWithAccuracy(actual, expected, 0.01, @"");
+    STAssertEqualsWithAccuracy(actual, expected, 0.001, @"");
+    STAssertEqualsWithAccuracy(actual, expected, 0.0001, @"");
+    STAssertEqualsWithAccuracy(actual, expected, 0.00001, @"");
+    STAssertEqualsWithAccuracy(actual, expected, 0.000001, @"");
+    STAssertEqualsWithAccuracy(actual, expected, 0.0000001, @"");
+    STAssertEqualsWithAccuracy(actual, expected, 0.00000001, @"");
+    STAssertEqualsWithAccuracy(actual, expected, 0.000000001, @"");
+    STAssertEqualsWithAccuracy(actual, expected, 0.0000000001, @"");
+    STAssertEqualsWithAccuracy(actual, expected, 0.00000000001, @"");
+    STAssertEqualsWithAccuracy(actual, expected, 0.000000000001, @"");
+    STAssertEqualsWithAccuracy(actual, expected, 0.0000000000001, @"");
+    STAssertEqualsWithAccuracy(actual, expected, 0.00000000000001, @"");
+    STAssertEqualsWithAccuracy(actual, expected, 0.000000000000001, @"");
+    STAssertEqualsWithAccuracy(actual, expected, 0.0000000000000001, @"");
+//    STAssertEqualsWithAccuracy(actual, expected, 0.00000000000000001, @"");
+//    STAssertEqualsWithAccuracy(actual, expected, 0.000000000000000001, @"");
+//    STAssertEqualsWithAccuracy(actual, expected, 0.0000000000000000001, @"");
+//    STAssertEqualsWithAccuracy(actual, expected, 0.00000000000000000001, @"");
+//    STAssertEqualsWithAccuracy(actual, expected, 0.000000000000000000001, @"");
+//    STAssertEqualsWithAccuracy(actual, expected, 0.0000000000000000000001, @"");
+//    STAssertEquals(actual, expected, @"");
+//    STAssertTrue(actual == expected, @"'%f' should be equal to '%f'", actual, expected);
 }
 
 - (void)testInitWithString3Divide2Divide1 {

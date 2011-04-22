@@ -30,11 +30,17 @@ static NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklm
             const char *char_string = [digits UTF8String];
             double integralValue = strtoll(char_string, NULL, self.base);
             const char *fractional_char_string = [[digits substringFromIndex:(pointRange.location+1)] UTF8String];
-            double fractionalValue = strtoll(fractional_char_string, NULL, self.base);
-            result = fractionalValue * pow((double)self.base, -(double)strlen(fractional_char_string)) + integralValue;
+            long long int unsignedFractionalDigitsAsInteger = strtoll(fractional_char_string, NULL, self.base);
+            double unsignedFractionalValue \
+            = unsignedFractionalDigitsAsInteger * pow((double)self.base, -(double)strlen(fractional_char_string));
+            if (self.startsWithMinus) {
+                result = -unsignedFractionalValue - fabs(integralValue);
+            } else
+            {
+                result = unsignedFractionalValue + fabs(integralValue);
+            }
         }        
     }
-    
     return result;
 }
 
