@@ -14,7 +14,7 @@ static NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklm
 
 @synthesize fractionalDigits;
 
-- (double)doubleValue
+- (double)doubleValue // TODO fix doubleValue to include fractional digits in calculations
 {
     if (self.signedDigits) {
         const char *char_string = [self.signedDigits UTF8String];

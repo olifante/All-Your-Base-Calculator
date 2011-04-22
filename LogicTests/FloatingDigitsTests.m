@@ -549,7 +549,7 @@
     
     STAssertTrue(digits.startsWithMinus == NO, @"");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
-    STAssertTrue(digits.doubleValue == 0, @"'%@' should be equal to '%d'", digits.doubleValue, 1);
+    STAssertTrue(digits.doubleValue == 0, @"'%qi' should be equal to '%d'", digits.doubleValue, 0);
     
     actual = digits.unsignedDigits;
     STAssertNil(actual, @"'%@' shoud be nil", actual);
