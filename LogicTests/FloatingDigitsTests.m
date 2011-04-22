@@ -25,28 +25,6 @@
     [super tearDown];
 }
 
-- (void)testA_Duplicate_Negate {
-    FloatingDigits *digits = [[[FloatingDigits alloc] init] retain];
-    STAssertNotNil(digits, @"Cannot create Digits instance");
-    
-    [digits negate];
-    
-    STAssertTrue(digits.startsWithMinus == YES, @"");
-    STAssertEquals(digits.base, 10, @"");
-    STAssertEquals(digits.doubleValue, 0., @"");
-    
-    NSString *actual, *expected;
-    
-    actual = digits.unsignedDigits, expected = @"0";
-    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
-    
-    actual = digits.signedDigits, expected = @"-0";
-    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
-    
-    actual = digits.description, expected = @"-0";
-    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
-}
-
 - (void)testConvert0Point1ToBase10 {
     NSString *actual, *expected;
     actual = [FloatingDigits convertDouble:0.1 toBase:10], expected = @"0.1";
@@ -232,9 +210,43 @@
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
+- (void)testInitWithDouble0x7fffffffLL { // maximum int value on 32 bits architectures like the iPhone
+    
+    FloatingDigits *digits = [[[FloatingDigits alloc] initWithDouble:0x7fffffffLL] retain];
+    STAssertNotNil(digits, @"Cannot create Digits instance");
+    STAssertTrue(digits.startsWithMinus == NO, @"");
+    STAssertEquals(digits.base, 10, @"");
+    STAssertEquals(digits.doubleValue, 0x7fffffff.p0, @"");
+    
+    NSString *actual, *expected;
+    
+    actual = digits.unsignedDigits, expected = @"2147483647";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+    
+    actual = digits.signedDigits, expected = @"2147483647";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+}
+
 - (void)testInitWithDouble0x80000000 {
     
     FloatingDigits *digits = [[[FloatingDigits alloc] initWithDouble:0x80000000.p0] retain];
+    STAssertNotNil(digits, @"Cannot create Digits instance");
+    STAssertTrue(digits.startsWithMinus == NO, @"");
+    STAssertEquals(digits.base, 10, @"");
+    STAssertEquals(digits.doubleValue, 0x80000000.p0, @"");
+    
+    NSString *actual, *expected;
+    
+    actual = digits.unsignedDigits, expected = @"2147483648";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+    
+    actual = digits.signedDigits, expected = @"2147483648";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+}
+
+- (void)testInitWithDouble0x80000000LL {
+    
+    FloatingDigits *digits = [[[FloatingDigits alloc] initWithDouble:0x80000000LL] retain];
     STAssertNotNil(digits, @"Cannot create Digits instance");
     STAssertTrue(digits.startsWithMinus == NO, @"");
     STAssertEquals(digits.base, 10, @"");
@@ -334,9 +346,43 @@
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
+- (void)testInitWithDoubleNegative0x80000000LL { // minimum int value on 32 bits architectures like the iPhone
+    
+    FloatingDigits *digits = [[[FloatingDigits alloc] initWithDouble:-0x80000000LL] retain];
+    STAssertNotNil(digits, @"Cannot create Digits instance");
+    STAssertTrue(digits.startsWithMinus == YES, @"");
+    STAssertEquals(digits.base, 10, @"");
+    STAssertEquals(digits.doubleValue, -0x80000000.p0, @"");
+    
+    NSString *actual, *expected;
+    
+    actual = digits.unsignedDigits, expected = @"2147483648";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+    
+    actual = digits.signedDigits, expected = @"-2147483648";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+}
+
 - (void)testInitWithDoubleNegative0x80000001 {
     
     FloatingDigits *digits = [[[FloatingDigits alloc] initWithDouble:-0x80000001.p0] retain];
+    STAssertNotNil(digits, @"Cannot create Digits instance");
+    STAssertTrue(digits.startsWithMinus == YES, @"");
+    STAssertEquals(digits.base, 10, @"");
+    STAssertEquals(digits.doubleValue, -0x80000001.p0, @"");
+    
+    NSString *actual, *expected;
+    
+    actual = digits.unsignedDigits, expected = @"2147483649";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+    
+    actual = digits.signedDigits, expected = @"-2147483649";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+}
+
+- (void)testInitWithDoubleNegative0x80000001LL {
+    
+    FloatingDigits *digits = [[[FloatingDigits alloc] initWithDouble:-0x80000001LL] retain];
     STAssertNotNil(digits, @"Cannot create Digits instance");
     STAssertTrue(digits.startsWithMinus == YES, @"");
     STAssertEquals(digits.base, 10, @"");
