@@ -89,16 +89,16 @@ const unichar pointChar = 0x2027; // ‧ HYPHENATION POINT
 
 # pragma mark initializers
 
-- (id)initWithInt:(int)someInt base:(int)someBase
+- (id)initWithLongLong:(long long int)someInt base:(int)someBase
 {
-    NSString *someDigits = [Digits convertInt:someInt toBase:someBase];
+    NSString *someDigits = [Digits convertInteger:someInt toBase:someBase];
     self = [self initWithString:someDigits base:someBase];
     return self;
 }
 
-- (id)initWithInt:(int)someInt
+- (id)initWithLongLong:(long long int)someInt
 {
-    self = [self initWithInt:someInt base:10];
+    self = [self initWithLongLong:someInt base:10];
     return self;
 }
 
@@ -155,20 +155,20 @@ const unichar pointChar = 0x2027; // ‧ HYPHENATION POINT
 
 # pragma mark computed readonly properties
 
-- (int)intValue
+- (long long int)integerValue
 {
     if (self.signedDigits) {
         const char *char_string = [self.signedDigits UTF8String];
-        return strtol(char_string, NULL, self.base);       
+        return strtoll(char_string, NULL, self.base);       
     } else
     {
-        return 0;
+        return 0LL;
     }
 }
 
 - (NSNumber *)value
 {
-    return [NSNumber numberWithInt:[self intValue]];    
+    return [NSNumber numberWithLongLong:[self integerValue]];    
 }
 
 - (NSString *)unsignedDigits
@@ -297,11 +297,11 @@ const unichar pointChar = 0x2027; // ‧ HYPHENATION POINT
         return nil;
     }
     
-    int firstOperandValue = self.intValue;
-    int secondOperandValue = secondOperand.intValue;
+    long long int firstOperandValue = self.integerValue;
+    long long int secondOperandValue = secondOperand.integerValue;
     
-    int result = firstOperandValue + secondOperandValue;
-    return [[[Digits alloc] initWithInt:result base:self.base] autorelease];
+    long long int result = firstOperandValue + secondOperandValue;
+    return [[[Digits alloc] initWithLongLong:result base:self.base] autorelease];
 }
 
 - (Digits *)minus:(Digits *)secondOperand withError:(NSError **)error
@@ -310,11 +310,11 @@ const unichar pointChar = 0x2027; // ‧ HYPHENATION POINT
         return nil;
     }
 
-    int firstOperandValue = self.intValue;
-    int secondOperandValue = secondOperand.intValue;
+    long long int firstOperandValue = self.integerValue;
+    long long int secondOperandValue = secondOperand.integerValue;
     
-    int result = firstOperandValue - secondOperandValue;
-    return [[[Digits alloc] initWithInt:result base:self.base] autorelease];
+    long long int result = firstOperandValue - secondOperandValue;
+    return [[[Digits alloc] initWithLongLong:result base:self.base] autorelease];
 }
 
 - (Digits *)times:(Digits *)secondOperand withError:(NSError **)error
@@ -323,11 +323,11 @@ const unichar pointChar = 0x2027; // ‧ HYPHENATION POINT
         return nil;
     }
     
-    int firstOperandValue = self.intValue;
-    int secondOperandValue = secondOperand.intValue;
+    long long int firstOperandValue = self.integerValue;
+    long long int secondOperandValue = secondOperand.integerValue;
     
-    int result = firstOperandValue * secondOperandValue;
-    return [[[Digits alloc] initWithInt:result base:self.base] autorelease];
+    long long int result = firstOperandValue * secondOperandValue;
+    return [[[Digits alloc] initWithLongLong:result base:self.base] autorelease];
 }
 
 - (Digits *)divide:(Digits *)secondOperand withError:(NSError **)error
@@ -336,8 +336,8 @@ const unichar pointChar = 0x2027; // ‧ HYPHENATION POINT
         return nil;
     }
     
-    int firstOperandValue = self.intValue;
-    int secondOperandValue = secondOperand.intValue;
+    long long int firstOperandValue = self.integerValue;
+    long long int secondOperandValue = secondOperand.integerValue;
     
     if (secondOperandValue == 0) {
         if (error) {            
@@ -351,14 +351,14 @@ const unichar pointChar = 0x2027; // ‧ HYPHENATION POINT
         }
         return nil;
     } else {
-        int result = firstOperandValue / secondOperandValue;
-        return [[[Digits alloc] initWithInt:result base:self.base] autorelease];
+        long long int result = firstOperandValue / secondOperandValue;
+        return [[[Digits alloc] initWithLongLong:result base:self.base] autorelease];
     }
 }
 
 - (Digits *)invertWithError:(NSError **)error
 {
-    int operandValue = self.intValue;
+    long long int operandValue = self.integerValue;
 
     if (operandValue == 0) {
         if (error) {            
@@ -372,8 +372,8 @@ const unichar pointChar = 0x2027; // ‧ HYPHENATION POINT
         }
         return nil;
     } else {
-        int result = 1 / operandValue;
-        return [[[Digits alloc] initWithInt:result base:self.base] autorelease];
+        long long int result = 1 / operandValue;
+        return [[[Digits alloc] initWithLongLong:result base:self.base] autorelease];
     }
 }
 
@@ -383,8 +383,8 @@ const unichar pointChar = 0x2027; // ‧ HYPHENATION POINT
         return nil;
     } 
     
-    int firstOperandValue = self.intValue;
-    int secondOperandValue = secondOperand.intValue;
+    long long int firstOperandValue = self.integerValue;
+    long long int secondOperandValue = secondOperand.integerValue;
     
     if ((firstOperandValue == 0) && (secondOperandValue == 0)) {
         if (error) {            
@@ -420,8 +420,8 @@ const unichar pointChar = 0x2027; // ‧ HYPHENATION POINT
         }
         return nil;
     } else {
-        int result = pow(firstOperandValue, secondOperandValue);
-        return [[[Digits alloc] initWithInt:result base:self.base] autorelease];
+        long long int result = pow(firstOperandValue, secondOperandValue);
+        return [[[Digits alloc] initWithLongLong:result base:self.base] autorelease];
     }
 }
 
@@ -545,34 +545,48 @@ const unichar pointChar = 0x2027; // ‧ HYPHENATION POINT
             ];
 }
 
-+ (NSString *)convertInt:(int)someInt toBase:(int)someBase
++ (NSString *)convertInteger:(long long int)someInt toBase:(int)someBase
 {
-    if (someInt == 0) {
-        return @"0";
+    NSString *result = @"";
+    NSString *allowedDigits = [allDigits substringToIndex:someBase];
+    int negative = signbit(someInt);
+    unsigned long long int absoluteValue = abs(someInt);
+    
+    if (absoluteValue == 0) {
+
+        result = [allowedDigits substringToIndex:1]; // 
+
     } else
     {
-        NSString *allowedDigits = [allDigits substringToIndex:someBase];
-        
         NSMutableString *someMutableDigits = [NSMutableString stringWithString:@""];
-        if (someInt < 0) {
+        
+        if (negative) {
             [someMutableDigits appendString:@"-"];
         }
         
-        unsigned int remainder = abs(someInt);
-        unsigned int maximumBasePower = floor([Digits log:remainder base:someBase]);
-        unsigned int power, quotient;
-        
-        for (unsigned int exponent = maximumBasePower; exponent > 0; exponent--) {
-            power = pow(someBase, exponent);
-            quotient = remainder / power;
-            remainder = remainder % power;
-            [someMutableDigits appendFormat:@"%C", [allowedDigits characterAtIndex:quotient]];
+        if (absoluteValue < someBase) {
+            [someMutableDigits appendFormat:@"%C", [allowedDigits characterAtIndex:absoluteValue]];
+        } else
+        {
+            unsigned long long int remainder = absoluteValue;
+            unsigned long long int maximumBasePower = floor([Digits log:remainder base:someBase]);
+            unsigned long long int power, quotient;
+            
+            for (unsigned long long int exponent = maximumBasePower; exponent > 0; exponent--) {
+                power = pow(someBase, exponent);
+                quotient = remainder / power;
+                remainder = remainder % power;
+                [someMutableDigits appendFormat:@"%C", [allowedDigits characterAtIndex:quotient]];
+            }
+            
+            [someMutableDigits appendFormat:@"%C", [allowedDigits characterAtIndex:remainder]];
+            
         }
-        
-        [someMutableDigits appendFormat:@"%C", [allowedDigits characterAtIndex:remainder]];
-        
-        return [NSString stringWithString:someMutableDigits];
+
+        result = [NSString stringWithString:someMutableDigits];
+
     }
+    return result;
 }
 
 # pragma mark -

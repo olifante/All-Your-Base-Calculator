@@ -26,12 +26,12 @@
 - (void)dealloc;
 - (NSString *)description;
 - (id)init;
-- (id)initWithInt:(int)someInt base:(int)someBase;
-- (id)initWithInt:(int)someInt;
+- (id)initWithLongLong:(long long int)someInt base:(int)someBase;
+- (id)initWithLongLong:(long long int)someInt;
 - (id)initWithString:(NSString *)someString;
 - (id)initWithString:(NSString *)someString base:(int)someBase;
 
-@property (nonatomic, readonly) int intValue;
+@property (nonatomic, readonly) long long int integerValue;
 @property (nonatomic, readonly) NSNumber *value;
 @property (nonatomic, readonly) NSString *unsignedDigits;
 @property (nonatomic, readonly) BOOL isEmpty;
@@ -70,7 +70,7 @@
 
 + (double)log:(double)operand base:(int)base;
 + (NSString *)parseDigits:(NSString *)someDigits fromBase:(int)someBase;
-+ (NSString *)convertInt:(int)someInt toBase:(int)someBase;
++ (NSString *)convertInteger:(long long int)someInt toBase:(int)someBase;
 
 + (BOOL)startsWithMinus:(NSString *)someString;
 + (BOOL)startsWithPoint:(NSString *)digitString;
