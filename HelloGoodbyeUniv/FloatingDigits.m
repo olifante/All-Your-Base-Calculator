@@ -51,45 +51,54 @@ static NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklm
 
 + (NSString *)convertDouble:(double)someDouble toBase:(int)someBase
 {
-    if (someDouble == 0.) {
-        return @"0";
+    NSString *result = @"";
+    NSString *allowedDigits = [allDigits substringToIndex:someBase];
+//    unichar zero = [allowedDigits characterAtIndex:0];
+    int negative = signbit(someDouble);
+    double absoluteValue = fabs(someDouble);
+
+    if (absoluteValue == 0.) {
+        result = [allowedDigits substringToIndex:1]; // 
     } else
     {
-        double i, f;
-        f = modf(someDouble, &i);
-        assert(someDouble == f + i);
-        assert(f < 1.0);
-        assert(i == ceil(i));
+        double integralValue, fractionalValue;
+        fractionalValue = modf(absoluteValue, &integralValue);
+        assert(absoluteValue == fractionalValue + integralValue);
+        assert(fractionalValue < 1.0);
+        assert(integralValue == ceil(integralValue));
         
-        NSString *signedIntegralDigits = [Digits convertInt:i toBase:someBase];
+        NSString *integralDigits = [Digits convertInteger:integralValue toBase:someBase];
         NSString *trimmedFractionalDigits = @"";
         
-//        NSString *allowedDigits = [allDigits substringToIndex:someBase];
-//        unichar zero = [allowedDigits characterAtIndex:0];
-        
-        if (f != 0.) {            
-            NSString *unsignedFractionalDecimalDigits = [[NSString stringWithFormat:@"%f", fabs(f)] substringFromIndex:1]; // ignore leading zero
+        if (fractionalValue != 0.) {            
+            NSString *fractionalDigits \
+            = [[NSString stringWithFormat:@"%f", fabs(fractionalValue)] substringFromIndex:1]; // ignore leading zero
+
             NSError *error = NULL;
+
             NSRegularExpression *regex \
             = [NSRegularExpression 
                regularExpressionWithPattern:@"0+$" // TODO build regex using zero unichar
                options:NSRegularExpressionCaseInsensitive
                error:&error
                ];
+
             trimmedFractionalDigits \
             = [regex
-               stringByReplacingMatchesInString:unsignedFractionalDecimalDigits
+               stringByReplacingMatchesInString:fractionalDigits
                options:0
-               range:NSMakeRange(0, [unsignedFractionalDecimalDigits length])
+               range:NSMakeRange(0, [fractionalDigits length])
                withTemplate:@"" // trim final zeros
                ];
         }
-        return [NSString 
-                stringWithFormat:@"%@%@"
-                , signedIntegralDigits
-                , trimmedFractionalDigits
-                ];
+        result = [NSString 
+                  stringWithFormat:@"%@%@%@"
+                  , negative ? @"-" : @""
+                  , integralDigits
+                  , trimmedFractionalDigits
+                  ];
     }
+    return result;
 }
 
 - (id)init

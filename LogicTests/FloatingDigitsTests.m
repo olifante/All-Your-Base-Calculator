@@ -744,7 +744,7 @@
     STAssertNotNil(digits, @"Cannot create Digits instance");
     STAssertTrue(digits.startsWithMinus == NO, @"");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
-    STAssertTrue(digits.doubleValue == 0x80000000.p0, @"'%f' should be equal to '%f'", digits.doubleValue, 0x80000000.p0);
+    STAssertTrue(digits.doubleValue == 0x80000000.p0, @"'%a' should be equal to '%a'", digits.doubleValue, 0x80000000.p0);
     
     NSString *actual, *expected;
     
@@ -752,7 +752,7 @@
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
     
     actual = digits.signedDigits, expected = @"2147483648";
-    STAssertTrue([actual isEqualToString:expected], @"'%f' should be equal to '%f'", actual, expected);
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
 - (void)testInitWithDoubleNegative0x80000000 { // minimum int value on 32 bits architectures like the iPhone
@@ -761,7 +761,7 @@
     STAssertNotNil(digits, @"Cannot create Digits instance");
     STAssertTrue(digits.startsWithMinus == YES, @"");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
-    STAssertTrue(digits.doubleValue == -0x80000000.p0, @"'%f' should be equal to '%f'", digits.doubleValue, -0x80000000.p0);
+    STAssertTrue(digits.doubleValue == -0x80000000.p0, @"'%a' should be equal to '%a'", digits.doubleValue, -0x80000000.p0);
     
     NSString *actual, *expected;
     
@@ -778,7 +778,7 @@
     STAssertNotNil(digits, @"Cannot create Digits instance");
     STAssertTrue(digits.startsWithMinus == YES, @"");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
-    STAssertTrue(digits.doubleValue == -0x80000001.p0, @"'%f' should be equal to '%f'", digits.doubleValue, -0x80000001.p0);
+    STAssertTrue(digits.doubleValue == -0x80000001.p0, @"'%a' should be equal to '%a'", digits.doubleValue, -0x80000001.p0);
     
     NSString *actual, *expected;
     
