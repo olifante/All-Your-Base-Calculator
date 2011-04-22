@@ -49,12 +49,12 @@
     STAssertNil(digits, @"Should not be able to create Digits instance");
 }
 
-- (void)testInitWithEmptyStringBase1 {
+- (void)testInitWithStringNilBase1 {
     FloatingDigits *digits = [[[FloatingDigits alloc] initWithString:@"" base:1] retain];
     STAssertNil(digits, @"Should not be able to create Digits instance");
 }
 
-- (void)testInitWithSpace123SpaceSpace {
+- (void)testInitWithStringSpace123SpaceSpace {
     
     FloatingDigits *digits = [[[FloatingDigits alloc] initWithString:@"  123 "] retain];
     STAssertNotNil(digits, @"Cannot create Digits instance");
@@ -71,7 +71,7 @@
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
-- (void)testInitWithNegative12 {
+- (void)testInitWithStringNegative12 {
     
     FloatingDigits *digits = [[[FloatingDigits alloc] initWithString:@"-12"] retain];
     STAssertNotNil(digits, @"Cannot create Digits instance");
@@ -88,7 +88,7 @@
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
-- (void)testInitWith1234567890 {
+- (void)testInitWithString1234567890 {
     
     FloatingDigits *digits = [[[FloatingDigits alloc] initWithString:@"1234567890"] retain];
     STAssertNotNil(digits, @"Cannot create Digits instance");
@@ -105,7 +105,7 @@
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
-- (void)testInitWith1234567890abc {
+- (void)testInitWithString1234567890abc {
     
     FloatingDigits *digits = [[[FloatingDigits alloc] initWithString:@"1234567890abc"] retain];
     STAssertNotNil(digits, @"Cannot create Digits instance");
@@ -122,7 +122,7 @@
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
-- (void)testInitWithSpaceNegative123abc456SpaceSpace {
+- (void)testInitWithStringSpaceNegative123abc456SpaceSpace {
     
     FloatingDigits *digits = [[[FloatingDigits alloc] initWithString:@"  -123abc456 "] retain];
     STAssertNotNil(digits, @"Cannot create Digits instance");
@@ -139,7 +139,7 @@
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
-- (void)test0 {
+- (void)testPush0 {
     FloatingDigits *digits = [[[FloatingDigits alloc] init] retain];
     STAssertNotNil(digits, @"Cannot create Digits instance");
     
@@ -161,7 +161,7 @@
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
-- (void)test00 {
+- (void)testPush00 {
     FloatingDigits *digits = [[[FloatingDigits alloc] init] retain];
     STAssertNotNil(digits, @"Cannot create Digits instance");
     
@@ -184,7 +184,7 @@
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
-- (void)test1 {
+- (void)testPush1 {
     FloatingDigits *digits = [[[FloatingDigits alloc] init] retain];
     STAssertNotNil(digits, @"Cannot create Digits instance");
     
@@ -203,7 +203,7 @@
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
-- (void)testPoint {
+- (void)testPushPoint {
     FloatingDigits *digits = [[[FloatingDigits alloc] init] retain];
     STAssertNotNil(digits, @"Cannot create Digits instance");
     
@@ -225,7 +225,7 @@
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
-- (void)testPointPoint {
+- (void)testPushPointPoint {
     FloatingDigits *digits = [[[FloatingDigits alloc] init] retain];
     STAssertNotNil(digits, @"Cannot create Digits instance");
     
@@ -248,7 +248,7 @@
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
-- (void)testPoint3 {
+- (void)testPushPoint3 {
     FloatingDigits *digits = [[[FloatingDigits alloc] init] retain];
     STAssertNotNil(digits, @"Cannot create Digits instance");
     
@@ -257,7 +257,7 @@
     
     STAssertTrue(digits.startsWithMinus == NO, @"");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
-    STAssertTrue(digits.doubleValue == 0, @"'%f' should be equal to '%f'", digits.doubleValue, 0);
+    STAssertTrue(digits.doubleValue == 0.3, @"'%f' should be equal to '%f'", digits.doubleValue, 0.3);
     
     NSString *actual, *expected;
     
@@ -271,7 +271,55 @@
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
-- (void)test0Point {
+- (void)testNegatePushPoint2 {
+    FloatingDigits *digits = [[[FloatingDigits alloc] init] retain];
+    STAssertNotNil(digits, @"Cannot create Digits instance");
+    
+    [digits negate];
+    [digits pushDigit:@"."];
+    [digits pushDigit:@"2"];
+    
+    STAssertTrue(digits.startsWithMinus == YES, @"");
+    STAssertTrue(digits.base == 10, @"should use decimal base by default");
+    STAssertTrue(digits.doubleValue == -0.2, @"'%f' should be equal to '%f'", digits.doubleValue, -0.2);
+    
+    NSString *actual, *expected;
+    
+    actual = digits.unsignedDigits, expected = @"0.2";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+    
+    actual = digits.signedDigits, expected = @"-0.2";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+    
+    actual = digits.description, expected = @"-0.2";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+}
+
+- (void)testPushPoint5Negate {
+    FloatingDigits *digits = [[[FloatingDigits alloc] init] retain];
+    STAssertNotNil(digits, @"Cannot create Digits instance");
+    
+    [digits pushDigit:@"."];
+    [digits pushDigit:@"5"];
+    [digits negate];
+    
+    STAssertTrue(digits.startsWithMinus == YES, @"");
+    STAssertTrue(digits.base == 10, @"should use decimal base by default");
+    STAssertTrue(digits.doubleValue == -0.5, @"'%f' should be equal to '%f'", digits.doubleValue, -0.5);
+    
+    NSString *actual, *expected;
+    
+    actual = digits.unsignedDigits, expected = @"0.5";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+    
+    actual = digits.signedDigits, expected = @"-0.5";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+    
+    actual = digits.description, expected = @"-0.5";
+    STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
+}
+
+- (void)testPush0Point {
     FloatingDigits *digits = [[[FloatingDigits alloc] init] retain];
     STAssertNotNil(digits, @"Cannot create Digits instance");
     
@@ -280,7 +328,7 @@
     
     STAssertTrue(digits.startsWithMinus == NO, @"");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
-    STAssertTrue(digits.doubleValue == 0, @"'%f' should be equal to '%f'", digits.doubleValue, 0);
+    STAssertTrue(digits.doubleValue == 0, @"'%f' should be equal to '%f'", digits.doubleValue, 0.);
     
     NSString *actual, *expected;
     
@@ -302,7 +350,7 @@
     
     STAssertTrue(digits.startsWithMinus == YES, @"");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
-    STAssertTrue(digits.doubleValue == 0, @"'%f' should be equal to '%f'", digits.doubleValue, 0);
+    STAssertTrue(digits.doubleValue == 0, @"'%f' should be equal to '%f'", digits.doubleValue, 0.);
     
     NSString *actual, *expected;
     
@@ -316,7 +364,7 @@
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
-- (void)testNegativePoint {
+- (void)testNegativePushPoint {
     FloatingDigits *digits = [[[FloatingDigits alloc] init] retain];
     STAssertNotNil(digits, @"Cannot create Digits instance");
     
@@ -325,7 +373,7 @@
     
     STAssertTrue(digits.startsWithMinus == YES, @"");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
-    STAssertTrue(digits.doubleValue == 0, @"'%f' should be equal to '%f'", digits.doubleValue, 0);
+    STAssertTrue(digits.doubleValue == 0, @"'%f' should be equal to '%f'", digits.doubleValue, 0.);
     
     NSString *actual, *expected;
     
@@ -339,7 +387,7 @@
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
-- (void)testPointNegative {
+- (void)testPushPointNegative {
     FloatingDigits *digits = [[[FloatingDigits alloc] init] retain];
     STAssertNotNil(digits, @"Cannot create Digits instance");
     
@@ -348,7 +396,7 @@
     
     STAssertTrue(digits.startsWithMinus == YES, @"");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
-    STAssertTrue(digits.doubleValue == 0, @"'%f' should be equal to '%f'", digits.doubleValue, 0);
+    STAssertTrue(digits.doubleValue == 0, @"'%f' should be equal to '%f'", digits.doubleValue, 0.);
     
     NSString *actual, *expected;
     
@@ -362,7 +410,7 @@
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
-- (void)test1Point {
+- (void)testPush1Point {
     FloatingDigits *digits = [[[FloatingDigits alloc] init] retain];
     STAssertNotNil(digits, @"Cannot create Digits instance");
     
@@ -371,7 +419,7 @@
     
     STAssertTrue(digits.startsWithMinus == NO, @"");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
-    STAssertTrue(digits.doubleValue == 1, @"'%f' should be equal to '%f'", digits.doubleValue, 1);
+    STAssertTrue(digits.doubleValue == 1, @"'%f' should be equal to '%f'", digits.doubleValue, 1.);
     
     NSString *actual, *expected;
     
@@ -385,7 +433,7 @@
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
-- (void)test0Point1 {
+- (void)testPush0Point1 {
     FloatingDigits *digits = [[[FloatingDigits alloc] init] retain];
     STAssertNotNil(digits, @"Cannot create Digits instance");
     
@@ -395,7 +443,7 @@
     
     STAssertTrue(digits.startsWithMinus == NO, @"");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
-    STAssertTrue(digits.doubleValue == 0, @"'%f' should be equal to '%f'", digits.doubleValue, 0);
+    STAssertTrue(digits.doubleValue == 0.1, @"'%f' should be equal to '%f'", digits.doubleValue, 0.1);
     
     NSString *actual, *expected;
     
@@ -409,7 +457,7 @@
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
-- (void)test1Point2 {
+- (void)testPush1Point2 {
     FloatingDigits *digits = [[[FloatingDigits alloc] init] retain];
     STAssertNotNil(digits, @"Cannot create Digits instance");
     
@@ -419,7 +467,7 @@
     
     STAssertTrue(digits.startsWithMinus == NO, @"");
     STAssertTrue(digits.base == 10, @"should use decimal base by default");
-    STAssertTrue(digits.doubleValue == 1, @"'%f' should be equal to '%f'", digits.doubleValue, 1);
+    STAssertTrue(digits.doubleValue == 1.2, @"'%f' should be equal to '%f'", digits.doubleValue, 1.2);
     
     NSString *actual, *expected;
     
@@ -433,7 +481,7 @@
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
-- (void)test1And2And3 {
+- (void)testPush1And2And3 {
     FloatingDigits *digits = [[[FloatingDigits alloc] init] retain];
     STAssertNotNil(digits, @"Cannot create Digits instance");
     
@@ -454,7 +502,7 @@
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
-- (void)test123 {
+- (void)testPush123 {
     FloatingDigits *digits = [[[FloatingDigits alloc] init] retain];
     STAssertNotNil(digits, @"Cannot create Digits instance");
     
@@ -476,7 +524,7 @@
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
-- (void)test1AndA {
+- (void)testPush1AndA {
     FloatingDigits *digits = [[[FloatingDigits alloc] init] retain];
     STAssertNotNil(digits, @"Cannot create Digits instance");
     
@@ -496,7 +544,7 @@
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
-- (void)testPop {
+- (void)testPushPop {
     FloatingDigits *digits = [[[FloatingDigits alloc] init] retain];
     STAssertNotNil(digits, @"Cannot create Digits instance");
     
@@ -515,7 +563,7 @@
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
-- (void)test0Pop {
+- (void)testPush0Pop {
     FloatingDigits *digits = [[[FloatingDigits alloc] init] retain];
     STAssertNotNil(digits, @"Cannot create Digits instance");
     
@@ -536,7 +584,7 @@
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
-- (void)test1Pop {
+- (void)testPush1Pop {
     FloatingDigits *digits = [[[FloatingDigits alloc] init] retain];
     STAssertNotNil(digits, @"Cannot create Digits instance");
     
@@ -612,7 +660,7 @@
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
-- (void)test1And2And3Pop {
+- (void)testPush1And2And3Pop {
     FloatingDigits *digits = [[[FloatingDigits alloc] init] retain];
     STAssertNotNil(digits, @"Cannot create Digits instance");
     
@@ -823,7 +871,7 @@
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
-- (void)testInitWith1234567890Base8 {
+- (void)testInitWithString1234567890Base8 {
     
     FloatingDigits *digits = [[[FloatingDigits alloc] initWithString:@"11145401322" base:8] retain];
     STAssertNotNil(digits, @"Cannot create Digits instance");
@@ -857,7 +905,7 @@
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
-- (void)testInitWith499602D2Base16 {
+- (void)testInitWithString499602D2Base16 {
     
     FloatingDigits *digits = [[[FloatingDigits alloc] initWithString:@"499602D2" base:16] retain];
     STAssertNotNil(digits, @"Cannot create Digits instance");
@@ -891,7 +939,7 @@
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
-- (void)testInitWithNegative499602D2Base16 {
+- (void)testInitWithStringNegative499602D2Base16 {
     
     FloatingDigits *digits = [[[FloatingDigits alloc] initWithString:@"-499602D2" base:16] retain];
     STAssertNotNil(digits, @"Cannot create Digits instance");
@@ -908,7 +956,7 @@
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
-- (void)test0Plus1PlusMinus2 {
+- (void)testInitWithString0Plus1PlusMinus2 {
     FloatingDigits *first = [[[FloatingDigits alloc] initWithString:@"0"] autorelease];
     STAssertNotNil(first, @"Cannot create Digits instance");
     FloatingDigits *second = [[[FloatingDigits alloc] initWithString:@"1"] autorelease];
@@ -920,7 +968,7 @@
     STAssertTrue(actual == expected, @"'%f' should be equal to '%f'", actual, expected);
 }
 
-- (void)test0Minus1Minus2 {
+- (void)testInitWithString0Minus1Minus2 {
     FloatingDigits *first = [[[FloatingDigits alloc] initWithString:@"0"] autorelease];
     STAssertNotNil(first, @"Cannot create Digits instance");
     FloatingDigits *second = [[[FloatingDigits alloc] initWithString:@"1"] autorelease];
@@ -932,7 +980,7 @@
     STAssertTrue(actual == expected, @"'%f' should be equal to '%f'", actual, expected);
 }
 
-- (void)test0Times1Times2 {
+- (void)testInitWithString0Times1Times2 {
     FloatingDigits *first = [[[FloatingDigits alloc] initWithString:@"0"] autorelease];
     STAssertNotNil(first, @"Cannot create Digits instance");
     FloatingDigits *second = [[[FloatingDigits alloc] initWithString:@"1"] autorelease];
@@ -944,7 +992,41 @@
     STAssertTrue(actual == expected, @"'%f' should be equal to '%f'", actual, expected);
 }
 
-- (void)test1Times2TimesMinus3 {
+- (void)testInitWithString0Point1 {
+    FloatingDigits *digits = [[[FloatingDigits alloc] initWithString:@"0.1"] autorelease];
+    STAssertNotNil(digits, @"Cannot create Digits instance");
+    double actual = digits.doubleValue, expected = 0.1;
+    STAssertTrue(actual == expected, @"'%f' should be equal to '%f'", actual, expected);
+}
+
+- (void)testInitWithString1Point1 {
+    FloatingDigits *digits = [[[FloatingDigits alloc] initWithString:@"1.1"] autorelease];
+    STAssertNotNil(digits, @"Cannot create Digits instance");
+    double actual = digits.doubleValue, expected = 1.1;
+    STAssertTrue(actual == expected, @"'%f' should be equal to '%f'", actual, expected);
+}
+
+- (void)testInitWithString0Point1Times1 {
+    FloatingDigits *first = [[[FloatingDigits alloc] initWithString:@"0.1"] autorelease];
+    STAssertNotNil(first, @"Cannot create Digits instance");
+    FloatingDigits *second = [[[FloatingDigits alloc] initWithString:@"1"] autorelease];
+    STAssertNotNil(second, @"Cannot create Digits instance");
+    FloatingDigits *result = (FloatingDigits *)[first times:second withError:NULL];
+    double actual = result.doubleValue, expected = 0.1;
+    STAssertTrue(actual == expected, @"'%f' should be equal to '%f'", actual, expected);
+}
+
+- (void)testInitWithString1Point1Times2 {
+    FloatingDigits *first = [[[FloatingDigits alloc] initWithString:@"1.1"] autorelease];
+    STAssertNotNil(first, @"Cannot create Digits instance");
+    FloatingDigits *second = [[[FloatingDigits alloc] initWithString:@"2"] autorelease];
+    STAssertNotNil(second, @"Cannot create Digits instance");
+    FloatingDigits *result = (FloatingDigits *)[first times:second withError:NULL];
+    double actual = result.doubleValue, expected = 2.2;
+    STAssertTrue(actual == expected, @"'%f' should be equal to '%f'", actual, expected);
+}
+
+- (void)testInitWithString1Times2TimesMinus3 {
     FloatingDigits *first = [[[FloatingDigits alloc] initWithString:@"1"] autorelease];
     STAssertNotNil(first, @"Cannot create Digits instance");
     FloatingDigits *second = [[[FloatingDigits alloc] initWithString:@"2"] autorelease];
@@ -956,7 +1038,7 @@
     STAssertTrue(actual == expected, @"'%f' should be equal to '%f'", actual, expected);
 }
 
-- (void)test1TimesNil {
+- (void)testInitWithString1TimesNil {
     FloatingDigits *first = [[[FloatingDigits alloc] initWithString:@"1"] autorelease];
     STAssertNotNil(first, @"Cannot create Digits instance");
     FloatingDigits *second = nil;
@@ -964,7 +1046,7 @@
     STAssertNil(result, @"'%@' should be nil", result);
 }
 
-- (void)test1DivideNil {
+- (void)testInitWithString1DivideNil {
     FloatingDigits *first = [[[FloatingDigits alloc] initWithString:@"1"] autorelease];
     STAssertNotNil(first, @"Cannot create Digits instance");
     FloatingDigits *second = nil;
@@ -972,7 +1054,7 @@
     STAssertNil(result, @"'%@' should be nil", result);
 }
 
-- (void)test1Divide0 {
+- (void)testInitWithString1Divide0 {
     FloatingDigits *first = [[[FloatingDigits alloc] initWithString:@"1"] autorelease];
     STAssertNotNil(first, @"Cannot create Digits instance");
     FloatingDigits *second = [[[FloatingDigits alloc] initWithString:@"0"] autorelease];
@@ -988,7 +1070,7 @@
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
-- (void)test0PowerNil {
+- (void)testInitWithString0PowerNil {
     FloatingDigits *first = [[[FloatingDigits alloc] initWithString:@"0"] autorelease];
     STAssertNotNil(first, @"Cannot create Digits instance");
     FloatingDigits *second = nil;
@@ -996,7 +1078,7 @@
     STAssertNil(result, @"'%@' should be nil", result);
 }
 
-- (void)test0Power0 {
+- (void)testInitWithString0Power0 {
     FloatingDigits *first = [[[FloatingDigits alloc] initWithString:@"0"] autorelease];
     STAssertNotNil(first, @"Cannot create Digits instance");
     FloatingDigits *second = [[[FloatingDigits alloc] initWithString:@"0"] autorelease];
@@ -1012,7 +1094,7 @@
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
-- (void)test0PowerNegative1 {
+- (void)testInitWithString0PowerNegative1 {
     FloatingDigits *first = [[[FloatingDigits alloc] initWithString:@"0"] autorelease];
     STAssertNotNil(first, @"Cannot create Digits instance");
     FloatingDigits *second = [[[FloatingDigits alloc] initWithString:@"-1"] autorelease];
@@ -1028,7 +1110,7 @@
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
-- (void)testNegative1PowerPoint5 {
+- (void)testInitWithStringNegative1PowerPoint5 {
     FloatingDigits *first = [[[FloatingDigits alloc] initWithString:@"-1"] autorelease];
     STAssertNotNil(first, @"Cannot create Digits instance");
     FloatingDigits *second = [[[FloatingDigits alloc] initWithString:@".5"] autorelease];
@@ -1044,7 +1126,7 @@
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
-- (void)testNegative46656Times2 {
+- (void)testInitWithStringNegative46656Times2 {
     FloatingDigits *first = [[[FloatingDigits alloc] initWithString:@"-46656"] autorelease];
     STAssertNotNil(first, @"Cannot create Digits instance");
     FloatingDigits *second = [[[FloatingDigits alloc] initWithString:@"2"] autorelease];
@@ -1057,7 +1139,7 @@
     STAssertTrue(actual == expected, @"'%f' should be equal to '%f'", actual, expected);
 }
 
-- (void)testNegative46656Power2 {
+- (void)testInitWithStringNegative46656Power2 {
     FloatingDigits *first = [[[FloatingDigits alloc] initWithString:@"-46656"] autorelease];
     STAssertNotNil(first, @"Cannot create Digits instance");
     FloatingDigits *second = [[[FloatingDigits alloc] initWithString:@"2"] autorelease];
@@ -1070,7 +1152,7 @@
     STAssertTrue(actual == expected, @"'%f' should be equal to '%f'", actual, expected);
 }
 
-- (void)test0Invert {
+- (void)testInitWithString0Invert {
     FloatingDigits *first = [[[FloatingDigits alloc] initWithString:@"0"] autorelease];
     STAssertNotNil(first, @"Cannot create Digits instance");
     
@@ -1084,7 +1166,7 @@
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
-- (void)test0Divide1Divide2 {
+- (void)testInitWithString0Divide1Divide2 {
     FloatingDigits *first = [[[FloatingDigits alloc] initWithString:@"0"] autorelease];
     STAssertNotNil(first, @"Cannot create Digits instance");
     FloatingDigits *second = [[[FloatingDigits alloc] initWithString:@"1"] autorelease];
@@ -1092,11 +1174,11 @@
     FloatingDigits *third = [[[FloatingDigits alloc] initWithString:@"2"] autorelease];
     STAssertNotNil(third, @"Cannot create Digits instance");
     FloatingDigits *result = (FloatingDigits *)[[first divide:second withError:NULL] divide:third withError:NULL];
-    double actual = result.doubleValue, expected = 0;
+    double actual = result.doubleValue, expected = 0.;
     STAssertTrue(actual == expected, @"'%f' should be equal to '%f'", actual, expected);
 }
 
-- (void)test1Divide2Divide3 {
+- (void)testInitWithString1Divide2Divide3 {
     FloatingDigits *first = [[[FloatingDigits alloc] initWithString:@"1"] autorelease];
     STAssertNotNil(first, @"Cannot create Digits instance");
     FloatingDigits *second = [[[FloatingDigits alloc] initWithString:@"2"] autorelease];
@@ -1104,11 +1186,11 @@
     FloatingDigits *third = [[[FloatingDigits alloc] initWithString:@"3"] autorelease];
     STAssertNotNil(third, @"Cannot create Digits instance");
     FloatingDigits *result = (FloatingDigits *)[[first divide:second withError:NULL] divide:third withError:NULL];
-    double actual = result.doubleValue, expected = 0;
+    double actual = result.doubleValue, expected = 0.166667;
     STAssertTrue(actual == expected, @"'%f' should be equal to '%f'", actual, expected);
 }
 
-- (void)test3Divide2Divide1 {
+- (void)testInitWithString3Divide2Divide1 {
     FloatingDigits *first = [[[FloatingDigits alloc] initWithString:@"3"] autorelease];
     STAssertNotNil(first, @"Cannot create Digits instance");
     FloatingDigits *second = [[[FloatingDigits alloc] initWithString:@"2"] autorelease];
@@ -1116,11 +1198,11 @@
     FloatingDigits *third = [[[FloatingDigits alloc] initWithString:@"1"] autorelease];
     STAssertNotNil(third, @"Cannot create Digits instance");
     FloatingDigits *result = (FloatingDigits *)[[first divide:second withError:NULL] divide:third withError:NULL];
-    double actual = result.doubleValue, expected = 1; // result rounded down from 1.5
+    double actual = result.doubleValue, expected = 1.5;
     STAssertTrue(actual == expected, @"'%f' should be equal to '%f'", actual, expected);
 }
 
-- (void)test24Divide4DivideNegative3 {
+- (void)testInitWithString24Divide4DivideNegative3 {
     FloatingDigits *first = [[[FloatingDigits alloc] initWithString:@"24"] autorelease];
     STAssertNotNil(first, @"Cannot create Digits instance");
     FloatingDigits *second = [[[FloatingDigits alloc] initWithString:@"4"] autorelease];
@@ -1128,11 +1210,11 @@
     FloatingDigits *third = [[[FloatingDigits alloc] initWithString:@"-3"] autorelease];
     STAssertNotNil(third, @"Cannot create Digits instance");
     FloatingDigits *result = (FloatingDigits *)[[first divide:second withError:NULL] divide:third withError:NULL];
-    double actual = result.doubleValue, expected = -2;
+    double actual = result.doubleValue, expected = -2.;
     STAssertTrue(actual == expected, @"'%f' should be equal to '%f'", actual, expected);
 }
 
-- (void)test0Power1Power2 {
+- (void)testInitWithString0Power1Power2 {
     FloatingDigits *first = [[[FloatingDigits alloc] initWithString:@"0"] autorelease];
     STAssertNotNil(first, @"Cannot create Digits instance");
     FloatingDigits *second = [[[FloatingDigits alloc] initWithString:@"1"] autorelease];
@@ -1140,11 +1222,11 @@
     FloatingDigits *third = [[[FloatingDigits alloc] initWithString:@"2"] autorelease];
     STAssertNotNil(third, @"Cannot create Digits instance");
     FloatingDigits *result = (FloatingDigits *)[[first power:second withError:NULL] power:third withError:NULL];
-    double actual = result.doubleValue, expected = 0;
+    double actual = result.doubleValue, expected = 0.;
     STAssertTrue(actual == expected, @"'%f' should be equal to '%f'", actual, expected);
 }
 
-- (void)test1Power2Power3 {
+- (void)testInitWithString1Power2Power3 {
     FloatingDigits *first = [[[FloatingDigits alloc] initWithString:@"1"] autorelease];
     STAssertNotNil(first, @"Cannot create Digits instance");
     FloatingDigits *second = [[[FloatingDigits alloc] initWithString:@"2"] autorelease];
@@ -1152,11 +1234,11 @@
     FloatingDigits *third = [[[FloatingDigits alloc] initWithString:@"3"] autorelease];
     STAssertNotNil(third, @"Cannot create Digits instance");
     FloatingDigits *result = (FloatingDigits *)[[first power:second withError:NULL] power:third withError:NULL];
-    double actual = result.doubleValue, expected = 1;
+    double actual = result.doubleValue, expected = 1.;
     STAssertTrue(actual == expected, @"'%f' should be equal to '%f'", actual, expected);
 }
 
-- (void)test2Power3Power4 {
+- (void)testInitWithString2Power3Power4 {
     FloatingDigits *first = [[[FloatingDigits alloc] initWithString:@"2"] autorelease];
     STAssertNotNil(first, @"Cannot create Digits instance");
     FloatingDigits *second = [[[FloatingDigits alloc] initWithString:@"3"] autorelease];
@@ -1164,7 +1246,7 @@
     FloatingDigits *third = [[[FloatingDigits alloc] initWithString:@"4"] autorelease];
     STAssertNotNil(third, @"Cannot create Digits instance");
     FloatingDigits *result = (FloatingDigits *)[[first power:second withError:NULL] power:third withError:NULL];
-    double actual = result.doubleValue, expected = 4096;
+    double actual = result.doubleValue, expected = 4096.;
     STAssertTrue(actual == expected, @"'%f' should be equal to '%f'", actual, expected);
 }
 
@@ -1190,7 +1272,7 @@
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
-- (void)test0Negate {
+- (void)testPush0Negate {
     FloatingDigits *digits = [[[FloatingDigits alloc] init] retain];
     STAssertNotNil(digits, @"Cannot create Digits instance");
     
@@ -1213,7 +1295,7 @@
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
-- (void)testNegate0 {
+- (void)testNegatePush0 {
     FloatingDigits *digits = [[[FloatingDigits alloc] init] retain];
     STAssertNotNil(digits, @"Cannot create Digits instance");
     
@@ -1236,7 +1318,7 @@
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
-- (void)test1Negate {
+- (void)testPush1Negate {
     FloatingDigits *digits = [[[FloatingDigits alloc] init] retain];
     STAssertNotNil(digits, @"Cannot create Digits instance");
     
@@ -1259,7 +1341,7 @@
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 
-- (void)testNegate1 {
+- (void)testNegatePush1 {
     FloatingDigits *digits = [[[FloatingDigits alloc] init] retain];
     STAssertNotNil(digits, @"Cannot create Digits instance");
     

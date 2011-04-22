@@ -16,13 +16,26 @@ static NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklm
 
 - (double)doubleValue // TODO fix doubleValue to include fractional digits in calculations
 {
-    if (self.signedDigits) {
-        const char *char_string = [self.signedDigits UTF8String];
-        return strtoll(char_string, NULL, self.base);       
-    } else
-    {
-        return 0.;
+    double result = 0.;
+    NSString *digits = self.signedDigits;
+    
+    if (digits) {
+        NSRange pointRange = [digits rangeOfString:@"."];
+
+        if (pointRange.length == 0) {
+            const char *char_string = [digits UTF8String];
+            result = strtoll(char_string, NULL, self.base);   
+        } else 
+        if (pointRange.length == 1) {
+            const char *char_string = [digits UTF8String];
+            double integralValue = strtoll(char_string, NULL, self.base);
+            const char *fractional_char_string = [[digits substringFromIndex:(pointRange.location+1)] UTF8String];
+            double fractionalValue = strtoll(fractional_char_string, NULL, self.base);
+            result = fractionalValue * pow((double)self.base, -(double)strlen(fractional_char_string)) + integralValue;
+        }        
     }
+    
+    return result;
 }
 
 + (NSString *)parseDigits:(NSString *)someDigits fromBase:(int)someBase
@@ -51,6 +64,14 @@ static NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklm
 
 + (NSString *)convertDouble:(double)someDouble toBase:(int)someBase
 {
+    if (isnan(someDouble)) {
+        return nil;
+    }
+    
+    if (isinf(someDouble)) {
+        return nil;
+    }
+
     NSString *result = @"";
     NSString *allowedDigits = [allDigits substringToIndex:someBase];
 //    unichar zero = [allowedDigits characterAtIndex:0];

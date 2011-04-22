@@ -420,7 +420,7 @@ const unichar pointChar = 0x2027; // ‧ HYPHENATION POINT
         }
         return nil;
     } else {
-        long long int result = pow(firstOperandValue, secondOperandValue);
+        long long int result = pow((double)firstOperandValue, (double)secondOperandValue);
         return [[[Digits alloc] initWithLongLong:result base:self.base] autorelease];
     }
 }
@@ -573,7 +573,7 @@ const unichar pointChar = 0x2027; // ‧ HYPHENATION POINT
             unsigned long long int power, quotient;
             
             for (unsigned long long int exponent = maximumBasePower; exponent > 0; exponent--) {
-                power = pow(someBase, exponent);
+                power = pow((double)someBase, (double)exponent);
                 quotient = remainder / power;
                 remainder = remainder % power;
                 [someMutableDigits appendFormat:@"%C", [allowedDigits characterAtIndex:quotient]];

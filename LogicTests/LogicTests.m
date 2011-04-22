@@ -1344,7 +1344,7 @@
     actual = calculator.previousExpression, expected = @"4 / 3";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
     
-    actual = calculator.resultDigits.description, expected = @"1.33333";
+    actual = calculator.resultDigits.description, expected = @"1.333333";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
     
     actual = calculator.secondaryDisplay, expected = @"";
