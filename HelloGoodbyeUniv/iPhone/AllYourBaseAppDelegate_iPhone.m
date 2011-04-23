@@ -14,29 +14,21 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     AllYourBaseModel *theModel = [[[AllYourBaseModel alloc] init] autorelease];
-    UITabBarController *tbc = [[[UITabBarController alloc] init] autorelease];
+
     UIViewController *vc1 = [[[AllYourBaseViewController_iPhone alloc] 
-                             initWithNibName:nil 
-                             bundle:nil 
-                             model:theModel
+                              initWithModel:theModel
+                              base:10
                              ] autorelease];
-    vc1.title = @"Decimal";
     UIViewController *vc2 = [[[AllYourBaseViewController_iPhone alloc] 
-                             initWithNibName:@"AllYourBaseViewController_iPhone10a" 
-                             bundle:nil 
-                             model:theModel
+                              initWithModel:theModel
+                              base:8
                              ] autorelease];
-    vc2.title = @"Standard Decimal";
-    UIViewController *vc3 = [[[AllYourBaseViewController_iPhone alloc] 
-                              initWithNibName:@"AllYourBaseViewController_iPhone08" 
-                              bundle:nil 
-                              model:theModel
-                              ] autorelease];
-    vc3.title = @"Octal";
+
+    UITabBarController *tbc = [[[UITabBarController alloc] init] autorelease];
+    tbc.delegate = theModel;
     tbc.viewControllers = [NSArray arrayWithObjects: 
                            vc1, 
                            vc2,
-                           vc3,
                            nil];
     self.tabBarViewController = tbc;
     self.window.rootViewController = self.tabBarViewController;

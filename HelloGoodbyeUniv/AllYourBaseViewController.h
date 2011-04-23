@@ -10,7 +10,7 @@
 #import "NKString.h"
 #import "AllYourBaseModel.h"
 
-@interface AllYourBaseViewController : UIViewController {    
+@interface AllYourBaseViewController : UIViewController {
 }
 
 @property(nonatomic,retain) IBOutlet UIView *portraitView;

@@ -10,7 +10,7 @@
 #import "AllYourBaseViewController.h"
 
 @interface AllYourBaseViewController_iPad : AllYourBaseViewController {
-    
+    int _base;    
 }
 
 @end
