@@ -12,15 +12,6 @@
 
 
 @interface AllYourBaseModel : NSObject {
-    Digits *currentDigits;
-    Digits *previousDigits;
-    Digits *resultDigits;
-    NSString *currentOperation;
-    NSString *previousOperation;    
-    NSString *previousExpression;
-    NSString *previousDisplay;
-    NSString *currentDisplay;
-    NSError *error;
 }
 
 @property (nonatomic, retain) Digits *currentDigits;

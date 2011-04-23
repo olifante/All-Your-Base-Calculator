@@ -10,7 +10,6 @@
 #import "Digits.h"
 
 @interface FloatingDigits: Digits {
-    NSString *fractionalDigits;
 }
 
 @property (retain) NSString *fractionalDigits;

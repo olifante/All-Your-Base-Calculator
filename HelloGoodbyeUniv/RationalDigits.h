@@ -10,7 +10,6 @@
 #import "Digits.h"
 
 @interface RationalDigits: Digits {
-    NSString *denominatorDigits;
 }
 
 @property (retain) NSString *denominatorDigits;

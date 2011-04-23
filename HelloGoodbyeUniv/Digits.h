@@ -10,11 +10,6 @@
 
 
 @interface Digits : NSObject {
-    int base;
-    
-    NSString *signedDigits, *allowedDigits;
-    NSCharacterSet *allowedDigitSet, *forbiddenDigitSet;
-    NSDictionary *digitValues;    
 }
 
 @property int base;
