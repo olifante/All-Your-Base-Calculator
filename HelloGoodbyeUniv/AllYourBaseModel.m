@@ -119,8 +119,6 @@
         return;
     }
     
-//    NSNumber *currentValue = self.currentDigits.value;
-//    NSNumber *previousValue = self.previousDigits.value;
     double currentValue = ((FloatingDigits *)self.currentDigits).doubleValue;
     double previousValue = ((FloatingDigits *)self.previousDigits).doubleValue;
     self.currentDigits = [[FloatingDigits alloc] initWithDouble:currentValue base:someBase];

@@ -22,14 +22,21 @@
                              ] autorelease];
     vc1.title = @"Decimal";
     UIViewController *vc2 = [[[AllYourBaseViewController_iPhone alloc] 
-                             initWithNibName:@"AllYourBaseViewController_iPhone2" 
+                             initWithNibName:@"AllYourBaseViewController_iPhone10a" 
                              bundle:nil 
                              model:theModel
                              ] autorelease];
     vc2.title = @"Standard Decimal";
+    UIViewController *vc3 = [[[AllYourBaseViewController_iPhone alloc] 
+                              initWithNibName:@"AllYourBaseViewController_iPhone08" 
+                              bundle:nil 
+                              model:theModel
+                              ] autorelease];
+    vc3.title = @"Octal";
     tbc.viewControllers = [NSArray arrayWithObjects: 
                            vc1, 
                            vc2,
+                           vc3,
                            nil];
     self.tabBarViewController = tbc;
     self.window.rootViewController = self.tabBarViewController;
