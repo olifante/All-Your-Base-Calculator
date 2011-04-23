@@ -23,6 +23,7 @@
 @property (nonatomic, retain) NSString *mainDisplay;
 @property (nonatomic, retain) NSString *secondaryDisplay;
 @property (nonatomic, retain) NSError *error;
+@property (nonatomic) int base;
 
 - (id)init;
 - (void)updateDisplays;

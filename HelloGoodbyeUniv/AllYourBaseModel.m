@@ -19,12 +19,14 @@
 @synthesize secondaryDisplay;
 @synthesize mainDisplay;
 @synthesize error;
+@synthesize base;
 
 # pragma mark overridden methods
 - (id)init
 {
     self = [super init];
     if (self) {
+        self.base = 10;
         self.error = nil;
         self.previousDigits = nil;
         self.currentDigits = [[[FloatingDigits alloc] init] autorelease];
@@ -106,6 +108,24 @@
 {
     [self updateSecondaryDisplay];
     [self updateMainDisplay];
+}
+
+# pragma mark -
+
+- (void)setBase:(int)someBase
+{
+    if ((someBase < 2) || (someBase > 100)) {
+        NSLog(@"only bases from 2 to 100 are supported");
+        return;
+    }
+    
+//    NSNumber *currentValue = self.currentDigits.value;
+//    NSNumber *previousValue = self.previousDigits.value;
+    double currentValue = ((FloatingDigits *)self.currentDigits).doubleValue;
+    double previousValue = ((FloatingDigits *)self.previousDigits).doubleValue;
+    self.currentDigits = [[FloatingDigits alloc] initWithDouble:currentValue base:someBase];
+    self.previousDigits = [[FloatingDigits alloc] initWithDouble:previousValue base:someBase];
+    [self updateDisplays];
 }
 
 # pragma mark -

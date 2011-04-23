@@ -109,8 +109,8 @@ const unichar pointChar = 0x2027; // ‧ HYPHENATION POINT
         return nil; // early return because it's useless to invoke [super init]
     }
     
-    if (!someBase || (someBase < 2)) {
-        NSLog(@"someBase must be greater than 1");
+    if (!someBase || (someBase < 2) || (someBase > 100)) {
+        NSLog(@"only bases from 2 to 100 are supported");
         return nil; // early return because it's useless to invoke [super init]
     }
     
