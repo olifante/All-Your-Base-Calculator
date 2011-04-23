@@ -10,7 +10,6 @@
 #import "AllYourBaseViewController.h"
 
 @interface AllYourBaseViewController_iPhone : AllYourBaseViewController {
-    int _base;    
 }
 
 - (id)initWithModel:(AllYourBaseModel *)theModel base:(int)someBase;

@@ -45,7 +45,7 @@
 
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController
 {
-    NSLog(@"tab selected %@", viewController);
+    NSLog(@"select tab for base %d", [(id)viewController base]);
 }
 
 # pragma mark instance methods

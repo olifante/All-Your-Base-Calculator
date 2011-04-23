@@ -11,7 +11,10 @@
 #import "AllYourBaseModel.h"
 
 @interface AllYourBaseViewController : UIViewController {
+    int base;
 }
+
+@property (nonatomic) int base;
 
 @property(nonatomic,retain) IBOutlet UIView *portraitView;
 @property(nonatomic,retain) IBOutlet UIView *landscapeView;

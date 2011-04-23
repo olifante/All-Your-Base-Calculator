@@ -29,8 +29,8 @@
     
     self = [self initWithNibName:nibForBase bundle:nil model:theModel];
     if (self) {
-        _base = someBase;
-        self.title = [NSString stringWithFormat:@"Base %02d", someBase];
+        self.base = someBase;
+        self.title = [NSString stringWithFormat:@"Base %d", someBase];
         self.isShowingLandscapeView = NO;
         [self.view addSubview:self.portraitView];
         [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];

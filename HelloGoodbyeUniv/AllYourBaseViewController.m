@@ -25,6 +25,7 @@ const unichar negative = 0x002d; // - HYPHEN-MINUS
 @synthesize landscapeView;
 @synthesize isShowingLandscapeView;
 @synthesize model;
+@synthesize base;
 
 # pragma mark outlets
 
@@ -102,6 +103,8 @@ const unichar negative = 0x002d; // - HYPHEN-MINUS
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+        self.base = 10;
+
         if (theModel) {
             self.model = theModel;
         } else
