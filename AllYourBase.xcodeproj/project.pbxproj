@@ -42,6 +42,8 @@
 		F1EC2934133FFA3000E5C619 /* NKString.m in Sources */ = {isa = PBXBuildFile; fileRef = F1EC2933133FFA2F00E5C619 /* NKString.m */; };
 		F1F1EC3E13632FF4008996EB /* AllYourBaseViewController_iPhone08.xib in Resources */ = {isa = PBXBuildFile; fileRef = F1F1EC3D13632FF4008996EB /* AllYourBaseViewController_iPhone08.xib */; };
 		F1F1EC40136331E2008996EB /* AllYourBaseViewController_iPad08.xib in Resources */ = {isa = PBXBuildFile; fileRef = F1F1EC3F136331E2008996EB /* AllYourBaseViewController_iPad08.xib */; };
+		F1F1EC43136342F3008996EB /* AllYourBaseViewController_iPad04.xib in Resources */ = {isa = PBXBuildFile; fileRef = F1F1EC41136342F2008996EB /* AllYourBaseViewController_iPad04.xib */; };
+		F1F1EC44136342F3008996EB /* AllYourBaseViewController_iPhone04.xib in Resources */ = {isa = PBXBuildFile; fileRef = F1F1EC42136342F2008996EB /* AllYourBaseViewController_iPhone04.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -108,6 +110,8 @@
 		F1EC2933133FFA2F00E5C619 /* NKString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NKString.m; sourceTree = "<group>"; };
 		F1F1EC3D13632FF4008996EB /* AllYourBaseViewController_iPhone08.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllYourBaseViewController_iPhone08.xib; sourceTree = "<group>"; };
 		F1F1EC3F136331E2008996EB /* AllYourBaseViewController_iPad08.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllYourBaseViewController_iPad08.xib; sourceTree = "<group>"; };
+		F1F1EC41136342F2008996EB /* AllYourBaseViewController_iPad04.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllYourBaseViewController_iPad04.xib; sourceTree = "<group>"; };
+		F1F1EC42136342F2008996EB /* AllYourBaseViewController_iPhone04.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllYourBaseViewController_iPhone04.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -233,6 +237,7 @@
 			children = (
 				F1ADD8EE133E56440050EB59 /* AllYourBaseViewController_iPhone.h */,
 				F1ADD8EF133E56440050EB59 /* AllYourBaseViewController_iPhone.m */,
+				F1F1EC42136342F2008996EB /* AllYourBaseViewController_iPhone04.xib */,
 				F1F1EC3D13632FF4008996EB /* AllYourBaseViewController_iPhone08.xib */,
 				F1ADD8F0133E56440050EB59 /* AllYourBaseViewController_iPhone10.xib */,
 				F19FB25F135A41F80076D882 /* AllYourBaseViewController_iPhone10a.xib */,
@@ -248,6 +253,7 @@
 			children = (
 				F1ADD8F3133E56720050EB59 /* AllYourBaseViewController_iPad.h */,
 				F1ADD8F4133E56720050EB59 /* AllYourBaseViewController_iPad.m */,
+				F1F1EC41136342F2008996EB /* AllYourBaseViewController_iPad04.xib */,
 				F1F1EC3F136331E2008996EB /* AllYourBaseViewController_iPad08.xib */,
 				F1ADD8F5133E56720050EB59 /* AllYourBaseViewController_iPad10.xib */,
 				F18B9AE513606C2900515CCF /* AllYourBaseViewController_iPad10a.xib */,
@@ -346,6 +352,8 @@
 				F18B9AE613606C2900515CCF /* AllYourBaseViewController_iPad10a.xib in Resources */,
 				F1F1EC3E13632FF4008996EB /* AllYourBaseViewController_iPhone08.xib in Resources */,
 				F1F1EC40136331E2008996EB /* AllYourBaseViewController_iPad08.xib in Resources */,
+				F1F1EC43136342F3008996EB /* AllYourBaseViewController_iPad04.xib in Resources */,
+				F1F1EC44136342F3008996EB /* AllYourBaseViewController_iPhone04.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

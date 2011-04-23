@@ -15,20 +15,25 @@
 {
     AllYourBaseModel *theModel = [[[AllYourBaseModel alloc] init] autorelease];
 
-    UIViewController *vc1 = [[[AllYourBaseViewController_iPhone alloc] 
+    UIViewController *vc10 = [[[AllYourBaseViewController_iPhone alloc] 
                               initWithModel:theModel
                               base:10
                              ] autorelease];
-    UIViewController *vc2 = [[[AllYourBaseViewController_iPhone alloc] 
+    UIViewController *vc8 = [[[AllYourBaseViewController_iPhone alloc] 
                               initWithModel:theModel
                               base:8
-                             ] autorelease];
+                              ] autorelease];
+    UIViewController *vc4 = [[[AllYourBaseViewController_iPhone alloc] 
+                              initWithModel:theModel
+                              base:4
+                              ] autorelease];
 
     UITabBarController *tbc = [[[UITabBarController alloc] init] autorelease];
     tbc.delegate = theModel;
     tbc.viewControllers = [NSArray arrayWithObjects: 
-                           vc1, 
-                           vc2,
+                           vc10, 
+                           vc8,
+                           vc4,
                            nil];
     self.tabBarViewController = tbc;
     self.window.rootViewController = self.tabBarViewController;
