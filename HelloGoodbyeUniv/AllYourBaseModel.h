@@ -11,7 +11,7 @@
 #import "Digits.h"
 
 
-@interface AllYourBaseModel : NSObject {
+@interface AllYourBaseModel : NSObject <UITabBarControllerDelegate> {
 }
 
 @property (nonatomic, retain) Digits *currentDigits;
@@ -26,18 +26,25 @@
 @property (nonatomic) int base;
 
 - (id)init;
+- (void)dealloc;
+
+- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController;
+
+- (void)releaseMembers;
+
 - (void)updateDisplays;
+
 - (void)performPendingOperationWithError:(NSError **)operationError;
-- (void)digitPressed:(NSString *)digit;
-- (void)binaryOperationPressed:(NSString *)operation;
+
 - (void)resultPressed;
-- (void)cleanPressed;
+- (void)binaryOperationPressed:(NSString *)operation;
+- (void)digitPressed:(NSString *)digit;
 - (void)deletePressed;
 - (void)negatePressed;
+- (void)cleanPressed;
 - (void)shiftLeftPressed;
 - (void)shiftRightPressed;
-- (void)EEPressed;
 - (void)percentPressed;
-- (void)releaseMembers;
+- (void)EEPressed;
 
 @end

@@ -41,6 +41,13 @@
     [super dealloc];
 }
 
+# pragma mark UITabBarControllerDelegate optional methods
+
+- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController
+{
+    NSLog(@"tab selected %@", viewController);
+}
+
 # pragma mark instance methods
 
 - (void)releaseMembers
@@ -157,6 +164,8 @@
     
     self.resultDigits = operationResultDigits;
 }
+
+# pragma mark -
 
 - (void)resultPressed
 {
