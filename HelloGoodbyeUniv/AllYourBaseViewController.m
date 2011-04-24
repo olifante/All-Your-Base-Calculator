@@ -56,7 +56,7 @@ const unichar negative = 0x002d; // - HYPHEN-MINUS
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    NSLog(@"%@ observed keyPath:%@", [self class], keyPath);
+    NSLog(@"%@ observed keypath %@", self, keyPath);
     [self updateLabels];
 }
 
@@ -131,7 +131,7 @@ const unichar negative = 0x002d; // - HYPHEN-MINUS
 - (IBAction)digitPressed:(UIButton *)sender
 {
     NSString *digit = sender.titleLabel.text;
-    NSLog(@"%@ digit pressed", digit);
+    NSLog(@"%@ '%@' digit pressed", self, digit);
     if ([digit isEqualToString:[self pointString]]) {
         [self.model digitPressed:@"."];
     } else {
@@ -142,7 +142,7 @@ const unichar negative = 0x002d; // - HYPHEN-MINUS
 - (IBAction)operationPressed:(UIButton *)sender
 {
     NSString *operation = sender.titleLabel.text;
-    NSLog(@"%@ operation pressed", operation);
+    NSLog(@"%@ '%@' operation pressed", self, operation);
     if ([operation isEqualToString:[self plusString]]) {
         [self.model binaryOperationPressed:@"+"];
     } else if ([operation isEqualToString:[self minusString]]) {
@@ -158,25 +158,25 @@ const unichar negative = 0x002d; // - HYPHEN-MINUS
 
 - (IBAction)resultPressed
 {
-    NSLog(@"result button pressed");
+    NSLog(@"%@ '=' pressed", self);
     [self.model resultPressed];
 }
 
 - (IBAction)deletePressed
 {
-    NSLog(@"delete button pressed");
+    NSLog(@"%@ 'DEL' pressed", self);
     [self.model deletePressed];
 }
 
 - (IBAction)cleanPressed
 {
-    NSLog(@"clean button pressed");
+    NSLog(@"%@ 'C' pressed", self);
     [self.model cleanPressed];
 }
 
 - (IBAction)reciprocalPressed
 {
-    NSLog(@"reciprocal button pressed");
+    NSLog(@"%@ 'INV' pressed", self);
     [self.model binaryOperationPressed:@"^"];
     [self.model negatePressed];
     [self.model digitPressed:@"1"];    
@@ -184,13 +184,13 @@ const unichar negative = 0x002d; // - HYPHEN-MINUS
 
 - (IBAction)negatePressed
 {
-    NSLog(@"negate button pressed");
+    NSLog(@"%@ 'NEG' pressed", self);
     [self.model negatePressed];
 }
 
 - (IBAction)squareRootPressed
 {
-    NSLog(@"square root button pressed");
+    NSLog(@"%@ 'SQRT' pressed", self);
     [self.model binaryOperationPressed:@"^"];
     [self.model digitPressed:@"."];
     [self.model digitPressed:@"5"];
@@ -199,7 +199,7 @@ const unichar negative = 0x002d; // - HYPHEN-MINUS
 
 - (IBAction)cubeRootPressed
 {
-    NSLog(@"cube root button pressed");
+    NSLog(@"%@ 'CBRT' pressed", self);
     [self.model binaryOperationPressed:@"^"];
     [self.model digitPressed:@"."];
     [self.model digitPressed:@"3"];

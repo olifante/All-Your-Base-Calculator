@@ -19,6 +19,10 @@
                               initWithModel:theModel
                               base:10
                              ] autorelease];
+    UIViewController *vc16 = [[[AllYourBaseViewController_iPhone alloc] 
+                              initWithModel:theModel
+                              base:16
+                              ] autorelease];
     UIViewController *vc8 = [[[AllYourBaseViewController_iPhone alloc] 
                               initWithModel:theModel
                               base:8
@@ -27,11 +31,24 @@
                               initWithModel:theModel
                               base:4
                               ] autorelease];
+//    UIViewController *vc10a = [[[AllYourBaseViewController_iPhone alloc] 
+//                              initWithNibName:@"AllYourBaseViewController_iPhone10a" bundle:nil model:theModel
+//                              base:10
+//                              ] autorelease];
+//    UIViewController *vc10s = [[[AllYourBaseViewController_iPhone alloc] 
+//                                initWithNibName:@"AllYourBaseViewController_iPhone10s" bundle:nil model:theModel
+//                                base:10
+//                                ] autorelease];
+//    UIViewController *vc10sa = [[[AllYourBaseViewController_iPhone alloc] 
+//                                initWithNibName:@"AllYourBaseViewController_iPhone10sa" bundle:nil model:theModel
+//                                base:10
+//                                ] autorelease];    
 
     UITabBarController *tbc = [[[UITabBarController alloc] init] autorelease];
     tbc.delegate = theModel;
     tbc.viewControllers = [NSArray arrayWithObjects: 
                            vc10, 
+                           vc16,
                            vc8,
                            vc4,
                            nil];

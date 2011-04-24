@@ -23,15 +23,32 @@
                               initWithModel:theModel
                               base:8
                               ] autorelease];
+    UIViewController *vc16 = [[[AllYourBaseViewController_iPad alloc] 
+                              initWithModel:theModel
+                              base:16
+                              ] autorelease];
     UIViewController *vc4 = [[[AllYourBaseViewController_iPad alloc] 
                               initWithModel:theModel
                               base:4
                               ] autorelease];
+//    UIViewController *vc10a = [[[AllYourBaseViewController_iPad alloc] 
+//                              initWithNibName:@"AllYourBaseViewController_iPad10a" bundle:nil model:theModel
+//                              base:10
+//                              ] autorelease];
+//    UIViewController *vc10s = [[[AllYourBaseViewController_iPad alloc] 
+//                                initWithNibName:@"AllYourBaseViewController_iPad10s" bundle:nil model:theModel
+//                                base:10
+//                                ] autorelease];
+//    UIViewController *vc10sa = [[[AllYourBaseViewController_iPad alloc] 
+//                                initWithNibName:@"AllYourBaseViewController_iPad10sa" bundle:nil model:theModel
+//                                base:10
+//                                ] autorelease];    
     
     UITabBarController *tbc = [[[UITabBarController alloc] init] autorelease];
     tbc.delegate = theModel;
     tbc.viewControllers = [NSArray arrayWithObjects: 
                            vc10, 
+                           vc16,
                            vc8,
                            vc4,
                            nil];

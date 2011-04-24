@@ -45,7 +45,7 @@
 
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController
 {
-    NSLog(@"selected tab for base %d", base);
+    NSLog(@"%@ controller selected (base %d)", viewController, base);
     int baseOfSelectedController = [(id)viewController base];
     if (baseOfSelectedController != self.base) {
         self.base = baseOfSelectedController;
@@ -131,10 +131,21 @@
         return;
     }
     
-    double currentValue = ((FloatingDigits *)self.currentDigits).doubleValue;
-    double previousValue = ((FloatingDigits *)self.previousDigits).doubleValue;
-    self.currentDigits = [[FloatingDigits alloc] initWithDouble:currentValue base:someBase];
-    self.previousDigits = [[FloatingDigits alloc] initWithDouble:previousValue base:someBase];
+    if (someBase == self.base) {
+        NSLog(@"no sense in changing base to the same base");
+        return;
+    }
+    
+    if (self.currentDigits) {
+        double currentValue = ((FloatingDigits *)self.currentDigits).doubleValue;
+        self.currentDigits = [[FloatingDigits alloc] initWithDouble:currentValue base:someBase];
+    }
+    
+    if (self.previousDigits) {
+        double previousValue = ((FloatingDigits *)self.previousDigits).doubleValue;
+        self.previousDigits = [[FloatingDigits alloc] initWithDouble:previousValue base:someBase];
+    }
+
     [self updateDisplays];
 }
 
