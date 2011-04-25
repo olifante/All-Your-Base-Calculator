@@ -111,7 +111,7 @@
 					<object class="IBUIButton" id="692629471">
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">301</int>
-						<string key="NSFrame">{{110, 683}, {211, 104}}</string>
+						<string key="NSFrame">{{340, 683}, {211, 104}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSNextKeyView" ref="1001301493"/>
 						<object class="NSColor" key="IBUIBackgroundColor" id="795596191">
@@ -138,7 +138,7 @@
 					<object class="IBUIButton" id="1023377428">
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">301</int>
-						<string key="NSFrame">{{110, 576}, {104, 104}}</string>
+						<string key="NSFrame">{{340, 576}, {104, 104}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSNextKeyView" ref="244161703"/>
 						<reference key="IBUIBackgroundColor" ref="795596191"/>
@@ -155,7 +155,7 @@
 					<object class="IBUIButton" id="244161703">
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">301</int>
-						<string key="NSFrame">{{217, 576}, {104, 104}}</string>
+						<string key="NSFrame">{{447, 576}, {104, 104}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSNextKeyView" ref="477367900"/>
 						<reference key="IBUIBackgroundColor" ref="795596191"/>
@@ -172,7 +172,7 @@
 					<object class="IBUIButton" id="477367900">
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">301</int>
-						<string key="NSFrame">{{324, 576}, {104, 104}}</string>
+						<string key="NSFrame">{{554, 576}, {104, 104}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSNextKeyView" ref="692629471"/>
 						<reference key="IBUIBackgroundColor" ref="795596191"/>
@@ -189,7 +189,7 @@
 					<object class="IBUIButton" id="377888956">
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">301</int>
-						<string key="NSFrame">{{110, 469}, {104, 104}}</string>
+						<string key="NSFrame">{{340, 469}, {104, 104}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSNextKeyView" ref="616774401"/>
 						<reference key="IBUIBackgroundColor" ref="795596191"/>
@@ -206,7 +206,7 @@
 					<object class="IBUIButton" id="616774401">
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">301</int>
-						<string key="NSFrame">{{217, 469}, {104, 104}}</string>
+						<string key="NSFrame">{{447, 469}, {104, 104}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSNextKeyView" ref="490239108"/>
 						<reference key="IBUIBackgroundColor" ref="795596191"/>
@@ -223,7 +223,7 @@
 					<object class="IBUIButton" id="490239108">
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">301</int>
-						<string key="NSFrame">{{324, 469}, {104, 104}}</string>
+						<string key="NSFrame">{{554, 469}, {104, 104}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSNextKeyView" ref="870073770"/>
 						<reference key="IBUIBackgroundColor" ref="795596191"/>
@@ -240,7 +240,7 @@
 					<object class="IBUIButton" id="561542518">
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">301</int>
-						<string key="NSFrame">{{110, 362}, {104, 104}}</string>
+						<string key="NSFrame">{{340, 362}, {104, 104}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSNextKeyView" ref="275572693"/>
 						<reference key="IBUIBackgroundColor" ref="795596191"/>
@@ -257,7 +257,7 @@
 					<object class="IBUIButton" id="275572693">
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">301</int>
-						<string key="NSFrame">{{217, 362}, {104, 104}}</string>
+						<string key="NSFrame">{{447, 362}, {104, 104}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSNextKeyView" ref="653020457"/>
 						<reference key="IBUIBackgroundColor" ref="795596191"/>
@@ -274,7 +274,7 @@
 					<object class="IBUIButton" id="653020457">
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">301</int>
-						<string key="NSFrame">{{324, 362}, {104, 104}}</string>
+						<string key="NSFrame">{{554, 362}, {104, 104}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSNextKeyView" ref="482505995"/>
 						<reference key="IBUIBackgroundColor" ref="795596191"/>
@@ -291,7 +291,7 @@
 					<object class="IBUIButton" id="1001301493">
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">301</int>
-						<string key="NSFrame">{{324, 683}, {104, 104}}</string>
+						<string key="NSFrame">{{554, 683}, {104, 104}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSNextKeyView" ref="698315336"/>
 						<object class="NSColor" key="IBUIBackgroundColor" id="7617896">
@@ -311,7 +311,7 @@
 					<object class="IBUIButton" id="777271220">
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">301</int>
-						<string key="NSFrame">{{217, 255}, {104, 104}}</string>
+						<string key="NSFrame">{{447, 255}, {104, 104}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSNextKeyView" ref="590421142"/>
 						<reference key="IBUIBackgroundColor" ref="7617896"/>
@@ -328,7 +328,7 @@
 					<object class="IBUIButton" id="983224260">
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">301</int>
-						<string key="NSFrame">{{3, 255}, {104, 104}}</string>
+						<string key="NSFrame">{{233, 255}, {104, 104}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSNextKeyView" ref="840164716"/>
 						<reference key="IBUIBackgroundColor" ref="7617896"/>
@@ -345,7 +345,7 @@
 					<object class="IBUIButton" id="25497336">
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">301</int>
-						<string key="NSFrame">{{3, 362}, {104, 104}}</string>
+						<string key="NSFrame">{{233, 362}, {104, 104}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSNextKeyView" ref="561542518"/>
 						<reference key="IBUIBackgroundColor" ref="7617896"/>
@@ -366,7 +366,7 @@
 					<object class="IBUIButton" id="284108047">
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">301</int>
-						<string key="NSFrame">{{3, 469}, {104, 104}}</string>
+						<string key="NSFrame">{{233, 469}, {104, 104}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSNextKeyView" ref="377888956"/>
 						<reference key="IBUIBackgroundColor" ref="7617896"/>
@@ -383,7 +383,7 @@
 					<object class="IBUIButton" id="840164716">
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">301</int>
-						<string key="NSFrame">{{110, 255}, {104, 104}}</string>
+						<string key="NSFrame">{{340, 255}, {104, 104}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSNextKeyView" ref="777271220"/>
 						<object class="NSColor" key="IBUIBackgroundColor">
@@ -403,7 +403,7 @@
 					<object class="IBUIButton" id="698315336">
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">301</int>
-						<string key="NSFrame">{{431, 576}, {104, 211}}</string>
+						<string key="NSFrame">{{661, 576}, {104, 211}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSNextKeyView"/>
 						<object class="NSColor" key="IBUIBackgroundColor">
@@ -423,7 +423,7 @@
 					<object class="IBUIButton" id="870073770">
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">301</int>
-						<string key="NSFrame">{{431, 469}, {104, 104}}</string>
+						<string key="NSFrame">{{661, 469}, {104, 104}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSNextKeyView" ref="891022371"/>
 						<object class="NSColor" key="IBUIBackgroundColor" id="469900379">
@@ -443,7 +443,7 @@
 					<object class="IBUIButton" id="482505995">
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">301</int>
-						<string key="NSFrame">{{431, 362}, {104, 104}}</string>
+						<string key="NSFrame">{{661, 362}, {104, 104}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSNextKeyView" ref="284108047"/>
 						<reference key="IBUIBackgroundColor" ref="469900379"/>
@@ -460,7 +460,7 @@
 					<object class="IBUIButton" id="488205030">
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">301</int>
-						<string key="NSFrame">{{431, 255}, {104, 104}}</string>
+						<string key="NSFrame">{{661, 255}, {104, 104}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSNextKeyView" ref="25497336"/>
 						<reference key="IBUIBackgroundColor" ref="469900379"/>
@@ -477,7 +477,7 @@
 					<object class="IBUIButton" id="590421142">
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">301</int>
-						<string key="NSFrame">{{324, 255}, {104, 104}}</string>
+						<string key="NSFrame">{{554, 255}, {104, 104}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSNextKeyView" ref="488205030"/>
 						<reference key="IBUIBackgroundColor" ref="469900379"/>
@@ -494,7 +494,7 @@
 					<object class="IBUIButton" id="891022371">
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">301</int>
-						<string key="NSFrame">{{3, 576}, {104, 104}}</string>
+						<string key="NSFrame">{{233, 576}, {104, 104}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSNextKeyView" ref="1023377428"/>
 						<reference key="IBUIBackgroundColor" ref="469900379"/>
@@ -572,7 +572,7 @@
 					<object class="IBUIButton" id="129263740">
 						<reference key="NSNextResponder" ref="755951627"/>
 						<int key="NSvFlags">301</int>
-						<string key="NSFrame">{{90, 595}, {171, 84}}</string>
+						<string key="NSFrame">{{676, 595}, {171, 84}}</string>
 						<reference key="NSSuperview" ref="755951627"/>
 						<reference key="NSNextKeyView" ref="864111406"/>
 						<reference key="IBUIBackgroundColor" ref="795596191"/>
@@ -593,7 +593,7 @@
 					<object class="IBUIButton" id="447561114">
 						<reference key="NSNextResponder" ref="755951627"/>
 						<int key="NSvFlags">301</int>
-						<string key="NSFrame">{{90, 508}, {84, 84}}</string>
+						<string key="NSFrame">{{676, 508}, {84, 84}}</string>
 						<reference key="NSSuperview" ref="755951627"/>
 						<reference key="NSNextKeyView" ref="347514991"/>
 						<reference key="IBUIBackgroundColor" ref="795596191"/>
@@ -610,7 +610,7 @@
 					<object class="IBUIButton" id="347514991">
 						<reference key="NSNextResponder" ref="755951627"/>
 						<int key="NSvFlags">301</int>
-						<string key="NSFrame">{{177, 508}, {84, 84}}</string>
+						<string key="NSFrame">{{763, 508}, {84, 84}}</string>
 						<reference key="NSSuperview" ref="755951627"/>
 						<reference key="NSNextKeyView" ref="189512185"/>
 						<reference key="IBUIBackgroundColor" ref="795596191"/>
@@ -627,7 +627,7 @@
 					<object class="IBUIButton" id="189512185">
 						<reference key="NSNextResponder" ref="755951627"/>
 						<int key="NSvFlags">301</int>
-						<string key="NSFrame">{{264, 508}, {84, 84}}</string>
+						<string key="NSFrame">{{850, 508}, {84, 84}}</string>
 						<reference key="NSSuperview" ref="755951627"/>
 						<reference key="NSNextKeyView" ref="129263740"/>
 						<reference key="IBUIBackgroundColor" ref="795596191"/>
@@ -644,7 +644,7 @@
 					<object class="IBUIButton" id="491581754">
 						<reference key="NSNextResponder" ref="755951627"/>
 						<int key="NSvFlags">301</int>
-						<string key="NSFrame">{{90, 421}, {84, 84}}</string>
+						<string key="NSFrame">{{676, 421}, {84, 84}}</string>
 						<reference key="NSSuperview" ref="755951627"/>
 						<reference key="NSNextKeyView" ref="219764604"/>
 						<reference key="IBUIBackgroundColor" ref="795596191"/>
@@ -661,7 +661,7 @@
 					<object class="IBUIButton" id="219764604">
 						<reference key="NSNextResponder" ref="755951627"/>
 						<int key="NSvFlags">301</int>
-						<string key="NSFrame">{{177, 421}, {84, 84}}</string>
+						<string key="NSFrame">{{763, 421}, {84, 84}}</string>
 						<reference key="NSSuperview" ref="755951627"/>
 						<reference key="NSNextKeyView" ref="804564917"/>
 						<reference key="IBUIBackgroundColor" ref="795596191"/>
@@ -678,7 +678,7 @@
 					<object class="IBUIButton" id="804564917">
 						<reference key="NSNextResponder" ref="755951627"/>
 						<int key="NSvFlags">301</int>
-						<string key="NSFrame">{{264, 421}, {84, 84}}</string>
+						<string key="NSFrame">{{850, 421}, {84, 84}}</string>
 						<reference key="NSSuperview" ref="755951627"/>
 						<reference key="NSNextKeyView" ref="107059807"/>
 						<reference key="IBUIBackgroundColor" ref="795596191"/>
@@ -695,7 +695,7 @@
 					<object class="IBUIButton" id="415340494">
 						<reference key="NSNextResponder" ref="755951627"/>
 						<int key="NSvFlags">301</int>
-						<string key="NSFrame">{{90, 334}, {84, 84}}</string>
+						<string key="NSFrame">{{676, 334}, {84, 84}}</string>
 						<reference key="NSSuperview" ref="755951627"/>
 						<reference key="NSNextKeyView" ref="465245216"/>
 						<reference key="IBUIBackgroundColor" ref="795596191"/>
@@ -712,7 +712,7 @@
 					<object class="IBUIButton" id="465245216">
 						<reference key="NSNextResponder" ref="755951627"/>
 						<int key="NSvFlags">301</int>
-						<string key="NSFrame">{{177, 334}, {84, 84}}</string>
+						<string key="NSFrame">{{763, 334}, {84, 84}}</string>
 						<reference key="NSSuperview" ref="755951627"/>
 						<reference key="NSNextKeyView" ref="1045666242"/>
 						<reference key="IBUIBackgroundColor" ref="795596191"/>
@@ -729,7 +729,7 @@
 					<object class="IBUIButton" id="1045666242">
 						<reference key="NSNextResponder" ref="755951627"/>
 						<int key="NSvFlags">301</int>
-						<string key="NSFrame">{{264, 334}, {84, 84}}</string>
+						<string key="NSFrame">{{850, 334}, {84, 84}}</string>
 						<reference key="NSSuperview" ref="755951627"/>
 						<reference key="NSNextKeyView" ref="845744740"/>
 						<reference key="IBUIBackgroundColor" ref="795596191"/>
@@ -746,7 +746,7 @@
 					<object class="IBUIButton" id="864111406">
 						<reference key="NSNextResponder" ref="755951627"/>
 						<int key="NSvFlags">301</int>
-						<string key="NSFrame">{{264, 595}, {84, 84}}</string>
+						<string key="NSFrame">{{850, 595}, {84, 84}}</string>
 						<reference key="NSSuperview" ref="755951627"/>
 						<reference key="NSNextKeyView" ref="815438756"/>
 						<object class="NSColor" key="IBUIBackgroundColor" id="353855931">
@@ -766,7 +766,7 @@
 					<object class="IBUIButton" id="13575618">
 						<reference key="NSNextResponder" ref="755951627"/>
 						<int key="NSvFlags">301</int>
-						<string key="NSFrame">{{177, 247}, {84, 84}}</string>
+						<string key="NSFrame">{{763, 247}, {84, 84}}</string>
 						<reference key="NSSuperview" ref="755951627"/>
 						<reference key="NSNextKeyView" ref="737145277"/>
 						<reference key="IBUIBackgroundColor" ref="353855931"/>
@@ -783,7 +783,7 @@
 					<object class="IBUIButton" id="394617944">
 						<reference key="NSNextResponder" ref="755951627"/>
 						<int key="NSvFlags">301</int>
-						<string key="NSFrame">{{3, 247}, {84, 84}}</string>
+						<string key="NSFrame">{{589, 247}, {84, 84}}</string>
 						<reference key="NSSuperview" ref="755951627"/>
 						<reference key="NSNextKeyView" ref="540317877"/>
 						<reference key="IBUIBackgroundColor" ref="353855931"/>
@@ -800,7 +800,7 @@
 					<object class="IBUIButton" id="654239425">
 						<reference key="NSNextResponder" ref="755951627"/>
 						<int key="NSvFlags">301</int>
-						<string key="NSFrame">{{3, 334}, {84, 84}}</string>
+						<string key="NSFrame">{{589, 334}, {84, 84}}</string>
 						<reference key="NSSuperview" ref="755951627"/>
 						<reference key="NSNextKeyView" ref="415340494"/>
 						<reference key="IBUIBackgroundColor" ref="353855931"/>
@@ -821,7 +821,7 @@
 					<object class="IBUIButton" id="296713174">
 						<reference key="NSNextResponder" ref="755951627"/>
 						<int key="NSvFlags">301</int>
-						<string key="NSFrame">{{3, 421}, {84, 84}}</string>
+						<string key="NSFrame">{{589, 421}, {84, 84}}</string>
 						<reference key="NSSuperview" ref="755951627"/>
 						<reference key="NSNextKeyView" ref="491581754"/>
 						<reference key="IBUIBackgroundColor" ref="353855931"/>
@@ -838,7 +838,7 @@
 					<object class="IBUIButton" id="540317877">
 						<reference key="NSNextResponder" ref="755951627"/>
 						<int key="NSvFlags">301</int>
-						<string key="NSFrame">{{90, 247}, {84, 84}}</string>
+						<string key="NSFrame">{{676, 247}, {84, 84}}</string>
 						<reference key="NSSuperview" ref="755951627"/>
 						<reference key="NSNextKeyView" ref="13575618"/>
 						<object class="NSColor" key="IBUIBackgroundColor">
@@ -858,7 +858,7 @@
 					<object class="IBUIButton" id="815438756">
 						<reference key="NSNextResponder" ref="755951627"/>
 						<int key="NSvFlags">301</int>
-						<string key="NSFrame">{{351, 508}, {84, 171}}</string>
+						<string key="NSFrame">{{937, 508}, {84, 171}}</string>
 						<reference key="NSSuperview" ref="755951627"/>
 						<reference key="NSNextKeyView"/>
 						<object class="NSColor" key="IBUIBackgroundColor">
@@ -878,7 +878,7 @@
 					<object class="IBUIButton" id="107059807">
 						<reference key="NSNextResponder" ref="755951627"/>
 						<int key="NSvFlags">301</int>
-						<string key="NSFrame">{{351, 421}, {84, 84}}</string>
+						<string key="NSFrame">{{937, 421}, {84, 84}}</string>
 						<reference key="NSSuperview" ref="755951627"/>
 						<reference key="NSNextKeyView" ref="918568286"/>
 						<reference key="IBUIBackgroundColor" ref="469900379"/>
@@ -895,7 +895,7 @@
 					<object class="IBUIButton" id="845744740">
 						<reference key="NSNextResponder" ref="755951627"/>
 						<int key="NSvFlags">301</int>
-						<string key="NSFrame">{{351, 334}, {84, 84}}</string>
+						<string key="NSFrame">{{937, 334}, {84, 84}}</string>
 						<reference key="NSSuperview" ref="755951627"/>
 						<reference key="NSNextKeyView" ref="296713174"/>
 						<reference key="IBUIBackgroundColor" ref="469900379"/>
@@ -912,7 +912,7 @@
 					<object class="IBUIButton" id="573666053">
 						<reference key="NSNextResponder" ref="755951627"/>
 						<int key="NSvFlags">301</int>
-						<string key="NSFrame">{{351, 247}, {84, 84}}</string>
+						<string key="NSFrame">{{937, 247}, {84, 84}}</string>
 						<reference key="NSSuperview" ref="755951627"/>
 						<reference key="NSNextKeyView" ref="654239425"/>
 						<reference key="IBUIBackgroundColor" ref="469900379"/>
@@ -929,7 +929,7 @@
 					<object class="IBUIButton" id="737145277">
 						<reference key="NSNextResponder" ref="755951627"/>
 						<int key="NSvFlags">301</int>
-						<string key="NSFrame">{{264, 247}, {84, 84}}</string>
+						<string key="NSFrame">{{850, 247}, {84, 84}}</string>
 						<reference key="NSSuperview" ref="755951627"/>
 						<reference key="NSNextKeyView" ref="573666053"/>
 						<reference key="IBUIBackgroundColor" ref="469900379"/>
@@ -946,7 +946,7 @@
 					<object class="IBUIButton" id="918568286">
 						<reference key="NSNextResponder" ref="755951627"/>
 						<int key="NSvFlags">301</int>
-						<string key="NSFrame">{{3, 508}, {84, 84}}</string>
+						<string key="NSFrame">{{589, 508}, {84, 84}}</string>
 						<reference key="NSSuperview" ref="755951627"/>
 						<reference key="NSNextKeyView" ref="447561114"/>
 						<reference key="IBUIBackgroundColor" ref="469900379"/>
