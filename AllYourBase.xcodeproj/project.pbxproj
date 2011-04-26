@@ -7,6 +7,38 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F107512F1367112F000469BD /* AllYourBaseViewController_iPad31.xib in Resources */ = {isa = PBXBuildFile; fileRef = F107510F1367112E000469BD /* AllYourBaseViewController_iPad31.xib */; };
+		F10751301367112F000469BD /* AllYourBaseViewController_iPad32.xib in Resources */ = {isa = PBXBuildFile; fileRef = F10751101367112E000469BD /* AllYourBaseViewController_iPad32.xib */; };
+		F10751311367112F000469BD /* AllYourBaseViewController_iPad33.xib in Resources */ = {isa = PBXBuildFile; fileRef = F10751111367112E000469BD /* AllYourBaseViewController_iPad33.xib */; };
+		F10751321367112F000469BD /* AllYourBaseViewController_iPad23.xib in Resources */ = {isa = PBXBuildFile; fileRef = F10751121367112E000469BD /* AllYourBaseViewController_iPad23.xib */; };
+		F10751331367112F000469BD /* AllYourBaseViewController_iPad24.xib in Resources */ = {isa = PBXBuildFile; fileRef = F10751131367112E000469BD /* AllYourBaseViewController_iPad24.xib */; };
+		F10751341367112F000469BD /* AllYourBaseViewController_iPad25.xib in Resources */ = {isa = PBXBuildFile; fileRef = F10751141367112E000469BD /* AllYourBaseViewController_iPad25.xib */; };
+		F10751351367112F000469BD /* AllYourBaseViewController_iPad26.xib in Resources */ = {isa = PBXBuildFile; fileRef = F10751151367112E000469BD /* AllYourBaseViewController_iPad26.xib */; };
+		F10751361367112F000469BD /* AllYourBaseViewController_iPad34.xib in Resources */ = {isa = PBXBuildFile; fileRef = F10751161367112E000469BD /* AllYourBaseViewController_iPad34.xib */; };
+		F10751371367112F000469BD /* AllYourBaseViewController_iPad14.xib in Resources */ = {isa = PBXBuildFile; fileRef = F10751171367112E000469BD /* AllYourBaseViewController_iPad14.xib */; };
+		F10751381367112F000469BD /* AllYourBaseViewController_iPad15.xib in Resources */ = {isa = PBXBuildFile; fileRef = F10751181367112E000469BD /* AllYourBaseViewController_iPad15.xib */; };
+		F10751391367112F000469BD /* AllYourBaseViewController_iPad17.xib in Resources */ = {isa = PBXBuildFile; fileRef = F10751191367112E000469BD /* AllYourBaseViewController_iPad17.xib */; };
+		F107513A1367112F000469BD /* AllYourBaseViewController_iPad18.xib in Resources */ = {isa = PBXBuildFile; fileRef = F107511A1367112E000469BD /* AllYourBaseViewController_iPad18.xib */; };
+		F107513B1367112F000469BD /* AllYourBaseViewController_iPad27.xib in Resources */ = {isa = PBXBuildFile; fileRef = F107511B1367112E000469BD /* AllYourBaseViewController_iPad27.xib */; };
+		F107513C1367112F000469BD /* AllYourBaseViewController_iPad35.xib in Resources */ = {isa = PBXBuildFile; fileRef = F107511C1367112E000469BD /* AllYourBaseViewController_iPad35.xib */; };
+		F107513D1367112F000469BD /* AllYourBaseViewController_iPad19.xib in Resources */ = {isa = PBXBuildFile; fileRef = F107511D1367112E000469BD /* AllYourBaseViewController_iPad19.xib */; };
+		F107513E1367112F000469BD /* AllYourBaseViewController_iPad20.xib in Resources */ = {isa = PBXBuildFile; fileRef = F107511E1367112E000469BD /* AllYourBaseViewController_iPad20.xib */; };
+		F107513F1367112F000469BD /* AllYourBaseViewController_iPad28.xib in Resources */ = {isa = PBXBuildFile; fileRef = F107511F1367112E000469BD /* AllYourBaseViewController_iPad28.xib */; };
+		F10751401367112F000469BD /* AllYourBaseViewController_iPad36.xib in Resources */ = {isa = PBXBuildFile; fileRef = F10751201367112E000469BD /* AllYourBaseViewController_iPad36.xib */; };
+		F10751411367112F000469BD /* AllYourBaseViewController_iPad03.xib in Resources */ = {isa = PBXBuildFile; fileRef = F10751211367112E000469BD /* AllYourBaseViewController_iPad03.xib */; };
+		F10751421367112F000469BD /* AllYourBaseViewController_iPad05.xib in Resources */ = {isa = PBXBuildFile; fileRef = F10751221367112F000469BD /* AllYourBaseViewController_iPad05.xib */; };
+		F10751431367112F000469BD /* AllYourBaseViewController_iPad06.xib in Resources */ = {isa = PBXBuildFile; fileRef = F10751231367112F000469BD /* AllYourBaseViewController_iPad06.xib */; };
+		F10751441367112F000469BD /* AllYourBaseViewController_iPad07.xib in Resources */ = {isa = PBXBuildFile; fileRef = F10751241367112F000469BD /* AllYourBaseViewController_iPad07.xib */; };
+		F10751451367112F000469BD /* AllYourBaseViewController_iPad09.xib in Resources */ = {isa = PBXBuildFile; fileRef = F10751251367112F000469BD /* AllYourBaseViewController_iPad09.xib */; };
+		F10751461367112F000469BD /* AllYourBaseViewController_iPad11.xib in Resources */ = {isa = PBXBuildFile; fileRef = F10751261367112F000469BD /* AllYourBaseViewController_iPad11.xib */; };
+		F10751471367112F000469BD /* AllYourBaseViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = F10751271367112F000469BD /* AllYourBaseViewController_iPad.xib */; };
+		F10751481367112F000469BD /* AllYourBaseViewController_iPad02.xib in Resources */ = {isa = PBXBuildFile; fileRef = F10751281367112F000469BD /* AllYourBaseViewController_iPad02.xib */; };
+		F10751491367112F000469BD /* AllYourBaseViewController_iPad12.xib in Resources */ = {isa = PBXBuildFile; fileRef = F10751291367112F000469BD /* AllYourBaseViewController_iPad12.xib */; };
+		F107514A1367112F000469BD /* AllYourBaseViewController_iPad13.xib in Resources */ = {isa = PBXBuildFile; fileRef = F107512A1367112F000469BD /* AllYourBaseViewController_iPad13.xib */; };
+		F107514B1367112F000469BD /* AllYourBaseViewController_iPad21.xib in Resources */ = {isa = PBXBuildFile; fileRef = F107512B1367112F000469BD /* AllYourBaseViewController_iPad21.xib */; };
+		F107514C1367112F000469BD /* AllYourBaseViewController_iPad22.xib in Resources */ = {isa = PBXBuildFile; fileRef = F107512C1367112F000469BD /* AllYourBaseViewController_iPad22.xib */; };
+		F107514D1367112F000469BD /* AllYourBaseViewController_iPad29.xib in Resources */ = {isa = PBXBuildFile; fileRef = F107512D1367112F000469BD /* AllYourBaseViewController_iPad29.xib */; };
+		F107514E1367112F000469BD /* AllYourBaseViewController_iPad30.xib in Resources */ = {isa = PBXBuildFile; fileRef = F107512E1367112F000469BD /* AllYourBaseViewController_iPad30.xib */; };
 		F11DA726134A14E200797005 /* Digits.m in Sources */ = {isa = PBXBuildFile; fileRef = F11DA725134A14E200797005 /* Digits.m */; };
 		F12197421343BA6F00507A37 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1ADD8C9133E55830050EB59 /* UIKit.framework */; };
 		F12197431343BA6F00507A37 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1ADD8CB133E55830050EB59 /* Foundation.framework */; };
@@ -21,10 +53,20 @@
 		F1648E9B13415EBF004D0E12 /* AllYourBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F1648E9913415EBF004D0E12 /* AllYourBaseViewController.m */; };
 		F1815B6B1364FDDD0001B7F6 /* AllYourBaseViewController_iPadGeneric.xib in Resources */ = {isa = PBXBuildFile; fileRef = F1815B691364FDDD0001B7F6 /* AllYourBaseViewController_iPadGeneric.xib */; };
 		F1815B6C1364FDDD0001B7F6 /* AllYourBaseViewController_iPhoneGeneric.xib in Resources */ = {isa = PBXBuildFile; fileRef = F1815B6A1364FDDD0001B7F6 /* AllYourBaseViewController_iPhoneGeneric.xib */; };
+		F1815B841364FF530001B7F6 /* AllYourBaseViewController_iPhone15.xib in Resources */ = {isa = PBXBuildFile; fileRef = F1815B6E1364FF510001B7F6 /* AllYourBaseViewController_iPhone15.xib */; };
+		F1815B851364FF530001B7F6 /* AllYourBaseViewController_iPhone14.xib in Resources */ = {isa = PBXBuildFile; fileRef = F1815B6F1364FF510001B7F6 /* AllYourBaseViewController_iPhone14.xib */; };
+		F1815B861364FF530001B7F6 /* AllYourBaseViewController_iPhone13.xib in Resources */ = {isa = PBXBuildFile; fileRef = F1815B701364FF510001B7F6 /* AllYourBaseViewController_iPhone13.xib */; };
+		F1815B871364FF530001B7F6 /* AllYourBaseViewController_iPhone12.xib in Resources */ = {isa = PBXBuildFile; fileRef = F1815B711364FF510001B7F6 /* AllYourBaseViewController_iPhone12.xib */; };
+		F1815B881364FF530001B7F6 /* AllYourBaseViewController_iPhone11.xib in Resources */ = {isa = PBXBuildFile; fileRef = F1815B721364FF510001B7F6 /* AllYourBaseViewController_iPhone11.xib */; };
+		F1815B891364FF530001B7F6 /* AllYourBaseViewController_iPhone09.xib in Resources */ = {isa = PBXBuildFile; fileRef = F1815B731364FF520001B7F6 /* AllYourBaseViewController_iPhone09.xib */; };
+		F1815B8A1364FF530001B7F6 /* AllYourBaseViewController_iPhone07.xib in Resources */ = {isa = PBXBuildFile; fileRef = F1815B741364FF520001B7F6 /* AllYourBaseViewController_iPhone07.xib */; };
+		F1815B8B1364FF530001B7F6 /* AllYourBaseViewController_iPhone06.xib in Resources */ = {isa = PBXBuildFile; fileRef = F1815B751364FF520001B7F6 /* AllYourBaseViewController_iPhone06.xib */; };
+		F1815B8C1364FF530001B7F6 /* AllYourBaseViewController_iPhone05.xib in Resources */ = {isa = PBXBuildFile; fileRef = F1815B761364FF520001B7F6 /* AllYourBaseViewController_iPhone05.xib */; };
+		F1815B8D1364FF530001B7F6 /* AllYourBaseViewController_iPhone03.xib in Resources */ = {isa = PBXBuildFile; fileRef = F1815B771364FF520001B7F6 /* AllYourBaseViewController_iPhone03.xib */; };
+		F1815B8E1364FF530001B7F6 /* AllYourBaseViewController_iPhone02.xib in Resources */ = {isa = PBXBuildFile; fileRef = F1815B781364FF520001B7F6 /* AllYourBaseViewController_iPhone02.xib */; };
 		F1893596134A423A00F805B0 /* DigitsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F1893595134A423A00F805B0 /* DigitsTests.m */; };
 		F18B9AE613606C2900515CCF /* AllYourBaseViewController_iPad10a.xib in Resources */ = {isa = PBXBuildFile; fileRef = F18B9AE513606C2900515CCF /* AllYourBaseViewController_iPad10a.xib */; };
 		F1929316136391D400975205 /* AllYourBaseViewController_iPhone16.xib in Resources */ = {isa = PBXBuildFile; fileRef = F1929314136391D400975205 /* AllYourBaseViewController_iPhone16.xib */; };
-		F1929317136391D400975205 /* AllYourBaseViewController_iPad16.xib in Resources */ = {isa = PBXBuildFile; fileRef = F1929315136391D400975205 /* AllYourBaseViewController_iPad16.xib */; };
 		F192931D1363926C00975205 /* AllYourBaseViewController_iPad10s.xib in Resources */ = {isa = PBXBuildFile; fileRef = F19293191363926C00975205 /* AllYourBaseViewController_iPad10s.xib */; };
 		F192931E1363926C00975205 /* AllYourBaseViewController_iPad10sa.xib in Resources */ = {isa = PBXBuildFile; fileRef = F192931A1363926C00975205 /* AllYourBaseViewController_iPad10sa.xib */; };
 		F192931F1363926C00975205 /* AllYourBaseViewController_iPhone10s.xib in Resources */ = {isa = PBXBuildFile; fileRef = F192931B1363926C00975205 /* AllYourBaseViewController_iPhone10s.xib */; };
@@ -45,12 +87,9 @@
 		F1ADD8F1133E56440050EB59 /* AllYourBaseViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = F1ADD8EF133E56440050EB59 /* AllYourBaseViewController_iPhone.m */; };
 		F1ADD8F2133E56440050EB59 /* AllYourBaseViewController_iPhone10.xib in Resources */ = {isa = PBXBuildFile; fileRef = F1ADD8F0133E56440050EB59 /* AllYourBaseViewController_iPhone10.xib */; };
 		F1ADD8F6133E56720050EB59 /* AllYourBaseViewController_iPad.m in Sources */ = {isa = PBXBuildFile; fileRef = F1ADD8F4133E56720050EB59 /* AllYourBaseViewController_iPad.m */; };
-		F1ADD8F7133E56720050EB59 /* AllYourBaseViewController_iPad10.xib in Resources */ = {isa = PBXBuildFile; fileRef = F1ADD8F5133E56720050EB59 /* AllYourBaseViewController_iPad10.xib */; };
 		F1C7BF60135DD17E0055500F /* gcd.c in Sources */ = {isa = PBXBuildFile; fileRef = F1C7BF5E135DD17E0055500F /* gcd.c */; };
 		F1EC2934133FFA3000E5C619 /* NKString.m in Sources */ = {isa = PBXBuildFile; fileRef = F1EC2933133FFA2F00E5C619 /* NKString.m */; };
 		F1F1EC3E13632FF4008996EB /* AllYourBaseViewController_iPhone08.xib in Resources */ = {isa = PBXBuildFile; fileRef = F1F1EC3D13632FF4008996EB /* AllYourBaseViewController_iPhone08.xib */; };
-		F1F1EC40136331E2008996EB /* AllYourBaseViewController_iPad08.xib in Resources */ = {isa = PBXBuildFile; fileRef = F1F1EC3F136331E2008996EB /* AllYourBaseViewController_iPad08.xib */; };
-		F1F1EC43136342F3008996EB /* AllYourBaseViewController_iPad04.xib in Resources */ = {isa = PBXBuildFile; fileRef = F1F1EC41136342F2008996EB /* AllYourBaseViewController_iPad04.xib */; };
 		F1F1EC44136342F3008996EB /* AllYourBaseViewController_iPhone04.xib in Resources */ = {isa = PBXBuildFile; fileRef = F1F1EC42136342F2008996EB /* AllYourBaseViewController_iPhone04.xib */; };
 /* End PBXBuildFile section */
 
@@ -65,6 +104,38 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F107510F1367112E000469BD /* AllYourBaseViewController_iPad31.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllYourBaseViewController_iPad31.xib; sourceTree = "<group>"; };
+		F10751101367112E000469BD /* AllYourBaseViewController_iPad32.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllYourBaseViewController_iPad32.xib; sourceTree = "<group>"; };
+		F10751111367112E000469BD /* AllYourBaseViewController_iPad33.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllYourBaseViewController_iPad33.xib; sourceTree = "<group>"; };
+		F10751121367112E000469BD /* AllYourBaseViewController_iPad23.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllYourBaseViewController_iPad23.xib; sourceTree = "<group>"; };
+		F10751131367112E000469BD /* AllYourBaseViewController_iPad24.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllYourBaseViewController_iPad24.xib; sourceTree = "<group>"; };
+		F10751141367112E000469BD /* AllYourBaseViewController_iPad25.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllYourBaseViewController_iPad25.xib; sourceTree = "<group>"; };
+		F10751151367112E000469BD /* AllYourBaseViewController_iPad26.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllYourBaseViewController_iPad26.xib; sourceTree = "<group>"; };
+		F10751161367112E000469BD /* AllYourBaseViewController_iPad34.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllYourBaseViewController_iPad34.xib; sourceTree = "<group>"; };
+		F10751171367112E000469BD /* AllYourBaseViewController_iPad14.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllYourBaseViewController_iPad14.xib; sourceTree = "<group>"; };
+		F10751181367112E000469BD /* AllYourBaseViewController_iPad15.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllYourBaseViewController_iPad15.xib; sourceTree = "<group>"; };
+		F10751191367112E000469BD /* AllYourBaseViewController_iPad17.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllYourBaseViewController_iPad17.xib; sourceTree = "<group>"; };
+		F107511A1367112E000469BD /* AllYourBaseViewController_iPad18.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllYourBaseViewController_iPad18.xib; sourceTree = "<group>"; };
+		F107511B1367112E000469BD /* AllYourBaseViewController_iPad27.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllYourBaseViewController_iPad27.xib; sourceTree = "<group>"; };
+		F107511C1367112E000469BD /* AllYourBaseViewController_iPad35.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllYourBaseViewController_iPad35.xib; sourceTree = "<group>"; };
+		F107511D1367112E000469BD /* AllYourBaseViewController_iPad19.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllYourBaseViewController_iPad19.xib; sourceTree = "<group>"; };
+		F107511E1367112E000469BD /* AllYourBaseViewController_iPad20.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllYourBaseViewController_iPad20.xib; sourceTree = "<group>"; };
+		F107511F1367112E000469BD /* AllYourBaseViewController_iPad28.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllYourBaseViewController_iPad28.xib; sourceTree = "<group>"; };
+		F10751201367112E000469BD /* AllYourBaseViewController_iPad36.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllYourBaseViewController_iPad36.xib; sourceTree = "<group>"; };
+		F10751211367112E000469BD /* AllYourBaseViewController_iPad03.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllYourBaseViewController_iPad03.xib; sourceTree = "<group>"; };
+		F10751221367112F000469BD /* AllYourBaseViewController_iPad05.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllYourBaseViewController_iPad05.xib; sourceTree = "<group>"; };
+		F10751231367112F000469BD /* AllYourBaseViewController_iPad06.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllYourBaseViewController_iPad06.xib; sourceTree = "<group>"; };
+		F10751241367112F000469BD /* AllYourBaseViewController_iPad07.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllYourBaseViewController_iPad07.xib; sourceTree = "<group>"; };
+		F10751251367112F000469BD /* AllYourBaseViewController_iPad09.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllYourBaseViewController_iPad09.xib; sourceTree = "<group>"; };
+		F10751261367112F000469BD /* AllYourBaseViewController_iPad11.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllYourBaseViewController_iPad11.xib; sourceTree = "<group>"; };
+		F10751271367112F000469BD /* AllYourBaseViewController_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllYourBaseViewController_iPad.xib; sourceTree = "<group>"; };
+		F10751281367112F000469BD /* AllYourBaseViewController_iPad02.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllYourBaseViewController_iPad02.xib; sourceTree = "<group>"; };
+		F10751291367112F000469BD /* AllYourBaseViewController_iPad12.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllYourBaseViewController_iPad12.xib; sourceTree = "<group>"; };
+		F107512A1367112F000469BD /* AllYourBaseViewController_iPad13.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllYourBaseViewController_iPad13.xib; sourceTree = "<group>"; };
+		F107512B1367112F000469BD /* AllYourBaseViewController_iPad21.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllYourBaseViewController_iPad21.xib; sourceTree = "<group>"; };
+		F107512C1367112F000469BD /* AllYourBaseViewController_iPad22.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllYourBaseViewController_iPad22.xib; sourceTree = "<group>"; };
+		F107512D1367112F000469BD /* AllYourBaseViewController_iPad29.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllYourBaseViewController_iPad29.xib; sourceTree = "<group>"; };
+		F107512E1367112F000469BD /* AllYourBaseViewController_iPad30.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllYourBaseViewController_iPad30.xib; sourceTree = "<group>"; };
 		F11DA724134A14E200797005 /* Digits.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Digits.h; sourceTree = "<group>"; };
 		F11DA725134A14E200797005 /* Digits.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Digits.m; sourceTree = "<group>"; };
 		F12197411343BA6F00507A37 /* LogicTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LogicTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -84,11 +155,21 @@
 		F1648E9A13415EBF004D0E12 /* AllYourBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllYourBaseViewController.h; sourceTree = "<group>"; };
 		F1815B691364FDDD0001B7F6 /* AllYourBaseViewController_iPadGeneric.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllYourBaseViewController_iPadGeneric.xib; sourceTree = "<group>"; };
 		F1815B6A1364FDDD0001B7F6 /* AllYourBaseViewController_iPhoneGeneric.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllYourBaseViewController_iPhoneGeneric.xib; sourceTree = "<group>"; };
+		F1815B6E1364FF510001B7F6 /* AllYourBaseViewController_iPhone15.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllYourBaseViewController_iPhone15.xib; sourceTree = "<group>"; };
+		F1815B6F1364FF510001B7F6 /* AllYourBaseViewController_iPhone14.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllYourBaseViewController_iPhone14.xib; sourceTree = "<group>"; };
+		F1815B701364FF510001B7F6 /* AllYourBaseViewController_iPhone13.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllYourBaseViewController_iPhone13.xib; sourceTree = "<group>"; };
+		F1815B711364FF510001B7F6 /* AllYourBaseViewController_iPhone12.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllYourBaseViewController_iPhone12.xib; sourceTree = "<group>"; };
+		F1815B721364FF510001B7F6 /* AllYourBaseViewController_iPhone11.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllYourBaseViewController_iPhone11.xib; sourceTree = "<group>"; };
+		F1815B731364FF520001B7F6 /* AllYourBaseViewController_iPhone09.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllYourBaseViewController_iPhone09.xib; sourceTree = "<group>"; };
+		F1815B741364FF520001B7F6 /* AllYourBaseViewController_iPhone07.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllYourBaseViewController_iPhone07.xib; sourceTree = "<group>"; };
+		F1815B751364FF520001B7F6 /* AllYourBaseViewController_iPhone06.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllYourBaseViewController_iPhone06.xib; sourceTree = "<group>"; };
+		F1815B761364FF520001B7F6 /* AllYourBaseViewController_iPhone05.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllYourBaseViewController_iPhone05.xib; sourceTree = "<group>"; };
+		F1815B771364FF520001B7F6 /* AllYourBaseViewController_iPhone03.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllYourBaseViewController_iPhone03.xib; sourceTree = "<group>"; };
+		F1815B781364FF520001B7F6 /* AllYourBaseViewController_iPhone02.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllYourBaseViewController_iPhone02.xib; sourceTree = "<group>"; };
 		F1893594134A423A00F805B0 /* DigitsTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DigitsTests.h; sourceTree = "<group>"; };
 		F1893595134A423A00F805B0 /* DigitsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = DigitsTests.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		F18B9AE513606C2900515CCF /* AllYourBaseViewController_iPad10a.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllYourBaseViewController_iPad10a.xib; sourceTree = "<group>"; };
 		F1929314136391D400975205 /* AllYourBaseViewController_iPhone16.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllYourBaseViewController_iPhone16.xib; sourceTree = "<group>"; };
-		F1929315136391D400975205 /* AllYourBaseViewController_iPad16.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllYourBaseViewController_iPad16.xib; sourceTree = "<group>"; };
 		F19293191363926C00975205 /* AllYourBaseViewController_iPad10s.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllYourBaseViewController_iPad10s.xib; sourceTree = "<group>"; };
 		F192931A1363926C00975205 /* AllYourBaseViewController_iPad10sa.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllYourBaseViewController_iPad10sa.xib; sourceTree = "<group>"; };
 		F192931B1363926C00975205 /* AllYourBaseViewController_iPhone10s.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllYourBaseViewController_iPhone10s.xib; sourceTree = "<group>"; };
@@ -119,14 +200,11 @@
 		F1ADD8F0133E56440050EB59 /* AllYourBaseViewController_iPhone10.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllYourBaseViewController_iPhone10.xib; sourceTree = "<group>"; };
 		F1ADD8F3133E56720050EB59 /* AllYourBaseViewController_iPad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllYourBaseViewController_iPad.h; sourceTree = "<group>"; };
 		F1ADD8F4133E56720050EB59 /* AllYourBaseViewController_iPad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllYourBaseViewController_iPad.m; sourceTree = "<group>"; };
-		F1ADD8F5133E56720050EB59 /* AllYourBaseViewController_iPad10.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllYourBaseViewController_iPad10.xib; sourceTree = "<group>"; };
 		F1C7BF5E135DD17E0055500F /* gcd.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gcd.c; sourceTree = "<group>"; };
 		F1C7BF5F135DD17E0055500F /* gcd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gcd.h; sourceTree = "<group>"; };
 		F1EC2932133FFA2F00E5C619 /* NKString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NKString.h; sourceTree = "<group>"; };
 		F1EC2933133FFA2F00E5C619 /* NKString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NKString.m; sourceTree = "<group>"; };
 		F1F1EC3D13632FF4008996EB /* AllYourBaseViewController_iPhone08.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllYourBaseViewController_iPhone08.xib; sourceTree = "<group>"; };
-		F1F1EC3F136331E2008996EB /* AllYourBaseViewController_iPad08.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllYourBaseViewController_iPad08.xib; sourceTree = "<group>"; };
-		F1F1EC41136342F2008996EB /* AllYourBaseViewController_iPad04.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllYourBaseViewController_iPad04.xib; sourceTree = "<group>"; };
 		F1F1EC42136342F2008996EB /* AllYourBaseViewController_iPhone04.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllYourBaseViewController_iPhone04.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -176,6 +254,75 @@
 				F121974B1343BA6F00507A37 /* LogicTests-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F1815BC21366F8CE0001B7F6 /* xibs */ = {
+			isa = PBXGroup;
+			children = (
+				F10751281367112F000469BD /* AllYourBaseViewController_iPad02.xib */,
+				F10751211367112E000469BD /* AllYourBaseViewController_iPad03.xib */,
+				F10751221367112F000469BD /* AllYourBaseViewController_iPad05.xib */,
+				F10751231367112F000469BD /* AllYourBaseViewController_iPad06.xib */,
+				F10751241367112F000469BD /* AllYourBaseViewController_iPad07.xib */,
+				F10751251367112F000469BD /* AllYourBaseViewController_iPad09.xib */,
+				F10751261367112F000469BD /* AllYourBaseViewController_iPad11.xib */,
+				F10751291367112F000469BD /* AllYourBaseViewController_iPad12.xib */,
+				F107512A1367112F000469BD /* AllYourBaseViewController_iPad13.xib */,
+				F10751171367112E000469BD /* AllYourBaseViewController_iPad14.xib */,
+				F10751181367112E000469BD /* AllYourBaseViewController_iPad15.xib */,
+				F10751191367112E000469BD /* AllYourBaseViewController_iPad17.xib */,
+				F107511A1367112E000469BD /* AllYourBaseViewController_iPad18.xib */,
+				F107511D1367112E000469BD /* AllYourBaseViewController_iPad19.xib */,
+				F107511E1367112E000469BD /* AllYourBaseViewController_iPad20.xib */,
+				F107512B1367112F000469BD /* AllYourBaseViewController_iPad21.xib */,
+				F107512C1367112F000469BD /* AllYourBaseViewController_iPad22.xib */,
+				F10751121367112E000469BD /* AllYourBaseViewController_iPad23.xib */,
+				F10751131367112E000469BD /* AllYourBaseViewController_iPad24.xib */,
+				F10751141367112E000469BD /* AllYourBaseViewController_iPad25.xib */,
+				F10751151367112E000469BD /* AllYourBaseViewController_iPad26.xib */,
+				F107511B1367112E000469BD /* AllYourBaseViewController_iPad27.xib */,
+				F107511F1367112E000469BD /* AllYourBaseViewController_iPad28.xib */,
+				F107512D1367112F000469BD /* AllYourBaseViewController_iPad29.xib */,
+				F107512E1367112F000469BD /* AllYourBaseViewController_iPad30.xib */,
+				F107510F1367112E000469BD /* AllYourBaseViewController_iPad31.xib */,
+				F10751101367112E000469BD /* AllYourBaseViewController_iPad32.xib */,
+				F10751111367112E000469BD /* AllYourBaseViewController_iPad33.xib */,
+				F10751161367112E000469BD /* AllYourBaseViewController_iPad34.xib */,
+				F107511C1367112E000469BD /* AllYourBaseViewController_iPad35.xib */,
+				F10751201367112E000469BD /* AllYourBaseViewController_iPad36.xib */,
+				F10751271367112F000469BD /* AllYourBaseViewController_iPad.xib */,
+				F1815B691364FDDD0001B7F6 /* AllYourBaseViewController_iPadGeneric.xib */,
+				F18B9AE513606C2900515CCF /* AllYourBaseViewController_iPad10a.xib */,
+				F19293191363926C00975205 /* AllYourBaseViewController_iPad10s.xib */,
+				F192931A1363926C00975205 /* AllYourBaseViewController_iPad10sa.xib */,
+			);
+			name = xibs;
+			sourceTree = "<group>";
+		};
+		F1815BC31366F9650001B7F6 /* xibs */ = {
+			isa = PBXGroup;
+			children = (
+				F1815B781364FF520001B7F6 /* AllYourBaseViewController_iPhone02.xib */,
+				F1815B771364FF520001B7F6 /* AllYourBaseViewController_iPhone03.xib */,
+				F1F1EC42136342F2008996EB /* AllYourBaseViewController_iPhone04.xib */,
+				F1815B761364FF520001B7F6 /* AllYourBaseViewController_iPhone05.xib */,
+				F1815B751364FF520001B7F6 /* AllYourBaseViewController_iPhone06.xib */,
+				F1815B741364FF520001B7F6 /* AllYourBaseViewController_iPhone07.xib */,
+				F1F1EC3D13632FF4008996EB /* AllYourBaseViewController_iPhone08.xib */,
+				F1815B731364FF520001B7F6 /* AllYourBaseViewController_iPhone09.xib */,
+				F1ADD8F0133E56440050EB59 /* AllYourBaseViewController_iPhone10.xib */,
+				F1815B721364FF510001B7F6 /* AllYourBaseViewController_iPhone11.xib */,
+				F1815B711364FF510001B7F6 /* AllYourBaseViewController_iPhone12.xib */,
+				F1815B701364FF510001B7F6 /* AllYourBaseViewController_iPhone13.xib */,
+				F1815B6F1364FF510001B7F6 /* AllYourBaseViewController_iPhone14.xib */,
+				F1815B6E1364FF510001B7F6 /* AllYourBaseViewController_iPhone15.xib */,
+				F1929314136391D400975205 /* AllYourBaseViewController_iPhone16.xib */,
+				F1815B6A1364FDDD0001B7F6 /* AllYourBaseViewController_iPhoneGeneric.xib */,
+				F19FB25F135A41F80076D882 /* AllYourBaseViewController_iPhone10a.xib */,
+				F192931B1363926C00975205 /* AllYourBaseViewController_iPhone10s.xib */,
+				F192931C1363926C00975205 /* AllYourBaseViewController_iPhone10sa.xib */,
+			);
+			name = xibs;
 			sourceTree = "<group>";
 		};
 		F1ADD8BA133E55830050EB59 = {
@@ -253,14 +400,7 @@
 			children = (
 				F1ADD8EE133E56440050EB59 /* AllYourBaseViewController_iPhone.h */,
 				F1ADD8EF133E56440050EB59 /* AllYourBaseViewController_iPhone.m */,
-				F1F1EC42136342F2008996EB /* AllYourBaseViewController_iPhone04.xib */,
-				F1F1EC3D13632FF4008996EB /* AllYourBaseViewController_iPhone08.xib */,
-				F1ADD8F0133E56440050EB59 /* AllYourBaseViewController_iPhone10.xib */,
-				F19FB25F135A41F80076D882 /* AllYourBaseViewController_iPhone10a.xib */,
-				F192931B1363926C00975205 /* AllYourBaseViewController_iPhone10s.xib */,
-				F192931C1363926C00975205 /* AllYourBaseViewController_iPhone10sa.xib */,
-				F1929314136391D400975205 /* AllYourBaseViewController_iPhone16.xib */,
-				F1815B6A1364FDDD0001B7F6 /* AllYourBaseViewController_iPhoneGeneric.xib */,
+				F1815BC31366F9650001B7F6 /* xibs */,
 				F1ADD8DC133E55830050EB59 /* AllYourBaseAppDelegate_iPhone.h */,
 				F1ADD8DD133E55830050EB59 /* AllYourBaseAppDelegate_iPhone.m */,
 				F1ADD8DF133E55830050EB59 /* MainWindow_iPhone.xib */,
@@ -273,14 +413,7 @@
 			children = (
 				F1ADD8F3133E56720050EB59 /* AllYourBaseViewController_iPad.h */,
 				F1ADD8F4133E56720050EB59 /* AllYourBaseViewController_iPad.m */,
-				F1F1EC41136342F2008996EB /* AllYourBaseViewController_iPad04.xib */,
-				F1F1EC3F136331E2008996EB /* AllYourBaseViewController_iPad08.xib */,
-				F1ADD8F5133E56720050EB59 /* AllYourBaseViewController_iPad10.xib */,
-				F18B9AE513606C2900515CCF /* AllYourBaseViewController_iPad10a.xib */,
-				F19293191363926C00975205 /* AllYourBaseViewController_iPad10s.xib */,
-				F192931A1363926C00975205 /* AllYourBaseViewController_iPad10sa.xib */,
-				F1929315136391D400975205 /* AllYourBaseViewController_iPad16.xib */,
-				F1815B691364FDDD0001B7F6 /* AllYourBaseViewController_iPadGeneric.xib */,
+				F1815BC21366F8CE0001B7F6 /* xibs */,
 				F1ADD8E3133E55830050EB59 /* AllYourBaseAppDelegate_iPad.h */,
 				F1ADD8E4133E55830050EB59 /* AllYourBaseAppDelegate_iPad.m */,
 				F1ADD8E6133E55830050EB59 /* MainWindow_iPad.xib */,
@@ -371,21 +504,60 @@
 				F1ADD8E1133E55830050EB59 /* MainWindow_iPhone.xib in Resources */,
 				F1ADD8E8133E55830050EB59 /* MainWindow_iPad.xib in Resources */,
 				F1ADD8F2133E56440050EB59 /* AllYourBaseViewController_iPhone10.xib in Resources */,
-				F1ADD8F7133E56720050EB59 /* AllYourBaseViewController_iPad10.xib in Resources */,
 				F19FB260135A41F90076D882 /* AllYourBaseViewController_iPhone10a.xib in Resources */,
 				F18B9AE613606C2900515CCF /* AllYourBaseViewController_iPad10a.xib in Resources */,
 				F1F1EC3E13632FF4008996EB /* AllYourBaseViewController_iPhone08.xib in Resources */,
-				F1F1EC40136331E2008996EB /* AllYourBaseViewController_iPad08.xib in Resources */,
-				F1F1EC43136342F3008996EB /* AllYourBaseViewController_iPad04.xib in Resources */,
 				F1F1EC44136342F3008996EB /* AllYourBaseViewController_iPhone04.xib in Resources */,
 				F1929316136391D400975205 /* AllYourBaseViewController_iPhone16.xib in Resources */,
-				F1929317136391D400975205 /* AllYourBaseViewController_iPad16.xib in Resources */,
 				F192931D1363926C00975205 /* AllYourBaseViewController_iPad10s.xib in Resources */,
 				F192931E1363926C00975205 /* AllYourBaseViewController_iPad10sa.xib in Resources */,
 				F192931F1363926C00975205 /* AllYourBaseViewController_iPhone10s.xib in Resources */,
 				F19293201363926C00975205 /* AllYourBaseViewController_iPhone10sa.xib in Resources */,
 				F1815B6B1364FDDD0001B7F6 /* AllYourBaseViewController_iPadGeneric.xib in Resources */,
 				F1815B6C1364FDDD0001B7F6 /* AllYourBaseViewController_iPhoneGeneric.xib in Resources */,
+				F1815B841364FF530001B7F6 /* AllYourBaseViewController_iPhone15.xib in Resources */,
+				F1815B851364FF530001B7F6 /* AllYourBaseViewController_iPhone14.xib in Resources */,
+				F1815B861364FF530001B7F6 /* AllYourBaseViewController_iPhone13.xib in Resources */,
+				F1815B871364FF530001B7F6 /* AllYourBaseViewController_iPhone12.xib in Resources */,
+				F1815B881364FF530001B7F6 /* AllYourBaseViewController_iPhone11.xib in Resources */,
+				F1815B891364FF530001B7F6 /* AllYourBaseViewController_iPhone09.xib in Resources */,
+				F1815B8A1364FF530001B7F6 /* AllYourBaseViewController_iPhone07.xib in Resources */,
+				F1815B8B1364FF530001B7F6 /* AllYourBaseViewController_iPhone06.xib in Resources */,
+				F1815B8C1364FF530001B7F6 /* AllYourBaseViewController_iPhone05.xib in Resources */,
+				F1815B8D1364FF530001B7F6 /* AllYourBaseViewController_iPhone03.xib in Resources */,
+				F1815B8E1364FF530001B7F6 /* AllYourBaseViewController_iPhone02.xib in Resources */,
+				F107512F1367112F000469BD /* AllYourBaseViewController_iPad31.xib in Resources */,
+				F10751301367112F000469BD /* AllYourBaseViewController_iPad32.xib in Resources */,
+				F10751311367112F000469BD /* AllYourBaseViewController_iPad33.xib in Resources */,
+				F10751321367112F000469BD /* AllYourBaseViewController_iPad23.xib in Resources */,
+				F10751331367112F000469BD /* AllYourBaseViewController_iPad24.xib in Resources */,
+				F10751341367112F000469BD /* AllYourBaseViewController_iPad25.xib in Resources */,
+				F10751351367112F000469BD /* AllYourBaseViewController_iPad26.xib in Resources */,
+				F10751361367112F000469BD /* AllYourBaseViewController_iPad34.xib in Resources */,
+				F10751371367112F000469BD /* AllYourBaseViewController_iPad14.xib in Resources */,
+				F10751381367112F000469BD /* AllYourBaseViewController_iPad15.xib in Resources */,
+				F10751391367112F000469BD /* AllYourBaseViewController_iPad17.xib in Resources */,
+				F107513A1367112F000469BD /* AllYourBaseViewController_iPad18.xib in Resources */,
+				F107513B1367112F000469BD /* AllYourBaseViewController_iPad27.xib in Resources */,
+				F107513C1367112F000469BD /* AllYourBaseViewController_iPad35.xib in Resources */,
+				F107513D1367112F000469BD /* AllYourBaseViewController_iPad19.xib in Resources */,
+				F107513E1367112F000469BD /* AllYourBaseViewController_iPad20.xib in Resources */,
+				F107513F1367112F000469BD /* AllYourBaseViewController_iPad28.xib in Resources */,
+				F10751401367112F000469BD /* AllYourBaseViewController_iPad36.xib in Resources */,
+				F10751411367112F000469BD /* AllYourBaseViewController_iPad03.xib in Resources */,
+				F10751421367112F000469BD /* AllYourBaseViewController_iPad05.xib in Resources */,
+				F10751431367112F000469BD /* AllYourBaseViewController_iPad06.xib in Resources */,
+				F10751441367112F000469BD /* AllYourBaseViewController_iPad07.xib in Resources */,
+				F10751451367112F000469BD /* AllYourBaseViewController_iPad09.xib in Resources */,
+				F10751461367112F000469BD /* AllYourBaseViewController_iPad11.xib in Resources */,
+				F10751471367112F000469BD /* AllYourBaseViewController_iPad.xib in Resources */,
+				F10751481367112F000469BD /* AllYourBaseViewController_iPad02.xib in Resources */,
+				F10751491367112F000469BD /* AllYourBaseViewController_iPad12.xib in Resources */,
+				F107514A1367112F000469BD /* AllYourBaseViewController_iPad13.xib in Resources */,
+				F107514B1367112F000469BD /* AllYourBaseViewController_iPad21.xib in Resources */,
+				F107514C1367112F000469BD /* AllYourBaseViewController_iPad22.xib in Resources */,
+				F107514D1367112F000469BD /* AllYourBaseViewController_iPad29.xib in Resources */,
+				F107514E1367112F000469BD /* AllYourBaseViewController_iPad30.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
