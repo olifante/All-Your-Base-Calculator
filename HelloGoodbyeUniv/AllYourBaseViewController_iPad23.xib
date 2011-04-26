@@ -552,7 +552,7 @@
 					<object class="IBUIButton" id="840164716">
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">301</int>
-						<string key="NSFrame">{{673, 575}, {92, 92}}</string>
+						<string key="NSFrame">{{673, 860}, {92, 92}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">1</int>
@@ -683,7 +683,7 @@
 					<object class="IBUIButton" id="25497336">
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">301</int>
-						<string key="NSFrame">{{103, 195}, {92, 92}}</string>
+						<string key="NSFrame">{{673, 575}, {92, 92}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSNextKeyView" ref="22702757"/>
 						<reference key="IBUIBackgroundColor" ref="472243420"/>
@@ -704,7 +704,7 @@
 					<object class="IBUIButton" id="284108047">
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">301</int>
-						<string key="NSFrame">{{8, 195}, {92, 92}}</string>
+						<string key="NSFrame">{{673, 670}, {92, 92}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="IBUIBackgroundColor" ref="472243420"/>
 						<bool key="IBUIOpaque">NO</bool>
@@ -1232,7 +1232,7 @@
 					<object class="IBUIButton" id="540317877">
 						<reference key="NSNextResponder" ref="755951627"/>
 						<int key="NSvFlags">301</int>
-						<string key="NSFrame">{{961, 447}, {60, 60}}</string>
+						<string key="NSFrame">{{961, 636}, {60, 60}}</string>
 						<reference key="NSSuperview" ref="755951627"/>
 						<reference key="NSNextKeyView" ref="394617944"/>
 						<object class="NSColor" key="IBUIBackgroundColor">
@@ -1359,7 +1359,7 @@
 					<object class="IBUIButton" id="654239425">
 						<reference key="NSNextResponder" ref="755951627"/>
 						<int key="NSvFlags">301</int>
-						<string key="NSFrame">{{583, 195}, {60, 60}}</string>
+						<string key="NSFrame">{{961, 447}, {60, 60}}</string>
 						<reference key="NSSuperview" ref="755951627"/>
 						<reference key="NSNextKeyView" ref="864111406"/>
 						<reference key="IBUIBackgroundColor" ref="383170083"/>
@@ -1376,7 +1376,7 @@
 					<object class="IBUIButton" id="296713174">
 						<reference key="NSNextResponder" ref="755951627"/>
 						<int key="NSvFlags">301</int>
-						<string key="NSFrame">{{520, 195}, {60, 60}}</string>
+						<string key="NSFrame">{{961, 510}, {60, 60}}</string>
 						<reference key="NSSuperview" ref="755951627"/>
 						<reference key="NSNextKeyView" ref="654239425"/>
 						<reference key="IBUIBackgroundColor" ref="383170083"/>
@@ -2113,10 +2113,7 @@
 							<reference ref="488205030"/>
 							<reference ref="590421142"/>
 							<reference ref="891022371"/>
-							<reference ref="25497336"/>
-							<reference ref="284108047"/>
 							<reference ref="983224260"/>
-							<reference ref="840164716"/>
 							<reference ref="692629471"/>
 							<reference ref="1023377428"/>
 							<reference ref="244161703"/>
@@ -2140,6 +2137,9 @@
 							<reference ref="736277263"/>
 							<reference ref="337210112"/>
 							<reference ref="411451570"/>
+							<reference ref="840164716"/>
+							<reference ref="25497336"/>
+							<reference ref="284108047"/>
 						</object>
 						<reference key="parent" ref="0"/>
 						<string key="objectName">Portrait View</string>
@@ -2269,10 +2269,7 @@
 							<reference ref="573666053"/>
 							<reference ref="737145277"/>
 							<reference ref="918568286"/>
-							<reference ref="654239425"/>
-							<reference ref="296713174"/>
 							<reference ref="394617944"/>
-							<reference ref="540317877"/>
 							<reference ref="129263740"/>
 							<reference ref="447561114"/>
 							<reference ref="347514991"/>
@@ -2296,6 +2293,9 @@
 							<reference ref="703755083"/>
 							<reference ref="999537385"/>
 							<reference ref="385371738"/>
+							<reference ref="540317877"/>
+							<reference ref="654239425"/>
+							<reference ref="296713174"/>
 						</object>
 						<reference key="parent" ref="0"/>
 						<string key="objectName">Landscape View</string>

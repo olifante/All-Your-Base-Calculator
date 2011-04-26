@@ -327,7 +327,7 @@
 					<object class="IBUIButton" id="113472129">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">301</int>
-						<string key="NSFrame">{{267, 305}, {51, 51}}</string>
+						<string key="NSFrame">{{214, 358}, {51, 51}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="IBUIBackgroundColor" ref="981176491"/>
 						<bool key="IBUIOpaque">NO</bool>
@@ -344,7 +344,7 @@
 					<object class="IBUIButton" id="280427497">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">301</int>
-						<string key="NSFrame">{{267, 358}, {51, 51}}</string>
+						<string key="NSFrame">{{2, 358}, {51, 51}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">1</int>
@@ -460,7 +460,7 @@
 					<object class="IBUIButton" id="826440278">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">301</int>
-						<string key="NSFrame">{{214, 305}, {51, 51}}</string>
+						<string key="NSFrame">{{267, 305}, {51, 51}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSNextKeyView" ref="100515288"/>
 						<object class="NSColor" key="IBUIBackgroundColor" id="181930584">
@@ -485,7 +485,7 @@
 					<object class="IBUIButton" id="231630739">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">301</int>
-						<string key="NSFrame">{{161, 305}, {51, 51}}</string>
+						<string key="NSFrame">{{267, 358}, {51, 51}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSNextKeyView" ref="741729321"/>
 						<reference key="IBUIBackgroundColor" ref="181930584"/>
@@ -798,7 +798,7 @@
 					<object class="IBUIButton" id="208501574">
 						<reference key="NSNextResponder" ref="252974062"/>
 						<int key="NSvFlags">301</int>
-						<string key="NSFrame">{{147, 110}, {45, 45}}</string>
+						<string key="NSFrame">{{100, 204}, {45, 45}}</string>
 						<reference key="NSSuperview" ref="252974062"/>
 						<reference key="NSNextKeyView" ref="662614845"/>
 						<object class="NSColor" key="IBUIBackgroundColor">
@@ -819,7 +819,7 @@
 					<object class="IBUIButton" id="897988949">
 						<reference key="NSNextResponder" ref="252974062"/>
 						<int key="NSvFlags">301</int>
-						<string key="NSFrame">{{100, 110}, {45, 45}}</string>
+						<string key="NSFrame">{{6, 204}, {45, 45}}</string>
 						<reference key="NSSuperview" ref="252974062"/>
 						<reference key="NSNextKeyView" ref="208501574"/>
 						<object class="NSColor" key="IBUIBackgroundColor">
@@ -1500,8 +1500,6 @@
 							<reference ref="28879623"/>
 							<reference ref="10529118"/>
 							<reference ref="210762077"/>
-							<reference ref="280427497"/>
-							<reference ref="113472129"/>
 							<reference ref="1039008786"/>
 							<reference ref="911386993"/>
 							<reference ref="451879600"/>
@@ -1517,8 +1515,10 @@
 							<reference ref="356448176"/>
 							<reference ref="197550177"/>
 							<reference ref="846274687"/>
-							<reference ref="826440278"/>
 							<reference ref="231630739"/>
+							<reference ref="113472129"/>
+							<reference ref="826440278"/>
+							<reference ref="280427497"/>
 						</object>
 						<reference key="parent" ref="0"/>
 						<string key="objectName">Portrait View</string>
@@ -1633,8 +1633,6 @@
 							<reference ref="262541781"/>
 							<reference ref="210518948"/>
 							<reference ref="352383148"/>
-							<reference ref="208501574"/>
-							<reference ref="897988949"/>
 							<reference ref="725467895"/>
 							<reference ref="595612382"/>
 							<reference ref="389750836"/>
@@ -1647,6 +1645,8 @@
 							<reference ref="812476609"/>
 							<reference ref="662614845"/>
 							<reference ref="245693375"/>
+							<reference ref="208501574"/>
+							<reference ref="897988949"/>
 						</object>
 						<reference key="parent" ref="0"/>
 						<string key="objectName">Landscape View</string>
