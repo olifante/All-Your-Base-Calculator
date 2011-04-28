@@ -141,13 +141,23 @@
     base = someBase;
     
     if (self.currentDigits) {
-        double currentValue = ((FloatingDigits *)self.currentDigits).doubleValue;
-        self.currentDigits = [[FloatingDigits alloc] initWithDouble:currentValue base:someBase];
+        if (self.currentDigits.unsignedDigits) {
+            double currentValue = ((FloatingDigits *)self.currentDigits).doubleValue;
+            self.currentDigits = [[FloatingDigits alloc] initWithDouble:currentValue base:someBase];
+        } else
+        {
+            self.currentDigits = [[FloatingDigits alloc] initWithBase:someBase];
+        }
     }
     
     if (self.previousDigits) {
-        double previousValue = ((FloatingDigits *)self.previousDigits).doubleValue;
-        self.previousDigits = [[FloatingDigits alloc] initWithDouble:previousValue base:someBase];
+        if (self.previousDigits.unsignedDigits) {
+            double previousValue = ((FloatingDigits *)self.previousDigits).doubleValue;
+            self.previousDigits = [[FloatingDigits alloc] initWithDouble:previousValue base:someBase];
+        } else
+        {
+            self.previousDigits = [[FloatingDigits alloc] initWithBase:someBase];
+        }
     }
 
     [self updateDisplays];
