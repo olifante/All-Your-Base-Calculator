@@ -74,11 +74,6 @@ const unichar negative = 0x002d; // - HYPHEN-MINUS
 {
     [super viewDidAppear:animated];
     
-    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(orientationChanged:)
-                                                 name:UIDeviceOrientationDidChangeNotification
-                                               object:nil];
     for (NSString *name in [NSArray arrayWithObjects:
                             @"mainDisplay", @"secondaryDisplay",
                             nil]) {
@@ -132,6 +127,13 @@ const unichar negative = 0x002d; // - HYPHEN-MINUS
 
         self.isShowingLandscapeView = NO;
         [self.view addSubview:self.portraitView];
+        [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+        [[NSNotificationCenter defaultCenter]
+         addObserver:self
+         selector:@selector(orientationChanged:)
+         name:UIDeviceOrientationDidChangeNotification
+         object:nil];
+
     }
     return self;
 }

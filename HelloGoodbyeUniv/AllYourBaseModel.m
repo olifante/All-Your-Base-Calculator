@@ -47,7 +47,7 @@
 {
     NSLog(@"%@ controller selected (base %d)", viewController, self.base);
     if ([viewController respondsToSelector:@selector(base)]) {
-//        AllYourBaseViewController *vc = [AllYourBaseViewController viewController];
+        UIViewController *vc = (UIViewController *)viewController;
         int baseOfSelectedController = [(id)viewController base];
         if (baseOfSelectedController != self.base) {
             self.base = baseOfSelectedController;
