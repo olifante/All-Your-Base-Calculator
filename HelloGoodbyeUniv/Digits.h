@@ -21,6 +21,7 @@
 - (void)dealloc;
 - (NSString *)description;
 - (id)init;
+- (id)initWithBase:(int)someBase;
 - (id)initWithLongLong:(long long int)someInt base:(int)someBase;
 - (id)initWithLongLong:(long long int)someInt;
 - (id)initWithString:(NSString *)someString;

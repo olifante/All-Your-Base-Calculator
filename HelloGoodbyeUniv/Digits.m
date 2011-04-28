@@ -87,6 +87,13 @@ const unichar pointChar = 0x2027; // ‧ HYPHENATION POINT
     return self;
 }
 
+- (id)initWithBase:(int)someBase
+{
+    assert(someBase);
+    self = [self initWithString:@"" base:someBase];    
+    return self;
+}
+
 # pragma mark initializers
 
 - (id)initWithLongLong:(long long int)someInt base:(int)someBase

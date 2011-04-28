@@ -134,6 +134,13 @@ static NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklm
     return self;
 }
 
+- (id)initWithBase:(int)someBase
+{
+    assert(someBase);
+    self = [self initWithString:@"" base:someBase];    
+    return self;
+}
+
 - (id)initWithDouble:(double)someDouble base:(int)someBase
 {
     NSString *someDigits = [FloatingDigits convertDouble:someDouble toBase:someBase];

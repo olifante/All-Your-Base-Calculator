@@ -19,6 +19,7 @@
 + (NSString *)convertDouble:(double)someDouble toBase:(int)someBase;
 
 - (id)init;
+- (id)initWithBase:(int)someBase;
 - (id)initWithDouble:(double)someDouble base:(int)someBase;
 - (id)initWithDouble:(double)someDouble;
 - (id)initWithString:(NSString *)someString base:(int)someBase;

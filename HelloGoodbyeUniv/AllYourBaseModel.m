@@ -29,7 +29,7 @@
         self.base = 10;
         self.error = nil;
         self.previousDigits = nil;
-        self.currentDigits = [[[FloatingDigits alloc] init] autorelease];
+        self.currentDigits = [[[FloatingDigits alloc] initWithBase:10] autorelease];
         [self updateDisplays];
     }
     return self;
@@ -137,6 +137,8 @@
         NSLog(@"no sense in changing base to the same base");
         return;
     }
+    
+    base = someBase;
     
     if (self.currentDigits) {
         double currentValue = ((FloatingDigits *)self.currentDigits).doubleValue;
@@ -255,14 +257,14 @@
                                        , self.currentDigits ? self.currentDigits.description : @""
                                        ];
             self.previousDigits = self.resultDigits;
-            self.currentDigits = [[[FloatingDigits alloc] init] autorelease];
+            self.currentDigits = [[[FloatingDigits alloc] initWithBase:self.base] autorelease];
             self.previousOperation = self.currentOperation;
             self.currentOperation = operation;
         }
     } else { // no pending operation
         self.previousDigits = self.currentDigits;
         self.currentOperation = operation;
-        self.currentDigits = [[[FloatingDigits alloc] init] autorelease];
+        self.currentDigits = [[[FloatingDigits alloc] initWithBase:self.base] autorelease];
     }
     
     [self updateDisplays];
@@ -276,7 +278,7 @@
     }
     
     if (self.previousOperation) {
-        self.currentDigits = [[[FloatingDigits alloc] init] autorelease];
+        self.currentDigits = [[[FloatingDigits alloc] initWithBase:self.base] autorelease];
     }
     
     [self.currentDigits pushDigit:digit];
@@ -316,7 +318,7 @@
         self.previousOperation = nil;
         self.previousExpression = nil;  
         self.resultDigits = nil;
-        self.currentDigits = [[[FloatingDigits alloc] init] autorelease];
+        self.currentDigits = [[[FloatingDigits alloc] initWithBase:self.base] autorelease];
     }
 
     [self.currentDigits negate];
@@ -326,7 +328,7 @@
 - (void)cleanPressed
 {
     [self releaseMembers];
-    self.currentDigits = [[[FloatingDigits alloc] init] autorelease];
+    self.currentDigits = [[[FloatingDigits alloc] initWithBase:self.base] autorelease];
     [self updateDisplays];
 }
 
