@@ -17,27 +17,36 @@
     
     NSMutableArray *vcs = [[[NSMutableArray alloc] init] autorelease];
 
+    NSMutableArray *bases = [NSMutableArray arrayWithObjects:
+                      [NSNumber numberWithInt:10],
+                      [NSNumber numberWithInt:5],
+                      [NSNumber numberWithInt:9],
+                      [NSNumber numberWithInt:11],
+                      [NSNumber numberWithInt:16],
+                      [NSNumber numberWithInt:36],
+                      [NSNumber numberWithInt:0],
+                      nil];
     for (int i = 2; i < 37; i++) {
+        NSNumber *num = [NSNumber numberWithInt:i];
+        if (![bases containsObject:num]) {
+            [bases addObject:num];
+        }
+    }
+
+    for (NSNumber *item in bases) {
+        int i = [item intValue];
         UIViewController *vc = [[[AllYourBaseViewController_iPad alloc] 
                                  initWithModel:theModel
                                  base:i
                                  ] autorelease];
         [vcs addObject:vc];
-
-        if (i == 10) {
-            UIViewController *vc10alternate = [[[AllYourBaseViewController_iPad alloc] 
-                                                initWithNibName:@"AllYourBaseViewController_iPadAlternate10"
-                                                bundle:nil
-                                                model:theModel
-                                                ] autorelease];
-            vc10alternate.title = @"Base 10*";
-            [vcs addObject:vc10alternate];            
-        }    
     }
     
     UITabBarController *tbc = [[[UITabBarController alloc] init] autorelease];
     tbc.delegate = theModel;
     tbc.viewControllers = vcs;
+//    tbc.moreNavigationController.navigationBarHidden = YES;
+    tbc.moreNavigationController.navigationBar.barStyle = UIBarStyleBlackTranslucent;
     self.tabBarViewController = tbc;
     self.window.rootViewController = self.tabBarViewController;
     [self.window addSubview:self.tabBarViewController.view];
