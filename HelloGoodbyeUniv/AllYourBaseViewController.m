@@ -70,10 +70,15 @@ const unichar negative = 0x002d; // - HYPHEN-MINUS
     
 # pragma mark UIViewController overridden methods
 
-- (void)viewDidLoad
+- (void)viewDidAppear:(BOOL)animated
 {
-    [super viewDidLoad];
+    [super viewDidAppear:animated];
     
+    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(orientationChanged:)
+                                                 name:UIDeviceOrientationDidChangeNotification
+                                               object:nil];
     for (NSString *name in [NSArray arrayWithObjects:
                             @"mainDisplay", @"secondaryDisplay",
                             nil]) {
@@ -83,14 +88,19 @@ const unichar negative = 0x002d; // - HYPHEN-MINUS
     [self updateLabels];
 }
 
-- (void)viewDidUnload {
-    [super viewDidUnload];
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
     
     for (NSString *name in [NSArray arrayWithObjects:
                             @"mainDisplay", @"secondaryDisplay",
                             nil]) {
         [self.model removeObserver:self forKeyPath:name];
-    }
+    }    
+}
+
+- (void)viewDidUnload {
+
 }
 
 
@@ -122,11 +132,6 @@ const unichar negative = 0x002d; // - HYPHEN-MINUS
 
         self.isShowingLandscapeView = NO;
         [self.view addSubview:self.portraitView];
-        [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(orientationChanged:)
-                                                     name:UIDeviceOrientationDidChangeNotification
-                                                   object:nil];
     }
     return self;
 }
