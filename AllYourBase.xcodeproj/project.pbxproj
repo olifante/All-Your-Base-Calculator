@@ -265,6 +265,9 @@
 		F1815BC21366F8CE0001B7F6 /* xibs */ = {
 			isa = PBXGroup;
 			children = (
+				F1ADD8E6133E55830050EB59 /* MainWindow_iPad.xib */,
+				F10751271367112F000469BD /* AllYourBaseViewController_iPad.xib */,
+				F18B9AE513606C2900515CCF /* AllYourBaseViewController_iPadAlternate10.xib */,
 				F10751281367112F000469BD /* AllYourBaseViewController_iPad02.xib */,
 				F10751211367112E000469BD /* AllYourBaseViewController_iPad03.xib */,
 				F1755C9513674B1C00817F5C /* AllYourBaseViewController_iPad04.xib */,
@@ -300,8 +303,6 @@
 				F10751161367112E000469BD /* AllYourBaseViewController_iPad34.xib */,
 				F107511C1367112E000469BD /* AllYourBaseViewController_iPad35.xib */,
 				F10751201367112E000469BD /* AllYourBaseViewController_iPad36.xib */,
-				F10751271367112F000469BD /* AllYourBaseViewController_iPad.xib */,
-				F18B9AE513606C2900515CCF /* AllYourBaseViewController_iPadAlternate10.xib */,
 				F19293191363926C00975205 /* AllYourBaseViewController_iPadScientific10.xib */,
 				F192931A1363926C00975205 /* AllYourBaseViewController_iPadAlternateScientific10.xib */,
 			);
@@ -311,6 +312,9 @@
 		F1815BC31366F9650001B7F6 /* xibs */ = {
 			isa = PBXGroup;
 			children = (
+				F1ADD8DF133E55830050EB59 /* MainWindow_iPhone.xib */,
+				F1815B6A1364FDDD0001B7F6 /* AllYourBaseViewController_iPhone.xib */,
+				F19FB25F135A41F80076D882 /* AllYourBaseViewController_iPhoneAlternate10.xib */,
 				F1815B781364FF520001B7F6 /* AllYourBaseViewController_iPhone02.xib */,
 				F1815B771364FF520001B7F6 /* AllYourBaseViewController_iPhone03.xib */,
 				F1F1EC42136342F2008996EB /* AllYourBaseViewController_iPhone04.xib */,
@@ -326,8 +330,6 @@
 				F1815B6F1364FF510001B7F6 /* AllYourBaseViewController_iPhone14.xib */,
 				F1815B6E1364FF510001B7F6 /* AllYourBaseViewController_iPhone15.xib */,
 				F1929314136391D400975205 /* AllYourBaseViewController_iPhone16.xib */,
-				F1815B6A1364FDDD0001B7F6 /* AllYourBaseViewController_iPhone.xib */,
-				F19FB25F135A41F80076D882 /* AllYourBaseViewController_iPhoneAlternate10.xib */,
 				F192931B1363926C00975205 /* AllYourBaseViewController_iPhoneScientific10.xib */,
 				F192931C1363926C00975205 /* AllYourBaseViewController_iPhone10AlternateScientific.xib */,
 			);
@@ -409,10 +411,9 @@
 			children = (
 				F1ADD8EE133E56440050EB59 /* AllYourBaseViewController_iPhone.h */,
 				F1ADD8EF133E56440050EB59 /* AllYourBaseViewController_iPhone.m */,
-				F1815BC31366F9650001B7F6 /* xibs */,
 				F1ADD8DC133E55830050EB59 /* AllYourBaseAppDelegate_iPhone.h */,
 				F1ADD8DD133E55830050EB59 /* AllYourBaseAppDelegate_iPhone.m */,
-				F1ADD8DF133E55830050EB59 /* MainWindow_iPhone.xib */,
+				F1815BC31366F9650001B7F6 /* xibs */,
 			);
 			name = iPhone;
 			sourceTree = "<group>";
@@ -422,10 +423,9 @@
 			children = (
 				F1ADD8F3133E56720050EB59 /* AllYourBaseViewController_iPad.h */,
 				F1ADD8F4133E56720050EB59 /* AllYourBaseViewController_iPad.m */,
-				F1815BC21366F8CE0001B7F6 /* xibs */,
 				F1ADD8E3133E55830050EB59 /* AllYourBaseAppDelegate_iPad.h */,
 				F1ADD8E4133E55830050EB59 /* AllYourBaseAppDelegate_iPad.m */,
-				F1ADD8E6133E55830050EB59 /* MainWindow_iPad.xib */,
+				F1815BC21366F8CE0001B7F6 /* xibs */,
 			);
 			name = iPad;
 			sourceTree = "<group>";

@@ -339,7 +339,6 @@
 						<int key="NSvFlags">301</int>
 						<string key="NSFrame">{{267, 305}, {51, 51}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
-						<reference key="NSNextKeyView"/>
 						<reference key="IBUIBackgroundColor" ref="662509212"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<int key="IBUIContentMode">4</int>
@@ -874,7 +873,6 @@
 						<int key="NSvFlags">301</int>
 						<string key="NSFrame">{{335, 204}, {45, 45}}</string>
 						<reference key="NSSuperview" ref="252974062"/>
-						<reference key="NSNextKeyView"/>
 						<reference key="IBUIBackgroundColor" ref="635050913"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -1614,6 +1612,24 @@
 					</object>
 					<int key="connectionID">409</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">digitPressed:</string>
+						<reference key="source" ref="368477058"/>
+						<reference key="destination" ref="372490531"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">410</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">digitPressed:</string>
+						<reference key="source" ref="19935892"/>
+						<reference key="destination" ref="372490531"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">411</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -2146,7 +2162,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">409</int>
+			<int key="maxID">411</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes"/>
 		<int key="IBDocument.localizationMode">0</int>

@@ -45,12 +45,14 @@
 
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController
 {
-    NSLog(@"%@ controller selected (base %d)", viewController, base);
-    int baseOfSelectedController = [(id)viewController base];
-    if (baseOfSelectedController != self.base) {
-        self.base = baseOfSelectedController;
+    NSLog(@"%@ controller selected (base %d)", viewController, self.base);
+    if ([viewController respondsToSelector:@selector(base)]) {
+//        AllYourBaseViewController *vc = [AllYourBaseViewController viewController];
+        int baseOfSelectedController = [(id)viewController base];
+        if (baseOfSelectedController != self.base) {
+            self.base = baseOfSelectedController;
+        }        
     }
-    
 }
 
 # pragma mark instance methods

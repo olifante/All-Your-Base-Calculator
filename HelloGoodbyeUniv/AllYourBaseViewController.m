@@ -56,10 +56,18 @@ const unichar negative = 0x002d; // - HYPHEN-MINUS
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    NSLog(@"%@ observed keypath %@", self, keyPath);
+    NSLog(@"%@ saw keypath %@", self, keyPath);
     [self updateLabels];
 }
 
+- (NSString *)description 
+{
+    return [NSString stringWithFormat:@"%@ base %02d controller"
+            , self.isShowingLandscapeView? @"landscape" : @"portrait"
+            , self.base
+            ];
+}
+    
 # pragma mark UIViewController overridden methods
 
 - (void)viewDidLoad
@@ -101,16 +109,24 @@ const unichar negative = 0x002d; // - HYPHEN-MINUS
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil model:(AllYourBaseModel *)theModel
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super initWithNibName:nibNameOrNil bundle:nil];
     if (self) {
         self.base = 10;
-
+        
         if (theModel) {
             self.model = theModel;
         } else
         {
             self.model = [[[AllYourBaseModel alloc] init] autorelease];
         }
+
+        self.isShowingLandscapeView = NO;
+        [self.view addSubview:self.portraitView];
+        [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(orientationChanged:)
+                                                     name:UIDeviceOrientationDidChangeNotification
+                                                   object:nil];
     }
     return self;
 }

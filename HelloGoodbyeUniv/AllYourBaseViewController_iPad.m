@@ -11,12 +11,6 @@
 
 @implementation AllYourBaseViewController_iPad
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil model:(AllYourBaseModel *)theModel
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil model:theModel];
-    return self;
-}
-
 - (id)initWithModel:(AllYourBaseModel *)theModel base:(int)someBase
 {
     if (!someBase || (someBase < 2) || (someBase > 100)) {
@@ -27,17 +21,10 @@
     NSString *nibPrefix = @"AllYourBaseViewController_iPad";
     NSString *nibForBase = [NSString stringWithFormat:@"%@%02d", nibPrefix, someBase];
     
-    self = [self initWithNibName:nibForBase bundle:nil model:theModel];
+    self = [super initWithNibName:nibForBase bundle:nil model:theModel];
     if (self) {
         self.base = someBase;
         self.title = [NSString stringWithFormat:@"Base %d", someBase];
-        self.isShowingLandscapeView = NO;
-        [self.view addSubview:self.portraitView];
-        [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(orientationChanged:)
-                                                     name:UIDeviceOrientationDidChangeNotification
-                                                   object:nil];
     }
     return self;
 }

@@ -15,43 +15,36 @@
 {
     AllYourBaseModel *theModel = [[[AllYourBaseModel alloc] init] autorelease];
 
-    UIViewController *vc10 = [[[AllYourBaseViewController_iPhone alloc] 
-                              initWithModel:theModel
-                              base:10
-                             ] autorelease];
-    UIViewController *vc16 = [[[AllYourBaseViewController_iPhone alloc] 
-                              initWithModel:theModel
-                              base:16
-                              ] autorelease];
-    UIViewController *vc8 = [[[AllYourBaseViewController_iPhone alloc] 
-                              initWithModel:theModel
-                              base:8
-                              ] autorelease];
-    UIViewController *vc4 = [[[AllYourBaseViewController_iPhone alloc] 
-                              initWithModel:theModel
-                              base:4
-                              ] autorelease];
-//    UIViewController *vc10a = [[[AllYourBaseViewController_iPhone alloc] 
-//                              initWithNibName:@"AllYourBaseViewController_iPhone10a" bundle:nil model:theModel
-//                              base:10
-//                              ] autorelease];
-//    UIViewController *vc10s = [[[AllYourBaseViewController_iPhone alloc] 
-//                                initWithNibName:@"AllYourBaseViewController_iPhone10s" bundle:nil model:theModel
-//                                base:10
-//                                ] autorelease];
-//    UIViewController *vc10sa = [[[AllYourBaseViewController_iPhone alloc] 
-//                                initWithNibName:@"AllYourBaseViewController_iPhone10sa" bundle:nil model:theModel
-//                                base:10
-//                                ] autorelease];    
+    NSMutableArray *vcs = [[[NSMutableArray alloc] init] autorelease];
+    
+    NSArray *bases = [NSArray arrayWithObjects:
+                      [NSNumber numberWithInt:2],
+                      [NSNumber numberWithInt:8],
+                      [NSNumber numberWithInt:10],
+                      [NSNumber numberWithInt:12],
+                      nil];
+    for (NSNumber *item in bases) {
+        int i = [item intValue];
+        UIViewController *vc = [[[AllYourBaseViewController_iPhone alloc] 
+                                 initWithModel:theModel
+                                 base:i
+                                 ] autorelease];    
+        [vcs addObject:vc];
+        
+        if (i == 10) {
+            UIViewController *vc10alternate = [[[AllYourBaseViewController_iPhone alloc] 
+                                                initWithNibName:@"AllYourBaseViewController_iPhoneAlternate10"
+                                                bundle:nil
+                                                model:theModel
+                                                ] autorelease];
+            vc10alternate.title = @"Base 10*";
+            [vcs addObject:vc10alternate];            
+        }
+    }
 
     UITabBarController *tbc = [[[UITabBarController alloc] init] autorelease];
     tbc.delegate = theModel;
-    tbc.viewControllers = [NSArray arrayWithObjects: 
-                           vc10, 
-                           vc16,
-                           vc8,
-                           vc4,
-                           nil];
+    tbc.viewControllers = vcs;
     self.tabBarViewController = tbc;
     self.window.rootViewController = self.tabBarViewController;
     [self.window addSubview:self.tabBarViewController.view];
