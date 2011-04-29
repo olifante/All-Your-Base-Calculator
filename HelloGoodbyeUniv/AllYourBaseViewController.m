@@ -149,11 +149,28 @@ const unichar negative = 0x002d; // - HYPHEN-MINUS
 
 - (void)updateLabels
 {
-    self.previousDisplayLabel.text = self.model.secondaryDisplay;
-    self.currentDisplayLabel.text = self.model.mainDisplay;
+    NSString *secondaryText = self.model.secondaryDisplay;
+    NSString *primaryText = self.model.mainDisplay;
     
-    self.previousDisplayLabelLandscape.text = self.model.secondaryDisplay;
-    self.currentDisplayLabelLandscape.text = self.model.mainDisplay;
+    NSDictionary *operations = [NSDictionary dictionaryWithObjectsAndKeys:
+                           @"+", [NSString stringWithFormat:@"%C", plus],
+                           @"-", [NSString stringWithFormat:@"%C", minus],
+                           @"*", [NSString stringWithFormat:@"%C", times],
+                           @"/", [NSString stringWithFormat:@"%C", divide],
+                           @"^", [NSString stringWithFormat:@"%C", power],
+                           nil];
+    
+    NSString *ASCIIOperation = @"";
+    for (NSString *unicodeOperation in operations) {
+        ASCIIOperation = [operations objectForKey:unicodeOperation];
+        secondaryText = [secondaryText stringByReplacingOccurrencesOfString:ASCIIOperation withString:unicodeOperation];
+        primaryText = [primaryText stringByReplacingOccurrencesOfString:ASCIIOperation withString:unicodeOperation];
+    }
+    self.previousDisplayLabel.text = secondaryText;
+    self.currentDisplayLabel.text = primaryText;
+    
+    self.previousDisplayLabelLandscape.text = secondaryText;
+    self.currentDisplayLabelLandscape.text = primaryText;
 }
 
 # pragma mark actions
