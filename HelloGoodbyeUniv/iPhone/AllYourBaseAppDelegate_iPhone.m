@@ -19,9 +19,9 @@
     
     NSMutableArray *bases = [NSMutableArray arrayWithObjects:
                              [NSNumber numberWithInt:10],
-                             [NSNumber numberWithInt:0],
+                             [NSNumber numberWithInt:6],
+                             [NSNumber numberWithInt:7],
                              [NSNumber numberWithInt:12],
-                             [NSNumber numberWithInt:16],
                              nil];
     for (int i = 2; i < 17; i++) {
         NSNumber *num = [NSNumber numberWithInt:i];
@@ -40,6 +40,12 @@
         
     }
 
+    UIViewController *vcAlternate10 = [[[AllYourBaseViewController_iPhone alloc] 
+                                        initWithModel:theModel
+                                        base:0
+                                        ] autorelease];
+    [vcs addObject:vcAlternate10];
+    
     UITabBarController *tbc = [[[UITabBarController alloc] init] autorelease];
     tbc.delegate = theModel;
     tbc.viewControllers = vcs;
