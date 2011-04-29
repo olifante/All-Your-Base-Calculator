@@ -19,6 +19,8 @@
 @synthesize secondaryDisplay;
 @synthesize mainDisplay;
 @synthesize error;
+@synthesize previousFirstOperand;
+@synthesize previousSecondOperand;
 @synthesize base;
 
 # pragma mark overridden methods
@@ -27,6 +29,8 @@
     self = [super init];
     if (self) {
         self.base = 10;
+        self.previousFirstOperand = 0;
+        self.previousSecondOperand = 0;
         self.error = nil;
         self.previousDigits = nil;
         self.currentDigits = [[[Digits alloc] initWithBase:10] autorelease];
@@ -45,7 +49,7 @@
 
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController
 {
-    NSLog(@"%@ selected (previous base %02d)", viewController, self.base);
+    NSLog(@"%@ selected", viewController);
 }
 
 # pragma mark instance methods
@@ -60,6 +64,8 @@
     self.currentOperation = nil;
     self.previousOperation = nil;
     self.previousExpression = nil;
+    self.previousFirstOperand = 0;
+    self.previousSecondOperand = 0;
     self.error = nil;
 }
 
@@ -212,7 +218,10 @@
         if (!self.resultDigits && operationError) {
             NSLog(@"binary operation error after pressing result");
             self.error = operationError;
-        } else {            
+        } else {
+            self.previousFirstOperand = [self.previousDigits integerValue];
+            self.previousOperation = self.currentOperation;
+            self.previousSecondOperand = [self.currentDigits integerValue];
             self.previousExpression = [NSString stringWithFormat:@"%@ %@ %@"
                                        , self.previousDigits ? self.previousDigits.description : @""
                                        , self.currentOperation ? self.currentOperation : @""
@@ -220,14 +229,16 @@
                                        ];
             self.previousDigits = nil;
             self.currentDigits = self.resultDigits;
-            self.previousOperation = self.currentOperation;
             self.currentOperation = nil;        }
     } else if (self.currentDigits.unsignedDigits && !self.currentOperation) {
-        self.resultDigits = self.currentDigits;
-        self.previousDigits = nil;
-        self.currentOperation = nil;
         self.previousOperation = @"=";
         self.previousExpression = self.currentDigits.description;
+        self.resultDigits = [[Digits alloc] 
+                             initWithLongLong:[self.currentDigits integerValue] 
+                             base:self.base];
+        self.currentDigits = self.resultDigits;
+        self.previousDigits = nil;
+        self.currentOperation = nil;
     } else {
         assert(NO);
     }
@@ -324,6 +335,8 @@
     if (self.previousOperation) {
         self.previousOperation = nil;
         self.previousExpression = nil;  
+        self.previousFirstOperand = 0;
+        self.previousSecondOperand = 0;
         self.resultDigits = nil;
         self.currentDigits = [[[Digits alloc] initWithBase:self.base] autorelease];
     }

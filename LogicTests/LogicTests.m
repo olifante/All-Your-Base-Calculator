@@ -1485,7 +1485,7 @@
     actual = calculator.previousDigits.description;
     STAssertNil(actual, @"'%@' shoud be nil", actual);
     
-    actual = calculator.currentDigits.description, expected = @"-0";
+    actual = calculator.currentDigits.description, expected = @"0";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
     
     actual = calculator.currentOperation;
@@ -1497,13 +1497,13 @@
     actual = calculator.previousExpression, expected = @"-0";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
     
-    actual = calculator.resultDigits.description, expected = @"-0";
+    actual = calculator.resultDigits.description, expected = @"0";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 
     actual = calculator.secondaryDisplay, expected = @"-0";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
     
-    actual = calculator.mainDisplay, expected = @"= -0";
+    actual = calculator.mainDisplay, expected = @"= 0";
     STAssertTrue([actual isEqualToString:expected], @"'%@' should be equal to '%@'", actual, expected);
 }
 

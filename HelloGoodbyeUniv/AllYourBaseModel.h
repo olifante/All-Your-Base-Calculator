@@ -24,6 +24,8 @@
 @property (nonatomic, retain) NSString *mainDisplay;
 @property (nonatomic, retain) NSString *secondaryDisplay;
 @property (nonatomic, retain) NSError *error;
+@property (nonatomic) int previousFirstOperand;
+@property (nonatomic) int previousSecondOperand;
 @property (nonatomic) int base;
 
 - (id)init;

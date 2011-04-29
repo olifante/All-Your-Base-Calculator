@@ -213,13 +213,13 @@ const unichar negative = 0x002d; // - HYPHEN-MINUS
 
 - (IBAction)deletePressed
 {
-    NSLog(@"%@ 'DEL' pressed", self);
+    NSLog(@"%@ delete pressed", self);
     [self.model deletePressed];
 }
 
 - (IBAction)cleanPressed
 {
-    NSLog(@"%@ 'C' pressed", self);
+    NSLog(@"%@ clean pressed", self);
     [self.model cleanPressed];
 }
 
