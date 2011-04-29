@@ -125,7 +125,8 @@ const unichar pointChar = 0x2027; // ‧ HYPHENATION POINT
     if (self) {
         self.base = someBase;
         
-        self.allowedDigits = [[allDigits substringToIndex:someBase] stringByAppendingString:@"."];
+//        self.allowedDigits = [[allDigits substringToIndex:someBase] stringByAppendingString:@"."];
+        self.allowedDigits = [allDigits substringToIndex:someBase];
         self.allowedDigitSet = [NSCharacterSet characterSetWithCharactersInString:self.allowedDigits];
         self.forbiddenDigitSet = [self.allowedDigitSet invertedSet];
         

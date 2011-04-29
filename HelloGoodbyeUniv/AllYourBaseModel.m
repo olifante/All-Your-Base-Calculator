@@ -29,7 +29,7 @@
         self.base = 10;
         self.error = nil;
         self.previousDigits = nil;
-        self.currentDigits = [[[FloatingDigits alloc] initWithBase:10] autorelease];
+        self.currentDigits = [[[Digits alloc] initWithBase:10] autorelease];
         [self updateDisplays];
     }
     return self;
@@ -135,21 +135,25 @@
     
     if (self.currentDigits) {
         if (self.currentDigits.unsignedDigits) {
-            double currentValue = ((FloatingDigits *)self.currentDigits).doubleValue;
-            self.currentDigits = [[FloatingDigits alloc] initWithDouble:currentValue base:someBase];
+//            double currentValue = ((FloatingDigits *)self.currentDigits).doubleValue;
+//            self.currentDigits = [[Digits alloc] initWithDouble:currentValue base:someBase];
+            long long int currentValue = self.currentDigits.integerValue;
+            self.currentDigits = [[Digits alloc] initWithLongLong:currentValue base:someBase];
         } else
         {
-            self.currentDigits = [[FloatingDigits alloc] initWithBase:someBase];
+            self.currentDigits = [[Digits alloc] initWithBase:someBase];
         }
     }
     
     if (self.previousDigits) {
         if (self.previousDigits.unsignedDigits) {
-            double previousValue = ((FloatingDigits *)self.previousDigits).doubleValue;
-            self.previousDigits = [[FloatingDigits alloc] initWithDouble:previousValue base:someBase];
+//            double previousValue = ((FloatingDigits *)self.previousDigits).doubleValue;
+//            self.previousDigits = [[Digits alloc] initWithDouble:previousValue base:someBase];
+            long long int previousValue = self.previousDigits.integerValue;
+            self.previousDigits = [[Digits alloc] initWithLongLong:previousValue base:someBase];
         } else
         {
-            self.previousDigits = [[FloatingDigits alloc] initWithBase:someBase];
+            self.previousDigits = [[Digits alloc] initWithBase:someBase];
         }
     }
 
@@ -260,14 +264,14 @@
                                        , self.currentDigits ? self.currentDigits.description : @""
                                        ];
             self.previousDigits = self.resultDigits;
-            self.currentDigits = [[[FloatingDigits alloc] initWithBase:self.base] autorelease];
+            self.currentDigits = [[[Digits alloc] initWithBase:self.base] autorelease];
             self.previousOperation = self.currentOperation;
             self.currentOperation = operation;
         }
     } else { // no pending operation
         self.previousDigits = self.currentDigits;
         self.currentOperation = operation;
-        self.currentDigits = [[[FloatingDigits alloc] initWithBase:self.base] autorelease];
+        self.currentDigits = [[[Digits alloc] initWithBase:self.base] autorelease];
     }
     
     [self updateDisplays];
@@ -281,7 +285,7 @@
     }
     
     if (self.previousOperation) {
-        self.currentDigits = [[[FloatingDigits alloc] initWithBase:self.base] autorelease];
+        self.currentDigits = [[[Digits alloc] initWithBase:self.base] autorelease];
     }
     
     [self.currentDigits pushDigit:digit];
@@ -321,7 +325,7 @@
         self.previousOperation = nil;
         self.previousExpression = nil;  
         self.resultDigits = nil;
-        self.currentDigits = [[[FloatingDigits alloc] initWithBase:self.base] autorelease];
+        self.currentDigits = [[[Digits alloc] initWithBase:self.base] autorelease];
     }
 
     [self.currentDigits negate];
@@ -331,7 +335,7 @@
 - (void)cleanPressed
 {
     [self releaseMembers];
-    self.currentDigits = [[[FloatingDigits alloc] initWithBase:self.base] autorelease];
+    self.currentDigits = [[[Digits alloc] initWithBase:self.base] autorelease];
     [self updateDisplays];
 }
 
