@@ -19,9 +19,9 @@
     
     NSMutableArray *bases = [NSMutableArray arrayWithObjects:
                              [NSNumber numberWithInt:10],
-                             [NSNumber numberWithInt:8],
-                             [NSNumber numberWithInt:16],
                              [NSNumber numberWithInt:0],
+                             [NSNumber numberWithInt:12],
+                             [NSNumber numberWithInt:16],
                              nil];
     for (int i = 2; i < 17; i++) {
         NSNumber *num = [NSNumber numberWithInt:i];

@@ -18,14 +18,14 @@
     NSMutableArray *vcs = [[[NSMutableArray alloc] init] autorelease];
 
     NSMutableArray *bases = [NSMutableArray arrayWithObjects:
-                      [NSNumber numberWithInt:10],
-                      [NSNumber numberWithInt:5],
-                      [NSNumber numberWithInt:9],
-                      [NSNumber numberWithInt:11],
-                      [NSNumber numberWithInt:16],
-                      [NSNumber numberWithInt:36],
-                      [NSNumber numberWithInt:0],
-                      nil];
+                             [NSNumber numberWithInt:10],
+                             [NSNumber numberWithInt:0],
+                             [NSNumber numberWithInt:7],
+                             [NSNumber numberWithInt:8],
+                             [NSNumber numberWithInt:12],
+                             [NSNumber numberWithInt:16],
+                             [NSNumber numberWithInt:36],
+                             nil];
     for (int i = 2; i < 37; i++) {
         NSNumber *num = [NSNumber numberWithInt:i];
         if (![bases containsObject:num]) {
