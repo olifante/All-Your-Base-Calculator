@@ -572,7 +572,7 @@ const unichar pointChar = 0x2027; // ‧ HYPHENATION POINT
         } else
         {
             unsigned long long int remainder = absoluteValue;
-            unsigned long long int maximumBasePower = floor([Digits log:remainder base:someBase]);
+            unsigned long long int maximumBasePower = ceil([Digits log:remainder base:someBase]);
             unsigned long long int power, quotient;
             
             for (unsigned long long int exponent = maximumBasePower; exponent > 0; exponent--) {
@@ -584,6 +584,11 @@ const unichar pointChar = 0x2027; // ‧ HYPHENATION POINT
             
             [someMutableDigits appendFormat:@"%C", [allowedDigits characterAtIndex:remainder]];
             
+        }
+        
+        if ([someMutableDigits characterAtIndex:0] == [allowedDigits characterAtIndex:0]) {
+            NSRange firstCharRange = {0, 1};
+            [someMutableDigits deleteCharactersInRange:firstCharRange];
         }
 
         if (negative) {
