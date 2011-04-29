@@ -45,14 +45,7 @@
 
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController
 {
-    NSLog(@"%@ controller selected (base %d)", viewController, self.base);
-    if ([viewController respondsToSelector:@selector(base)]) {
-        UIViewController *vc = (UIViewController *)viewController;
-        int baseOfSelectedController = [(id)viewController base];
-        if (baseOfSelectedController != self.base) {
-            self.base = baseOfSelectedController;
-        }        
-    }
+    NSLog(@"%@ selected (previous base %02d)", viewController, self.base);
 }
 
 # pragma mark instance methods

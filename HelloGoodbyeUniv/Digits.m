@@ -567,10 +567,6 @@ const unichar pointChar = 0x2027; // ‧ HYPHENATION POINT
     {
         NSMutableString *someMutableDigits = [NSMutableString stringWithString:@""];
         
-        if (negative) {
-            [someMutableDigits appendString:@"-"];
-        }
-        
         if (absoluteValue < someBase) {
             [someMutableDigits appendFormat:@"%C", [allowedDigits characterAtIndex:absoluteValue]];
         } else
@@ -590,8 +586,12 @@ const unichar pointChar = 0x2027; // ‧ HYPHENATION POINT
             
         }
 
-        result = [NSString stringWithString:someMutableDigits];
-
+        if (negative) {
+            result = [@"-" stringByAppendingString:someMutableDigits];
+        } else
+        {
+            result = [NSString stringWithString:someMutableDigits];
+        }
     }
     return result;
 }

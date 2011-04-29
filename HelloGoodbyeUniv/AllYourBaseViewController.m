@@ -62,9 +62,9 @@ const unichar negative = 0x002d; // - HYPHEN-MINUS
 
 - (NSString *)description 
 {
-    return [NSString stringWithFormat:@"%@ base %02d controller"
-            , self.isShowingLandscapeView? @"landscape" : @"portrait"
+    return [NSString stringWithFormat:@"base %02d %@ controller"
             , self.base
+            , self.isShowingLandscapeView? @"landscape" : @"portrait"
             ];
 }
     
@@ -73,6 +73,12 @@ const unichar negative = 0x002d; // - HYPHEN-MINUS
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    
+    int modelBase = self.model.base;
+    int controllerBase = self.base;
+    if (modelBase != controllerBase) {
+        self.model.base = controllerBase;
+    }
     
     for (NSString *name in [NSArray arrayWithObjects:
                             @"mainDisplay", @"secondaryDisplay",
