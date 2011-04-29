@@ -162,6 +162,22 @@
             self.previousDigits = [[Digits alloc] initWithBase:someBase];
         }
     }
+    
+    if (self.previousOperation && (self.previousOperation != @"=")) {
+        NSString *firstOperand = [Digits convertInteger:self.previousFirstOperand toBase:someBase];
+        NSString *secondOperand = [Digits convertInteger:self.previousSecondOperand toBase:someBase];
+        self.previousExpression = [NSString stringWithFormat:@"%@ %@ %@"
+                                   , firstOperand ? firstOperand : @""
+                                   , self.previousOperation ? self.previousOperation : @""
+                                   , secondOperand ? secondOperand : @""
+                                   ];
+    } else
+    {
+        self.previousFirstOperand = 0;
+        self.previousSecondOperand = 0;
+        self.previousExpression = nil;
+        self.previousOperation = nil;
+    }
 
     [self updateDisplays];
 }
@@ -240,7 +256,7 @@
         self.previousDigits = nil;
         self.currentOperation = nil;
     } else {
-        assert(NO);
+        assert(NO); // should never reach this point
     }
     [self updateDisplays];
 }
@@ -269,6 +285,9 @@
             NSLog(@"binary operation error after chaining operation");
             self.error = operationError;
         } else {            
+            self.previousFirstOperand = [self.previousDigits integerValue];
+            self.previousOperation = self.currentOperation;
+            self.previousSecondOperand = [self.currentDigits integerValue];
             self.previousExpression = [NSString stringWithFormat:@"%@ %@ %@"
                                        , self.previousDigits ? self.previousDigits.description : @""
                                        , self.currentOperation ? self.currentOperation : @""
@@ -276,7 +295,6 @@
                                        ];
             self.previousDigits = self.resultDigits;
             self.currentDigits = [[[Digits alloc] initWithBase:self.base] autorelease];
-            self.previousOperation = self.currentOperation;
             self.currentOperation = operation;
         }
     } else { // no pending operation
