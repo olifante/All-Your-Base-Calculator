@@ -58,7 +58,7 @@
 						<int key="IBUIContentMode">7</int>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
-						<string key="IBUIText">0123456789</string>
+						<string key="IBUIText"/>
 						<object class="NSFont" key="IBUIFont" id="136740599">
 							<string key="NSName">Courier</string>
 							<double key="NSSize">96</double>
@@ -83,7 +83,7 @@
 						<int key="IBUIContentMode">7</int>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
-						<string key="IBUIText">0123456789</string>
+						<string key="IBUIText"/>
 						<reference key="IBUIFont" ref="136740599"/>
 						<reference key="IBUITextColor" ref="482846068"/>
 						<nil key="IBUIHighlightedColor"/>
@@ -773,7 +773,7 @@
 						<int key="IBUIContentMode">7</int>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
-						<string key="IBUIText">0123456789</string>
+						<string key="IBUIText"/>
 						<reference key="IBUIFont" ref="805308600"/>
 						<reference key="IBUITextColor" ref="482846068"/>
 						<nil key="IBUIHighlightedColor"/>
@@ -792,7 +792,7 @@
 						<int key="IBUIContentMode">7</int>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
-						<string key="IBUIText">0123456789</string>
+						<string key="IBUIText"/>
 						<reference key="IBUIFont" ref="805308600"/>
 						<reference key="IBUITextColor" ref="482846068"/>
 						<nil key="IBUIHighlightedColor"/>
@@ -2403,11 +2403,6 @@
 						<reference key="parent" ref="755951627"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">233</int>
-						<reference key="object" ref="691016934"/>
-						<reference key="parent" ref="755951627"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">236</int>
 						<reference key="object" ref="98308353"/>
 						<reference key="parent" ref="0"/>
@@ -2682,6 +2677,11 @@
 						<int key="objectID">476</int>
 						<reference key="object" ref="791554306"/>
 						<reference key="parent" ref="766721923"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">233</int>
+						<reference key="object" ref="691016934"/>
+						<reference key="parent" ref="755951627"/>
 					</object>
 				</object>
 			</object>

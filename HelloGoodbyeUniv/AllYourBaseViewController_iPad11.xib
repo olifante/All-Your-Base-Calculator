@@ -538,7 +538,7 @@
 						<int key="IBUIContentMode">7</int>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
-						<string key="IBUIText">0123456789</string>
+						<string key="IBUIText"/>
 						<reference key="IBUIFont" ref="805308600"/>
 						<reference key="IBUITextColor" ref="482846068"/>
 						<nil key="IBUIHighlightedColor"/>
@@ -557,7 +557,7 @@
 						<int key="IBUIContentMode">7</int>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
-						<string key="IBUIText">0123456789</string>
+						<string key="IBUIText"/>
 						<reference key="IBUIFont" ref="805308600"/>
 						<reference key="IBUITextColor" ref="482846068"/>
 						<nil key="IBUIHighlightedColor"/>

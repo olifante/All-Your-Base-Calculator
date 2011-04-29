@@ -58,7 +58,7 @@
 						<int key="IBUIContentMode">7</int>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<string key="IBUIText">0123456789</string>
+						<string key="IBUIText"/>
 						<object class="NSFont" key="IBUIFont" id="897890242">
 							<string key="NSName">Courier</string>
 							<double key="NSSize">48</double>
@@ -83,7 +83,7 @@
 						<int key="IBUIContentMode">7</int>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<string key="IBUIText">0123456789</string>
+						<string key="IBUIText"/>
 						<reference key="IBUIFont" ref="897890242"/>
 						<reference key="IBUITextColor" ref="315542112"/>
 						<nil key="IBUIHighlightedColor"/>
@@ -439,7 +439,7 @@
 						<int key="IBUIContentMode">7</int>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<string key="IBUIText">0123456789</string>
+						<string key="IBUIText"/>
 						<reference key="IBUIFont" ref="320427380"/>
 						<reference key="IBUITextColor" ref="315542112"/>
 						<nil key="IBUIHighlightedColor"/>
@@ -457,7 +457,7 @@
 						<int key="IBUIContentMode">7</int>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<string key="IBUIText">0123456789</string>
+						<string key="IBUIText"/>
 						<reference key="IBUIFont" ref="320427380"/>
 						<reference key="IBUITextColor" ref="315542112"/>
 						<nil key="IBUIHighlightedColor"/>

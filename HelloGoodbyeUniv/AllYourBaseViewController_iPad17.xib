@@ -58,7 +58,7 @@
 						<int key="IBUIContentMode">7</int>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
-						<string key="IBUIText">0123456789</string>
+						<string key="IBUIText"/>
 						<object class="NSFont" key="IBUIFont" id="136740599">
 							<string key="NSName">Courier</string>
 							<double key="NSSize">96</double>
@@ -83,7 +83,7 @@
 						<int key="IBUIContentMode">7</int>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
-						<string key="IBUIText">0123456789</string>
+						<string key="IBUIText"/>
 						<reference key="IBUIFont" ref="136740599"/>
 						<reference key="IBUITextColor" ref="482846068"/>
 						<nil key="IBUIHighlightedColor"/>
@@ -639,7 +639,7 @@
 						<int key="IBUIContentMode">7</int>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
-						<string key="IBUIText">0123456789</string>
+						<string key="IBUIText"/>
 						<reference key="IBUIFont" ref="805308600"/>
 						<reference key="IBUITextColor" ref="482846068"/>
 						<nil key="IBUIHighlightedColor"/>
@@ -658,7 +658,7 @@
 						<int key="IBUIContentMode">7</int>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
-						<string key="IBUIText">0123456789</string>
+						<string key="IBUIText"/>
 						<reference key="IBUIFont" ref="805308600"/>
 						<reference key="IBUITextColor" ref="482846068"/>
 						<nil key="IBUIHighlightedColor"/>
@@ -1781,7 +1781,6 @@
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="98150098"/>
-							<reference ref="951534625"/>
 							<reference ref="479648042"/>
 							<reference ref="713242309"/>
 							<reference ref="890941823"/>
@@ -1811,6 +1810,7 @@
 							<reference ref="58939792"/>
 							<reference ref="789507523"/>
 							<reference ref="791554306"/>
+							<reference ref="951534625"/>
 						</object>
 						<reference key="parent" ref="0"/>
 						<string key="objectName">Portrait View</string>
