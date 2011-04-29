@@ -52,6 +52,7 @@
 - (NSString *)minusString;
 - (NSString *)timesString;
 - (NSString *)divideString;
+- (NSString *)powerString;
 - (NSString *)negateString;
 - (NSString *)negativeString;
 - (NSString *)pointString;

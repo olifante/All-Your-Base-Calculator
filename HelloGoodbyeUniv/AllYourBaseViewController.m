@@ -12,6 +12,7 @@ const unichar plus = 0x002b; // + PLUS SIGN
 const unichar minus = 0x2212; // − MINUS SIGN
 const unichar times = 0x00d7; // × MULTIPLICATION SIGN
 const unichar divide = 0x00f7; // ÷ DIVISION SIGN
+const unichar power = 0x2191; // ↑ UPWARDS ARROW
 //const unichar point = 0x2027; // ‧ HYPHENATION POINT
 const unichar point = 0x2219; // ∙ BULLET OPERATOR
 const unichar negate = 0x2213; // ∓ MINUS-OR-PLUS SIGN
@@ -180,6 +181,8 @@ const unichar negative = 0x002d; // - HYPHEN-MINUS
         [self.model binaryOperationPressed:@"*"];
     } else if ([operation isEqualToString:[self divideString]]) {
         [self.model binaryOperationPressed:@"/"];
+    } else if ([operation isEqualToString:[self powerString]]) {
+        [self.model binaryOperationPressed:@"^"];
     } else {
         [self.model binaryOperationPressed:operation];
     }
@@ -246,6 +249,7 @@ const unichar negative = 0x002d; // - HYPHEN-MINUS
 - (NSString *)minusString { return [NSString stringWithFormat:@"%C", minus]; }
 - (NSString *)timesString { return [NSString stringWithFormat:@"%C", times]; }
 - (NSString *)divideString { return [NSString stringWithFormat:@"%C", divide]; }
+- (NSString *)powerString { return [NSString stringWithFormat:@"%C", power]; }
 - (NSString *)negateString { return [NSString stringWithFormat:@"%C", negate]; }
 - (NSString *)negativeString { return [NSString stringWithFormat:@"%C", negative]; }
 - (NSString *)pointString { return [NSString stringWithFormat:@"%C", point]; }

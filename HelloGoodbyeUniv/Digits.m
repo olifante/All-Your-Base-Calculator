@@ -18,9 +18,10 @@ static NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklm
 
 const char *divideErrorMessage = "m \xc3\xb7 0 undefined"; // UTF8 sequence for 0x00f7 ÷ DIVISION SIGN is \xc3\xb7
 const char *invertErrorMessage = "1 \xc3\xb7 0 undefined";
-const char *zeroPowerOfZeroErrorMessage = "0 ^ 0 undefined";
-const char *negativePowerOfZeroErrorMessage = "0 ^ -m undefined";
-const char *fractionalPowerOfNegativeErrorMessage = "-m ^ 1/n undefined";
+const char *zeroPowerOfZeroErrorMessage = "0 \xe2\x86\x91 0 undefined"; // UTF8 sequence for 0x2191 ↑ UPWARDS ARROW is '\xe2\x86\x91'
+const char *negativePowerOfZeroErrorMessage = "0 \xe2\x86\x91 -n undefined";
+const char *negativePowerErrorMessage = "m \xe2\x86\x91 -n undefined";
+const char *fractionalPowerOfNegativeErrorMessage = "-m \xe2\x86\x91 1/n undefined";
 
 const unichar negativeChar = 0x002d; // - HYPHEN-MINUS
 //const unichar negativeChar = 0xfe63; // ﹣ SMALL HYPHEN-MINUS
@@ -416,6 +417,17 @@ const unichar pointChar = 0x2027; // ‧ HYPHENATION POINT
             [userDict release];
         }
         return nil;
+    } else if ((firstOperandValue != 0) && (secondOperandValue < 0)) {
+        if (error) {            
+            NSDictionary *userDict = [[NSDictionary dictionaryWithObjectsAndKeys:
+                                       NSLocalizedString([Digits negativePowerErrorMessage], @""),
+                                       NSLocalizedDescriptionKey,
+                                       nil] retain];
+            NSError *localError = [[[NSError alloc] initWithDomain:NSCocoaErrorDomain code:EPERM userInfo:userDict] autorelease];
+            *error = localError;
+            [userDict release];
+        }
+        return nil;
     } else if ((firstOperandValue < 0) && ([secondOperand containsPoint])) {
         if (error) {            
             NSDictionary *userDict = [[NSDictionary dictionaryWithObjectsAndKeys:
@@ -496,6 +508,11 @@ const unichar pointChar = 0x2027; // ‧ HYPHENATION POINT
 + (NSString *)negativePowerOfZeroErrorMessage
 {
     return [NSString stringWithUTF8String:negativePowerOfZeroErrorMessage];
+}
+
++ (NSString *)negativePowerErrorMessage
+{
+    return [NSString stringWithUTF8String:negativePowerErrorMessage];
 }
 
 + (NSString *)fractionalPowerOfNegativeErrorMessage

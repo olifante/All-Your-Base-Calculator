@@ -58,6 +58,7 @@
 + (NSString *)invertErrorMessage;
 + (NSString *)zeroPowerOfZeroErrorMessage;
 + (NSString *)negativePowerOfZeroErrorMessage;
++ (NSString *)negativePowerErrorMessage;
 + (NSString *)fractionalPowerOfNegativeErrorMessage;
 
 + (NSString *)allowedDigitsForBase:(int)someBase;
