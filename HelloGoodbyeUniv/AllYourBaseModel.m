@@ -256,7 +256,7 @@
         self.previousDigits = nil;
         self.currentOperation = nil;
     } else {
-        assert(NO); // should never reach this point
+//        assert(NO); // should never reach this point
     }
     [self updateDisplays];
 }

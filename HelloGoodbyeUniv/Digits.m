@@ -90,7 +90,7 @@ const unichar pointChar = 0x2027; // ‧ HYPHENATION POINT
 
 - (id)initWithBase:(int)someBase
 {
-    assert(someBase);
+//    assert(someBase);
     self = [self initWithString:@"" base:someBase];    
     return self;
 }
