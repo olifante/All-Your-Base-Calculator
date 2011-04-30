@@ -49,6 +49,7 @@
     UITabBarController *tbc = [[[UITabBarController alloc] init] autorelease];
     tbc.delegate = theModel;
     tbc.viewControllers = vcs;
+//    tbc.selectedIndex = 2;
 //    tbc.moreNavigationController.navigationBarHidden = YES;
     tbc.moreNavigationController.navigationBar.barStyle = UIBarStyleBlackTranslucent;
     self.tabBarViewController = tbc;
