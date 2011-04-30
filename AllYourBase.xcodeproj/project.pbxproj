@@ -196,7 +196,7 @@
 		F19FB2511359EB8E0076D882 /* FloatingDigitsTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FloatingDigitsTests.h; sourceTree = "<group>"; };
 		F19FB2521359EB8E0076D882 /* FloatingDigitsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = FloatingDigitsTests.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		F19FB25F135A41F80076D882 /* AllYourBaseViewController_iPhoneAlternate10.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllYourBaseViewController_iPhoneAlternate10.xib; sourceTree = "<group>"; };
-		F1ADD8C5133E55830050EB59 /* AllYourBase.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AllYourBase.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F1ADD8C5133E55830050EB59 /* All Your Base.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "All Your Base.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1ADD8C9133E55830050EB59 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		F1ADD8CB133E55830050EB59 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F1ADD8CD133E55830050EB59 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -373,7 +373,7 @@
 		F1ADD8C6133E55830050EB59 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				F1ADD8C5133E55830050EB59 /* AllYourBase.app */,
+				F1ADD8C5133E55830050EB59 /* All Your Base.app */,
 				F12197411343BA6F00507A37 /* LogicTests.octest */,
 			);
 			name = Products;
@@ -485,9 +485,9 @@
 			productReference = F12197411343BA6F00507A37 /* LogicTests.octest */;
 			productType = "com.apple.product-type.bundle";
 		};
-		F1ADD8C4133E55830050EB59 /* AllYourBase */ = {
+		F1ADD8C4133E55830050EB59 /* All Your Base */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F1ADD8EB133E55830050EB59 /* Build configuration list for PBXNativeTarget "AllYourBase" */;
+			buildConfigurationList = F1ADD8EB133E55830050EB59 /* Build configuration list for PBXNativeTarget "All Your Base" */;
 			buildPhases = (
 				F1ADD8C1133E55830050EB59 /* Sources */,
 				F1ADD8C2133E55830050EB59 /* Frameworks */,
@@ -497,9 +497,9 @@
 			);
 			dependencies = (
 			);
-			name = AllYourBase;
+			name = "All Your Base";
 			productName = HelloGoodbyeUniv;
-			productReference = F1ADD8C5133E55830050EB59 /* AllYourBase.app */;
+			productReference = F1ADD8C5133E55830050EB59 /* All Your Base.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -522,7 +522,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				F1ADD8C4133E55830050EB59 /* AllYourBase */,
+				F1ADD8C4133E55830050EB59 /* All Your Base */,
 				F12197401343BA6F00507A37 /* LogicTests */,
 			);
 		};
@@ -673,7 +673,7 @@
 /* Begin PBXTargetDependency section */
 		F1D6C8581343DB7E00891EFF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = F1ADD8C4133E55830050EB59 /* AllYourBase */;
+			target = F1ADD8C4133E55830050EB59 /* All Your Base */;
 			targetProxy = F1D6C8571343DB7E00891EFF /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -803,7 +803,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HelloGoodbyeUniv/AllYourBase-Prefix.pch";
 				INFOPLIST_FILE = "HelloGoodbyeUniv/AllYourBase-Info.plist";
-				PRODUCT_NAME = AllYourBase;
+				PRODUCT_NAME = "All Your Base";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -816,7 +816,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HelloGoodbyeUniv/AllYourBase-Prefix.pch";
 				INFOPLIST_FILE = "HelloGoodbyeUniv/AllYourBase-Info.plist";
-				PRODUCT_NAME = AllYourBase;
+				PRODUCT_NAME = "All Your Base";
 				SKIP_INSTALL = NO;
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
@@ -844,7 +844,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F1ADD8EB133E55830050EB59 /* Build configuration list for PBXNativeTarget "AllYourBase" */ = {
+		F1ADD8EB133E55830050EB59 /* Build configuration list for PBXNativeTarget "All Your Base" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F1ADD8EC133E55830050EB59 /* Debug */,
