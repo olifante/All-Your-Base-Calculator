@@ -38,9 +38,11 @@
         self.base = someBase;
         if (alternateDecimal) {
             self.title = @"Base 10*";           
+            self.tabBarItem = [[[UITabBarItem alloc] initWithTitle:self.title image:nil tag:0] autorelease];
         } else
         {
             self.title = [NSString stringWithFormat:@"Base %d", someBase];
+            self.tabBarItem = [[[UITabBarItem alloc] initWithTitle:self.title image:nil tag:someBase] autorelease];
         }
     }
     return self;

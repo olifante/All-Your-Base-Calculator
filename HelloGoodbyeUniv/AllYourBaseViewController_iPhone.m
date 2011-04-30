@@ -23,12 +23,13 @@
         return nil; // early return because it's useless to invoke [self init]
     }
     
+    
     NSString *nibForBase = nil;
     if (alternateDecimal) {
-        nibForBase = @"AllYourBaseViewController_iPhoneAlternate10";
-        
+        nibForBase = @"AllYourBaseViewController_iPhoneAlternate10";       
     } else
     {
+        self.tabBarItem = [[[UITabBarItem alloc] initWithTitle:@"base 10*" image:nil tag:0] autorelease];
         NSString *nibPrefix = @"AllYourBaseViewController_iPhone";
         nibForBase = [NSString stringWithFormat:@"%@%02d", nibPrefix, someBase];
     }
@@ -38,9 +39,11 @@
         self.base = someBase;
         if (alternateDecimal) {
             self.title = @"Base 10*";           
+            self.tabBarItem = [[[UITabBarItem alloc] initWithTitle:self.title image:nil tag:0] autorelease];
         } else
         {
             self.title = [NSString stringWithFormat:@"Base %d", someBase];
+            self.tabBarItem = [[[UITabBarItem alloc] initWithTitle:self.title image:nil tag:someBase] autorelease];
         }
     }
     return self;
