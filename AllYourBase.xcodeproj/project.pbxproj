@@ -90,6 +90,8 @@
 		F1ADD8F1133E56440050EB59 /* AllYourBaseViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = F1ADD8EF133E56440050EB59 /* AllYourBaseViewController_iPhone.m */; };
 		F1ADD8F2133E56440050EB59 /* AllYourBaseViewController_iPhone10.xib in Resources */ = {isa = PBXBuildFile; fileRef = F1ADD8F0133E56440050EB59 /* AllYourBaseViewController_iPhone10.xib */; };
 		F1ADD8F6133E56720050EB59 /* AllYourBaseViewController_iPad.m in Sources */ = {isa = PBXBuildFile; fileRef = F1ADD8F4133E56720050EB59 /* AllYourBaseViewController_iPad.m */; };
+		F1AE58AD136BC6C100DB606C /* Default-Portrait~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = F1AE58AC136BC6C100DB606C /* Default-Portrait~ipad.png */; };
+		F1AE58AF136BC6C800DB606C /* Default-Landscape~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = F1AE58AE136BC6C800DB606C /* Default-Landscape~ipad.png */; };
 		F1BD2BD0136BA7ED006215F2 /* iTunesArtwork.png in Resources */ = {isa = PBXBuildFile; fileRef = F1BD2BCA136BA7EB006215F2 /* iTunesArtwork.png */; };
 		F1BD2BD1136BA7ED006215F2 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = F1BD2BCB136BA7EB006215F2 /* Icon-72.png */; };
 		F1BD2BD2136BA7ED006215F2 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F1BD2BCC136BA7EB006215F2 /* Icon@2x.png */; };
@@ -196,7 +198,7 @@
 		F19FB2511359EB8E0076D882 /* FloatingDigitsTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FloatingDigitsTests.h; sourceTree = "<group>"; };
 		F19FB2521359EB8E0076D882 /* FloatingDigitsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = FloatingDigitsTests.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		F19FB25F135A41F80076D882 /* AllYourBaseViewController_iPhoneAlternate10.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllYourBaseViewController_iPhoneAlternate10.xib; sourceTree = "<group>"; };
-		F1ADD8C5133E55830050EB59 /* All Your Base.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "All Your Base.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F1ADD8C5133E55830050EB59 /* AllYourBase.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AllYourBase.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1ADD8C9133E55830050EB59 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		F1ADD8CB133E55830050EB59 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F1ADD8CD133E55830050EB59 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -217,6 +219,8 @@
 		F1ADD8F0133E56440050EB59 /* AllYourBaseViewController_iPhone10.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllYourBaseViewController_iPhone10.xib; sourceTree = "<group>"; };
 		F1ADD8F3133E56720050EB59 /* AllYourBaseViewController_iPad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllYourBaseViewController_iPad.h; sourceTree = "<group>"; };
 		F1ADD8F4133E56720050EB59 /* AllYourBaseViewController_iPad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllYourBaseViewController_iPad.m; sourceTree = "<group>"; };
+		F1AE58AC136BC6C100DB606C /* Default-Portrait~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait~ipad.png"; sourceTree = "<group>"; };
+		F1AE58AE136BC6C800DB606C /* Default-Landscape~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape~ipad.png"; sourceTree = "<group>"; };
 		F1BD2BCA136BA7EB006215F2 /* iTunesArtwork.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTunesArtwork.png; sourceTree = "<group>"; };
 		F1BD2BCB136BA7EB006215F2 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
 		F1BD2BCC136BA7EB006215F2 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
@@ -363,6 +367,8 @@
 		F1ADD8BA133E55830050EB59 = {
 			isa = PBXGroup;
 			children = (
+				F1AE58AE136BC6C800DB606C /* Default-Landscape~ipad.png */,
+				F1AE58AC136BC6C100DB606C /* Default-Portrait~ipad.png */,
 				F1ADD8CF133E55830050EB59 /* AllYourBase */,
 				F12197451343BA6F00507A37 /* LogicTests */,
 				F1ADD8C8133E55830050EB59 /* Frameworks */,
@@ -373,7 +379,7 @@
 		F1ADD8C6133E55830050EB59 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				F1ADD8C5133E55830050EB59 /* All Your Base.app */,
+				F1ADD8C5133E55830050EB59 /* AllYourBase.app */,
 				F12197411343BA6F00507A37 /* LogicTests.octest */,
 			);
 			name = Products;
@@ -485,9 +491,9 @@
 			productReference = F12197411343BA6F00507A37 /* LogicTests.octest */;
 			productType = "com.apple.product-type.bundle";
 		};
-		F1ADD8C4133E55830050EB59 /* All Your Base */ = {
+		F1ADD8C4133E55830050EB59 /* AllYourBase */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F1ADD8EB133E55830050EB59 /* Build configuration list for PBXNativeTarget "All Your Base" */;
+			buildConfigurationList = F1ADD8EB133E55830050EB59 /* Build configuration list for PBXNativeTarget "AllYourBase" */;
 			buildPhases = (
 				F1ADD8C1133E55830050EB59 /* Sources */,
 				F1ADD8C2133E55830050EB59 /* Frameworks */,
@@ -497,9 +503,9 @@
 			);
 			dependencies = (
 			);
-			name = "All Your Base";
+			name = AllYourBase;
 			productName = HelloGoodbyeUniv;
-			productReference = F1ADD8C5133E55830050EB59 /* All Your Base.app */;
+			productReference = F1ADD8C5133E55830050EB59 /* AllYourBase.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -522,7 +528,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				F1ADD8C4133E55830050EB59 /* All Your Base */,
+				F1ADD8C4133E55830050EB59 /* AllYourBase */,
 				F12197401343BA6F00507A37 /* LogicTests */,
 			);
 		};
@@ -614,6 +620,8 @@
 				F1BD2BDB136BAF22006215F2 /* Default.png in Resources */,
 				F1BD2BDE136BB1CA006215F2 /* Default-Landscape.png in Resources */,
 				F1BD2BDF136BB1CA006215F2 /* Default-Portrait.png in Resources */,
+				F1AE58AD136BC6C100DB606C /* Default-Portrait~ipad.png in Resources */,
+				F1AE58AF136BC6C800DB606C /* Default-Landscape~ipad.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -673,7 +681,7 @@
 /* Begin PBXTargetDependency section */
 		F1D6C8581343DB7E00891EFF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = F1ADD8C4133E55830050EB59 /* All Your Base */;
+			target = F1ADD8C4133E55830050EB59 /* AllYourBase */;
 			targetProxy = F1D6C8571343DB7E00891EFF /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -803,7 +811,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HelloGoodbyeUniv/AllYourBase-Prefix.pch";
 				INFOPLIST_FILE = "HelloGoodbyeUniv/AllYourBase-Info.plist";
-				PRODUCT_NAME = "All Your Base";
+				PRODUCT_NAME = AllYourBase;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -816,7 +824,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HelloGoodbyeUniv/AllYourBase-Prefix.pch";
 				INFOPLIST_FILE = "HelloGoodbyeUniv/AllYourBase-Info.plist";
-				PRODUCT_NAME = "All Your Base";
+				PRODUCT_NAME = AllYourBase;
 				SKIP_INSTALL = NO;
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
@@ -844,7 +852,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F1ADD8EB133E55830050EB59 /* Build configuration list for PBXNativeTarget "All Your Base" */ = {
+		F1ADD8EB133E55830050EB59 /* Build configuration list for PBXNativeTarget "AllYourBase" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F1ADD8EC133E55830050EB59 /* Debug */,

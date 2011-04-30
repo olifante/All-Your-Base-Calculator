@@ -19,7 +19,7 @@
 		<string>Icon-Small-50.png</string>
 	</array>
 	<key>CFBundleIdentifier</key>
-	<string>com.notknot.${PRODUCT_NAME:rfc1034identifier}</string>
+	<string>com.notknot.AllYourBase.0001</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
