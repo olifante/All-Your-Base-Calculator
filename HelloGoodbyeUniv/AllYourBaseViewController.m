@@ -8,17 +8,17 @@
 
 #import "AllYourBaseViewController.h"
 
-const unichar plus = 0x002b; // + PLUS SIGN
-const unichar minus = 0x2212; // − MINUS SIGN
-const unichar times = 0x00d7; // × MULTIPLICATION SIGN
-const unichar divide = 0x00f7; // ÷ DIVISION SIGN
-const unichar power = 0x2191; // ↑ UPWARDS ARROW
-//const unichar point = 0x2027; // ‧ HYPHENATION POINT
-const unichar point = 0x2219; // ∙ BULLET OPERATOR
-const unichar negate = 0x2213; // ∓ MINUS-OR-PLUS SIGN
-const unichar negative = 0x002d; // - HYPHEN-MINUS
-//const unichar negative = 0xfe63; // ﹣ SMALL HYPHEN-MINUS
-//const unichar negative = 0x02d7; // ˗ MODIFIER LETTER MINUS SIGN
+const unichar plus = 0x002b;        // + PLUS SIGN
+const unichar minus = 0x2212;       // − MINUS SIGN
+const unichar times = 0x00d7;       // × MULTIPLICATION SIGN
+const unichar divide = 0x00f7;      // ÷ DIVISION SIGN
+const unichar power = 0x2191;       // ↑ UPWARDS ARROW
+//const unichar point = 0x2027;       // ‧ HYPHENATION POINT
+const unichar point = 0x2219;       // ∙ BULLET OPERATOR
+const unichar negate = 0x2213;      // ∓ MINUS-OR-PLUS SIGN
+const unichar negative = 0x002d;    // - HYPHEN-MINUS
+//const unichar negative = 0xfe63;    // ﹣ SMALL HYPHEN-MINUS
+//const unichar negative = 0x02d7;    // ˗ MODIFIER LETTER MINUS SIGN
 
 @implementation AllYourBaseViewController
 
