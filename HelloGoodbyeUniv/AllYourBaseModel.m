@@ -184,7 +184,7 @@
 
 # pragma mark -
 
-- (void)performPendingOperationWithError:(NSError **)operationError
+- (BOOL)performPendingOperationWithError:(NSError **)operationError
 {
     Digits *operationResultDigits = nil;
     
@@ -212,6 +212,13 @@
     }
     
     self.resultDigits = operationResultDigits;
+    
+    if (*operationError) {
+        return NO;
+    } else
+    {
+        return YES;
+    }
 }
 
 # pragma mark -

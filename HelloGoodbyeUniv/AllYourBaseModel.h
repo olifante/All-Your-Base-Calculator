@@ -37,7 +37,7 @@
 
 - (void)updateDisplays;
 
-- (void)performPendingOperationWithError:(NSError **)operationError;
+- (BOOL)performPendingOperationWithError:(NSError **)operationError;
 
 - (void)resultPressed;
 - (void)binaryOperationPressed:(NSString *)operation;
