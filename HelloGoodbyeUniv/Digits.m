@@ -324,7 +324,7 @@ const unichar pointChar = 0x2027; // ‧ HYPHENATION POINT
     long long int si1 = self.integerValue;
     long long int si2 = secondOperand.integerValue;
     
-    if ( ((si1^si2) | (((si1^(~(si1^si2) & INT_MIN)) + si2)^si2)) >= 0) {
+    if ( ((si1^si2) | (((si1^(~(si1^si2) & LLONG_MIN)) + si2)^si2)) >= 0) {
         [Digits instantiateError:error withMessage:@"addition overflow"];
         return nil;
     } else {
@@ -345,7 +345,7 @@ const unichar pointChar = 0x2027; // ‧ HYPHENATION POINT
     
     if (((si1^si2)
          & (((si1 ^ ((si1^si2)
-                     & (1 << (sizeof(int)*CHAR_BIT-1))))-si2)^si2)) < 0) {
+                     & (1LL << (sizeof(long long)*CHAR_BIT-1))))-si2)^si2)) < 0) {
         [Digits instantiateError:error withMessage:@"subtraction overflow"];
         return nil;
     } else {
@@ -366,13 +366,13 @@ const unichar pointChar = 0x2027; // ‧ HYPHENATION POINT
 
     if (si1 > 0){  /* si1 is positive */
         if (si2 > 0) {  /* si1 and si2 are positive */
-            if (si1 > (INT_MAX / si2)) {
+            if (si1 > (LLONG_MAX / si2)) {
                 [Digits instantiateError:error withMessage:@"multiplication overflow"];
                 return nil;
             }
         } /* end if si1 and si2 are positive */
         else { /* si1 positive, si2 non-positive */
-            if (si2 < (INT_MIN / si1)) {
+            if (si2 < (LLONG_MIN / si1)) {
                 [Digits instantiateError:error withMessage:@"multiplication overflow"];
                 return nil;
             }
@@ -380,13 +380,13 @@ const unichar pointChar = 0x2027; // ‧ HYPHENATION POINT
     } /* end if si1 is positive */
     else { /* si1 is non-positive */
         if (si2 > 0) { /* si1 is non-positive, si2 is positive */
-            if (si1 < (INT_MIN / si2)) {
+            if (si1 < (LLONG_MIN / si2)) {
                 [Digits instantiateError:error withMessage:@"multiplication overflow"];
                 return nil;
             }
         } /* end if si1 is non-positive, si2 is positive */
         else { /* si1 and si2 are non-positive */
-            if ( (si1 != 0) && (si2 < (INT_MAX / si1))) {
+            if ( (si1 != 0) && (si2 < (LLONG_MAX / si1))) {
                 [Digits instantiateError:error withMessage:@"multiplication overflow"];
                 return nil;
             }
@@ -406,7 +406,7 @@ const unichar pointChar = 0x2027; // ‧ HYPHENATION POINT
     long long int sl1 = self.integerValue;
     long long int sl2 = secondOperand.integerValue;
     
-    if ( (sl2 == 0) || ( (sl1 == LONG_MIN) && (sl2 == -1) ) ) {
+    if ( (sl2 == 0) || ( (sl1 == LLONG_MIN) && (sl2 == -1) ) ) {
         [Digits instantiateError:error withMessage:[Digits divideErrorMessage]];
         return nil;
     }

@@ -766,6 +766,60 @@
     STAssertEquals(actual, expected, @"");
 }
 
+- (void)testInitWithString2Power61 {
+    Digits *first = [[[Digits alloc] initWithString:@"2"] autorelease];
+    STAssertNotNil(first, @"Cannot create Digits instance");
+    Digits *second = [[[Digits alloc] initWithString:@"61"] autorelease];
+    STAssertNotNil(second, @"Cannot create Digits instance");
+    Digits *result = (Digits *)[first power:second withError:NULL];
+    double actual = result.integerValue, expected = 0x2000000000000000LL;
+    STAssertEquals(actual, expected, @"");
+}
+
+- (void)testInitWithString2Power62 {
+    Digits *first = [[[Digits alloc] initWithString:@"2"] autorelease];
+    STAssertNotNil(first, @"Cannot create Digits instance");
+    Digits *second = [[[Digits alloc] initWithString:@"62"] autorelease];
+    STAssertNotNil(second, @"Cannot create Digits instance");
+    Digits *result = (Digits *)[first power:second withError:NULL];
+    double actual = result.integerValue, expected = 0x4000000000000000LL;
+    STAssertEquals(actual, expected, @"");
+}
+
+- (void)testInitWithString2Power63 {
+    Digits *first = [[[Digits alloc] initWithString:@"2"] autorelease];
+    STAssertNotNil(first, @"Cannot create Digits instance");
+    Digits *second = [[[Digits alloc] initWithString:@"63"] autorelease];
+    STAssertNotNil(second, @"Cannot create Digits instance");
+    Digits *result = (Digits *)[first power:second withError:NULL];
+    double actual = result.integerValue, expected = 0x8000000000000000LL;
+    STAssertEquals(actual, expected, @"");
+}
+
+- (void)testInitWithString2Power61Times2 {
+    Digits *first = [[[Digits alloc] initWithString:@"2"] autorelease];
+    STAssertNotNil(first, @"Cannot create Digits instance");
+    Digits *second = [[[Digits alloc] initWithString:@"61"] autorelease];
+    STAssertNotNil(second, @"Cannot create Digits instance");
+    Digits *third = [[[Digits alloc] initWithString:@"2"] autorelease];
+    STAssertNotNil(third, @"Cannot create Digits instance");
+    Digits *result = (Digits *)[[first power:second withError:NULL] times:third withError:NULL];
+    double actual = result.integerValue, expected = 0x4000000000000000LL;
+    STAssertEquals(actual, expected, @"");
+}
+
+- (void)testInitWithString2Power62Times2 {
+    Digits *first = [[[Digits alloc] initWithString:@"2"] autorelease];
+    STAssertNotNil(first, @"Cannot create Digits instance");
+    Digits *second = [[[Digits alloc] initWithString:@"62"] autorelease];
+    STAssertNotNil(second, @"Cannot create Digits instance");
+    Digits *third = [[[Digits alloc] initWithString:@"2"] autorelease];
+    STAssertNotNil(third, @"Cannot create Digits instance");
+    Digits *result = (Digits *)[[first power:second withError:NULL] times:third withError:NULL];
+    double actual = result.integerValue, expected = 0x8000000000000000LL;
+    STAssertEquals(actual, expected, @"");
+}
+
 - (void)testInitWithString3Divide2Divide1 {
     Digits *first = [[[Digits alloc] initWithString:@"3"] autorelease];
     STAssertNotNil(first, @"Cannot create Digits instance");
