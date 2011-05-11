@@ -300,43 +300,101 @@ const unichar pointChar = 0x2027; // ‧ HYPHENATION POINT
 
 # pragma mark arithmetic methods
 
++ (void)instantiateError:(NSError **)error withMessage:(NSString *)message
+{
+    if (error) {            
+        NSDictionary *userDict = [[NSDictionary dictionaryWithObjectsAndKeys:
+                                   NSLocalizedString(message, @""),
+                                   NSLocalizedDescriptionKey,
+                                   nil] retain];
+        NSError *localError = [[[NSError alloc] initWithDomain:NSCocoaErrorDomain code:EPERM userInfo:userDict] autorelease];
+        *error = localError;
+        [userDict release];
+    }
+    
+}
+
 - (Digits *)plus:(Digits *)secondOperand withError:(NSError **)error
 {
     if (!secondOperand) {
+        [Digits instantiateError:error withMessage:@"addition error: no second operand"];
         return nil;
     }
     
-    long long int firstOperandValue = self.integerValue;
-    long long int secondOperandValue = secondOperand.integerValue;
+    long long int si1 = self.integerValue;
+    long long int si2 = secondOperand.integerValue;
     
-    long long int result = firstOperandValue + secondOperandValue;
-    return [[[Digits alloc] initWithLongLong:result base:self.base] autorelease];
+    if ( ((si1^si2) | (((si1^(~(si1^si2) & INT_MIN)) + si2)^si2)) >= 0) {
+        [Digits instantiateError:error withMessage:@"addition overflow"];
+        return nil;
+    } else {
+        long long int operationResult = si1 + si2;
+        return [[[Digits alloc] initWithLongLong:operationResult base:self.base] autorelease];
+    }    
 }
 
 - (Digits *)minus:(Digits *)secondOperand withError:(NSError **)error
 {
     if (!secondOperand) {
+        [Digits instantiateError:error withMessage:@"subtraction error: no second operand"];
         return nil;
     }
 
-    long long int firstOperandValue = self.integerValue;
-    long long int secondOperandValue = secondOperand.integerValue;
+    long long int si1 = self.integerValue;
+    long long int si2 = secondOperand.integerValue;
     
-    long long int result = firstOperandValue - secondOperandValue;
-    return [[[Digits alloc] initWithLongLong:result base:self.base] autorelease];
+    if (((si1^si2)
+         & (((si1 ^ ((si1^si2)
+                     & (1 << (sizeof(int)*CHAR_BIT-1))))-si2)^si2)) < 0) {
+        [Digits instantiateError:error withMessage:@"subtraction overflow"];
+        return nil;
+    } else {
+        long long int operationResult = si1 - si2;
+        return [[[Digits alloc] initWithLongLong:operationResult base:self.base] autorelease];
+    }    
 }
 
 - (Digits *)times:(Digits *)secondOperand withError:(NSError **)error
 {
     if (!secondOperand) {
+        [Digits instantiateError:error withMessage:@"multiplication error: no second operand"];
         return nil;
     }
     
-    long long int firstOperandValue = self.integerValue;
-    long long int secondOperandValue = secondOperand.integerValue;
+    long long int si1 = self.integerValue;
+    long long int si2 = secondOperand.integerValue;
+
+    if (si1 > 0){  /* si1 is positive */
+        if (si2 > 0) {  /* si1 and si2 are positive */
+            if (si1 > (INT_MAX / si2)) {
+                [Digits instantiateError:error withMessage:@"multiplication overflow"];
+                return nil;
+            }
+        } /* end if si1 and si2 are positive */
+        else { /* si1 positive, si2 non-positive */
+            if (si2 < (INT_MIN / si1)) {
+                [Digits instantiateError:error withMessage:@"multiplication overflow"];
+                return nil;
+            }
+        } /* si1 positive, si2 non-positive */
+    } /* end if si1 is positive */
+    else { /* si1 is non-positive */
+        if (si2 > 0) { /* si1 is non-positive, si2 is positive */
+            if (si1 < (INT_MIN / si2)) {
+                [Digits instantiateError:error withMessage:@"multiplication overflow"];
+                return nil;
+            }
+        } /* end if si1 is non-positive, si2 is positive */
+        else { /* si1 and si2 are non-positive */
+            if ( (si1 != 0) && (si2 < (INT_MAX / si1))) {
+                [Digits instantiateError:error withMessage:@"multiplication overflow"];
+                return nil;
+            }
+        } /* end if si1 and si2 are non-positive */
+    } /* end if si1 is non-positive */
     
-    long long int result = firstOperandValue * secondOperandValue;
-    return [[[Digits alloc] initWithLongLong:result base:self.base] autorelease];
+    long long int operationResult = si1 * si2;
+    return [[[Digits alloc] initWithLongLong:operationResult base:self.base] autorelease];
 }
 
 - (Digits *)divide:(Digits *)secondOperand withError:(NSError **)error
@@ -345,23 +403,16 @@ const unichar pointChar = 0x2027; // ‧ HYPHENATION POINT
         return nil;
     }
     
-    long long int firstOperandValue = self.integerValue;
-    long long int secondOperandValue = secondOperand.integerValue;
+    long long int sl1 = self.integerValue;
+    long long int sl2 = secondOperand.integerValue;
     
-    if (secondOperandValue == 0) {
-        if (error) {            
-            NSDictionary *userDict = [[NSDictionary dictionaryWithObjectsAndKeys:
-                                       NSLocalizedString([Digits divideErrorMessage], @""),
-                                       NSLocalizedDescriptionKey,
-                                       nil] retain];
-            NSError *localError = [[[NSError alloc] initWithDomain:NSCocoaErrorDomain code:EPERM userInfo:userDict] autorelease];
-            *error = localError;
-            [userDict release];
-        }
+    if ( (sl2 == 0) || ( (sl1 == LONG_MIN) && (sl2 == -1) ) ) {
+        [Digits instantiateError:error withMessage:[Digits divideErrorMessage]];
         return nil;
-    } else {
-        long long int result = firstOperandValue / secondOperandValue;
-        return [[[Digits alloc] initWithLongLong:result base:self.base] autorelease];
+    }
+    else {
+        long long int operationResult = sl1 / sl2;
+        return [[[Digits alloc] initWithLongLong:operationResult base:self.base] autorelease];
     }
 }
 
@@ -370,15 +421,7 @@ const unichar pointChar = 0x2027; // ‧ HYPHENATION POINT
     long long int operandValue = self.integerValue;
 
     if (operandValue == 0) {
-        if (error) {            
-            NSDictionary *userDict = [[NSDictionary dictionaryWithObjectsAndKeys:
-                                       NSLocalizedString([Digits invertErrorMessage], @""),
-                                       NSLocalizedDescriptionKey,
-                                       nil] retain];
-            NSError *localError = [[[NSError alloc] initWithDomain:NSCocoaErrorDomain code:EPERM userInfo:userDict] autorelease];
-            *error = localError;
-            [userDict release];
-        }
+        [Digits instantiateError:error withMessage:[Digits invertErrorMessage]];
         return nil;
     } else {
         long long int result = 1 / operandValue;
@@ -389,6 +432,7 @@ const unichar pointChar = 0x2027; // ‧ HYPHENATION POINT
 - (Digits *)power:(Digits *)secondOperand withError:(NSError **)error
 {
     if (!secondOperand) {
+        [Digits instantiateError:error withMessage:@"power error: no second operand"];
         return nil;
     } 
     
@@ -396,48 +440,16 @@ const unichar pointChar = 0x2027; // ‧ HYPHENATION POINT
     long long int secondOperandValue = secondOperand.integerValue;
     
     if ((firstOperandValue == 0) && (secondOperandValue == 0)) {
-        if (error) {            
-            NSDictionary *userDict = [[NSDictionary dictionaryWithObjectsAndKeys:
-                                       NSLocalizedString([Digits zeroPowerOfZeroErrorMessage], @""),
-                                       NSLocalizedDescriptionKey,
-                                       nil] retain];
-            NSError *localError = [[[NSError alloc] initWithDomain:NSCocoaErrorDomain code:EPERM userInfo:userDict] autorelease];
-            *error = localError;
-            [userDict release];
-        }
+        [Digits instantiateError:error withMessage:[Digits zeroPowerOfZeroErrorMessage]];
         return nil;
     } else if ((firstOperandValue == 0) && (secondOperandValue < 0)) {
-        if (error) {            
-            NSDictionary *userDict = [[NSDictionary dictionaryWithObjectsAndKeys:
-                                       NSLocalizedString([Digits negativePowerOfZeroErrorMessage], @""),
-                                       NSLocalizedDescriptionKey,
-                                       nil] retain];
-            NSError *localError = [[[NSError alloc] initWithDomain:NSCocoaErrorDomain code:EPERM userInfo:userDict] autorelease];
-            *error = localError;
-            [userDict release];
-        }
+        [Digits instantiateError:error withMessage:[Digits negativePowerOfZeroErrorMessage]];
         return nil;
     } else if ((firstOperandValue != 0) && (secondOperandValue < 0)) {
-        if (error) {            
-            NSDictionary *userDict = [[NSDictionary dictionaryWithObjectsAndKeys:
-                                       NSLocalizedString([Digits negativePowerErrorMessage], @""),
-                                       NSLocalizedDescriptionKey,
-                                       nil] retain];
-            NSError *localError = [[[NSError alloc] initWithDomain:NSCocoaErrorDomain code:EPERM userInfo:userDict] autorelease];
-            *error = localError;
-            [userDict release];
-        }
+        [Digits instantiateError:error withMessage:[Digits negativePowerErrorMessage]];
         return nil;
     } else if ((firstOperandValue < 0) && ([secondOperand containsPoint])) {
-        if (error) {            
-            NSDictionary *userDict = [[NSDictionary dictionaryWithObjectsAndKeys:
-                                       NSLocalizedString([Digits fractionalPowerOfNegativeErrorMessage], @""),
-                                       NSLocalizedDescriptionKey,
-                                       nil] retain];
-            NSError *localError = [[[NSError alloc] initWithDomain:NSCocoaErrorDomain code:EPERM userInfo:userDict] autorelease];
-            *error = localError;
-            [userDict release];
-        }
+        [Digits instantiateError:error withMessage:[Digits fractionalPowerOfNegativeErrorMessage]];
         return nil;
     } else {
         long long int result = pow((double)firstOperandValue, (double)secondOperandValue);
