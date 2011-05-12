@@ -29,19 +29,9 @@ const unichar negativeChar = 0x002d; // - HYPHEN-MINUS
 const unichar pointChar = 0x2027; // ‧ HYPHENATION POINT
 //const unichar pointChar = 0x2219; // ∙ BULLET OPERATOR
 
-size_t highestOneBitPosition(unsigned long long int a) {
-    size_t bits=0;
-    while (a!=0) {
-        ++bits;
-        a>>=1;
-    };
-    return bits;
-}
-
 BOOL exponentiation_is_safe(long long int sa, long long int sb) {
-    unsigned long long int a = llabs(sa), b = llabs(sb);
-    size_t a_bits=highestOneBitPosition(a);
-    return (a_bits*b<=62); // using 62 instead of 64 to account for range of positive signed long longs
+    double da = llabs(sa), db = llabs(sb);
+    return (db * log(da) < log(LLONG_MAX));
 }
 
 @implementation Digits
