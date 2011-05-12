@@ -229,6 +229,12 @@ const unichar pointChar = 0x2027; // ‧ HYPHENATION POINT
         return; // early return because the rest of the method is meaningless with bad input
     }
     
+    long long int currentValue = [self integerValue];
+    if ((currentValue > (LLONG_MAX / self.base)) || (currentValue < (LLONG_MIN / self.base))) {
+        NSLog(@"adding a digit would cause integer overflow");
+        return; // early return because the rest of the method is meaningless with bad input
+    }
+    
     if ([digit isEqualToString:@"."] && [self containsPoint]) {
         NSLog(@"digit '%@' already present in signed digits '%@'", digit, self.signedDigits);
         return; // early return because the rest of the method is meaningless with bad input
@@ -602,8 +608,13 @@ const unichar pointChar = 0x2027; // ‧ HYPHENATION POINT
         } else
         {
             unsigned long long int remainder = absoluteValue;
-            unsigned long long int maximumBasePower = ceil([Digits log:remainder base:someBase]);
-            unsigned long long int power, quotient;
+//            unsigned long long int maximumBasePower = ceil([Digits log:remainder base:someBase]);                                                         
+            unsigned long long int maximumBasePower \
+            = MIN(                                        
+                  ceil([Digits log:remainder base:someBase]),                                                          
+                  floor([Digits log:LLONG_MAX base:someBase])
+                  );
+            unsigned long long int power = 0, quotient = 0;
             
             for (unsigned long long int exponent = maximumBasePower; exponent > 0; exponent--) {
                 power = pow((double)someBase, (double)exponent);
