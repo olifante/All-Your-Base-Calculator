@@ -29,6 +29,21 @@ const unichar negativeChar = 0x002d; // - HYPHEN-MINUS
 const unichar pointChar = 0x2027; // ‧ HYPHENATION POINT
 //const unichar pointChar = 0x2219; // ∙ BULLET OPERATOR
 
+size_t highestOneBitPosition(unsigned long long int a) {
+    size_t bits=0;
+    while (a!=0) {
+        ++bits;
+        a>>=1;
+    };
+    return bits;
+}
+
+BOOL exponentiation_is_safe(long long int sa, long long int sb) {
+    unsigned long long int a = llabs(sa), b = llabs(sb);
+    size_t a_bits=highestOneBitPosition(a);
+    return (a_bits*b<=62); // using 62 instead of 64 to account for range of positive signed long longs
+}
+
 @implementation Digits
 
 @synthesize base;
@@ -292,15 +307,17 @@ const unichar pointChar = 0x2027; // ‧ HYPHENATION POINT
     if (!self.signedDigits) {
         self.signedDigits = @"-0";
     } else
-        if ([self.signedDigits isEqualToString:@"-0"]) {
-            self.signedDigits = @"0";
-        } else
-            if (self.startsWithMinus) {
-                self.signedDigits = self.unsignedDigits;
-            } else
-            {
-                self.signedDigits = [@"-" stringByAppendingString:self.signedDigits];
-            }
+    if ([self.signedDigits isEqualToString:@"-0"]) {
+        self.signedDigits = @"0";
+    } else
+    if (self.startsWithMinus) {
+        if ([self integerValue] != LLONG_MIN) {
+            self.signedDigits = self.unsignedDigits;
+        }
+    } else
+    {
+        self.signedDigits = [@"-" stringByAppendingString:self.signedDigits];
+    }
     return;
 }
 
@@ -456,6 +473,9 @@ const unichar pointChar = 0x2027; // ‧ HYPHENATION POINT
         return nil;
     } else if ((firstOperandValue < 0) && ([secondOperand containsPoint])) {
         [Digits instantiateError:error withMessage:[Digits fractionalPowerOfNegativeErrorMessage]];
+        return nil;
+    } else if (!exponentiation_is_safe(firstOperandValue, secondOperandValue)) {
+        [Digits instantiateError:error withMessage:@"power overflow"];
         return nil;
     } else {
         long long int result = pow((double)firstOperandValue, (double)secondOperandValue);
