@@ -169,7 +169,7 @@ BOOL exponentiation_is_safe(long long int sa, long long int sb) {
 
 - (NSNumber *)value
 {
-    return @([self integerValue)];    
+    return @([self integerValue]);
 }
 
 - (NSString *)unsignedDigits
@@ -182,7 +182,7 @@ BOOL exponentiation_is_safe(long long int sa, long long int sb) {
     } else if (self.startsWithMinus) {
         result = [self.signedDigits substringFromIndex:1];
     } else {
-        result = [[self.signedDigits copy];
+        result = [self.signedDigits copy];
     }
     return result;
 }
@@ -270,7 +270,7 @@ BOOL exponentiation_is_safe(long long int sa, long long int sb) {
         lastDigit = nil;
     } else 
     if (length == 1) {
-        lastDigit = [[self.signedDigits copy];
+        lastDigit = [self.signedDigits copy];
         self.signedDigits = nil;
     } else {
         lastDigit = [self.signedDigits substringFromIndex:length - 1];
@@ -488,7 +488,7 @@ BOOL exponentiation_is_safe(long long int sa, long long int sb) {
 
 + (NSString *)allDigits
 {
-    return [[allDigits copy];
+    return [allDigits copy];
 }
 
 + (NSString *)pointString
