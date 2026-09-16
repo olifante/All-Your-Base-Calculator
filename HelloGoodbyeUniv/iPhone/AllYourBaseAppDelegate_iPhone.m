@@ -13,6 +13,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    NSLog(@"DIAG iPhone didFinishLaunchingWithOptions called, self=%@ self.window(before)=%@", self, self.window);
     AllYourBaseModel *theModel = [[AllYourBaseModel alloc] init];
 
     NSMutableArray *vcs = [[NSMutableArray alloc] init];
