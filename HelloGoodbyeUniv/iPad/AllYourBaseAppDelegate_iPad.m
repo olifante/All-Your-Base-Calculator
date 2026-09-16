@@ -25,7 +25,7 @@
                              @(16),
                              @(25),
                              @(36),
-                             nil];
+                             ] mutableCopy];
     for (int i = 2; i < 37; i++) {
         NSNumber *num = @(i);
         if (![bases containsObject:num]) {

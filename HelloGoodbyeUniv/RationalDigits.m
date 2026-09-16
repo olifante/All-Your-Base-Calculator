@@ -15,7 +15,7 @@
 + (NSString *)parseDigits:(NSString *)someDigits fromBase:(int)someBase
 {
     BOOL positive = YES;
-    NSString *allowedDigits = [[Digits allDigits] substringToIndex:someBase] stringByAppendingString:@"/"];
+    NSString *allowedDigits = [[[Digits allDigits] substringToIndex:someBase] stringByAppendingString:@"/"];
     NSCharacterSet *allowedDigitSet = [NSCharacterSet characterSetWithCharactersInString:allowedDigits];
     NSCharacterSet *forbiddenDigitSet = [allowedDigitSet invertedSet];
     

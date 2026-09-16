@@ -120,7 +120,7 @@
         return;
     }
     
-    base = someBase;
+    _base = someBase;
     
     if (self.currentDigits) {
         if (self.currentDigits.unsignedDigits) {
