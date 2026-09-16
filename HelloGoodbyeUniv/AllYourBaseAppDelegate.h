@@ -8,11 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AllYourBaseAppDelegate : NSObject <UIApplicationDelegate> {
+@interface AllYourBaseAppDelegate : NSObject <UIApplicationDelegate>
 
-}
-
-@property (nonatomic, retain) IBOutlet UIWindow *window;
-@property (nonatomic, retain) IBOutlet UITabBarController *tabBarViewController;
+@property (nonatomic, strong) IBOutlet UIWindow *window;
+@property (nonatomic, strong) IBOutlet UITabBarController *tabBarViewController;
 
 @end

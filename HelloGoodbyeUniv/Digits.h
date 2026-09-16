@@ -9,23 +9,21 @@
 #import <Foundation/Foundation.h>
 
 
-@interface Digits : NSObject {
-}
+@interface Digits : NSObject
 
-@property int base;
+@property (nonatomic) int base;
 
-@property (nonatomic, retain) NSString *signedDigits, *allowedDigits;
-@property (nonatomic, retain) NSCharacterSet *allowedDigitSet, *forbiddenDigitSet;
-@property (nonatomic, retain) NSDictionary *digitValues;
+@property (nonatomic, strong) NSString *signedDigits, *allowedDigits;
+@property (nonatomic, strong) NSCharacterSet *allowedDigitSet, *forbiddenDigitSet;
+@property (nonatomic, strong) NSDictionary *digitValues;
 
-- (void)dealloc;
 - (NSString *)description;
-- (id)init;
-- (id)initWithBase:(int)someBase;
-- (id)initWithLongLong:(long long int)someInt base:(int)someBase;
-- (id)initWithLongLong:(long long int)someInt;
-- (id)initWithString:(NSString *)someString;
-- (id)initWithString:(NSString *)someString base:(int)someBase;
+- (instancetype)init;
+- (instancetype)initWithBase:(int)someBase;
+- (instancetype)initWithLongLong:(long long int)someInt base:(int)someBase;
+- (instancetype)initWithLongLong:(long long int)someInt;
+- (instancetype)initWithString:(NSString *)someString;
+- (instancetype)initWithString:(NSString *)someString base:(int)someBase;
 
 @property (nonatomic, readonly) long long int integerValue;
 @property (nonatomic, readonly) NSNumber *value;

@@ -10,21 +10,9 @@
 
 @implementation AllYourBaseModel
 
-@synthesize currentDigits;
-@synthesize previousDigits;
-@synthesize currentOperation;
-@synthesize previousOperation;
-@synthesize previousExpression;
-@synthesize resultDigits;
-@synthesize secondaryDisplay;
-@synthesize mainDisplay;
-@synthesize error;
-@synthesize previousFirstOperand;
-@synthesize previousSecondOperand;
-@synthesize base;
 
 # pragma mark overridden methods
-- (id)init
+- (instancetype)init
 {
     self = [super init];
     if (self) {
@@ -33,17 +21,12 @@
         self.previousSecondOperand = 0;
         self.error = nil;
         self.previousDigits = nil;
-        self.currentDigits = [[[Digits alloc] initWithBase:10] autorelease];
+        self.currentDigits = [[Digits alloc] initWithBase:10];
         [self updateDisplays];
     }
     return self;
 }
 
-- (void)dealloc
-{
-    [self releaseMembers];
-    [super dealloc];
-}
 
 # pragma mark UITabBarControllerDelegate optional methods
 
@@ -201,13 +184,11 @@
     } else {
         NSLog(@"unknown operation '%@'", self.currentOperation);
         if (operationError) {            
-            NSDictionary *userDict = [[NSDictionary dictionaryWithObjectsAndKeys:
-                                       NSLocalizedString(@"unknown operation '%@'", self.currentOperation),
-                                       NSLocalizedDescriptionKey,
-                                       nil] retain];
-            NSError *localError = [[[NSError alloc] initWithDomain:NSCocoaErrorDomain code:EPERM userInfo:userDict] autorelease];
+            NSDictionary *userDict = @{NSLocalizedDescriptionKey:
+                                       NSLocalizedString(@"unknown operation '%@'", self.currentOperation)};
+            NSError *localError = [[NSError alloc] initWithDomain:NSCocoaErrorDomain code:EPERM userInfo:userDict];
             *operationError = localError;
-            [userDict release];
+            
         }
     }
     
@@ -301,13 +282,13 @@
                                        , self.currentDigits ? self.currentDigits.description : @""
                                        ];
             self.previousDigits = self.resultDigits;
-            self.currentDigits = [[[Digits alloc] initWithBase:self.base] autorelease];
+            self.currentDigits = [[Digits alloc] initWithBase:self.base];
             self.currentOperation = operation;
         }
     } else { // no pending operation
         self.previousDigits = self.currentDigits;
         self.currentOperation = operation;
-        self.currentDigits = [[[Digits alloc] initWithBase:self.base] autorelease];
+        self.currentDigits = [[Digits alloc] initWithBase:self.base];
     }
     
     [self updateDisplays];
@@ -321,7 +302,7 @@
     }
     
     if (self.previousOperation) {
-        self.currentDigits = [[[Digits alloc] initWithBase:self.base] autorelease];
+        self.currentDigits = [[Digits alloc] initWithBase:self.base];
     }
     
     [self.currentDigits pushDigit:digit];
@@ -363,7 +344,7 @@
         self.previousFirstOperand = 0;
         self.previousSecondOperand = 0;
         self.resultDigits = nil;
-        self.currentDigits = [[[Digits alloc] initWithBase:self.base] autorelease];
+        self.currentDigits = [[Digits alloc] initWithBase:self.base];
     }
 
     [self.currentDigits negate];
@@ -373,7 +354,7 @@
 - (void)cleanPressed
 {
     [self releaseMembers];
-    self.currentDigits = [[[Digits alloc] initWithBase:self.base] autorelease];
+    self.currentDigits = [[Digits alloc] initWithBase:self.base];
     [self updateDisplays];
 }
 

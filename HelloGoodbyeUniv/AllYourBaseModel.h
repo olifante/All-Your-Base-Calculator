@@ -12,24 +12,22 @@
 
 @class AllYourBaseViewController;
 
-@interface AllYourBaseModel : NSObject <UITabBarControllerDelegate> {
-}
+@interface AllYourBaseModel : NSObject <UITabBarControllerDelegate>
 
-@property (nonatomic, retain) Digits *currentDigits;
-@property (nonatomic, retain) Digits *previousDigits;
-@property (nonatomic, retain) Digits *resultDigits;
-@property (nonatomic, retain) NSString *currentOperation;
-@property (nonatomic, retain) NSString *previousOperation;
-@property (nonatomic, retain) NSString *previousExpression;
-@property (nonatomic, retain) NSString *mainDisplay;
-@property (nonatomic, retain) NSString *secondaryDisplay;
-@property (nonatomic, retain) NSError *error;
+@property (nonatomic, strong) Digits *currentDigits;
+@property (nonatomic, strong) Digits *previousDigits;
+@property (nonatomic, strong) Digits *resultDigits;
+@property (nonatomic, strong) NSString *currentOperation;
+@property (nonatomic, strong) NSString *previousOperation;
+@property (nonatomic, strong) NSString *previousExpression;
+@property (nonatomic, strong) NSString *mainDisplay;
+@property (nonatomic, strong) NSString *secondaryDisplay;
+@property (nonatomic, strong) NSError *error;
 @property (nonatomic) int previousFirstOperand;
 @property (nonatomic) int previousSecondOperand;
 @property (nonatomic) int base;
 
-- (id)init;
-- (void)dealloc;
+- (instancetype)init;
 
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController;
 

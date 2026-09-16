@@ -11,7 +11,7 @@
 
 @implementation AllYourBaseViewController_iPad
 
-- (id)initWithModel:(AllYourBaseModel *)theModel base:(int)someBase
+- (instancetype)initWithModel:(AllYourBaseModel *)theModel base:(int)someBase
 {
     BOOL alternateDecimal = NO;
     if (someBase == 0) {
@@ -38,11 +38,11 @@
         self.base = someBase;
         if (alternateDecimal) {
             self.title = @"Base 10*";           
-            self.tabBarItem = [[[UITabBarItem alloc] initWithTitle:self.title image:nil tag:0] autorelease];
+            self.tabBarItem = [[UITabBarItem alloc] initWithTitle:self.title image:nil tag:0];
         } else
         {
             self.title = [NSString stringWithFormat:@"Base %d", someBase];
-            self.tabBarItem = [[[UITabBarItem alloc] initWithTitle:self.title image:nil tag:someBase] autorelease];
+            self.tabBarItem = [[UITabBarItem alloc] initWithTitle:self.title image:nil tag:someBase];
         }
     }
     return self;

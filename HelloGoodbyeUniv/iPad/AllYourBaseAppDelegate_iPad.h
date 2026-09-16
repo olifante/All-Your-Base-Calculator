@@ -9,8 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "AllYourBaseAppDelegate.h"
 
-@interface AllYourBaseAppDelegate_iPad : AllYourBaseAppDelegate {
-    
-}
+@interface AllYourBaseAppDelegate_iPad : AllYourBaseAppDelegate
 
 @end

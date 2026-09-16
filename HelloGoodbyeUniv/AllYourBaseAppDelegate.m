@@ -11,8 +11,6 @@
 @implementation AllYourBaseAppDelegate
 
 
-@synthesize window=_window;
-@synthesize tabBarViewController;
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
@@ -53,11 +51,5 @@
      */
 }
 
-- (void)dealloc
-{
-    self.tabBarViewController = nil;
-    [_window release];
-    [super dealloc];
-}
 
 @end

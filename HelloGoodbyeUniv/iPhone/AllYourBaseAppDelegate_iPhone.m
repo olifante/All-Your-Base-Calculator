@@ -13,18 +13,18 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    AllYourBaseModel *theModel = [[[AllYourBaseModel alloc] init] autorelease];
+    AllYourBaseModel *theModel = [[AllYourBaseModel alloc] init];
 
-    NSMutableArray *vcs = [[[NSMutableArray alloc] init] autorelease];
+    NSMutableArray *vcs = [[NSMutableArray alloc] init];
     
-    NSMutableArray *bases = [NSMutableArray arrayWithObjects:
-                             [NSNumber numberWithInt:10],
-                             [NSNumber numberWithInt:6],
-                             [NSNumber numberWithInt:7],
-                             [NSNumber numberWithInt:12],
+    NSMutableArray *bases = [@[
+                             @(10),
+                             @(6),
+                             @(7),
+                             @(12),
                              nil];
     for (int i = 2; i < 17; i++) {
-        NSNumber *num = [NSNumber numberWithInt:i];
+        NSNumber *num = @(i);
         if (![bases containsObject:num]) {
             [bases addObject:num];
         }
@@ -32,21 +32,21 @@
 
     for (NSNumber *item in bases) {
         int i = [item intValue];
-        UIViewController *vc = [[[AllYourBaseViewController_iPhone alloc] 
+        UIViewController *vc = [[AllYourBaseViewController_iPhone alloc] 
                                  initWithModel:theModel
                                  base:i
-                                 ] autorelease];    
+                                 ];    
         [vcs addObject:vc];
         
     }
 
-    UIViewController *vcAlternate10 = [[[AllYourBaseViewController_iPhone alloc] 
+    UIViewController *vcAlternate10 = [[AllYourBaseViewController_iPhone alloc] 
                                         initWithModel:theModel
                                         base:0
-                                        ] autorelease];
+                                        ];
     [vcs addObject:vcAlternate10];
     
-    UITabBarController *tbc = [[[UITabBarController alloc] init] autorelease];
+    UITabBarController *tbc = [[UITabBarController alloc] init];
     tbc.delegate = theModel;
     tbc.viewControllers = vcs;
 //    tbc.selectedIndex = 2;
@@ -59,9 +59,5 @@
     return YES;
 }
 
-- (void)dealloc
-{
-	[super dealloc];
-}
 
 @end

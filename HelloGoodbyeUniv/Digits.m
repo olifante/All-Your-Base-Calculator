@@ -36,22 +36,9 @@ BOOL exponentiation_is_safe(long long int sa, long long int sb) {
 
 @implementation Digits
 
-@synthesize base;
-@synthesize signedDigits, allowedDigits;
-@synthesize allowedDigitSet, forbiddenDigitSet;
-@synthesize digitValues;
 
 # pragma mark overridden methods
 
-- (void)dealloc
-{
-    self.signedDigits = nil;
-    self.allowedDigits = nil;
-    self.allowedDigitSet = nil;
-    self.forbiddenDigitSet = nil;
-    self.digitValues = nil;
-    [super dealloc];
-}
 
 - (NSString *)description
 {
@@ -87,13 +74,13 @@ BOOL exponentiation_is_safe(long long int sa, long long int sb) {
     return result;
 }
 
-- (id)init
+- (instancetype)init
 {
     self = [self initWithString:@"" base:10];    
     return self;
 }
 
-- (id)initWithBase:(int)someBase
+- (instancetype)initWithBase:(int)someBase
 {
 //    assert(someBase);
     self = [self initWithString:@"" base:someBase];    
@@ -102,20 +89,20 @@ BOOL exponentiation_is_safe(long long int sa, long long int sb) {
 
 # pragma mark initializers
 
-- (id)initWithLongLong:(long long int)someInt base:(int)someBase
+- (instancetype)initWithLongLong:(long long int)someInt base:(int)someBase
 {
     NSString *someDigits = [Digits convertInteger:someInt toBase:someBase];
     self = [self initWithString:someDigits base:someBase];
     return self;
 }
 
-- (id)initWithLongLong:(long long int)someInt
+- (instancetype)initWithLongLong:(long long int)someInt
 {
     self = [self initWithLongLong:someInt base:10];
     return self;
 }
 
-- (id)initWithString:(NSString *)someString base:(int)someBase
+- (instancetype)initWithString:(NSString *)someString base:(int)someBase
 {
     if (!someString) {
         NSLog(@"someString must not be nil");
@@ -136,10 +123,10 @@ BOOL exponentiation_is_safe(long long int sa, long long int sb) {
         self.allowedDigitSet = [NSCharacterSet characterSetWithCharactersInString:self.allowedDigits];
         self.forbiddenDigitSet = [self.allowedDigitSet invertedSet];
         
-        NSMutableDictionary *dict = [[[NSMutableDictionary alloc] init] autorelease];
+        NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
         for (int i = 0; i < someBase; i++) {
             NSString *digit = [NSString stringWithFormat:@"%C", [self.allowedDigits characterAtIndex:i]];
-            [dict setObject:[NSNumber numberWithInt:i] forKey:digit]; 
+            [dict setObject:@(i) forKey:digit]; 
         }
         self.digitValues = [NSDictionary dictionaryWithDictionary:dict];
         
@@ -161,7 +148,7 @@ BOOL exponentiation_is_safe(long long int sa, long long int sb) {
     return self;
 }
 
-- (id)initWithString:(NSString *)someString
+- (instancetype)initWithString:(NSString *)someString
 {
     self = [self initWithString:someString base:10];
     return self;
@@ -182,7 +169,7 @@ BOOL exponentiation_is_safe(long long int sa, long long int sb) {
 
 - (NSNumber *)value
 {
-    return [NSNumber numberWithLongLong:[self integerValue]];    
+    return @([self integerValue)];    
 }
 
 - (NSString *)unsignedDigits
@@ -195,7 +182,7 @@ BOOL exponentiation_is_safe(long long int sa, long long int sb) {
     } else if (self.startsWithMinus) {
         result = [self.signedDigits substringFromIndex:1];
     } else {
-        result = [[self.signedDigits copy] autorelease];
+        result = [[self.signedDigits copy];
     }
     return result;
 }
@@ -283,7 +270,7 @@ BOOL exponentiation_is_safe(long long int sa, long long int sb) {
         lastDigit = nil;
     } else 
     if (length == 1) {
-        lastDigit = [[self.signedDigits copy] autorelease];
+        lastDigit = [[self.signedDigits copy];
         self.signedDigits = nil;
     } else {
         lastDigit = [self.signedDigits substringFromIndex:length - 1];
@@ -316,13 +303,11 @@ BOOL exponentiation_is_safe(long long int sa, long long int sb) {
 + (void)instantiateError:(NSError **)error withMessage:(NSString *)message
 {
     if (error) {            
-        NSDictionary *userDict = [[NSDictionary dictionaryWithObjectsAndKeys:
-                                   NSLocalizedString(message, @""),
-                                   NSLocalizedDescriptionKey,
-                                   nil] retain];
-        NSError *localError = [[[NSError alloc] initWithDomain:NSCocoaErrorDomain code:EPERM userInfo:userDict] autorelease];
+        NSDictionary *userDict = @{NSLocalizedDescriptionKey:
+                                   NSLocalizedString(message, @"")};
+        NSError *localError = [[NSError alloc] initWithDomain:NSCocoaErrorDomain code:EPERM userInfo:userDict];
         *error = localError;
-        [userDict release];
+        
     }
     
 }
@@ -342,7 +327,7 @@ BOOL exponentiation_is_safe(long long int sa, long long int sb) {
         return nil;
     } else {
         long long int operationResult = si1 + si2;
-        return [[[Digits alloc] initWithLongLong:operationResult base:self.base] autorelease];
+        return [[Digits alloc] initWithLongLong:operationResult base:self.base];
     }    
 }
 
@@ -363,7 +348,7 @@ BOOL exponentiation_is_safe(long long int sa, long long int sb) {
         return nil;
     } else {
         long long int operationResult = si1 - si2;
-        return [[[Digits alloc] initWithLongLong:operationResult base:self.base] autorelease];
+        return [[Digits alloc] initWithLongLong:operationResult base:self.base];
     }    
 }
 
@@ -407,7 +392,7 @@ BOOL exponentiation_is_safe(long long int sa, long long int sb) {
     } /* end if si1 is non-positive */
     
     long long int operationResult = si1 * si2;
-    return [[[Digits alloc] initWithLongLong:operationResult base:self.base] autorelease];
+    return [[Digits alloc] initWithLongLong:operationResult base:self.base];
 }
 
 - (Digits *)divide:(Digits *)secondOperand withError:(NSError **)error
@@ -425,7 +410,7 @@ BOOL exponentiation_is_safe(long long int sa, long long int sb) {
     }
     else {
         long long int operationResult = sl1 / sl2;
-        return [[[Digits alloc] initWithLongLong:operationResult base:self.base] autorelease];
+        return [[Digits alloc] initWithLongLong:operationResult base:self.base];
     }
 }
 
@@ -438,7 +423,7 @@ BOOL exponentiation_is_safe(long long int sa, long long int sb) {
         return nil;
     } else {
         long long int result = 1 / operandValue;
-        return [[[Digits alloc] initWithLongLong:result base:self.base] autorelease];
+        return [[Digits alloc] initWithLongLong:result base:self.base];
     }
 }
 
@@ -469,7 +454,7 @@ BOOL exponentiation_is_safe(long long int sa, long long int sb) {
         return nil;
     } else {
         long long int result = pow((double)firstOperandValue, (double)secondOperandValue);
-        return [[[Digits alloc] initWithLongLong:result base:self.base] autorelease];
+        return [[Digits alloc] initWithLongLong:result base:self.base];
     }
 }
 
@@ -503,7 +488,7 @@ BOOL exponentiation_is_safe(long long int sa, long long int sb) {
 
 + (NSString *)allDigits
 {
-    return [[allDigits copy] autorelease];
+    return [[allDigits copy];
 }
 
 + (NSString *)pointString

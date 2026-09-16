@@ -10,31 +10,28 @@
 #import "NKString.h"
 #import "AllYourBaseModel.h"
 
-@interface AllYourBaseViewController : UIViewController {
-    int base;
-}
+@interface AllYourBaseViewController : UIViewController
 
 @property (nonatomic) int base;
 
-@property(nonatomic,retain) IBOutlet UIView *portraitView;
-@property(nonatomic,retain) IBOutlet UIView *landscapeView;
-@property BOOL isShowingLandscapeView;
-@property (retain) AllYourBaseModel *model;
+@property (nonatomic, strong) IBOutlet UIView *portraitView;
+@property (nonatomic, strong) IBOutlet UIView *landscapeView;
+@property (nonatomic) BOOL isShowingLandscapeView;
+@property (nonatomic, strong) AllYourBaseModel *model;
 
-@property (retain) IBOutlet UILabel *previousDisplayLabel, *currentDisplayLabel;
-@property (retain) IBOutlet UILabel *previousDisplayLabelLandscape, *currentDisplayLabelLandscape;
+@property (nonatomic, strong) IBOutlet UILabel *previousDisplayLabel, *currentDisplayLabel;
+@property (nonatomic, strong) IBOutlet UILabel *previousDisplayLabelLandscape, *currentDisplayLabelLandscape;
 
 - (void)releaseMembers;
 
-- (void)dealloc;
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context;
 
 - (void)viewDidAppear:(BOOL)animated;
 - (void)viewDidDisappear:(BOOL)animated;
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation;
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil;
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil model:(AllYourBaseModel *)model;
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil model:(AllYourBaseModel *)model;
 
 - (void)updateLabels;
 

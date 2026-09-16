@@ -12,7 +12,6 @@ static NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklm
 
 @implementation FloatingDigits
 
-@synthesize fractionalDigits;
 
 - (double)doubleValue // TODO fix doubleValue to include fractional digits in calculations
 {
@@ -128,33 +127,33 @@ static NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklm
     return result;
 }
 
-- (id)init
+- (instancetype)init
 {
     self = [self initWithString:@"" base:10];    
     return self;
 }
 
-- (id)initWithBase:(int)someBase
+- (instancetype)initWithBase:(int)someBase
 {
     assert(someBase);
     self = [self initWithString:@"" base:someBase];    
     return self;
 }
 
-- (id)initWithDouble:(double)someDouble base:(int)someBase
+- (instancetype)initWithDouble:(double)someDouble base:(int)someBase
 {
     NSString *someDigits = [FloatingDigits convertDouble:someDouble toBase:someBase];
     self = [self initWithString:someDigits base:someBase];
     return self;
 }
 
-- (id)initWithDouble:(double)someDouble
+- (instancetype)initWithDouble:(double)someDouble
 {
     self = [self initWithDouble:someDouble base:10];
     return self;
 }
 
-- (id)initWithString:(NSString *)someString base:(int)someBase
+- (instancetype)initWithString:(NSString *)someString base:(int)someBase
 {
     if (!someString) {
         NSLog(@"someString must not be nil");
@@ -174,10 +173,10 @@ static NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklm
         self.allowedDigitSet = [NSCharacterSet characterSetWithCharactersInString:self.allowedDigits];
         self.forbiddenDigitSet = [self.allowedDigitSet invertedSet];
         
-        NSMutableDictionary *dict = [[[NSMutableDictionary alloc] init] autorelease];
+        NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
         for (int i = 0; i < someBase; i++) {
             NSString *digit = [NSString stringWithFormat:@"%C", [self.allowedDigits characterAtIndex:i]];
-            [dict setObject:[NSNumber numberWithInt:i] forKey:digit]; 
+            [dict setObject:@(i) forKey:digit]; 
         }
         self.digitValues = [NSDictionary dictionaryWithDictionary:dict];
         
@@ -199,7 +198,7 @@ static NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklm
     return self;
 }
 
-- (id)initWithString:(NSString *)someString
+- (instancetype)initWithString:(NSString *)someString
 {
     self = [self initWithString:someString base:10];
     return self;
@@ -215,7 +214,7 @@ static NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklm
     double secondOperandValue = ((FloatingDigits *)secondOperand).doubleValue;
 
     double result = firstOperandValue + secondOperandValue;
-    return [[[FloatingDigits alloc] initWithDouble:result base:self.base] autorelease];
+    return [[FloatingDigits alloc] initWithDouble:result base:self.base];
 }
 
 - (Digits *)minus:(Digits *)secondOperand withError:(NSError **)error
@@ -228,7 +227,7 @@ static NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklm
     double secondOperandValue = ((FloatingDigits *)secondOperand).doubleValue;
     
     double result = firstOperandValue - secondOperandValue;
-    return [[[FloatingDigits alloc] initWithDouble:result base:self.base] autorelease];
+    return [[FloatingDigits alloc] initWithDouble:result base:self.base];
 }
 
 - (Digits *)times:(Digits *)secondOperand withError:(NSError **)error
@@ -241,7 +240,7 @@ static NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklm
     double secondOperandValue = ((FloatingDigits *)secondOperand).doubleValue;
     
     double result = firstOperandValue * secondOperandValue;
-    return [[[FloatingDigits alloc] initWithDouble:result base:self.base] autorelease];
+    return [[FloatingDigits alloc] initWithDouble:result base:self.base];
 }
 
 - (Digits *)divide:(Digits *)secondOperand withError:(NSError **)error
@@ -255,18 +254,16 @@ static NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklm
 
     if (secondOperandValue == 0) {
         if (error) {            
-            NSDictionary *userDict = [[NSDictionary dictionaryWithObjectsAndKeys:
-                                       NSLocalizedString([Digits divideErrorMessage], @""),
-                                       NSLocalizedDescriptionKey,
-                                       nil] retain];
-            NSError *localError = [[[NSError alloc] initWithDomain:NSCocoaErrorDomain code:EPERM userInfo:userDict] autorelease];
+            NSDictionary *userDict = @{NSLocalizedDescriptionKey:
+                                       NSLocalizedString([Digits divideErrorMessage], @"")};
+            NSError *localError = [[NSError alloc] initWithDomain:NSCocoaErrorDomain code:EPERM userInfo:userDict];
             *error = localError;
-            [userDict release];
+            
         }
         return nil;
     } else {
         double result = firstOperandValue / secondOperandValue;
-        return [[[FloatingDigits alloc] initWithDouble:result base:self.base] autorelease];
+        return [[FloatingDigits alloc] initWithDouble:result base:self.base];
     }
 }
 
@@ -276,18 +273,16 @@ static NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklm
     
     if (operandValue == 0) {
         if (error) {            
-            NSDictionary *userDict = [[NSDictionary dictionaryWithObjectsAndKeys:
-                                       NSLocalizedString([Digits invertErrorMessage], @""),
-                                       NSLocalizedDescriptionKey,
-                                       nil] retain];
-            NSError *localError = [[[NSError alloc] initWithDomain:NSCocoaErrorDomain code:EPERM userInfo:userDict] autorelease];
+            NSDictionary *userDict = @{NSLocalizedDescriptionKey:
+                                       NSLocalizedString([Digits invertErrorMessage], @"")};
+            NSError *localError = [[NSError alloc] initWithDomain:NSCocoaErrorDomain code:EPERM userInfo:userDict];
             *error = localError;
-            [userDict release];
+            
         }
         return nil;
     } else {
         double result = 1.0 / operandValue;
-        return [[[FloatingDigits alloc] initWithDouble:result base:self.base] autorelease];
+        return [[FloatingDigits alloc] initWithDouble:result base:self.base];
     }
 }
 
@@ -302,41 +297,35 @@ static NSString *allDigits = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklm
 
     if ((firstOperandValue == 0) && (secondOperandValue == 0)) {
         if (error) {            
-            NSDictionary *userDict = [[NSDictionary dictionaryWithObjectsAndKeys:
-                                       NSLocalizedString([Digits zeroPowerOfZeroErrorMessage], @""),
-                                       NSLocalizedDescriptionKey,
-                                       nil] retain];
-            NSError *localError = [[[NSError alloc] initWithDomain:NSCocoaErrorDomain code:EPERM userInfo:userDict] autorelease];
+            NSDictionary *userDict = @{NSLocalizedDescriptionKey:
+                                       NSLocalizedString([Digits zeroPowerOfZeroErrorMessage], @"")};
+            NSError *localError = [[NSError alloc] initWithDomain:NSCocoaErrorDomain code:EPERM userInfo:userDict];
             *error = localError;
-            [userDict release];
+            
         }
         return nil;
     } else if ((firstOperandValue == 0) && (secondOperandValue < 0)) {
         if (error) {            
-            NSDictionary *userDict = [[NSDictionary dictionaryWithObjectsAndKeys:
-                                       NSLocalizedString([Digits negativePowerOfZeroErrorMessage], @""),
-                                       NSLocalizedDescriptionKey,
-                                       nil] retain];
-            NSError *localError = [[[NSError alloc] initWithDomain:NSCocoaErrorDomain code:EPERM userInfo:userDict] autorelease];
+            NSDictionary *userDict = @{NSLocalizedDescriptionKey:
+                                       NSLocalizedString([Digits negativePowerOfZeroErrorMessage], @"")};
+            NSError *localError = [[NSError alloc] initWithDomain:NSCocoaErrorDomain code:EPERM userInfo:userDict];
             *error = localError;
-            [userDict release];
+            
         }
         return nil;
     } else if ((firstOperandValue < 0) && ([secondOperand containsPoint])) {
         if (error) {            
-            NSDictionary *userDict = [[NSDictionary dictionaryWithObjectsAndKeys:
-                                       NSLocalizedString([Digits fractionalPowerOfNegativeErrorMessage], @""),
-                                       NSLocalizedDescriptionKey,
-                                       nil] retain];
-            NSError *localError = [[[NSError alloc] initWithDomain:NSCocoaErrorDomain code:EPERM userInfo:userDict] autorelease];
+            NSDictionary *userDict = @{NSLocalizedDescriptionKey:
+                                       NSLocalizedString([Digits fractionalPowerOfNegativeErrorMessage], @"")};
+            NSError *localError = [[NSError alloc] initWithDomain:NSCocoaErrorDomain code:EPERM userInfo:userDict];
             *error = localError;
-            [userDict release];
+            
         }
         return nil;
     } else {
         double result = 0.0;
         result = pow(firstOperandValue, secondOperandValue);
-        return [[[FloatingDigits alloc] initWithDouble:result base:self.base] autorelease];
+        return [[FloatingDigits alloc] initWithDouble:result base:self.base];
     }
 }
 

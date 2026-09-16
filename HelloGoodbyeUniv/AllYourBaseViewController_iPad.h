@@ -9,9 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "AllYourBaseViewController.h"
 
-@interface AllYourBaseViewController_iPad : AllYourBaseViewController {
-}
+@interface AllYourBaseViewController_iPad : AllYourBaseViewController
 
-- (id)initWithModel:(AllYourBaseModel *)theModel base:(int)someBase;
+- (instancetype)initWithModel:(AllYourBaseModel *)theModel base:(int)someBase;
 
 @end

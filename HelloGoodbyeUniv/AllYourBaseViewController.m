@@ -22,16 +22,9 @@ const unichar negative = 0x002d;    // - HYPHEN-MINUS
 
 @implementation AllYourBaseViewController
 
-@synthesize portraitView;
-@synthesize landscapeView;
-@synthesize isShowingLandscapeView;
-@synthesize model;
-@synthesize base;
 
 # pragma mark outlets
 
-@synthesize previousDisplayLabel, currentDisplayLabel;
-@synthesize previousDisplayLabelLandscape, currentDisplayLabelLandscape;
 
 # pragma mark release method
 
@@ -49,11 +42,6 @@ const unichar negative = 0x002d;    // - HYPHEN-MINUS
 
 # pragma mark NSObject overridden methods
 
-- (void)dealloc
-{
-    [self releaseMembers];
-    [super dealloc];
-}
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
@@ -81,9 +69,7 @@ const unichar negative = 0x002d;    // - HYPHEN-MINUS
         self.model.base = controllerBase;
     }
     
-    for (NSString *name in [NSArray arrayWithObjects:
-                            @"mainDisplay", @"secondaryDisplay",
-                            nil]) {
+    for (NSString *name in @[@"mainDisplay", @"secondaryDisplay"]) {
         [self.model addObserver:self forKeyPath:name options:NSKeyValueObservingOptionNew context:nil];
     }
     
@@ -94,9 +80,7 @@ const unichar negative = 0x002d;    // - HYPHEN-MINUS
 {
     [super viewDidDisappear:animated];
     
-    for (NSString *name in [NSArray arrayWithObjects:
-                            @"mainDisplay", @"secondaryDisplay",
-                            nil]) {
+    for (NSString *name in @[@"mainDisplay", @"secondaryDisplay"]) {
         [self.model removeObserver:self forKeyPath:name];
     }    
 }
@@ -111,7 +95,7 @@ const unichar negative = 0x002d;    // - HYPHEN-MINUS
     return YES;
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [self initWithNibName:nibNameOrNil bundle:nibBundleOrNil model:nil];
     return self;
@@ -119,7 +103,7 @@ const unichar negative = 0x002d;    // - HYPHEN-MINUS
 
 # pragma mark own initializers
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil model:(AllYourBaseModel *)theModel
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil model:(AllYourBaseModel *)theModel
 {
     self = [super initWithNibName:nibNameOrNil bundle:nil];
     if (self) {
@@ -129,7 +113,7 @@ const unichar negative = 0x002d;    // - HYPHEN-MINUS
             self.model = theModel;
         } else
         {
-            self.model = [[[AllYourBaseModel alloc] init] autorelease];
+            self.model = [[AllYourBaseModel alloc] init];
         }
 
         self.isShowingLandscapeView = NO;
@@ -152,17 +136,17 @@ const unichar negative = 0x002d;    // - HYPHEN-MINUS
     NSString *secondaryText = self.model.secondaryDisplay;
     NSString *primaryText = self.model.mainDisplay;
     
-    NSDictionary *operations = [NSDictionary dictionaryWithObjectsAndKeys:
-                           @"+", [NSString stringWithFormat:@"%C", plus],
-                           @"-", [NSString stringWithFormat:@"%C", minus],
-                           @"*", [NSString stringWithFormat:@"%C", times],
-                           @"/", [NSString stringWithFormat:@"%C", divide],
-                           @"^", [NSString stringWithFormat:@"%C", power],
-                           nil];
-    
+    NSDictionary *operations = @{
+        [NSString stringWithFormat:@"%C", plus]: @"+",
+        [NSString stringWithFormat:@"%C", minus]: @"-",
+        [NSString stringWithFormat:@"%C", times]: @"*",
+        [NSString stringWithFormat:@"%C", divide]: @"/",
+        [NSString stringWithFormat:@"%C", power]: @"^"
+    };
+
     NSString *ASCIIOperation = @"";
     for (NSString *unicodeOperation in operations) {
-        ASCIIOperation = [operations objectForKey:unicodeOperation];
+        ASCIIOperation = operations[unicodeOperation];
         secondaryText = [secondaryText stringByReplacingOccurrencesOfString:ASCIIOperation withString:unicodeOperation];
         primaryText = [primaryText stringByReplacingOccurrencesOfString:ASCIIOperation withString:unicodeOperation];
     }

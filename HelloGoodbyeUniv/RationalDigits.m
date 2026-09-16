@@ -11,12 +11,11 @@
 
 @implementation RationalDigits
 
-@synthesize denominatorDigits;
 
 + (NSString *)parseDigits:(NSString *)someDigits fromBase:(int)someBase
 {
     BOOL positive = YES;
-    NSString *allowedDigits = [[[Digits allDigits] substringToIndex:someBase] stringByAppendingString:@"/"];
+    NSString *allowedDigits = [[Digits allDigits] substringToIndex:someBase] stringByAppendingString:@"/"];
     NSCharacterSet *allowedDigitSet = [NSCharacterSet characterSetWithCharactersInString:allowedDigits];
     NSCharacterSet *forbiddenDigitSet = [allowedDigitSet invertedSet];
     
@@ -42,12 +41,12 @@
     return @"";
 }
 
-- (id)initWithNumerator:(int)numerator denominator:(int)denominator
+- (instancetype)initWithNumerator:(int)numerator denominator:(int)denominator
 {
     return nil;
 }
 
-- (id)initWithNumerator:(int)numerator denominator:(int)denominator base:(int)someBase
+- (instancetype)initWithNumerator:(int)numerator denominator:(int)denominator base:(int)someBase
 {
     return nil;
 }
