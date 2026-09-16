@@ -107,6 +107,7 @@
 		F1EC2934133FFA3000E5C619 /* NKString.m in Sources */ = {isa = PBXBuildFile; fileRef = F1EC2933133FFA2F00E5C619 /* NKString.m */; };
 		F1F1EC3E13632FF4008996EB /* AllYourBaseViewController_iPhone08.xib in Resources */ = {isa = PBXBuildFile; fileRef = F1F1EC3D13632FF4008996EB /* AllYourBaseViewController_iPhone08.xib */; };
 		F1F1EC44136342F3008996EB /* AllYourBaseViewController_iPhone04.xib in Resources */ = {isa = PBXBuildFile; fileRef = F1F1EC42136342F2008996EB /* AllYourBaseViewController_iPhone04.xib */; };
+		F1FF7CF3305B046A00B511AC /* AllYourBaseSceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F1FF7CF2305B046A00B511AC /* AllYourBaseSceneDelegate.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -238,6 +239,8 @@
 		F1EC2933133FFA2F00E5C619 /* NKString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NKString.m; sourceTree = "<group>"; };
 		F1F1EC3D13632FF4008996EB /* AllYourBaseViewController_iPhone08.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllYourBaseViewController_iPhone08.xib; sourceTree = "<group>"; };
 		F1F1EC42136342F2008996EB /* AllYourBaseViewController_iPhone04.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllYourBaseViewController_iPhone04.xib; sourceTree = "<group>"; };
+		F1FF7CF1305B046900B511AC /* AllYourBaseSceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AllYourBaseSceneDelegate.h; sourceTree = "<group>"; };
+		F1FF7CF2305B046A00B511AC /* AllYourBaseSceneDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AllYourBaseSceneDelegate.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -420,6 +423,8 @@
 				F1ADD8DB133E55830050EB59 /* iPhone */,
 				F1ADD8E2133E55830050EB59 /* iPad */,
 				F1ADD8D0133E55830050EB59 /* Supporting Files */,
+				F1FF7CF1305B046900B511AC /* AllYourBaseSceneDelegate.h */,
+				F1FF7CF2305B046A00B511AC /* AllYourBaseSceneDelegate.m */,
 			);
 			name = AllYourBase;
 			path = HelloGoodbyeUniv;
@@ -662,6 +667,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F1ADD8D7133E55830050EB59 /* main.m in Sources */,
+				F1FF7CF3305B046A00B511AC /* AllYourBaseSceneDelegate.m in Sources */,
 				F1ADD8DA133E55830050EB59 /* AllYourBaseAppDelegate.m in Sources */,
 				F1ADD8DE133E55830050EB59 /* AllYourBaseAppDelegate_iPhone.m in Sources */,
 				F1ADD8E5133E55830050EB59 /* AllYourBaseAppDelegate_iPad.m in Sources */,
