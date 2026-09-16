@@ -7,10 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AllYourBaseAppDelegate_iPhone.h"
+#import "AllYourBaseAppDelegate_iPad.h"
 
 int main(int argc, char *argv[])
 {
     @autoreleasepool {
-        return UIApplicationMain(argc, argv, nil, nil);
+        NSString *delegateClassName = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ?
+            NSStringFromClass([AllYourBaseAppDelegate_iPad class]) :
+            NSStringFromClass([AllYourBaseAppDelegate_iPhone class]);
+        return UIApplicationMain(argc, argv, nil, delegateClassName);
     }
 }
