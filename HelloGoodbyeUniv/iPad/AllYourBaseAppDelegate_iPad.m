@@ -55,6 +55,9 @@
 //    tbc.moreNavigationController.navigationBarHidden = YES;
     tbc.moreNavigationController.navigationBar.barStyle = UIBarStyleBlackTranslucent;
     self.tabBarViewController = tbc;
+    if (!self.window) {
+        self.window = [[UIWindow alloc] init];
+    }
     self.window.rootViewController = self.tabBarViewController;
     [self.window addSubview:self.tabBarViewController.view];
     [self.window makeKeyAndVisible];
