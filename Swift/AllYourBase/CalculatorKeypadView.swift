@@ -60,6 +60,20 @@ struct CalculatorKeypadView: View {
         }
     }
 
+    // NOTE (open issue, see text/TASKS.md): on iPadOS Simulator, hovering the
+    // mouse cursor over these buttons triggers UIKit's own pointer
+    // hover-effect system (`_UIPointerEffectPlatterView`), which computes
+    // NaN rounded-rect geometry for its highlight "platter" and floods the
+    // console - confirmed via a CG_NUMERICS_SHOW_BACKTRACE capture, and
+    // nothing in this file's own layout code is on that call stack.
+    // `.hoverEffectDisabled()` does not stop it (verified: identical
+    // backtrace with it applied), and `.hoverEffect(.none)` doesn't compile
+    // (`HoverEffect` has no such case) - both were guesses at the wrong API.
+    // Left un-worked-around for now rather than guess a third time; the
+    // right fix likely needs checking Xcode's own autocomplete/current
+    // SwiftUI docs for whatever API actually suppresses a Button's default
+    // pointer interaction, which isn't something to keep guessing at from
+    // memory.
     private func keyButton(_ key: KeypadKey) -> some View {
         Button {
             onKeyTap(key)
@@ -74,24 +88,6 @@ struct CalculatorKeypadView: View {
                 .frame(minWidth: 1, maxWidth: .infinity, minHeight: 64)
         }
         .buttonStyle(CalculatorKeyStyle(kind: key.action.kind, isInert: key.isInert))
-        // The confirmed source of the NaN/CoreGraphics console spam
-        // (per a CG_NUMERICS_SHOW_BACKTRACE capture): UIKit's own pointer
-        // hover-effect system (`_UIPointerEffectPlatterView`, an iPadOS
-        // Simulator-only feature that highlights a view under the mouse
-        // cursor) computes a rounded-rect "platter" shadow shape for
-        // whatever's under the pointer, and that computation goes NaN for
-        // these buttons - nothing in our own layout code was ever on that
-        // call stack.
-        //
-        // `.hoverEffectDisabled()` did NOT stop it (verified: identical
-        // backtrace after adding it) - that modifier only cancels a hover
-        // effect requested via an explicit `.hoverEffect()`, not the
-        // automatic system pointer interaction every `Button` gets on
-        // iPadOS regardless of ButtonStyle. `.hoverEffect(.none)` is the
-        // actual, longer-standing (iOS 13.4+) API for opting a view out of
-        // that automatic interaction entirely; we already draw our own
-        // pressed-state highlight in CalculatorKeyStyle, so nothing is lost.
-        .hoverEffect(.none)
     }
 }
 

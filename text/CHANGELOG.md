@@ -1,5 +1,19 @@
 # Changelog
 
+## 2026-09-17 18:47 UTC - Revert the broken hover-effect fix; build restored, issue left open
+
+`.hoverEffect(.none)` from the 18:36 UTC commit does not compile -
+`HoverEffect` has no `.none` case. That was a second wrong guess at the API
+(the first, `.hoverEffectDisabled()`, compiled but was verified not to
+actually stop the effect). Rather than guess a third time, removed the
+non-functional modifier entirely and left a clear NOTE comment in
+`CalculatorKeypadView.keyButton` documenting what's confirmed (the NaN is
+UIKit's own pointer hover-effect system, `_UIPointerEffectPlatterView`,
+nothing in this app's code) and what's been ruled out, so this doesn't get
+re-investigated from scratch. The build compiles again; the underlying NaN
+console spam from hovering the Simulator's pointer over a keypad button is
+**unresolved** - see `text/TASKS.md`.
+
 ## 2026-09-17 18:36 UTC - Correct the hover-effect fix: wrong API the first time
 
 The 18:28 UTC fix (`.hoverEffectDisabled()`) did not work - a second

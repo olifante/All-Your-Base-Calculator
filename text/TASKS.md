@@ -47,12 +47,30 @@
       a transient zero height dividing into the digit grid's flexible
       row-height math) - completed 2026-09-17 18:08 UTC. See CHANGELOG.md.
 - [x] Root-caused the remaining NaN spam via an actual
-      `CG_NUMERICS_SHOW_BACKTRACE=1` capture (not another guess): it was
+      `CG_NUMERICS_SHOW_BACKTRACE=1` capture (not another guess): it's
       entirely inside UIKit's own pointer hover-effect system
-      (`_UIPointerEffectPlatterView`), not our code. First attempted fix
-      (`.hoverEffectDisabled()`) was verified NOT to work (identical
-      backtrace); corrected to the actual API, `.hoverEffect(.none)` -
-      completed 2026-09-17 18:36 UTC. See CHANGELOG.md.
+      (`_UIPointerEffectPlatterView`), not our code - confirmed 2026-09-17
+      18:28 UTC. Two follow-up guesses at the API to suppress it both
+      failed - `.hoverEffectDisabled()` compiled but was verified not to
+      change anything (identical backtrace), and `.hoverEffect(.none)`
+      doesn't compile at all (`HoverEffect` has no `.none` case). Reverted
+      to a clean, documented, build-passing state (a NOTE comment in
+      `CalculatorKeypadView.keyButton`) rather than guess a third time -
+      2026-09-17 18:47 UTC. See CHANGELOG.md.
+
+### Known open issue
+- [ ] **The pointer-hover NaN console spam is unresolved.** Confirmed cause:
+      UIKit's `_UIPointerEffectPlatterView` (the iPadOS Simulator's
+      mouse-hover highlight effect on any `Button`) computes NaN rounded-rect
+      geometry for these buttons; confirmed NOT the fix: `.hoverEffectDisabled()`
+      (compiles, no effect) and `.hoverEffect(.none)` (doesn't compile). Next
+      step should be checking Xcode's own autocomplete/current SwiftUI API
+      surface for whatever actually suppresses a `Button`'s default pointer
+      interaction (possibly `UIHoverStyle`/a `UIViewRepresentable` escape
+      hatch, or a newer SwiftUI modifier), rather than continuing to guess
+      API names from memory - or, if this only affects the Simulator's mouse
+      pointer (not real touch on a real iPad), it may be acceptable to leave
+      as a cosmetic Simulator-only annoyance.
 
 ### To do (before treating this as production-ready)
 - [ ] Re-run the app after the 18:08 UTC fix and confirm both (a) the
