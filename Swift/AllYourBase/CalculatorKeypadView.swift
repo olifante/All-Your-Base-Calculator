@@ -81,11 +81,17 @@ struct CalculatorKeypadView: View {
         // cursor) computes a rounded-rect "platter" shadow shape for
         // whatever's under the pointer, and that computation goes NaN for
         // these buttons - nothing in our own layout code was ever on that
-        // call stack. Opting out of the system hover effect entirely (we
-        // draw our own pressed-state highlight in CalculatorKeyStyle
-        // already) sidesteps the buggy codepath rather than trying to guess
-        // which exact size/corner-radius combination trips it up.
-        .hoverEffectDisabled()
+        // call stack.
+        //
+        // `.hoverEffectDisabled()` did NOT stop it (verified: identical
+        // backtrace after adding it) - that modifier only cancels a hover
+        // effect requested via an explicit `.hoverEffect()`, not the
+        // automatic system pointer interaction every `Button` gets on
+        // iPadOS regardless of ButtonStyle. `.hoverEffect(.none)` is the
+        // actual, longer-standing (iOS 13.4+) API for opting a view out of
+        // that automatic interaction entirely; we already draw our own
+        // pressed-state highlight in CalculatorKeyStyle, so nothing is lost.
+        .hoverEffect(.none)
     }
 }
 

@@ -49,9 +49,10 @@
 - [x] Root-caused the remaining NaN spam via an actual
       `CG_NUMERICS_SHOW_BACKTRACE=1` capture (not another guess): it was
       entirely inside UIKit's own pointer hover-effect system
-      (`_UIPointerEffectPlatterView`), not our code. Fixed with
-      `.hoverEffectDisabled()` on every keypad button - completed 2026-09-17
-      18:28 UTC. See CHANGELOG.md.
+      (`_UIPointerEffectPlatterView`), not our code. First attempted fix
+      (`.hoverEffectDisabled()`) was verified NOT to work (identical
+      backtrace); corrected to the actual API, `.hoverEffect(.none)` -
+      completed 2026-09-17 18:36 UTC. See CHANGELOG.md.
 
 ### To do (before treating this as production-ready)
 - [ ] Re-run the app after the 18:08 UTC fix and confirm both (a) the

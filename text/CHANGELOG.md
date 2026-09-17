@@ -1,5 +1,20 @@
 # Changelog
 
+## 2026-09-17 18:36 UTC - Correct the hover-effect fix: wrong API the first time
+
+The 18:28 UTC fix (`.hoverEffectDisabled()`) did not work - a second
+backtrace capture came back byte-for-byte identical, proving that modifier
+never touched the actual codepath. Root cause of *that*: `.hoverEffectDisabled()`
+only cancels a hover effect requested via an explicit `.hoverEffect()` call;
+it does not stop the automatic system pointer interaction that `Button`
+gets on iPadOS regardless of `ButtonStyle`, which is what's actually
+installing the buggy `_UIPointerEffectPlatterView`.
+
+### Fixed
+- `CalculatorKeypadView.keyButton`: replaced `.hoverEffectDisabled()` with
+  `.hoverEffect(.none)` - the actual, long-standing (iOS 13.4+) API for
+  opting a view out of the automatic pointer hover interaction entirely.
+
 ## 2026-09-17 18:28 UTC - Actually root-caused the NaN spam via a real backtrace
 
 The 18:08 UTC fix reduced but didn't eliminate the console spam. Rather than
