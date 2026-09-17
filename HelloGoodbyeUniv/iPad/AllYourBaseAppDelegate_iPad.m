@@ -53,7 +53,8 @@
     tbc.viewControllers = vcs;
 //    tbc.selectedIndex = 3;
 //    tbc.moreNavigationController.navigationBarHidden = YES;
-    tbc.moreNavigationController.navigationBar.barStyle = UIBarStyleBlackTranslucent;
+    tbc.moreNavigationController.navigationBar.barStyle = UIBarStyleBlack;
+    tbc.moreNavigationController.navigationBar.translucent = YES;
     self.tabBarViewController = tbc;
     if (!self.window) {
         self.window = [[UIWindow alloc] init];
