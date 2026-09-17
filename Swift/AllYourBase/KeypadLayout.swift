@@ -11,11 +11,15 @@
 //  original's portrait vs. landscape nibs did with hand-tuned frames.
 //
 //  Every original nib's grid had the same anatomy: a control row (negate,
-//  delete, shift left/right - always a no-op, point, clear), the digits
-//  0...base-1 filling left-to-right/top-to-bottom in `Digits.allDigits`
-//  order, and the operators + "=" at the trailing edge. That anatomy is
-//  reproduced key-for-key here; the exact pixel positions are not (see
-//  INPROGRESS.md/README for why an exact per-base pixel port isn't the goal).
+//  delete, shift left/right - always a no-op, clear), the digits 0...base-1
+//  (plus the decimal point) filling left-to-right/top-to-bottom in
+//  `Digits.allDigits` order, and the operators + "=" at the trailing edge.
+//  That anatomy is reproduced key-for-key here, now split into three
+//  explicit groups (editing / digits / operations) that CalculatorKeypadView
+//  renders as three visually separate rows/sections rather than one long
+//  interleaved grid; the exact pixel positions from the originals are not
+//  reproduced (see INPROGRESS.md/README for why an exact per-base pixel
+//  port isn't the goal).
 //
 
 import Foundation
@@ -47,32 +51,39 @@ struct KeypadKey: Identifiable {
 
 enum KeypadLayout {
 
-    /// The sequential grid used by every "Base N" tab.
-    static func sequentialKeys(forBase base: Int) -> [KeypadKey] {
-        var keys: [KeypadKey] = [
+    /// The "editing" row shown above the digit grid on every "Base N" tab:
+    /// clear, delete, negate, and the two always-inert shift keys.
+    static func editingKeys() -> [KeypadKey] {
+        [
             KeypadKey(title: CalculatorSymbols.clear, action: .clear),
             KeypadKey(title: CalculatorSymbols.delete, action: .delete),
             KeypadKey(title: CalculatorSymbols.negate, action: .negate),
             KeypadKey(title: CalculatorSymbols.shiftLeft, action: .shiftLeft),
             KeypadKey(title: CalculatorSymbols.shiftRight, action: .shiftRight),
-            KeypadKey(title: CalculatorSymbols.point, action: .point),
         ]
+    }
 
+    /// The digit grid for a given base: the decimal point followed by
+    /// 0...base-1 in `Digits.allDigits` order.
+    static func digitKeys(forBase base: Int) -> [KeypadKey] {
+        var keys: [KeypadKey] = [KeypadKey(title: CalculatorSymbols.point, action: .point)]
         for symbol in Digits.allowedDigits(forBase: base) {
             let digit = String(symbol)
             keys.append(KeypadKey(title: digit, action: .digit(digit)))
         }
+        return keys
+    }
 
-        keys.append(contentsOf: [
+    /// The binary operators + "=", shown as their own row below the digits.
+    static func operationKeys() -> [KeypadKey] {
+        [
             KeypadKey(title: CalculatorSymbols.plus, action: .operation("+")),
             KeypadKey(title: CalculatorSymbols.minus, action: .operation("-")),
             KeypadKey(title: CalculatorSymbols.times, action: .operation("*")),
             KeypadKey(title: CalculatorSymbols.divide, action: .operation("/")),
             KeypadKey(title: CalculatorSymbols.power, action: .operation("^")),
             KeypadKey(title: CalculatorSymbols.equals, action: .equals),
-        ])
-
-        return keys
+        ]
     }
 
     /// The classic phone-calculator-style grid used by the "Base 10*" tab

@@ -1,5 +1,58 @@
 # Changelog
 
+## 2026-09-17 17:57 UTC - Keypad layout/sizing fixes after first real build
+
+The user got the rewrite building and running in real Xcode (with a few
+local fixes on their end) and reported the keypad looked bad on-device: tiny
+buttons clustered in the top-left of the screen with a large unused blank
+area below/right, and a broken/tofu glyph for the negate (±) key.
+
+### Fixed
+- **Root layout bug**: `CalculatorScreenView`'s `GeometryReader` content was
+  a plain `VStack` with no explicit frame, so it hugged its own content size
+  and sat top-leading instead of filling the tab's actual screen area -
+  that's what produced the large empty area. Now given an explicit
+  `.frame(width: proxy.size.width, height: proxy.size.height, alignment: .top)`.
+- **Root button-sizing bug**: each keypad button used
+  `.frame(maxWidth: .infinity).aspectRatio(1, contentMode: .fit)`, which (with
+  no height constraint from its `LazyVGrid` cell) collapsed to a small square
+  hugging the leading edge of its grid column instead of filling it. Replaced
+  with an explicit `.frame(maxWidth: .infinity, minHeight: 64)`, which is
+  also what makes the buttons meaningfully bigger as asked.
+- **Missing glyph**: the negate key's `∓` (U+2213) rendered as a tofu/box
+  glyph on-device because the `"Courier"` font the buttons/display used
+  doesn't include it. Switched every button and display label from
+  `.custom("Courier", size:)` to `.system(size:, design: .monospaced)`,
+  which has full coverage of the symbols this app uses.
+- A `CGFloat`/`Double` type mismatch passing `proxy.size.width` into
+  `KeypadLayout.sequentialColumnCount(forWidth:)` (this was likely one of
+  the "few local fixes" already made on the user's machine; fixed again here
+  since the surrounding code was rewritten anyway).
+
+### Changed (requested: separate rows for editing / digits / operations)
+- `KeypadLayout.sequentialKeys(forBase:)` (one flat interleaved list) split
+  into three functions - `editingKeys()`, `digitKeys(forBase:)` (now
+  including the decimal point), `operationKeys()` - each rendered as its own
+  visually distinct row/section by `CalculatorKeypadView`, instead of one
+  long grid where control/digit/operator keys landed in whatever row the
+  column count happened to wrap them into.
+- `CalculatorKeypadView` reworked around a `Layout` enum: `.grouped(editing:
+  digits:operations:digitColumns:)` for the per-base tabs (editing controls
+  as one row, the digit grid wrapping into as many rows as needed, operators
+  as a final row), and `.flat(keys:columns:)` preserving the classic "Base
+  10*" tab's deliberately-interleaved phone-calculator grid unchanged.
+
+### Also fixed while in the area (not requested, but a real gap)
+- The original app's view controller (`updateLabels` in
+  `AllYourBaseViewController.m`) translated the model's plain-ASCII operator
+  tokens (`+ - * / ^`) into the pretty Unicode symbols (`+ − × ÷ ↑`) before
+  ever showing them on screen. That view-layer step was never ported in the
+  first pass, so the display was silently showing raw ASCII operators.
+  Added `CalculatorSymbols.prettify(_:)` (applied in `CalculatorDisplayView`)
+  to restore this - including the original's quirk that a negative number's
+  "-" sign gets the same prettifying treatment as the subtraction operator,
+  since both are blindly string-replaced the same way in the original too.
+
 ## 2026-09-17 17:06 UTC - Swift/SwiftUI rewrite
 
 Added a new, from-scratch Swift/SwiftUI implementation of the calculator

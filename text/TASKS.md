@@ -31,15 +31,24 @@
       the original had no test target for - completed 2026-09-17 17:05 UTC.
 - [x] Write `text/README.md`, `text/CHANGELOG.md`, `text/TASKS.md`,
       `text/EXAMPLES.md` - completed 2026-09-17 17:07 UTC.
+- [x] Open `Swift/AllYourBase.xcodeproj` in real Xcode on macOS - done by the
+      user (with a few local fixes) - confirmed 2026-09-17 17:50 UTC.
+- [x] Fix the keypad layout bugs the first real run surfaced: buttons
+      collapsing to tiny squares stranded at the top-left of the screen
+      (bad `GeometryReader`/`aspectRatio` interaction), a missing/tofu glyph
+      for the negate key (`"Courier"` font gap), and restructure the keypad
+      into three separate rows (editing / digits / operations) with larger
+      buttons as requested. Also restored the original's ASCII->Unicode
+      operator prettifying for the display labels, which had been missed in
+      the first pass - completed 2026-09-17 17:57 UTC. See CHANGELOG.md for
+      the full breakdown.
 
 ### To do (before treating this as production-ready)
-- [ ] **Open `Swift/AllYourBase.xcodeproj` in real Xcode on macOS and fix
-      whatever the first build turns up.** This is the single most important
-      remaining task: none of this Swift code has been compiled - it was
-      written and manually traced line-by-line in a Linux sandbox with no
-      Swift toolchain available. Expect small issues (an unused-variable
-      warning, maybe a type-inference hiccup) rather than deep design
-      problems, but budget real time for this pass.
+- [ ] Re-run the app after the 17:57 UTC layout fixes and confirm the keypad
+      now looks right on both iPhone and iPad, in portrait and landscape,
+      across a small base (e.g. 2), a mid-size base (10), and a large one
+      (36) - the digit-grid row count varies a lot across that range and
+      hasn't been visually re-checked since the fix.
 - [ ] Run the `AllYourBaseTests` target and confirm every test passes;
       re-check the by-hand-traced expected values in
       `CalculatorModelTests.swift` (especially the "= " display-prefix

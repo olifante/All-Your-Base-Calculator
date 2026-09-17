@@ -19,19 +19,20 @@ struct CalculatorDisplayView: View {
 
     var body: some View {
         VStack(alignment: .trailing, spacing: 2) {
-            Text(secondary.isEmpty ? " " : secondary)
-                .font(.custom("Courier", size: 18))
+            Text(secondary.isEmpty ? " " : CalculatorSymbols.prettify(secondary))
+                .font(.system(size: 18, weight: .regular, design: .monospaced))
                 .foregroundColor(.secondary)
                 .lineLimit(1)
                 .minimumScaleFactor(0.5)
-            Text(primary.isEmpty ? "0" : primary)
-                .font(.custom("Courier", size: 32))
+            Text(primary.isEmpty ? "0" : CalculatorSymbols.prettify(primary))
+                .font(.system(size: 36, weight: .medium, design: .monospaced))
                 .lineLimit(1)
                 .minimumScaleFactor(0.4)
         }
         .frame(maxWidth: .infinity, alignment: .trailing)
-        .padding(.horizontal, 12)
-        .padding(.top, 8)
+        .padding(.horizontal, 16)
+        .padding(.top, 12)
+        .padding(.bottom, 4)
     }
 }
 
@@ -43,20 +44,31 @@ struct CalculatorScreenView: View {
 
     var body: some View {
         GeometryReader { proxy in
-            VStack(spacing: 8) {
+            VStack(spacing: 12) {
                 CalculatorDisplayView(secondary: model.secondaryDisplay, primary: model.mainDisplay)
-                CalculatorKeypadView(
-                    keys: isClassic ? KeypadLayout.classicKeys() : KeypadLayout.sequentialKeys(forBase: base),
-                    columns: isClassic
-                        ? KeypadLayout.classicColumnCount
-                        : KeypadLayout.sequentialColumnCount(forWidth: proxy.size.width),
-                    onKeyTap: handle
-                )
-                .padding(.horizontal, 4)
-                .padding(.bottom, 4)
+                CalculatorKeypadView(layout: keypadLayout(forWidth: Double(proxy.size.width)), onKeyTap: handle)
+                    .padding(.horizontal, 8)
+                    .padding(.bottom, 8)
             }
+            // GeometryReader's child defaults to hugging its own content and
+            // sitting top-leading, which is what made the keypad look tiny
+            // and stranded in the corner of the screen with the rest left
+            // blank - force it to actually use the full proposed size.
+            .frame(width: proxy.size.width, height: proxy.size.height, alignment: .top)
         }
         .onAppear { model.changeBase(to: base) }
+    }
+
+    private func keypadLayout(forWidth width: Double) -> CalculatorKeypadView.Layout {
+        if isClassic {
+            return .flat(keys: KeypadLayout.classicKeys(), columns: KeypadLayout.classicColumnCount)
+        }
+        return .grouped(
+            editing: KeypadLayout.editingKeys(),
+            digits: KeypadLayout.digitKeys(forBase: base),
+            operations: KeypadLayout.operationKeys(),
+            digitColumns: KeypadLayout.sequentialColumnCount(forWidth: width)
+        )
     }
 
     private func handle(_ key: KeypadKey) {

@@ -35,4 +35,23 @@ enum CalculatorSymbols {
     static let negative = "-"          // U+002D HYPHEN-MINUS, the sign prefix
 
     static let binaryOperators = [plus, minus, times, divide, power]
+
+    /// Equivalent of the ASCII->Unicode replacement `updateLabels` did in the
+    /// original `AllYourBaseViewController.m` before setting label text:
+    /// `CalculatorModel`'s display strings always use plain ASCII operator
+    /// tokens internally ("+", "-", "*", "/", "^" - see CalculatorModel's
+    /// `performPendingOperation`), and this is the view-layer step that
+    /// turns those into the pretty glyphs for display. This is a blind
+    /// substitution over the whole string, exactly like the original - which
+    /// also means a negative number's "-" sign gets prettified into the same
+    /// Unicode minus as the subtraction operator, matching the original's
+    /// actual (intentional) behavior.
+    static func prettify(_ text: String) -> String {
+        var result = text
+        result = result.replacingOccurrences(of: "^", with: power)
+        result = result.replacingOccurrences(of: "/", with: divide)
+        result = result.replacingOccurrences(of: "*", with: times)
+        result = result.replacingOccurrences(of: "-", with: minus)
+        return result
+    }
 }
