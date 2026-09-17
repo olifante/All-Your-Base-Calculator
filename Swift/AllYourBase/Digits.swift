@@ -68,7 +68,10 @@ final class Digits: CustomStringConvertible {
         digitValues = values
         signedDigits = nil
 
-        signedDigits = Digits.scanSignedDigits(from: someString, allowed: allowedDigitCharacters)
+        signedDigits = Digits.scanSignedDigits(
+            from: someString,
+            allowed: allowedDigitCharacters.union([Character(".")])
+        )
     }
 
     convenience init?(base someBase: Int) {
@@ -107,17 +110,13 @@ final class Digits: CustomStringConvertible {
     static func scanSignedDigits(from input: String, allowed: Set<Character>) -> String? {
         var remainder = Substring(input)
 
-        if remainder.first == " " {
-            remainder = remainder.dropFirst()
-        }
+        remainder = remainder.drop(while: { $0.isWhitespace })
 
         var negativePrefix = ""
         if remainder.first == "-" {
             negativePrefix = "-"
             remainder = remainder.dropFirst()
-            if remainder.first == " " {
-                remainder = remainder.dropFirst()
-            }
+            remainder = remainder.drop(while: { $0.isWhitespace })
         }
 
         var scanned = ""
@@ -194,6 +193,11 @@ final class Digits: CustomStringConvertible {
     // MARK: mutating methods
 
     func pushDigit(_ digit: String) {
+        if digit == "-" {
+            negate()
+            return
+        }
+
         guard isDigit(digit) else { return }
 
         let currentValue = integerValue
@@ -203,11 +207,6 @@ final class Digits: CustomStringConvertible {
         }
 
         if digit == "." && containsPoint {
-            return
-        }
-
-        if digit == "-" {
-            negate()
             return
         }
 
@@ -378,7 +377,7 @@ final class Digits: CustomStringConvertible {
     private static func exponentiationIsSafe(_ a: Int64, _ b: Int64) -> Bool {
         let da = abs(Double(a))
         let db = abs(Double(b))
-        return db * log(da) < log(Double(Int64.max))
+        return db * Foundation.log(da) < Foundation.log(Double(Int64.max))
     }
 
     /// `Int64(someDouble)` traps if `someDouble` is outside Int64's range;
