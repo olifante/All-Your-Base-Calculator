@@ -74,6 +74,18 @@ struct CalculatorKeypadView: View {
                 .frame(minWidth: 1, maxWidth: .infinity, minHeight: 64)
         }
         .buttonStyle(CalculatorKeyStyle(kind: key.action.kind, isInert: key.isInert))
+        // The confirmed source of the NaN/CoreGraphics console spam
+        // (per a CG_NUMERICS_SHOW_BACKTRACE capture): UIKit's own pointer
+        // hover-effect system (`_UIPointerEffectPlatterView`, an iPadOS
+        // Simulator-only feature that highlights a view under the mouse
+        // cursor) computes a rounded-rect "platter" shadow shape for
+        // whatever's under the pointer, and that computation goes NaN for
+        // these buttons - nothing in our own layout code was ever on that
+        // call stack. Opting out of the system hover effect entirely (we
+        // draw our own pressed-state highlight in CalculatorKeyStyle
+        // already) sidesteps the buggy codepath rather than trying to guess
+        // which exact size/corner-radius combination trips it up.
+        .hoverEffectDisabled()
     }
 }
 

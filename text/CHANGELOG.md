@@ -1,5 +1,26 @@
 # Changelog
 
+## 2026-09-17 18:28 UTC - Actually root-caused the NaN spam via a real backtrace
+
+The 18:08 UTC fix reduced but didn't eliminate the console spam. Rather than
+guess a third time, asked for a `CG_NUMERICS_SHOW_BACKTRACE=1` capture, which
+gave a real, conclusive answer: the NaN is computed entirely inside **UIKit's
+own pointer hover-effect system**
+(`_UIPointerEffectPlatterView`/`_UIPointerContentEffect`/`UIPointerInteraction`,
+via `_UIPointerInteractionHoverDriver`) - the iPadOS-Simulator-only feature
+that draws a "platter" highlight under the mouse cursor when hovering over an
+interactive element. None of this app's own view code appears anywhere in
+that backtrace; UIKit's rounded-rect bezier math for that platter shape goes
+NaN on its own for these buttons.
+
+### Fixed
+- `CalculatorKeypadView.keyButton`: added `.hoverEffectDisabled()` to every
+  keypad button, opting them out of the system hover-effect computation
+  entirely (the pressed-state highlight is already drawn ourselves in
+  `CalculatorKeyStyle`, so nothing is lost). This sidesteps the buggy UIKit
+  codepath directly instead of guessing at which button size/corner-radius
+  combination trips it up.
+
 ## 2026-09-17 18:08 UTC - Fix NaN/CoreGraphics console flood from the layout fix
 
 The 17:57 UTC layout fix introduced a real bug of its own: running the app

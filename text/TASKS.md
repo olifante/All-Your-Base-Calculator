@@ -46,6 +46,12 @@
       (`GeometryReader`'s proxy size fed into a hard `.frame(width:height:)`,
       a transient zero height dividing into the digit grid's flexible
       row-height math) - completed 2026-09-17 18:08 UTC. See CHANGELOG.md.
+- [x] Root-caused the remaining NaN spam via an actual
+      `CG_NUMERICS_SHOW_BACKTRACE=1` capture (not another guess): it was
+      entirely inside UIKit's own pointer hover-effect system
+      (`_UIPointerEffectPlatterView`), not our code. Fixed with
+      `.hoverEffectDisabled()` on every keypad button - completed 2026-09-17
+      18:28 UTC. See CHANGELOG.md.
 
 ### To do (before treating this as production-ready)
 - [ ] Re-run the app after the 18:08 UTC fix and confirm both (a) the
