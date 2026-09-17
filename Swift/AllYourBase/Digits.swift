@@ -366,18 +366,42 @@ final class Digits: CustomStringConvertible {
             throw DigitsError(message: Digits.negativePowerErrorMessage)
         } else if firstOperandValue < 0 && secondOperand.containsPoint {
             throw DigitsError(message: Digits.fractionalPowerOfNegativeErrorMessage)
-        } else if !Digits.exponentiationIsSafe(firstOperandValue, secondOperandValue) {
-            throw DigitsError(message: "power overflow")
         }
 
-        let result = Digits.int64(clamping: pow(Double(firstOperandValue), Double(secondOperandValue)))
+        guard let result = Digits.checkedPower(firstOperandValue, secondOperandValue) else {
+            throw DigitsError(message: "power overflow")
+        }
         return Digits(longLong: result, base: base)
     }
 
-    private static func exponentiationIsSafe(_ a: Int64, _ b: Int64) -> Bool {
-        let da = abs(Double(a))
-        let db = abs(Double(b))
-        return db * Foundation.log(da) < Foundation.log(Double(Int64.max))
+    /// Exact integer exponentiation by squaring, using the same
+    /// overflow-checked `Int64` operators as `plus`/`minus`/`times` above -
+    /// returns `nil` on overflow instead of trapping. Replaces an earlier
+    /// version of this method that computed `pow(Double(a), Double(b))` and
+    /// converted back to `Int64`: `Double` only has 53 bits of mantissa
+    /// (~9x10^15 of exact integer range), while `Int64` goes up to ~9.2x10^18,
+    /// so results in between were silently rounded to the nearest
+    /// representable `Double` instead of computed exactly (e.g. `7^19` came
+    /// out one too high). `exponent` must be `>= 0`; negative exponents are
+    /// rejected by the caller before this is reached.
+    private static func checkedPower(_ base: Int64, _ exponent: Int64) -> Int64? {
+        var result: Int64 = 1
+        var currentBase = base
+        var remainingExponent = exponent
+        while remainingExponent > 0 {
+            if remainingExponent & 1 == 1 {
+                let (multiplied, overflow) = result.multipliedReportingOverflow(by: currentBase)
+                guard !overflow else { return nil }
+                result = multiplied
+            }
+            remainingExponent >>= 1
+            if remainingExponent > 0 {
+                let (squared, overflow) = currentBase.multipliedReportingOverflow(by: currentBase)
+                guard !overflow else { return nil }
+                currentBase = squared
+            }
+        }
+        return result
     }
 
     /// `Int64(someDouble)` traps if `someDouble` is outside Int64's range;
@@ -407,10 +431,6 @@ final class Digits: CustomStringConvertible {
 
     static func allowedDigits(forBase someBase: Int) -> String {
         String(allDigits.prefix(someBase))
-    }
-
-    static func log(_ operand: Double, base: Int) -> Double {
-        Foundation.log(operand) / Foundation.log(Double(base))
     }
 
     /// Mirrors `strtoll(signedDigits, NULL, base)`: parses a leading optional
@@ -454,6 +474,17 @@ final class Digits: CustomStringConvertible {
     }
 
     static func convertInteger(_ someInt: Int64, toBase someBase: Int) -> String {
+        // Swift's own radix conversion covers every base this app actually
+        // ships (2...36 across both idioms) exactly, including `Int64.min`,
+        // with no floating point involved. It only goes up to radix 36
+        // (`0`-`9`,`A`-`Z`), so bases 37...62 - reachable only via `allDigits`'s
+        // lowercase extension, not by anything in the shipped UI - fall
+        // through to the plain repeated-division algorithm below instead of
+        // the previous `log`/`pow`-based digit extraction.
+        if someBase <= 36 {
+            return String(someInt, radix: someBase, uppercase: true)
+        }
+
         let allowedDigits = Array(allDigits.prefix(someBase))
         let negative = someInt < 0
         // `Int64.magnitude` (unlike `abs`) correctly handles Int64.min,
@@ -464,34 +495,15 @@ final class Digits: CustomStringConvertible {
             return String(allowedDigits[0])
         }
 
-        var result = ""
+        var remainder = absoluteValue
         let baseAsUInt64 = UInt64(someBase)
-
-        if absoluteValue < baseAsUInt64 {
-            result.append(allowedDigits[Int(absoluteValue)])
-        } else {
-            var remainder = absoluteValue
-            let maximumBasePower = UInt64(min(
-                ceil(log(Double(remainder), base: someBase)),
-                floor(log(Double(Int64.max), base: someBase))
-            ))
-
-            var exponent = maximumBasePower
-            while exponent > 0 {
-                let power = UInt64(pow(Double(someBase), Double(exponent)))
-                let quotient = remainder / power
-                remainder = remainder % power
-                result.append(allowedDigits[Int(quotient)])
-                exponent -= 1
-            }
-            result.append(allowedDigits[Int(remainder)])
-
-            if result.first == allowedDigits[0] {
-                result.removeFirst()
-            }
+        var digits: [Character] = []
+        while remainder > 0 {
+            digits.append(allowedDigits[Int(remainder % baseAsUInt64)])
+            remainder /= baseAsUInt64
         }
 
-        return negative ? "-" + result : result
+        return (negative ? "-" : "") + String(digits.reversed())
     }
 
     /// Equivalent of `+[FloatingDigits convertDouble:toBase:]`. Returns nil

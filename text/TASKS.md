@@ -87,7 +87,37 @@
       `UIViewRepresentable` that strips the auto-added `UIPointerInteraction`)
       become worth the risk of another from-memory guess.
 
+- [x] Audited `Digits.swift`'s integer math against what Swift's standard
+      library already provides (per the author's question: "did I reinvent
+      the wheel, and is there a built-in rational-number type?"). Findings:
+      the overflow-checked `+`/`-`/`*` already correctly use
+      `addingReportingOverflow`/etc. (nothing to change); `convertInteger`
+      reimplemented base-2...36 conversion that `String(_:radix:uppercase:)`
+      already does exactly, and did so *using floating point*
+      (`log`/`pow`/`ceil`/`floor`) internally, which is what led to finding
+      a real bug: `power()`'s integer path also went through
+      `pow(Double, Double)`, which is provably inexact once a result exceeds
+      `Double`'s 53-bit mantissa (`7^19` computed as `...373144` instead of
+      the true `...373143`) even though the true result fits `Int64`
+      comfortably. Fixed both - completed 2026-09-17 19:30 UTC. See
+      CHANGELOG.md.
+
 ### To do (before treating this as production-ready)
+- [ ] **Possible follow-up, not yet scoped:** the author pointed out that
+      exact fractional values in any base don't need floating point *or* an
+      infinite-digit expansion - keep a value as a reduced numerator/
+      denominator pair (`p`, `q`) and print each of `p` and `q` in the
+      current base, rather than trying to expand the fraction into a single
+      base-B digit string (which is genuinely impossible to do exactly for
+      something like `1/3`, in any base, without a repeating-digit notation).
+      This only matters for the currently-dormant `allowsPoint`
+      ("FloatingDigits") code path - decimal-point entry / non-integer
+      results aren't reachable from any keypad the app actually ships (see
+      `CalculatorModel.swift`'s "preserved original bug" comments) - so
+      there is no live behavior to fix today. Worth designing properly if
+      the author decides to actually wire up decimal-point support later,
+      rather than bolting a `Rational` type onto the existing `Digits`
+      design as an afterthought.
 - [ ] Re-run the app after the 18:08 UTC fix and confirm both (a) the
       console is quiet (no more NaN/CoreGraphics spam) and (b) the keypad
       still looks right on both iPhone and iPad, in portrait and landscape,

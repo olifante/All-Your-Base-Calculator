@@ -1,5 +1,59 @@
 # Changelog
 
+## 2026-09-17 19:30 UTC - Fixed a real exactness bug found while auditing for reinvented-wheel code
+
+Asked to check whether `Digits.swift`'s integer math (kept deliberately
+free of floating point, for exactness) had reinvented anything the standard
+library already provides, and whether a built-in rational-number type
+exists. It doesn't (no `Rational`/`Fraction` in the stdlib or Foundation;
+`NSDecimalNumber` is base-10 decimal only). The audit did turn up:
+
+- `power()`'s **integer** branch (not the dormant `allowsPoint`/
+  `FloatingDigits` one) computed its result via
+  `pow(Double(a), Double(b))`. `Double` only has 53 bits of mantissa
+  (exact up to ~9x10^15); `Int64` goes up to ~9.2x10^18. Verified
+  concretely: `7^19` is exactly `11398895185373143`, but
+  `pow(7.0, 19.0)` rounds to `11398895185373144` - one too high, with no
+  overflow to signal anything went wrong. This is a real, silent
+  correctness bug for any power result in that gap.
+- `convertInteger(_:toBase:)` reimplemented what
+  `String(_:radix:uppercase:)` already does for bases 2...36 (every base
+  this app's UI actually offers), and its reimplementation used
+  `log`/`pow`/`ceil`/`floor` internally to size the digit extraction loop -
+  floating point hiding inside code whose entire point was to avoid it.
+
+### Fixed
+- `Digits.power`: replaced the `pow`-based computation and the
+  `log`-based `exponentiationIsSafe` overflow heuristic with a single
+  `checkedPower(_:_:)` helper doing exact integer exponentiation by
+  squaring, using the same `multipliedReportingOverflow` idiom already
+  used by `plus`/`minus`/`times`. Exact by construction, and overflow is
+  now detected as a side effect of the real multiplication instead of a
+  separate `log`-based estimate.
+- `Digits.convertInteger`: now delegates to `String(_:radix:uppercase:)`
+  for bases 2...36 (all of them, in practice). Bases 37...62 - reachable
+  only via `allDigits`'s lowercase extension, not by anything the shipped
+  UI requests - fall back to a plain repeated-division loop instead of the
+  old `log`/`pow`-based place-value extraction. No floating point remains
+  anywhere in the integer conversion path.
+- Removed `Digits.log(_:base:)`, which only existed to support the deleted
+  `log`/`pow`-based logic above and had no other callers.
+- Added `DigitsTests` coverage: `testPowerExactPastDoublePrecision` (the
+  `7^19` case above), `testPowerOverflowThrows` (confirms overflow
+  detection still works without the old heuristic), and
+  `testConvertAboveStdlibRadixLimitUsesLowercaseDigits` (exercises the new
+  base 37...62 fallback, e.g. `37` in base `40` prints as `"b"`).
+
+Separately, the author pointed out a better long-term design for the
+dormant decimal-point (`allowsPoint`) path than either floating point or an
+infinite digit expansion: keep values as a reduced numerator/denominator
+pair and print each integer in the current base, rather than trying to
+expand a fraction into a single base-B digit string (impossible to do
+exactly for e.g. `1/3` in any base without repeating-digit notation). Not
+implemented - that code path isn't reachable from any keypad the app
+actually ships - but recorded as a scoped follow-up in `text/TASKS.md`
+rather than lost.
+
 ## 2026-09-17 19:05 UTC - Re-checked the hover-NaN issue against a fresh backtrace; no code change
 
 The user reported another console paste showing the same class of NaN

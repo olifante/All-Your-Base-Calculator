@@ -57,6 +57,17 @@ final class DigitsTests: XCTestCase {
         XCTAssertEqual(Digits.convertInteger(Int64.min, toBase: 10), "-9223372036854775808")
     }
 
+    /// Covers the lowercase-digit range (base 37...62) that Swift's own
+    /// `String(_:radix:)` doesn't support (it caps at 36) and that no base
+    /// in the shipped UI ever actually requests - `convertInteger` falls
+    /// back to a plain repeated-division loop for it instead of delegating.
+    /// 37 in base 40 is a single digit past "Z": allDigits[37] is "b"
+    /// ("0"-"9","A"-"Z" take indices 0...35, "a" is 36, "b" is 37).
+    func testConvertAboveStdlibRadixLimitUsesLowercaseDigits() {
+        XCTAssertEqual(Digits.convertInteger(37, toBase: 40), "b")
+        XCTAssertEqual(Digits.convertInteger(-77, toBase: 40), "-1b")
+    }
+
     // MARK: init
 
     func testInitDefaultsToBase10Empty() {
@@ -315,6 +326,28 @@ final class DigitsTests: XCTestCase {
         let second = Digits(string: "62", base: 10)!
         let result = try? first.power(second)
         XCTAssertEqual(result?.integerValue, 0x4000000000000000)
+    }
+
+    /// Regression test for a real exactness bug: `power()` used to compute
+    /// its result via `pow(Double(a), Double(b))`, but `7^19` exceeds
+    /// `Double`'s 53-bit exact-integer range (~9x10^15) while still fitting
+    /// comfortably in `Int64` (~9.2x10^18) - `pow` rounded it to
+    /// 11398895185373144, one too high, with no overflow to signal anything
+    /// was wrong. `checkedPower`'s integer-only exponentiation-by-squaring
+    /// must get this exact.
+    func testPowerExactPastDoublePrecision() {
+        let first = Digits(string: "7", base: 10)!
+        let second = Digits(string: "19", base: 10)!
+        let result = try? first.power(second)
+        XCTAssertEqual(result?.integerValue, 11398895185373143)
+    }
+
+    func testPowerOverflowThrows() {
+        let first = Digits(string: "10", base: 10)!
+        let second = Digits(string: "19", base: 10)!
+        XCTAssertThrowsError(try first.power(second)) { error in
+            XCTAssertEqual((error as? DigitsError)?.message, "power overflow")
+        }
     }
 
     // MARK: allowsPoint ("FloatingDigits") behavior
