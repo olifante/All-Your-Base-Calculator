@@ -1,5 +1,34 @@
 # Changelog
 
+## 2026-09-17 18:08 UTC - Fix NaN/CoreGraphics console flood from the layout fix
+
+The 17:57 UTC layout fix introduced a real bug of its own: running the app
+produced a sustained flood of `Error: ... has passed an invalid numeric value
+(NaN...)` and `cannot add handler to N from N - dropping` console spam,
+alongside one diagnostic line that gave it away: `Conversion error! {{0, 820},
+{1180, 0}} was converted to {{-89.08...}, {1480.64...}}` - a rect with **zero
+height** being fed through a transform.
+
+Root cause: `CalculatorScreenView` fed `GeometryReader`'s `proxy.size`
+directly into a hard `.frame(width:height:)`, and `GeometryReader` can
+genuinely report a transient zero (or otherwise degenerate) height for a
+frame or two during a tab-switch/rotation animation. That zero got baked
+into the frame, and the digit grid underneath - which had its own
+`.frame(maxHeight: .infinity)` - then divided remaining space by it while
+computing flexible row heights, producing NaN geometry that kept
+re-triggering the same error on every subsequent frame.
+
+### Fixed
+- `CalculatorScreenView`: replaced `.frame(width: proxy.size.width, height:
+  proxy.size.height, ...)` with `.frame(maxWidth: .infinity, maxHeight:
+  .infinity, alignment: .top)`. `proxy.size` is now read *only* to choose a
+  column count for the digit grid, never plugged into a literal frame size.
+- `CalculatorKeypadView`: removed `.frame(maxHeight: .infinity)` from the
+  digit grid and the extra `.frame(maxHeight: .infinity)` on each button;
+  added a trailing `Spacer(minLength: 0)` after the operators row instead,
+  which absorbs leftover vertical space without ever factoring into the
+  grid's own row-height math.
+
 ## 2026-09-17 17:57 UTC - Keypad layout/sizing fixes after first real build
 
 The user got the rewrite building and running in real Xcode (with a few

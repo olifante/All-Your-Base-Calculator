@@ -44,17 +44,25 @@ struct CalculatorScreenView: View {
 
     var body: some View {
         GeometryReader { proxy in
+            // `proxy.size` is read only to pick a column count below - it is
+            // never fed into a `.frame(width:height:)` here. Doing that
+            // previously caused a real, reproducible crash-adjacent bug: if
+            // GeometryReader ever reports a transient zero (or otherwise
+            // degenerate) height - which does happen for a frame or two
+            // during a tab switch/rotation animation - that zero got baked
+            // into a hard frame, and the digit grid's flexible-height layout
+            // underneath then divided by it, producing NaN geometry that
+            // CoreGraphics logged (and re-triggered) indefinitely. `maxWidth
+            // /maxHeight: .infinity` achieves the same "fill the tab" goal
+            // without ever plugging a literal, possibly-zero number into a
+            // frame.
             VStack(spacing: 12) {
                 CalculatorDisplayView(secondary: model.secondaryDisplay, primary: model.mainDisplay)
                 CalculatorKeypadView(layout: keypadLayout(forWidth: Double(proxy.size.width)), onKeyTap: handle)
                     .padding(.horizontal, 8)
                     .padding(.bottom, 8)
             }
-            // GeometryReader's child defaults to hugging its own content and
-            // sitting top-leading, which is what made the keypad look tiny
-            // and stranded in the corner of the screen with the rest left
-            // blank - force it to actually use the full proposed size.
-            .frame(width: proxy.size.width, height: proxy.size.height, alignment: .top)
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         }
         .onAppear { model.changeBase(to: base) }
     }

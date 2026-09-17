@@ -28,11 +28,17 @@ struct CalculatorKeypadView: View {
     var body: some View {
         switch layout {
         case let .grouped(editing, digits, operations, digitColumns):
+            // Deliberately no `.frame(maxHeight: .infinity)` on the digit
+            // grid: that combined badly with a degenerate (zero/transient)
+            // proposed height from the enclosing GeometryReader, producing
+            // NaN layout geometry (see CalculatorScreenView). A trailing
+            // `Spacer` absorbs any leftover vertical space instead, which
+            // never affects how the grid computes its own row heights.
             VStack(spacing: 14) {
                 row(editing)
                 grid(digits, columns: digitColumns)
-                    .frame(maxHeight: .infinity)
                 row(operations)
+                Spacer(minLength: 0)
             }
         case let .flat(keys, columns):
             grid(keys, columns: columns)
@@ -63,7 +69,6 @@ struct CalculatorKeypadView: View {
                 .minimumScaleFactor(0.4)
                 .lineLimit(1)
                 .frame(maxWidth: .infinity, minHeight: 64)
-                .frame(maxHeight: .infinity)
         }
         .buttonStyle(CalculatorKeyStyle(kind: key.action.kind, isInert: key.isInert))
     }

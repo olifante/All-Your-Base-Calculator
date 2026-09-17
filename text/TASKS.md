@@ -42,13 +42,18 @@
       operator prettifying for the display labels, which had been missed in
       the first pass - completed 2026-09-17 17:57 UTC. See CHANGELOG.md for
       the full breakdown.
+- [x] Fix a NaN/CoreGraphics console flood the 17:57 UTC fix introduced
+      (`GeometryReader`'s proxy size fed into a hard `.frame(width:height:)`,
+      a transient zero height dividing into the digit grid's flexible
+      row-height math) - completed 2026-09-17 18:08 UTC. See CHANGELOG.md.
 
 ### To do (before treating this as production-ready)
-- [ ] Re-run the app after the 17:57 UTC layout fixes and confirm the keypad
-      now looks right on both iPhone and iPad, in portrait and landscape,
+- [ ] Re-run the app after the 18:08 UTC fix and confirm both (a) the
+      console is quiet (no more NaN/CoreGraphics spam) and (b) the keypad
+      still looks right on both iPhone and iPad, in portrait and landscape,
       across a small base (e.g. 2), a mid-size base (10), and a large one
       (36) - the digit-grid row count varies a lot across that range and
-      hasn't been visually re-checked since the fix.
+      hasn't been visually re-checked since the layout fix.
 - [ ] Run the `AllYourBaseTests` target and confirm every test passes;
       re-check the by-hand-traced expected values in
       `CalculatorModelTests.swift` (especially the "= " display-prefix
