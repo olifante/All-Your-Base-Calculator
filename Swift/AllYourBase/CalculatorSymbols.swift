@@ -14,23 +14,23 @@ import Foundation
 enum CalculatorSymbols {
     // Binary operators, exactly as declared in AllYourBaseViewController.m.
     static let plus = "+"
-    static let minus = "\u{2212}"      // − MINUS SIGN
-    static let times = "\u{00d7}"      // × MULTIPLICATION SIGN
-    static let divide = "\u{00f7}"     // ÷ DIVISION SIGN
-    static let power = "\u{2191}"      // ↑ UPWARDS ARROW
+    static let minus = "−"  // U+2212 MINUS SIGN
+    static let times = "×"  // U+00D7 MULTIPLICATION SIGN
+    static let divide = "÷" // U+00F7 DIVISION SIGN
+    static let power = "↑"  // U+2191 UPWARDS ARROW
     static let equals = "="
 
     // The keypad's decimal-point button glyph (distinct from Digits'
     // internal `pointString`, U+2027, which this app never actually shows).
-    static let point = "\u{2219}"      // ∙ BULLET OPERATOR
+    static let point = "∙" // U+2219 BULLET OPERATOR
 
     // Control buttons wired directly to their own IBActions in the original
     // (never compared by title, just literal glyphs on the button).
-    static let negate = "\u{2213}"     // ∓ MINUS-OR-PLUS SIGN (the +/- key)
-    static let delete = "\u{2421}"     // ␡ SYMBOL FOR DELETE
-    static let clear = "\u{2201}"      // ∁ COMPLEMENT (the "AC"/clear key)
-    static let shiftLeft = "\u{226a}"  // ≪ MUCH LESS-THAN (present in every
-    static let shiftRight = "\u{226b}" // ≫ MUCH GREATER-THAN nib, always a no-op)
+    static let negate = "∓"      // U+2213 MINUS-OR-PLUS SIGN (the +/- key)
+    static let delete = "␡"      // U+2421 SYMBOL FOR DELETE
+    static let clear = "∁"       // U+2201 COMPLEMENT (the "AC"/clear key)
+    static let shiftLeft = "≪"   // U+226A MUCH LESS-THAN (present in every
+    static let shiftRight = "≫"  // U+226B MUCH GREATER-THAN nib, always a no-op)
 
     static let negative = "-"          // U+002D HYPHEN-MINUS, the sign prefix
 

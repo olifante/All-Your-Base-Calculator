@@ -1,5 +1,17 @@
 # Changelog
 
+## 2026-09-17 20:05 UTC - Wrote Unicode glyphs literally instead of as `\u{}` escapes
+
+`CalculatorSymbols.swift` and `Digits.swift` spelled every non-ASCII
+character as a `"\u{XXXX}"` escape (e.g. `"\u{00f7}"` for ÷), each with a
+trailing comment naming the actual glyph since the escape itself gave no
+visual clue. Replaced every one with the literal character (`"÷"`), with a
+`// U+00F7 DIVISION SIGN`-style comment kept alongside for the ones that
+look similar to their ASCII counterparts or to each other (e.g. `−` U+2212
+vs `-` U+002D, `∙` U+2219 vs `.`). Purely cosmetic - same string values,
+same behavior, just readable directly in the editor instead of requiring a
+codepoint lookup.
+
 ## 2026-09-17 19:50 UTC - Switched base selection from a TabView to a Picker
 
 The original app (and this rewrite, until now) put one base per

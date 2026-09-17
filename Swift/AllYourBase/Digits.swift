@@ -32,16 +32,16 @@ final class Digits: CustomStringConvertible {
 
     static let allDigits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
 
-    static let divideErrorMessage = "m \u{00f7} 0 undefined"
-    static let invertErrorMessage = "1 \u{00f7} 0 undefined"
-    static let zeroPowerOfZeroErrorMessage = "0 \u{2191} 0 undefined"
-    static let negativePowerOfZeroErrorMessage = "0 \u{2191} -n undefined"
-    static let negativePowerErrorMessage = "m \u{2191} -n undefined"
-    static let fractionalPowerOfNegativeErrorMessage = "-m \u{2191} 1/n undefined"
+    static let divideErrorMessage = "m ÷ 0 undefined"
+    static let invertErrorMessage = "1 ÷ 0 undefined"
+    static let zeroPowerOfZeroErrorMessage = "0 ↑ 0 undefined"
+    static let negativePowerOfZeroErrorMessage = "0 ↑ -n undefined"
+    static let negativePowerErrorMessage = "m ↑ -n undefined"
+    static let fractionalPowerOfNegativeErrorMessage = "-m ↑ 1/n undefined"
 
     /// U+2027 HYPHENATION POINT - the point glyph `Digits` itself knows about.
     /// Distinct from the keypad's decimal-point button glyph, see CalculatorSymbols.
-    static let pointString = "\u{2027}"
+    static let pointString = "‧"
     static let negativeString = "-"
 
     private(set) var base: Int

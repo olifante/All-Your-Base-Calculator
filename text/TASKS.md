@@ -75,6 +75,10 @@
       iOS's "More" list past the first 5) with a single screen and a
       `Picker` above it that selects the base - completed 2026-09-17
       19:50 UTC. See CHANGELOG.md.
+- [x] Converted every `"\u{XXXX}"` Unicode escape in `CalculatorSymbols.swift`
+      and `Digits.swift` to the literal character, so the source shows the
+      actual glyph (e.g. `"÷"` instead of `"\u{00f7}"`) - completed
+      2026-09-17 20:05 UTC. See CHANGELOG.md.
 
 ### Known open issue
 - [ ] **The pointer-hover NaN console spam is unresolved, and is now confirmed
