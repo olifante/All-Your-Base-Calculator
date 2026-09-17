@@ -1,5 +1,30 @@
 # Changelog
 
+## 2026-09-17 19:05 UTC - Re-checked the hover-NaN issue against a fresh backtrace; no code change
+
+The user reported another console paste showing the same class of NaN
+pointer-hover backtraces (with a slightly different intermediate frame,
+`_applyPointerStyle:forRegion:animator:`) in the current, already-reverted
+state. That's expected, not a regression: reverting the 18:36 UTC commit
+only removed a non-compiling attempted fix, it didn't change behavior back
+to something better or worse than before this whole investigation started.
+
+Went back over the 18:28 UTC `.hoverEffectDisabled()` commit (`bdf4398`) to
+double check it wasn't simply applied at the wrong call site (e.g. on the
+label instead of the `Button`) - it wasn't; it was already on the outermost
+`Button`, after `.buttonStyle(...)`, which is the architecturally correct
+place. That rules out "wrong placement" as the explanation for why it had no
+effect, and points at something below SwiftUI's `hoverEffect` API surface
+entirely - most likely the `UIPointerInteraction` UIKit adds automatically
+to button-like controls whenever a pointer (Simulator mouse/trackpad, or a
+real trackpad on a real iPad) is present, which isn't something
+`.hoverEffect`/`.hoverEffectDisabled()` were ever meant to touch.
+
+No code changed. Documented the re-check and a concrete, low-risk next step
+(toggle the Simulator's pointer-input setting off and see if the spam
+disappears, which would confirm this is Simulator-mouse-testing-only noise)
+in `text/TASKS.md` instead of guessing a third SwiftUI modifier from memory.
+
 ## 2026-09-17 18:47 UTC - Revert the broken hover-effect fix; build restored, issue left open
 
 `.hoverEffect(.none)` from the 18:36 UTC commit does not compile -

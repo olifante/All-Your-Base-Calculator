@@ -59,18 +59,33 @@
       2026-09-17 18:47 UTC. See CHANGELOG.md.
 
 ### Known open issue
-- [ ] **The pointer-hover NaN console spam is unresolved.** Confirmed cause:
-      UIKit's `_UIPointerEffectPlatterView` (the iPadOS Simulator's
-      mouse-hover highlight effect on any `Button`) computes NaN rounded-rect
-      geometry for these buttons; confirmed NOT the fix: `.hoverEffectDisabled()`
-      (compiles, no effect) and `.hoverEffect(.none)` (doesn't compile). Next
-      step should be checking Xcode's own autocomplete/current SwiftUI API
-      surface for whatever actually suppresses a `Button`'s default pointer
-      interaction (possibly `UIHoverStyle`/a `UIViewRepresentable` escape
-      hatch, or a newer SwiftUI modifier), rather than continuing to guess
-      API names from memory - or, if this only affects the Simulator's mouse
-      pointer (not real touch on a real iPad), it may be acceptable to leave
-      as a cosmetic Simulator-only annoyance.
+- [ ] **The pointer-hover NaN console spam is unresolved, and is now confirmed
+      to NOT be a SwiftUI-API-level problem.** Confirmed cause: UIKit's
+      `_UIPointerEffectPlatterView` (the iPadOS Simulator's mouse-hover
+      highlight effect on any `Button`) computes NaN rounded-rect geometry for
+      these buttons. Two confirmed non-fixes: `.hoverEffect(.none)` (doesn't
+      compile - `HoverEffect` has no such case), and, importantly,
+      `.hoverEffectDisabled()` applied at exactly the right place (directly on
+      the `Button`, after `.buttonStyle(...)`, i.e. the outermost interactive
+      view - see commit `bdf4398`) - re-verified 2026-09-17 19:05 UTC that this
+      placement still produces an identical backtrace. That rules out "wrong
+      call site" as the explanation and points at something below SwiftUI's
+      own `hoverEffect`/`hoverEffectDisabled` API surface entirely: on
+      iPadOS, UIKit adds a `UIPointerInteraction` to button-like controls
+      automatically whenever a pointer (Simulator mouse/trackpad, or a real
+      trackpad/mouse on a real iPad) is present, and that's a lower-level
+      mechanism than the SwiftUI modifier we've been trying.
+      **Recommended next step (no more API guessing from memory):** in the
+      Simulator, try Xcode's Simulator menu -> I/O -> Input -> "Send Pointer
+      Events" (wording varies by Xcode version) and turn it OFF, or unplug/stop
+      simulating a trackpad, then reproduce. If the console goes quiet with
+      pointer input disabled, this is confirmed Simulator-mouse-testing-only
+      noise (real iPad touch has no persistent hover state) and is reasonable
+      to leave alone rather than keep chasing with more code changes. If it
+      still happens with pointer input off, that's new information worth
+      reporting back, and only then does going further (e.g. a
+      `UIViewRepresentable` that strips the auto-added `UIPointerInteraction`)
+      become worth the risk of another from-memory guess.
 
 ### To do (before treating this as production-ready)
 - [ ] Re-run the app after the 18:08 UTC fix and confirm both (a) the
