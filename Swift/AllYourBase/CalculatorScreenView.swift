@@ -2,7 +2,7 @@
 //  CalculatorScreenView.swift
 //  AllYourBase
 //
-//  One tab's worth of UI: the two stacked display labels (the original's
+//  One base's worth of UI: the two stacked display labels (the original's
 //  `previousDisplayLabel`/`currentDisplayLabel`) plus the keypad grid. A
 //  single adaptive VStack replaces the original's separate portraitView /
 //  landscapeView nib subviews and the orientation-change notification that
@@ -33,8 +33,8 @@ struct CalculatorDisplayView: View {
         }
         // `minWidth: 1` on each Text above guards against `minimumScaleFactor`
         // computing its scale ratio against a momentarily-zero proposed
-        // width (e.g. during a TabView tab-switch fade/scale transition),
-        // which is a known trigger for spurious CoreGraphics NaN warnings.
+        // width (e.g. during a base-switch/rotation animation), which is a
+        // known trigger for spurious CoreGraphics NaN warnings.
         .frame(maxWidth: .infinity, alignment: .trailing)
         .padding(.horizontal, 16)
         .padding(.top, 12)
@@ -45,7 +45,8 @@ struct CalculatorDisplayView: View {
 struct CalculatorScreenView: View {
     @ObservedObject var model: CalculatorModel
     let base: Int
-    /// True only for the "Base 10*" tab (the original's `base:0` sentinel).
+    /// True only for the "Base 10*" picker entry (the original's `base:0`
+    /// sentinel).
     let isClassic: Bool
 
     var body: some View {
@@ -55,11 +56,11 @@ struct CalculatorScreenView: View {
             // previously caused a real, reproducible crash-adjacent bug: if
             // GeometryReader ever reports a transient zero (or otherwise
             // degenerate) height - which does happen for a frame or two
-            // during a tab switch/rotation animation - that zero got baked
+            // during a base-switch/rotation animation - that zero got baked
             // into a hard frame, and the digit grid's flexible-height layout
             // underneath then divided by it, producing NaN geometry that
             // CoreGraphics logged (and re-triggered) indefinitely. `maxWidth
-            // /maxHeight: .infinity` achieves the same "fill the tab" goal
+            // /maxHeight: .infinity` achieves the same "fill the screen" goal
             // without ever plugging a literal, possibly-zero number into a
             // frame.
             VStack(spacing: 12) {
@@ -70,7 +71,12 @@ struct CalculatorScreenView: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         }
-        .onAppear { model.changeBase(to: base) }
+        // `initial: true` covers the first display the same way `.onAppear`
+        // used to; the ongoing part matters now that the picker reuses this
+        // same view instance across base selections instead of each base
+        // getting its own tab/view (which used to make plain `.onAppear`
+        // fire again per base for free).
+        .onChange(of: base, initial: true) { _, newBase in model.changeBase(to: newBase) }
     }
 
     private func keypadLayout(forWidth width: Double) -> CalculatorKeypadView.Layout {

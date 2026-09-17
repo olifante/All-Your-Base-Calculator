@@ -22,11 +22,14 @@ original Objective-C app unchanged.
 
 ## What the app does
 
-A base-conversion calculator: one tab per numeric base (2...16 on iPhone,
-2...36 on iPad), plus a "Base 10*" tab with a classic phone-calculator-style
-keypad. All tabs share one calculator state, so you can type a value on the
-"Base 10" tab, switch to "Base 16", and see the same value re-rendered in
-hex - that's the app's whole point, and it's preserved exactly.
+A base-conversion calculator: a picker at the top selects the numeric base
+(2...16 on iPhone, 2...36 on iPad), plus a "Base 10*" entry with a classic
+phone-calculator-style keypad. Every base selection shares one calculator
+state, so you can type a value at "Base 10", switch the picker to
+"Base 16", and see the same value re-rendered in hex - that's the app's
+whole point, and it's preserved exactly. (The original used one
+`UITabBarController` tab per base instead of a picker - see CHANGELOG.md
+for why this rewrite switched.)
 
 ## Why a rewrite instead of a 1:1 port
 

@@ -3,12 +3,13 @@
 //  AllYourBase
 //
 //  Swift port of the original AllYourBaseModel.h/.m. A single instance of
-//  this model is shared by every base's tab (exactly like the original,
+//  this model is shared across every base (exactly like the original,
 //  where `AllYourBaseAppDelegate_i{Phone,Pad}` built one `AllYourBaseModel`
-//  and handed the *same* instance to every per-base view controller). That
-//  sharing is what makes the app's core party trick work: type a number
-//  while on the "Base 10" tab, switch to "Base 16", and see the very same
-//  value re-rendered in hex - switching tabs just changes `model.base`,
+//  and handed the *same* instance to every per-base view controller - here
+//  it's shared across every selection of the base picker instead). That
+//  sharing is what makes the app's core party trick work: type a number at
+//  "Base 10", switch the picker to "Base 16", and see the very same value
+//  re-rendered in hex - changing the selection just changes `model.base`,
 //  which re-renders the current/previous operands in the new base without
 //  losing their value.
 //
@@ -45,9 +46,9 @@ final class CalculatorModel: ObservableObject {
 
     /// Equivalent of `-[AllYourBaseModel setBase:]`. Re-expresses the
     /// current/previous operands (and the pending-operation summary line) in
-    /// the new base without losing their numeric value; this is what a tab
-    /// switch does. A no-op if `newBase` is out of range or unchanged,
-    /// exactly like the original (which just logs and returns).
+    /// the new base without losing their numeric value; this is what a base
+    /// picker selection change does. A no-op if `newBase` is out of range or
+    /// unchanged, exactly like the original (which just logs and returns).
     func changeBase(to newBase: Int) {
         guard newBase >= 2, newBase <= 100 else { return }
         guard newBase != base else { return }

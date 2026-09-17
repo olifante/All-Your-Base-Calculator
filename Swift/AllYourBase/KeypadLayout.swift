@@ -51,7 +51,7 @@ struct KeypadKey: Identifiable {
 
 enum KeypadLayout {
 
-    /// The "editing" row shown above the digit grid on every "Base N" tab:
+    /// The "editing" row shown above the digit grid for every "Base N" picker entry:
     /// clear, delete, negate, and the two always-inert shift keys.
     static func editingKeys() -> [KeypadKey] {
         [
@@ -86,7 +86,7 @@ enum KeypadLayout {
         ]
     }
 
-    /// The classic phone-calculator-style grid used by the "Base 10*" tab
+    /// The classic phone-calculator-style grid used by the "Base 10*" picker entry
     /// (ported from AllYourBaseViewController_i{Phone,Pad}Alternate10.xib),
     /// always laid out in a fixed 5-column grid:
     ///   7  8  9  C  DEL

@@ -3,9 +3,13 @@
 //  AllYourBase
 //
 //  Swift/SwiftUI replacement for AllYourBaseAppDelegate_iPhone.m /
-//  AllYourBaseAppDelegate_iPad.m + MainWindow_i{Phone,Pad}.xib. Builds one
-//  `UITabBarController`-equivalent `TabView`, one tab per base, sharing a
-//  single `CalculatorModel` across every tab exactly like the original did.
+//  AllYourBaseAppDelegate_iPad.m + MainWindow_i{Phone,Pad}.xib. The original
+//  put one base per `UITabBarController` tab; on iPad that's 37 tabs, which
+//  iOS collapses into an awkward "More" list past the first 5. A `Picker`
+//  scales to that many options far better than a tab bar, so this presents
+//  a single calculator screen with a base picker above it instead - one
+//  `CalculatorModel` shared across every base selection exactly like the
+//  original shared it across every tab.
 //
 
 import SwiftUI
@@ -32,21 +36,34 @@ enum BaseCatalog {
 
 struct ContentView: View {
     @StateObject private var model = CalculatorModel()
+    /// The base list's first entry (see `BaseCatalog`) - matches the
+    /// original's default-selected first tab on both idioms.
+    @State private var selectedBase = 10
 
     private var bases: [Int] {
         UIDevice.current.userInterfaceIdiom == .pad ? BaseCatalog.iPadBases : BaseCatalog.iPhoneBases
     }
 
     var body: some View {
-        TabView {
-            ForEach(bases, id: \.self) { base in
-                CalculatorScreenView(model: model, base: base, isClassic: false)
-                    .tabItem { Text("Base \(base)") }
-                    .tag(base)
+        VStack(spacing: 0) {
+            Picker("Base", selection: $selectedBase) {
+                ForEach(bases, id: \.self) { base in
+                    Text("Base \(base)").tag(base)
+                }
+                // `0` is the classic-layout sentinel, matching the
+                // original's `base:0` "Base 10*" tab and
+                // `CalculatorScreenView.isClassic` below.
+                Text("Base 10*").tag(0)
             }
-            CalculatorScreenView(model: model, base: 10, isClassic: true)
-                .tabItem { Text("Base 10*") }
-                .tag(0)
+            .pickerStyle(.menu)
+            .font(.title2)
+            .padding()
+
+            CalculatorScreenView(
+                model: model,
+                base: selectedBase == 0 ? 10 : selectedBase,
+                isClassic: selectedBase == 0
+            )
         }
     }
 }

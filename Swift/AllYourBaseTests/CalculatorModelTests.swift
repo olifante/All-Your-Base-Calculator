@@ -6,7 +6,8 @@
 //  only LogicTests for Digits/FloatingDigits) for the orchestration layer:
 //  digit entry, chained operations, error handling, and the base-switching
 //  behavior a single shared model has to get right for the app's core
-//  feature (typing in one base's tab and reading the same value on another).
+//  feature (typing a value at one base and reading the same value back at
+//  another).
 //
 
 import XCTest
@@ -84,10 +85,11 @@ final class CalculatorModelTests: XCTestCase {
         XCTAssertEqual(model.secondaryDisplay, "")
     }
 
-    /// This is the app's whole point: type a value on one base's tab, switch
-    /// to another, and see it re-rendered - not reset - in the new base.
-    /// `changeBase(to:)` is exactly what CalculatorScreenView calls from
-    /// `.onAppear` when a tab is selected.
+    /// This is the app's whole point: type a value at one base, switch to
+    /// another via the base picker, and see it re-rendered - not reset - in
+    /// the new base. `changeBase(to:)` is exactly what CalculatorScreenView
+    /// calls (via `.onChange(of: base)`) whenever the picker selection
+    /// changes.
     func testChangingBasePreservesValueAcrossTabs() {
         let model = CalculatorModel(base: 10)
         model.digitPressed("2")

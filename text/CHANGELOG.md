@@ -1,5 +1,34 @@
 # Changelog
 
+## 2026-09-17 19:50 UTC - Switched base selection from a TabView to a Picker
+
+The original app (and this rewrite, until now) put one base per
+`UITabBarController` tab. On iPad that's 37 tabs (bases 2...36 plus
+"Base 10*"); iOS only shows the first 5 in the tab bar itself and shoves
+everything else into a "More" list, which is a poor way to pick a base out
+of three dozen options. Replaced it with a single calculator screen and a
+`Picker` above it (`.pickerStyle(.menu)`, a tappable dropdown) that selects
+the base instead - the same one shared `CalculatorModel` still backs every
+selection, so switching bases still preserves the current value exactly
+like the tab bar did.
+
+### Changed
+- `AllYourBaseApp.ContentView`: `TabView` -> `VStack` with a `Picker` bound
+  to `@State private var selectedBase`, followed by a single
+  `CalculatorScreenView`. `0` remains the sentinel for the classic
+  "Base 10*" layout, same as the removed tab's `.tag(0)`.
+- `CalculatorScreenView`: since the screen is now one reused view instance
+  across every base (rather than one `TabView` child per base, each with
+  its own `.onAppear`), `model.changeBase(to:)` is now called from
+  `.onChange(of: base, initial: true)` instead of `.onAppear` - `initial:
+  true` covers the first display the same way `.onAppear` used to, and the
+  ongoing part is what makes switching the picker actually re-express the
+  displayed value in the new base.
+- Updated stale "tab"/"TabView" wording in comments and `text/README.md`/
+  `text/EXAMPLES.md` that described the now-removed tab bar; historical
+  CHANGELOG entries above describing the tab-based UI as it existed at the
+  time are left as-is.
+
 ## 2026-09-17 19:30 UTC - Fixed a real exactness bug found while auditing for reinvented-wheel code
 
 Asked to check whether `Digits.swift`'s integer math (kept deliberately

@@ -57,6 +57,24 @@
       to a clean, documented, build-passing state (a NOTE comment in
       `CalculatorKeypadView.keyButton`) rather than guess a third time -
       2026-09-17 18:47 UTC. See CHANGELOG.md.
+- [x] Audited `Digits.swift`'s integer math against what Swift's standard
+      library already provides (per the author's question: "did I reinvent
+      the wheel, and is there a built-in rational-number type?"). Findings:
+      the overflow-checked `+`/`-`/`*` already correctly use
+      `addingReportingOverflow`/etc. (nothing to change); `convertInteger`
+      reimplemented base-2...36 conversion that `String(_:radix:uppercase:)`
+      already does exactly, and did so *using floating point*
+      (`log`/`pow`/`ceil`/`floor`) internally, which is what led to finding
+      a real bug: `power()`'s integer path also went through
+      `pow(Double, Double)`, which is provably inexact once a result exceeds
+      `Double`'s 53-bit mantissa (`7^19` computed as `...373144` instead of
+      the true `...373143`) even though the true result fits `Int64`
+      comfortably. Fixed both - completed 2026-09-17 19:30 UTC. See
+      CHANGELOG.md.
+- [x] Replaced the per-base `TabView` (37 tabs on iPad, overflowing into
+      iOS's "More" list past the first 5) with a single screen and a
+      `Picker` above it that selects the base - completed 2026-09-17
+      19:50 UTC. See CHANGELOG.md.
 
 ### Known open issue
 - [ ] **The pointer-hover NaN console spam is unresolved, and is now confirmed
@@ -87,21 +105,6 @@
       `UIViewRepresentable` that strips the auto-added `UIPointerInteraction`)
       become worth the risk of another from-memory guess.
 
-- [x] Audited `Digits.swift`'s integer math against what Swift's standard
-      library already provides (per the author's question: "did I reinvent
-      the wheel, and is there a built-in rational-number type?"). Findings:
-      the overflow-checked `+`/`-`/`*` already correctly use
-      `addingReportingOverflow`/etc. (nothing to change); `convertInteger`
-      reimplemented base-2...36 conversion that `String(_:radix:uppercase:)`
-      already does exactly, and did so *using floating point*
-      (`log`/`pow`/`ceil`/`floor`) internally, which is what led to finding
-      a real bug: `power()`'s integer path also went through
-      `pow(Double, Double)`, which is provably inexact once a result exceeds
-      `Double`'s 53-bit mantissa (`7^19` computed as `...373144` instead of
-      the true `...373143`) even though the true result fits `Int64`
-      comfortably. Fixed both - completed 2026-09-17 19:30 UTC. See
-      CHANGELOG.md.
-
 ### To do (before treating this as production-ready)
 - [ ] **Possible follow-up, not yet scoped:** the author pointed out that
       exact fractional values in any base don't need floating point *or* an
@@ -129,10 +132,10 @@
       `CalculatorModelTests.swift` (especially the "= " display-prefix
       behavior and the two documented quirky-button tests) against the
       actual running app.
-- [ ] Manually exercise the app in the simulator: type a number on one base
-      tab, switch tabs, confirm the value re-renders correctly in the new
-      base (the app's core feature); rotate the device and confirm the
-      keypad reflows sensibly; try the "Base 10*" classic-layout tab.
+- [ ] Manually exercise the app in the simulator: type a number at one base,
+      switch the base picker, confirm the value re-renders correctly in the
+      new base (the app's core feature); rotate the device and confirm the
+      keypad reflows sensibly; try the "Base 10*" classic-layout entry.
 - [ ] Decide whether to add an `Assets.xcassets` with an app icon (the
       original's `Icon.png`/`Icon@2x.png`/etc. could be migrated in) - the
       new project currently has none.

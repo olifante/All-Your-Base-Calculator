@@ -2,10 +2,10 @@
 
 ## Switching bases without losing your value
 
-This is the app's core trick, preserved from the original: every tab shares
-one `CalculatorModel`, and selecting a tab calls `changeBase(to:)`, which
-re-expresses the current/previous operands in the new base instead of
-resetting them.
+This is the app's core trick, preserved from the original: every base
+selection shares one `CalculatorModel`, and picking a new base calls
+`changeBase(to:)`, which re-expresses the current/previous operands in the
+new base instead of resetting them.
 
 ```swift
 let model = CalculatorModel(base: 10)
