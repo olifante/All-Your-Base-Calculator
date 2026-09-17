@@ -68,7 +68,10 @@ struct CalculatorKeypadView: View {
                 .font(.system(size: 28, weight: .medium, design: .monospaced))
                 .minimumScaleFactor(0.4)
                 .lineLimit(1)
-                .frame(maxWidth: .infinity, minHeight: 64)
+                // `minWidth: 1` guards against `minimumScaleFactor` computing
+                // its ratio against a momentarily-zero proposed width - see
+                // CalculatorDisplayView for the same guard and why.
+                .frame(minWidth: 1, maxWidth: .infinity, minHeight: 64)
         }
         .buttonStyle(CalculatorKeyStyle(kind: key.action.kind, isInert: key.isInert))
     }

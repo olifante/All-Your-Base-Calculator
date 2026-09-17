@@ -24,11 +24,17 @@ struct CalculatorDisplayView: View {
                 .foregroundColor(.secondary)
                 .lineLimit(1)
                 .minimumScaleFactor(0.5)
+                .frame(minWidth: 1, maxWidth: .infinity, alignment: .trailing)
             Text(primary.isEmpty ? "0" : CalculatorSymbols.prettify(primary))
                 .font(.system(size: 36, weight: .medium, design: .monospaced))
                 .lineLimit(1)
                 .minimumScaleFactor(0.4)
+                .frame(minWidth: 1, maxWidth: .infinity, alignment: .trailing)
         }
+        // `minWidth: 1` on each Text above guards against `minimumScaleFactor`
+        // computing its scale ratio against a momentarily-zero proposed
+        // width (e.g. during a TabView tab-switch fade/scale transition),
+        // which is a known trigger for spurious CoreGraphics NaN warnings.
         .frame(maxWidth: .infinity, alignment: .trailing)
         .padding(.horizontal, 16)
         .padding(.top, 12)
