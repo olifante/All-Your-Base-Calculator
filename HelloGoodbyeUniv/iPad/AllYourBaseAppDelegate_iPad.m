@@ -60,7 +60,6 @@
         self.window = [[UIWindow alloc] init];
     }
     self.window.rootViewController = self.tabBarViewController;
-    [self.window addSubview:self.tabBarViewController.view];
     [self.window makeKeyAndVisible];
     return YES;
 }
