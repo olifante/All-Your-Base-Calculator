@@ -1,30 +1,38 @@
 //
-//  HelloGoodbyeViewController.m
-//  HelloGoodbyeUniv
+//  AllYourBaseViewController.m
+//  AllYourBase
 //
 //  Created by Tiago Henriques on 3/26/11.
 //  Copyright 2011 notknot. All rights reserved.
 //
 
 #import "AllYourBaseViewController.h"
+#import "Digits.h"
 
 const unichar plus = 0x002b;        // + PLUS SIGN
 const unichar minus = 0x2212;       // − MINUS SIGN
 const unichar times = 0x00d7;       // × MULTIPLICATION SIGN
 const unichar divide = 0x00f7;      // ÷ DIVISION SIGN
 const unichar power = 0x2191;       // ↑ UPWARDS ARROW
-//const unichar point = 0x2027;       // ‧ HYPHENATION POINT
 const unichar point = 0x2219;       // ∙ BULLET OPERATOR
 const unichar negate = 0x2213;      // ∓ MINUS-OR-PLUS SIGN
 const unichar negative = 0x002d;    // - HYPHEN-MINUS
-//const unichar negative = 0xfe63;    // ﹣ SMALL HYPHEN-MINUS
-//const unichar negative = 0x02d7;    // ˗ MODIFIER LETTER MINUS SIGN
+
+static const NSInteger AllYourBaseButtonGridColumns = 6;
 
 @implementation AllYourBaseViewController
 
+# pragma mark initializers
 
-# pragma mark outlets
-
+- (instancetype)initWithModel:(AllYourBaseModel *)theModel
+{
+    self = [super initWithNibName:nil bundle:nil];
+    if (self) {
+        self.base = 10;
+        self.model = theModel ?: [[AllYourBaseModel alloc] init];
+    }
+    return self;
+}
 
 # pragma mark release method
 
@@ -32,16 +40,10 @@ const unichar negative = 0x002d;    // - HYPHEN-MINUS
 {
     self.previousDisplayLabel = nil;
     self.currentDisplayLabel = nil;
-    self.previousDisplayLabelLandscape = nil;
-    self.currentDisplayLabelLandscape = nil;
-        
     self.model = nil;
-    self.landscapeView = nil;
-    self.portraitView = nil;
 }
 
 # pragma mark NSObject overridden methods
-
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
@@ -49,84 +51,133 @@ const unichar negative = 0x002d;    // - HYPHEN-MINUS
     [self updateLabels];
 }
 
-- (NSString *)description 
+- (NSString *)description
 {
-    return [NSString stringWithFormat:@"base %02d %@ controller"
-            , self.base
-            , self.isShowingLandscapeView? @"landscape" : @"portrait"
-            ];
+    return [NSString stringWithFormat:@"base %02d controller", self.base];
 }
-    
+
 # pragma mark UIViewController overridden methods
+
+- (void)loadView
+{
+    UIView *contentView = [[UIView alloc] init];
+    contentView.backgroundColor = [UIColor systemBackgroundColor];
+    self.view = contentView;
+
+    self.previousDisplayLabel = [self displayLabelWithFontSize:20 alpha:0.6];
+    self.currentDisplayLabel = [self displayLabelWithFontSize:40 alpha:1.0];
+
+    UIStackView *displayStack = [[UIStackView alloc] initWithArrangedSubviews:@[self.previousDisplayLabel, self.currentDisplayLabel]];
+    displayStack.axis = UILayoutConstraintAxisVertical;
+    displayStack.alignment = UIStackViewAlignmentTrailing;
+    displayStack.spacing = 4;
+
+    UIStackView *buttonsGrid = [self buildButtonGrid];
+
+    UIStackView *mainStack = [[UIStackView alloc] initWithArrangedSubviews:@[displayStack, buttonsGrid]];
+    mainStack.axis = UILayoutConstraintAxisVertical;
+    mainStack.spacing = 16;
+    mainStack.translatesAutoresizingMaskIntoConstraints = NO;
+    [contentView addSubview:mainStack];
+
+    UILayoutGuide *safeArea = contentView.safeAreaLayoutGuide;
+    [NSLayoutConstraint activateConstraints:@[
+        [mainStack.topAnchor constraintEqualToAnchor:safeArea.topAnchor constant:16],
+        [mainStack.leadingAnchor constraintEqualToAnchor:safeArea.leadingAnchor constant:16],
+        [mainStack.trailingAnchor constraintEqualToAnchor:safeArea.trailingAnchor constant:-16],
+        [mainStack.bottomAnchor constraintLessThanOrEqualToAnchor:safeArea.bottomAnchor constant:-16],
+    ]];
+}
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    
+
     int modelBase = self.model.base;
     int controllerBase = self.base;
     if (modelBase != controllerBase) {
         self.model.base = controllerBase;
     }
-    
+
     for (NSString *name in @[@"mainDisplay", @"secondaryDisplay"]) {
         [self.model addObserver:self forKeyPath:name options:NSKeyValueObservingOptionNew context:nil];
     }
-    
+
     [self updateLabels];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
-    
+
     for (NSString *name in @[@"mainDisplay", @"secondaryDisplay"]) {
         [self.model removeObserver:self forKeyPath:name];
-    }    
-}
-
-- (void)viewDidUnload {
-
-}
-
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return YES;
-}
-
-- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [self initWithNibName:nibNameOrNil bundle:nibBundleOrNil model:nil];
-    return self;
-}
-
-# pragma mark own initializers
-
-- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil model:(AllYourBaseModel *)theModel
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nil];
-    if (self) {
-        self.base = 10;
-        
-        if (theModel) {
-            self.model = theModel;
-        } else
-        {
-            self.model = [[AllYourBaseModel alloc] init];
-        }
-
-        self.isShowingLandscapeView = NO;
-        [self.view addSubview:self.portraitView];
-        [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
-        [[NSNotificationCenter defaultCenter]
-         addObserver:self
-         selector:@selector(orientationChanged:)
-         name:UIDeviceOrientationDidChangeNotification
-         object:nil];
-
     }
-    return self;
+}
+
+# pragma mark view construction
+
+- (UILabel *)displayLabelWithFontSize:(CGFloat)fontSize alpha:(CGFloat)alpha
+{
+    UILabel *label = [[UILabel alloc] init];
+    label.font = [UIFont monospacedDigitSystemFontOfSize:fontSize weight:UIFontWeightRegular];
+    label.textColor = [[UIColor labelColor] colorWithAlphaComponent:alpha];
+    label.textAlignment = NSTextAlignmentRight;
+    label.numberOfLines = 1;
+    label.adjustsFontSizeToFitWidth = YES;
+    label.minimumScaleFactor = 0.5;
+    return label;
+}
+
+- (UIButton *)calculatorButtonWithTitle:(NSString *)title action:(SEL)action
+{
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
+    [button setTitle:title forState:UIControlStateNormal];
+    button.titleLabel.font = [UIFont systemFontOfSize:22];
+    button.backgroundColor = [UIColor secondarySystemBackgroundColor];
+    button.layer.cornerRadius = 8;
+    [button addTarget:self action:action forControlEvents:UIControlEventTouchUpInside];
+    [button.heightAnchor constraintGreaterThanOrEqualToConstant:44].active = YES;
+    return button;
+}
+
+- (UIStackView *)buildButtonGrid
+{
+    NSMutableArray<UIButton *> *buttons = [NSMutableArray array];
+
+    NSString *allowedDigits = [Digits allowedDigitsForBase:self.base];
+    for (NSUInteger i = 0; i < allowedDigits.length; i++) {
+        NSString *title = [NSString stringWithFormat:@"%C", [allowedDigits characterAtIndex:i]];
+        [buttons addObject:[self calculatorButtonWithTitle:title action:@selector(digitPressed:)]];
+    }
+    [buttons addObject:[self calculatorButtonWithTitle:[self pointString] action:@selector(digitPressed:)]];
+
+    [buttons addObject:[self calculatorButtonWithTitle:[self plusString] action:@selector(operationPressed:)]];
+    [buttons addObject:[self calculatorButtonWithTitle:[self minusString] action:@selector(operationPressed:)]];
+    [buttons addObject:[self calculatorButtonWithTitle:[self timesString] action:@selector(operationPressed:)]];
+    [buttons addObject:[self calculatorButtonWithTitle:[self divideString] action:@selector(operationPressed:)]];
+    [buttons addObject:[self calculatorButtonWithTitle:[self powerString] action:@selector(operationPressed:)]];
+
+    [buttons addObject:[self calculatorButtonWithTitle:[self negateString] action:@selector(negatePressed)]];
+    [buttons addObject:[self calculatorButtonWithTitle:@"⌫" action:@selector(deletePressed)]];
+    [buttons addObject:[self calculatorButtonWithTitle:@"C" action:@selector(cleanPressed)]];
+    [buttons addObject:[self calculatorButtonWithTitle:@"=" action:@selector(resultPressed)]];
+
+    UIStackView *rowsStack = [[UIStackView alloc] init];
+    rowsStack.axis = UILayoutConstraintAxisVertical;
+    rowsStack.distribution = UIStackViewDistributionFillEqually;
+    rowsStack.spacing = 8;
+
+    for (NSUInteger i = 0; i < buttons.count; i += AllYourBaseButtonGridColumns) {
+        NSUInteger rowLength = MIN((NSUInteger)AllYourBaseButtonGridColumns, buttons.count - i);
+        NSArray<UIButton *> *rowButtons = [buttons subarrayWithRange:NSMakeRange(i, rowLength)];
+        UIStackView *rowStack = [[UIStackView alloc] initWithArrangedSubviews:rowButtons];
+        rowStack.axis = UILayoutConstraintAxisHorizontal;
+        rowStack.distribution = UIStackViewDistributionFillEqually;
+        rowStack.spacing = 8;
+        [rowsStack addArrangedSubview:rowStack];
+    }
+    return rowsStack;
 }
 
 # pragma mark instance methods
@@ -135,7 +186,7 @@ const unichar negative = 0x002d;    // - HYPHEN-MINUS
 {
     NSString *secondaryText = self.model.secondaryDisplay;
     NSString *primaryText = self.model.mainDisplay;
-    
+
     NSDictionary *operations = @{
         [NSString stringWithFormat:@"%C", plus]: @"+",
         [NSString stringWithFormat:@"%C", minus]: @"-",
@@ -152,9 +203,6 @@ const unichar negative = 0x002d;    // - HYPHEN-MINUS
     }
     self.previousDisplayLabel.text = secondaryText;
     self.currentDisplayLabel.text = primaryText;
-    
-    self.previousDisplayLabelLandscape.text = secondaryText;
-    self.currentDisplayLabelLandscape.text = primaryText;
 }
 
 # pragma mark actions
@@ -212,7 +260,7 @@ const unichar negative = 0x002d;    // - HYPHEN-MINUS
     NSLog(@"%@ 'INV' pressed", self);
     [self.model binaryOperationPressed:@"^"];
     [self.model negatePressed];
-    [self.model digitPressed:@"1"];    
+    [self.model digitPressed:@"1"];
 }
 
 - (IBAction)negatePressed
@@ -255,22 +303,4 @@ const unichar negative = 0x002d;    // - HYPHEN-MINUS
 - (NSString *)negativeString { return [NSString stringWithFormat:@"%C", negative]; }
 - (NSString *)pointString { return [NSString stringWithFormat:@"%C", point]; }
 
-- (void)orientationChanged:(NSNotification *)notification
-{
-    UIDeviceOrientation deviceOrientation = [UIDevice currentDevice].orientation;
-    if (UIDeviceOrientationIsLandscape(deviceOrientation) && !self.isShowingLandscapeView)
-    {
-        [self.portraitView removeFromSuperview];
-        [self.view addSubview:self.landscapeView];
-//        self.landscapeView.frame = self.view.bounds;
-        self.isShowingLandscapeView = YES;
-    }
-    else if (UIDeviceOrientationIsPortrait(deviceOrientation) && self.isShowingLandscapeView)
-    {
-        [self.landscapeView removeFromSuperview];
-        [self.view addSubview:self.portraitView];
-//        self.portraitView.frame = self.view.bounds;
-        self.isShowingLandscapeView = NO;
-    }
-}
 @end

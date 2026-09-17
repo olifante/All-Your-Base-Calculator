@@ -13,7 +13,7 @@
 int main(int argc, char *argv[])
 {
     @autoreleasepool {
-        NSString *delegateClassName = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ?
+        NSString *delegateClassName = ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) ?
             NSStringFromClass([AllYourBaseAppDelegate_iPad class]) :
             NSStringFromClass([AllYourBaseAppDelegate_iPhone class]);
         return UIApplicationMain(argc, argv, nil, delegateClassName);

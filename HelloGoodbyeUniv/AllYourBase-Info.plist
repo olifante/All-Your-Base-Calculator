@@ -38,10 +38,6 @@
 	<string>1.1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NSMainNibFile</key>
-	<string>MainWindow_iPhone</string>
-	<key>NSMainNibFile~ipad</key>
-	<string>MainWindow_iPad</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
