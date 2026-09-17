@@ -18,7 +18,7 @@ const unichar point = 0x2219;       // ∙ BULLET OPERATOR
 const unichar negate = 0x2213;      // ∓ MINUS-OR-PLUS SIGN
 const unichar negative = 0x002d;    // - HYPHEN-MINUS
 
-static const NSInteger AllYourBaseButtonGridColumns = 6;
+static const NSInteger AllYourBaseDigitPadColumns = 5;
 
 @implementation AllYourBaseViewController
 
@@ -141,42 +141,59 @@ static const NSInteger AllYourBaseButtonGridColumns = 6;
     return button;
 }
 
+- (UIStackView *)rowStackWithButtons:(NSArray<UIView *> *)buttons
+{
+    UIStackView *rowStack = [[UIStackView alloc] initWithArrangedSubviews:buttons];
+    rowStack.axis = UILayoutConstraintAxisHorizontal;
+    rowStack.distribution = UIStackViewDistributionFillEqually;
+    rowStack.spacing = 8;
+    return rowStack;
+}
+
 - (UIStackView *)buildButtonGrid
 {
-    NSMutableArray<UIButton *> *buttons = [NSMutableArray array];
+    UIStackView *utilityRow = [self rowStackWithButtons:@[
+        [self calculatorButtonWithTitle:[self negateString] action:@selector(negatePressed)],
+        [self calculatorButtonWithTitle:@"⌫" action:@selector(deletePressed)],
+        [self calculatorButtonWithTitle:@"C" action:@selector(cleanPressed)],
+    ]];
 
+    NSMutableArray<UIButton *> *digitButtons = [NSMutableArray array];
     NSString *allowedDigits = [Digits allowedDigitsForBase:self.base];
     for (NSUInteger i = 0; i < allowedDigits.length; i++) {
         NSString *title = [NSString stringWithFormat:@"%C", [allowedDigits characterAtIndex:i]];
-        [buttons addObject:[self calculatorButtonWithTitle:title action:@selector(digitPressed:)]];
+        [digitButtons addObject:[self calculatorButtonWithTitle:title action:@selector(digitPressed:)]];
     }
-    [buttons addObject:[self calculatorButtonWithTitle:[self pointString] action:@selector(digitPressed:)]];
+    [digitButtons addObject:[self calculatorButtonWithTitle:[self pointString] action:@selector(digitPressed:)]];
 
-    [buttons addObject:[self calculatorButtonWithTitle:[self plusString] action:@selector(operationPressed:)]];
-    [buttons addObject:[self calculatorButtonWithTitle:[self minusString] action:@selector(operationPressed:)]];
-    [buttons addObject:[self calculatorButtonWithTitle:[self timesString] action:@selector(operationPressed:)]];
-    [buttons addObject:[self calculatorButtonWithTitle:[self divideString] action:@selector(operationPressed:)]];
-    [buttons addObject:[self calculatorButtonWithTitle:[self powerString] action:@selector(operationPressed:)]];
+    UIStackView *digitPad = [[UIStackView alloc] init];
+    digitPad.axis = UILayoutConstraintAxisVertical;
+    digitPad.distribution = UIStackViewDistributionFillEqually;
+    digitPad.spacing = 8;
+    for (NSUInteger i = 0; i < digitButtons.count; i += AllYourBaseDigitPadColumns) {
+        NSUInteger rowLength = MIN((NSUInteger)AllYourBaseDigitPadColumns, digitButtons.count - i);
+        NSMutableArray<UIView *> *rowViews = [[digitButtons subarrayWithRange:NSMakeRange(i, rowLength)] mutableCopy];
+        for (NSUInteger pad = rowLength; pad < AllYourBaseDigitPadColumns; pad++) {
+            UIView *spacer = [[UIView alloc] init];
+            spacer.userInteractionEnabled = NO;
+            [rowViews addObject:spacer];
+        }
+        [digitPad addArrangedSubview:[self rowStackWithButtons:rowViews]];
+    }
 
-    [buttons addObject:[self calculatorButtonWithTitle:[self negateString] action:@selector(negatePressed)]];
-    [buttons addObject:[self calculatorButtonWithTitle:@"⌫" action:@selector(deletePressed)]];
-    [buttons addObject:[self calculatorButtonWithTitle:@"C" action:@selector(cleanPressed)]];
-    [buttons addObject:[self calculatorButtonWithTitle:@"=" action:@selector(resultPressed)]];
+    UIStackView *operatorRow = [self rowStackWithButtons:@[
+        [self calculatorButtonWithTitle:[self plusString] action:@selector(operationPressed:)],
+        [self calculatorButtonWithTitle:[self minusString] action:@selector(operationPressed:)],
+        [self calculatorButtonWithTitle:[self timesString] action:@selector(operationPressed:)],
+        [self calculatorButtonWithTitle:[self divideString] action:@selector(operationPressed:)],
+        [self calculatorButtonWithTitle:[self powerString] action:@selector(operationPressed:)],
+        [self calculatorButtonWithTitle:@"=" action:@selector(resultPressed)],
+    ]];
 
-    UIStackView *rowsStack = [[UIStackView alloc] init];
+    UIStackView *rowsStack = [[UIStackView alloc] initWithArrangedSubviews:@[utilityRow, digitPad, operatorRow]];
     rowsStack.axis = UILayoutConstraintAxisVertical;
-    rowsStack.distribution = UIStackViewDistributionFillEqually;
+    rowsStack.distribution = UIStackViewDistributionFill;
     rowsStack.spacing = 8;
-
-    for (NSUInteger i = 0; i < buttons.count; i += AllYourBaseButtonGridColumns) {
-        NSUInteger rowLength = MIN((NSUInteger)AllYourBaseButtonGridColumns, buttons.count - i);
-        NSArray<UIButton *> *rowButtons = [buttons subarrayWithRange:NSMakeRange(i, rowLength)];
-        UIStackView *rowStack = [[UIStackView alloc] initWithArrangedSubviews:rowButtons];
-        rowStack.axis = UILayoutConstraintAxisHorizontal;
-        rowStack.distribution = UIStackViewDistributionFillEqually;
-        rowStack.spacing = 8;
-        [rowsStack addArrangedSubview:rowStack];
-    }
     return rowsStack;
 }
 
