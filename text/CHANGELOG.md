@@ -1,5 +1,22 @@
 # Changelog
 
+## 2026-09-17 (Latest) — Replace TabView with picker-based base selection
+
+Replaced the 35-tab TabView with a compact picker-based UI for better UX:
+
+### Changed
+- `ContentView.swift`: Single view with base picker instead of 35 tabs
+- Added `BasePickerView`: Shows 4 common bases (BIN/OCT/DEC/HEX) + "More..." button
+- Added `AllBasesView`: Modal sheet with grid of all bases 2-36
+- Base switching is now immediate without scrolling through tabs
+- Maintains single shared `AllYourBaseModel` across base changes
+
+### Benefits
+- Faster base switching (one tap vs. scrolling through tabs)
+- Cleaner UI (no tab bar taking up screen space)
+- More discoverable (all bases visible in grid)
+- Better for iPad (no overflow "More" tab needed)
+
 ## 2026-09-17 02:17 UTC — Convert project to Swift + SwiftUI
 
 Full rewrite of the app from Objective-C/UIKit to Swift/SwiftUI. The

@@ -10,8 +10,8 @@ conversion the app is 100% Swift and SwiftUI.
 AllYourBase.xcodeproj/        Xcode project (app + unit test targets)
 AllYourBase/                  App target sources
   AllYourBaseApp.swift        @main App entry point (SwiftUI app lifecycle)
-  ContentView.swift           Tab bar across bases (2...36), shares one model
-  CalculatorView.swift        The calculator screen for one base
+  ContentView.swift           Picker-based base selector + calculator view
+  CalculatorView.swift        The calculator screen with digit pad & operations
   AllYourBaseModel.swift      ObservableObject state machine (the "brain")
   Digits.swift                Arbitrary-base signed integer digit string + arithmetic
   FloatingDigits.swift        Same, but evaluates itself as a Double
@@ -57,7 +57,7 @@ has no Swift equivalent) and what replaced them.
   operand, pending operation, and the two display strings. It's an
   `ObservableObject` with `@Published` properties instead of the original's
   KVO-observed `mainDisplay`/`secondaryDisplay`.
-- `ContentView` hosts one `AllYourBaseModel` shared across every base's tab
-  (exactly like the original, which passed one `AllYourBaseModel` to every
-  per-base view controller): switching tabs re-renders the same
-  in-progress calculation in the newly selected base.
+- `ContentView` hosts a base picker (BIN/OCT/DEC/HEX + "More..." for bases
+  2-36) and one `AllYourBaseModel`: selecting a base re-renders the same
+  in-progress calculation in the newly selected base. This replaces the
+  original 35-tab TabView with a more compact single-view interface.
