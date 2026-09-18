@@ -51,8 +51,13 @@ struct Rational: Equatable {
             d /= divisor
         }
 
-        numerator = n
-        denominator = d
+        // `self.` is required here: the init parameters are also named
+        // `numerator`/`denominator`, and being (implicitly `let`)
+        // parameters, they shadow the properties - without `self.`, this
+        // would try to assign to the parameters themselves and fail to
+        // compile ("cannot assign to value: 'numerator' is a 'let' constant").
+        self.numerator = n
+        self.denominator = d
     }
 
     private static func greatestCommonDivisor(_ a: UInt64, _ b: UInt64) -> UInt64 {
