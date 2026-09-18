@@ -289,6 +289,95 @@ final class DigitsTests: XCTestCase {
         XCTAssertThrowsError(try first.plus(second))
     }
 
+    // MARK: exact (Rational) division and inversion
+
+    /// The headline fix: division used to truncate like Int64's `/` (`7 / 2`
+    /// gave `3`); it's now the exact reduced fraction.
+    func testDivideNonExactProducesReducedFraction() {
+        let first = Digits(string: "7", base: 10)!
+        let second = Digits(string: "2", base: 10)!
+        let result = try? first.divide(second)
+        XCTAssertEqual(result?.rationalValue, Rational(numerator: 7, denominator: 2))
+        XCTAssertEqual(result?.description, "7:2")
+    }
+
+    func testDivideReducesToLowestTerms() {
+        let first = Digits(string: "6", base: 10)!
+        let second = Digits(string: "4", base: 10)!
+        let result = try? first.divide(second)
+        XCTAssertEqual(result?.description, "3:2") // not "6:4"
+    }
+
+    func testDivideNegativeProducesCorrectlySignedFraction() {
+        let first = Digits(string: "-7", base: 10)!
+        let second = Digits(string: "2", base: 10)!
+        let result = try? first.divide(second)
+        XCTAssertEqual(result?.description, "-7:2")
+    }
+
+    /// The one case `Digits.divide` used to special-case explicitly
+    /// (`Int64.min / -1` overflows `Int64`'s negation) - `Rational.init`
+    /// now catches this generally, but `divide` still needs to surface it
+    /// as an error rather than a wrong answer.
+    func testDivideInt64MinByNegativeOneThrowsOverflow() {
+        let first = Digits(longLong: Int64.min)
+        let second = Digits(longLong: -1)
+        XCTAssertThrowsError(try first.divide(second)) { error in
+            XCTAssertEqual((error as? DigitsError)?.message, "division overflow")
+        }
+    }
+
+    func testInvertNonUnitProducesExactFraction() {
+        let first = Digits(string: "3", base: 10)!
+        let result = try? first.invert()
+        XCTAssertEqual(result?.description, "1:3") // not the old truncated "0"
+    }
+
+    func testInvertOfAFractionFlipsNumeratorAndDenominator() throws {
+        let seven = Digits(string: "7", base: 10)!
+        let two = Digits(string: "2", base: 10)!
+        let sevenHalves = try seven.divide(two)
+        let result = try sevenHalves?.invert()
+        XCTAssertEqual(result?.description, "2:7")
+    }
+
+    func testAddingTwoFractionsCrossMultiplies() throws {
+        let oneHalf = try Digits(string: "1", base: 10)!.divide(Digits(string: "2", base: 10)!)
+        let oneThird = try Digits(string: "1", base: 10)!.divide(Digits(string: "3", base: 10)!)
+        let result = try oneHalf?.plus(oneThird)
+        XCTAssertEqual(result?.description, "5:6")
+    }
+
+    // MARK: shift left / shift right
+
+    func testShiftedLeftMultipliesByBase() {
+        let digits = Digits(string: "5", base: 10)!
+        XCTAssertEqual(try? digits.shiftedLeft().integerValue, 50)
+    }
+
+    func testShiftedRightDropsLastDigit() {
+        let digits = Digits(string: "57", base: 10)!
+        XCTAssertEqual(try? digits.shiftedRight().integerValue, 5)
+    }
+
+    func testShiftedRightOnNegativeDropsLastDigitKeepingSign() {
+        // Matches "drop the last digit, keep the sign" (Swift's Int64 `/`
+        // already truncates toward zero, which is exactly this).
+        let digits = Digits(string: "-57", base: 10)!
+        XCTAssertEqual(try? digits.shiftedRight().integerValue, -5)
+    }
+
+    func testShiftedLeftOverflowThrows() {
+        let digits = Digits(longLong: Int64.max)
+        XCTAssertThrowsError(try digits.shiftedLeft())
+    }
+
+    func testShiftUndefinedForAFractionThrows() throws {
+        let sevenHalves = try Digits(string: "7", base: 10)!.divide(Digits(string: "2", base: 10)!)
+        XCTAssertThrowsError(try sevenHalves?.shiftedLeft())
+        XCTAssertThrowsError(try sevenHalves?.shiftedRight())
+    }
+
     func testPowerChaining() {
         let first = Digits(string: "2", base: 10)!
         let second = Digits(string: "3", base: 10)!

@@ -44,6 +44,19 @@ final class Digits: CustomStringConvertible {
     static let pointString = "‧"
     static let negativeString = "-"
 
+    /// Separates a `Rational` result's numerator and denominator when
+    /// `denominator != 1` (see `description` below and `Rational.swift`).
+    /// Deliberately distinct from both the plain ASCII `/` used internally
+    /// as the division *operator*'s token, and from `÷`
+    /// (`CalculatorSymbols.divide`) that operator is prettified to for
+    /// display: `CalculatorSymbols.prettify` blindly substitutes `/` for
+    /// `÷` across the whole display string, so if a fraction's
+    /// separator were also `/`, an exact division *result* like `7/2` would
+    /// render indistinguishably from a still-*pending* `7 ÷ 2`
+    /// expression. `:` is not one of `prettify`'s substitution targets, so
+    /// it stays a fraction wherever it appears.
+    static let rationalSeparator = ":"
+
     private(set) var base: Int
     var signedDigits: String?
     private(set) var allowedDigits: String
@@ -52,6 +65,11 @@ final class Digits: CustomStringConvertible {
     /// True for a "FloatingDigits"-flavored instance: allows a "." digit and
     /// uses double-based arithmetic instead of overflow-checked Int64 math.
     private(set) var allowsPoint: Bool
+    /// `1` for a plain integer (every typed value, and every non-fractional
+    /// result); a genuine, already-reduced fraction's denominator otherwise.
+    /// Only ever set via `init(rational:base:)`, which a division or
+    /// inversion result comes from - see `rationalValue`/`Rational.swift`.
+    private(set) var denominator: Int64 = 1
 
     init?(string someString: String?, base someBase: Int, allowsPoint someAllowsPoint: Bool = false) {
         guard let someString else { return nil }
@@ -101,6 +119,17 @@ final class Digits: CustomStringConvertible {
         self.init(double: someDouble, base: 10)
     }
 
+    /// Builds a `Digits` holding an exact fraction: `signedDigits` is the
+    /// numerator's digit string (via the same `convertInteger` any plain
+    /// integer result already goes through), plus a stored `denominator`.
+    /// `rational` is always already reduced (see `Rational.init`), so no
+    /// further normalization happens here.
+    convenience init(rational: Rational, base someBase: Int) {
+        let numeratorDigits = Digits.convertInteger(rational.numerator, toBase: someBase)
+        self.init(string: numeratorDigits, base: someBase)!
+        denominator = rational.denominator
+    }
+
     /// Mirrors the NSScanner-based parsing in -[Digits initWithString:base:]:
     /// skip one optional leading space, an optional "-" (and one optional
     /// space after it), then take the longest prefix made only of allowed
@@ -134,6 +163,19 @@ final class Digits: CustomStringConvertible {
     var integerValue: Int64 {
         guard let signedDigits else { return 0 }
         return Digits.parseIntegerLiteral(signedDigits, base: base)
+    }
+
+    /// The exact value as a reduced fraction - `denominator` is `1` for
+    /// everything except a genuine division/inversion result. This is what
+    /// `plus`/`minus`/`times`/`divide`/`invert`/`power` actually compute
+    /// with now, instead of `integerValue` alone, which is what lets
+    /// `7 ÷ 2` stay exact instead of truncating to `3`.
+    /// Force-unwrapped because `numerator`/`denominator` here are always
+    /// already-reduced values `Rational.init` has already accepted once
+    /// (via `init(rational:base:)`) or, for a plain integer, the trivially
+    /// valid `(n, 1)` - never a value that would fail its own guard.
+    var rationalValue: Rational {
+        Rational(numerator: integerValue, denominator: denominator)!
     }
 
     /// Equivalent of `FloatingDigits.doubleValue`. Always available (not
@@ -187,7 +229,10 @@ final class Digits: CustomStringConvertible {
         var zeroPrefix = ""
         if startsWithMinus { zeroPrefix = "-" }
         if startsWithPoint { zeroPrefix = "0" }
-        return zeroPrefix + (unsignedDigits ?? "")
+        let numeratorPart = zeroPrefix + (unsignedDigits ?? "")
+
+        guard denominator != 1 else { return numeratorPart }
+        return numeratorPart + Digits.rationalSeparator + Digits.convertInteger(denominator, toBase: base)
     }
 
     // MARK: mutating methods
@@ -276,9 +321,10 @@ final class Digits: CustomStringConvertible {
         if allowsPoint {
             return Digits(double: doubleValue + secondOperand.doubleValue, base: base)
         }
-        let (result, overflow) = integerValue.addingReportingOverflow(secondOperand.integerValue)
-        guard !overflow else { throw DigitsError(message: "addition overflow") }
-        return Digits(longLong: result, base: base)
+        guard let result = rationalValue + secondOperand.rationalValue else {
+            throw DigitsError(message: "addition overflow")
+        }
+        return Digits(rational: result, base: base)
     }
 
     func minus(_ secondOperand: Digits?) throws -> Digits? {
@@ -288,9 +334,10 @@ final class Digits: CustomStringConvertible {
         if allowsPoint {
             return Digits(double: doubleValue - secondOperand.doubleValue, base: base)
         }
-        let (result, overflow) = integerValue.subtractingReportingOverflow(secondOperand.integerValue)
-        guard !overflow else { throw DigitsError(message: "subtraction overflow") }
-        return Digits(longLong: result, base: base)
+        guard let result = rationalValue - secondOperand.rationalValue else {
+            throw DigitsError(message: "subtraction overflow")
+        }
+        return Digits(rational: result, base: base)
     }
 
     func times(_ secondOperand: Digits?) throws -> Digits? {
@@ -300,11 +347,19 @@ final class Digits: CustomStringConvertible {
         if allowsPoint {
             return Digits(double: doubleValue * secondOperand.doubleValue, base: base)
         }
-        let (result, overflow) = integerValue.multipliedReportingOverflow(by: secondOperand.integerValue)
-        guard !overflow else { throw DigitsError(message: "multiplication overflow") }
-        return Digits(longLong: result, base: base)
+        guard let result = rationalValue * secondOperand.rationalValue else {
+            throw DigitsError(message: "multiplication overflow")
+        }
+        return Digits(rational: result, base: base)
     }
 
+    /// Now produces the *exact* quotient as a reduced fraction (via
+    /// `Rational`) instead of the old truncating `Int64` division -
+    /// `7 ÷ 2` is the exact value `7:2`, not the truncated `3`. A
+    /// plain integer's `denominator` is always `1`, so this still divides
+    /// evenly whenever the original truncating version would have (nothing
+    /// changes for e.g. `24 ÷ 4`); it's only the previously-lossy
+    /// remainder case that's different now.
     func divide(_ secondOperand: Digits?) throws -> Digits? {
         guard let secondOperand else {
             throw DigitsError(message: Digits.divideErrorMessage)
@@ -315,14 +370,18 @@ final class Digits: CustomStringConvertible {
             }
             return Digits(double: doubleValue / secondOperand.doubleValue, base: base)
         }
-        let dividend = integerValue
-        let divisor = secondOperand.integerValue
-        guard divisor != 0, !(dividend == Int64.min && divisor == -1) else {
+        guard secondOperand.integerValue != 0 else {
             throw DigitsError(message: Digits.divideErrorMessage)
         }
-        return Digits(longLong: dividend / divisor, base: base)
+        guard let result = rationalValue / secondOperand.rationalValue else {
+            throw DigitsError(message: "division overflow")
+        }
+        return Digits(rational: result, base: base)
     }
 
+    /// Now produces the *exact* reciprocal as a reduced fraction - `1 ÷ 3`
+    /// used to truncate to `0` (`Int64` division), now gives the exact
+    /// `1:3`.
     func invert() throws -> Digits? {
         if allowsPoint {
             guard doubleValue != 0 else {
@@ -330,11 +389,13 @@ final class Digits: CustomStringConvertible {
             }
             return Digits(double: 1.0 / doubleValue, base: base)
         }
-        let operandValue = integerValue
-        guard operandValue != 0 else {
+        guard integerValue != 0 else {
             throw DigitsError(message: Digits.invertErrorMessage)
         }
-        return Digits(longLong: 1 / operandValue, base: base)
+        guard let result = rationalValue.inverse() else {
+            throw DigitsError(message: "invert overflow")
+        }
+        return Digits(rational: result, base: base)
     }
 
     func power(_ secondOperand: Digits?) throws -> Digits? {
@@ -355,53 +416,59 @@ final class Digits: CustomStringConvertible {
             return Digits(double: pow(a, b), base: base)
         }
 
-        let firstOperandValue = integerValue
+        // The exponent is always a plain typed integer in practice (digit
+        // entry never produces a fraction), so only the base needs to be
+        // `Rational`-aware; `secondOperandValue` stays a plain `Int64`
+        // exactly as before.
+        let baseValue = rationalValue
         let secondOperandValue = secondOperand.integerValue
 
-        if firstOperandValue == 0 && secondOperandValue == 0 {
+        if baseValue.numerator == 0 && secondOperandValue == 0 {
             throw DigitsError(message: Digits.zeroPowerOfZeroErrorMessage)
-        } else if firstOperandValue == 0 && secondOperandValue < 0 {
+        } else if baseValue.numerator == 0 && secondOperandValue < 0 {
             throw DigitsError(message: Digits.negativePowerOfZeroErrorMessage)
-        } else if firstOperandValue != 0 && secondOperandValue < 0 {
+        } else if baseValue.numerator != 0 && secondOperandValue < 0 {
+            // Preserved restriction: even though a negative exponent of a
+            // nonzero `Rational` base is now exactly representable (just
+            // flip numerator/denominator), this app never exposed negative
+            // exponents through `^` before, and nothing here was asked to
+            // change that - `inversePressed()` is the new, dedicated way to
+            // get an exact `1/x`.
             throw DigitsError(message: Digits.negativePowerErrorMessage)
-        } else if firstOperandValue < 0 && secondOperand.containsPoint {
+        } else if baseValue.numerator < 0 && secondOperand.containsPoint {
             throw DigitsError(message: Digits.fractionalPowerOfNegativeErrorMessage)
         }
 
-        guard let result = Digits.checkedPower(firstOperandValue, secondOperandValue) else {
+        guard let result = baseValue.power(secondOperandValue) else {
             throw DigitsError(message: "power overflow")
         }
+        return Digits(rational: result, base: base)
+    }
+
+    /// Multiplies by `base` (append a zero digit) - the calculator's "shift
+    /// left" key. Overflow-checked like the other arithmetic methods.
+    /// Undefined for a genuine fraction (see `shiftedRight` for why).
+    func shiftedLeft() throws -> Digits {
+        guard denominator == 1 else {
+            throw DigitsError(message: "shift undefined for a fraction")
+        }
+        let (result, overflow) = integerValue.multipliedReportingOverflow(by: Int64(base))
+        guard !overflow else { throw DigitsError(message: "shift overflow") }
         return Digits(longLong: result, base: base)
     }
 
-    /// Exact integer exponentiation by squaring, using the same
-    /// overflow-checked `Int64` operators as `plus`/`minus`/`times` above -
-    /// returns `nil` on overflow instead of trapping. Replaces an earlier
-    /// version of this method that computed `pow(Double(a), Double(b))` and
-    /// converted back to `Int64`: `Double` only has 53 bits of mantissa
-    /// (~9x10^15 of exact integer range), while `Int64` goes up to ~9.2x10^18,
-    /// so results in between were silently rounded to the nearest
-    /// representable `Double` instead of computed exactly (e.g. `7^19` came
-    /// out one too high). `exponent` must be `>= 0`; negative exponents are
-    /// rejected by the caller before this is reached.
-    private static func checkedPower(_ base: Int64, _ exponent: Int64) -> Int64? {
-        var result: Int64 = 1
-        var currentBase = base
-        var remainingExponent = exponent
-        while remainingExponent > 0 {
-            if remainingExponent & 1 == 1 {
-                let (multiplied, overflow) = result.multipliedReportingOverflow(by: currentBase)
-                guard !overflow else { return nil }
-                result = multiplied
-            }
-            remainingExponent >>= 1
-            if remainingExponent > 0 {
-                let (squared, overflow) = currentBase.multipliedReportingOverflow(by: currentBase)
-                guard !overflow else { return nil }
-                currentBase = squared
-            }
+    /// Truncating-toward-zero divide by `base` (drops the last digit) - the
+    /// calculator's "shift right" key. Deliberately lossy for the dropped
+    /// digit, unlike the exact `÷` operator: a real digit/bit shift is
+    /// expected to discard whatever falls off the end, not preserve it as a
+    /// fraction. Because of that, shifting a genuine (non-integer) fraction
+    /// has no sensible meaning here and throws instead of silently
+    /// discarding its denominator.
+    func shiftedRight() throws -> Digits {
+        guard denominator == 1 else {
+            throw DigitsError(message: "shift undefined for a fraction")
         }
-        return result
+        return Digits(longLong: integerValue / Int64(base), base: base)
     }
 
     /// `Int64(someDouble)` traps if `someDouble` is outside Int64's range;

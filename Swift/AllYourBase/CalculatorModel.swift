@@ -33,8 +33,8 @@ final class CalculatorModel: ObservableObject {
     private var currentOperation: String?
     private var previousOperation: String?
     private var previousExpression: String?
-    private var previousFirstOperand: Int64 = 0
-    private var previousSecondOperand: Int64 = 0
+    private var previousFirstOperand: Rational = .zero
+    private var previousSecondOperand: Rational = .zero
 
     private(set) var base: Int
 
@@ -55,27 +55,30 @@ final class CalculatorModel: ObservableObject {
 
         base = newBase
 
+        // `.rationalValue`, not `.integerValue`, so a genuine fraction (from
+        // a division/inversion result) keeps its denominator across a base
+        // change instead of silently collapsing to just its numerator.
         if currentDigits.unsignedDigits != nil {
-            currentDigits = Digits(longLong: currentDigits.integerValue, base: newBase)
+            currentDigits = Digits(rational: currentDigits.rationalValue, base: newBase)
         } else {
             currentDigits = Digits(base: newBase)!
         }
 
         if let previous = previousDigits {
             if previous.unsignedDigits != nil {
-                previousDigits = Digits(longLong: previous.integerValue, base: newBase)
+                previousDigits = Digits(rational: previous.rationalValue, base: newBase)
             } else {
                 previousDigits = Digits(base: newBase)!
             }
         }
 
         if let previousOperation, previousOperation != "=" {
-            let firstOperand = Digits.convertInteger(previousFirstOperand, toBase: newBase)
-            let secondOperand = Digits.convertInteger(previousSecondOperand, toBase: newBase)
+            let firstOperand = previousFirstOperand.description(inBase: newBase)
+            let secondOperand = previousSecondOperand.description(inBase: newBase)
             previousExpression = "\(firstOperand) \(previousOperation) \(secondOperand)"
         } else {
-            previousFirstOperand = 0
-            previousSecondOperand = 0
+            previousFirstOperand = .zero
+            previousSecondOperand = .zero
             previousExpression = nil
             self.previousOperation = nil
         }
@@ -147,9 +150,9 @@ final class CalculatorModel: ObservableObject {
                 guard let result else {
                     throw DigitsError(message: "binary operation error after pressing result")
                 }
-                previousFirstOperand = previousDigits?.integerValue ?? 0
+                previousFirstOperand = previousDigits?.rationalValue ?? .zero
                 previousOperation = currentOperation
-                previousSecondOperand = currentDigits.integerValue
+                previousSecondOperand = currentDigits.rationalValue
                 previousExpression = "\(previousDigits?.description ?? "") \(currentOperation ?? "") \(currentDigits.description)"
                 previousDigits = nil
                 currentDigits = result
@@ -160,7 +163,10 @@ final class CalculatorModel: ObservableObject {
         } else {
             previousOperation = "="
             previousExpression = currentDigits.description
-            let result = Digits(longLong: currentDigits.integerValue, base: base)
+            // `.rationalValue`, not `.integerValue` - pressing "=" again
+            // right after a fraction result (no pending operation left to
+            // re-run) must not silently drop its denominator.
+            let result = Digits(rational: currentDigits.rationalValue, base: base)
             resultDigits = result
             currentDigits = result
             previousDigits = nil
@@ -188,9 +194,9 @@ final class CalculatorModel: ObservableObject {
                 guard let result else {
                     throw DigitsError(message: "binary operation error after chaining operation")
                 }
-                previousFirstOperand = previousDigits?.integerValue ?? 0
+                previousFirstOperand = previousDigits?.rationalValue ?? .zero
                 previousOperation = currentOperation
-                previousSecondOperand = currentDigits.integerValue
+                previousSecondOperand = currentDigits.rationalValue
                 previousExpression = "\(previousDigits?.description ?? "") \(currentOperation ?? "") \(currentDigits.description)"
                 previousDigits = result
                 currentDigits = Digits(base: base)!
@@ -210,7 +216,13 @@ final class CalculatorModel: ObservableObject {
     func digitPressed(_ digit: String) {
         guard error == nil else { return }
 
-        if previousOperation != nil {
+        // `currentDigits.denominator != 1` alongside the existing
+        // previousOperation check: `pushDigit` only ever edits the
+        // numerator's digit string, so typing straight after `inversePressed`
+        // left a genuine fraction showing would otherwise silently extend
+        // just the numerator while a stale denominator lingered underneath
+        // it - always start fresh instead, the same as after a shown "=".
+        if previousOperation != nil || currentDigits.denominator != 1 {
             currentDigits = Digits(base: base)!
         }
 
@@ -220,7 +232,10 @@ final class CalculatorModel: ObservableObject {
     }
 
     func deletePressed() {
-        guard previousOperation == nil else { return }
+        // Same reasoning as `digitPressed` above: `popDigit` only edits the
+        // numerator, so it can't sensibly "un-type" a fraction - block it
+        // exactly like a shown "=" result already blocks delete.
+        guard previousOperation == nil, currentDigits.denominator == 1 else { return }
 
         currentDigits.popDigit()
         error = nil
@@ -233,8 +248,8 @@ final class CalculatorModel: ObservableObject {
         if previousOperation != nil {
             previousOperation = nil
             previousExpression = nil
-            previousFirstOperand = 0
-            previousSecondOperand = 0
+            previousFirstOperand = .zero
+            previousSecondOperand = .zero
             resultDigits = nil
             currentDigits = Digits(base: base)!
         }
@@ -249,20 +264,55 @@ final class CalculatorModel: ObservableObject {
         currentOperation = nil
         previousOperation = nil
         previousExpression = nil
-        previousFirstOperand = 0
-        previousSecondOperand = 0
+        previousFirstOperand = .zero
+        previousSecondOperand = .zero
         error = nil
         currentDigits = Digits(base: base)!
         updateDisplays()
     }
 
-    // Present in every original nib as keypad buttons, always wired to
-    // methods that did nothing - kept as no-ops here for the same reason
-    // the buttons are kept in the UI: fidelity to the shipped layout.
-    func shiftLeftPressed() {}
-    func shiftRightPressed() {}
+    // `percentPressed`/`eePressed` were present in every original nib as
+    // keypad buttons wired to methods that did nothing, and stay that way -
+    // kept as no-ops here for the same reason the buttons are kept in the
+    // UI: fidelity to the shipped layout. `shiftLeftPressed`/
+    // `shiftRightPressed` used to be in this same no-op group (the shift
+    // keys were on every shipped keypad, just permanently inert) but are
+    // now implemented for real below - unlike the sqrt/cbrt/reciprocal
+    // methods further down, this is a deliberate new feature, not a
+    // fidelity fix to a preserved original bug.
     func percentPressed() {}
     func eePressed() {}
+
+    /// Multiplies the currently shown value by `base` (appends a zero
+    /// digit) - a new feature; the original always left this key wired to a
+    /// no-op. Transforms `currentDigits` in place rather than treating this
+    /// as a fresh "=" result the way `resultPressed`/`inversePressed` do,
+    /// so it also works mid-entry of a pending operation's second operand
+    /// (e.g. shifting `3` while `5 +` is still pending gives `5 + 30`,
+    /// without disturbing the pending `+`).
+    func shiftLeftPressed() {
+        guard error == nil else { return }
+        do {
+            currentDigits = try currentDigits.shiftedLeft()
+        } catch {
+            self.error = error
+        }
+        updateDisplays()
+    }
+
+    /// Truncating-toward-zero divide of the currently shown value by `base`
+    /// (drops the last digit) - see `shiftLeftPressed` above for why this
+    /// edits `currentDigits` in place. Deliberately lossy, like a real
+    /// digit/bit shift - see `Digits.shiftedRight`.
+    func shiftRightPressed() {
+        guard error == nil else { return }
+        do {
+            currentDigits = try currentDigits.shiftedRight()
+        } catch {
+            self.error = error
+        }
+        updateDisplays()
+    }
 
     // MARK: derived actions from AllYourBaseViewController's IBActions
     //
@@ -307,10 +357,34 @@ final class CalculatorModel: ObservableObject {
     /// Matches `-[AllYourBaseViewController reciprocalPressed]` exactly,
     /// including that it does *not* call `resultPressed` itself - it only
     /// sets up "x ^ -1" as the pending expression; the user has to press
-    /// "=" separately to see 1/x.
+    /// "=" separately to see 1/x. Left as-is, unreachable from any shipped
+    /// keypad, same as `squareRootPressed`/`cubeRootPressed` above -
+    /// `inversePressed` below is the new, working "1/x" key, kept
+    /// deliberately separate rather than "fixing" this preserved-bug method.
     func reciprocalPressed() {
         binaryOperationPressed("^")
         negatePressed()
         digitPressed("1")
+    }
+
+    /// A working multiplicative-inverse ("1/x") action, wired to the new
+    /// `.inverse` keypad key - unlike `reciprocalPressed` above, this calls
+    /// `Digits.invert()` directly and shows the result immediately, using
+    /// the exact `Rational`-based math added alongside `÷`: `1/x` for `x`
+    /// = `3` is now the exact `1:3`, not the old truncating-Int64 `0`.
+    /// Transforms `currentDigits` in place, the same way `shiftLeftPressed`/
+    /// `shiftRightPressed` do, so it doesn't disturb a pending operation's
+    /// in-progress second operand.
+    func inversePressed() {
+        guard error == nil else { return }
+        do {
+            guard let inverted = try currentDigits.invert() else {
+                throw DigitsError(message: "invert error")
+            }
+            currentDigits = inverted
+        } catch {
+            self.error = error
+        }
+        updateDisplays()
     }
 }

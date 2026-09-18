@@ -1,5 +1,100 @@
 # Changelog
 
+## 2026-09-18 - Exact fraction division, working shift keys, backspace glyph, working inverse key
+
+Five related changes, all from the same request:
+
+### `Rational.swift`: exact division instead of truncating
+
+`Digits.divide` did plain `Int64` division (`integerValue / divisor`),
+truncating like C's `/` - `7 ÷ 2` showed `3`, silently dropping the
+remainder. Added `Rational` (a reduced `numerator`/`denominator` pair,
+denominator always positive, every operation overflow-checked the same way
+`Digits`'s own `Int64` math already was) and rewired `plus`/`minus`/
+`times`/`divide`/`invert`/`power` to compute through it instead of raw
+`Int64`s. A plain typed integer's denominator is always `1`, so nothing
+changes for an exact division (`24 ÷ 4` is still `6`); only the previously-
+lossy remainder case is different - `7 ÷ 2` is now the exact `7:2`, and
+`1/3` (via the new inverse key, below) is `1:3` instead of the old
+truncated `0`.
+
+**Notation decision:** a fraction result renders as `p:q` (colon), and the
+codebase names this `Digits.rationalSeparator`, kept deliberately distinct
+from **both** the ASCII `/` used internally as the division *operator*'s
+token **and** the `÷` (`CalculatorSymbols.divide`) that operator is
+prettified to for display. The reason: `CalculatorSymbols.prettify` does a
+blind find-and-replace of `/` for `÷` across the *entire* display string
+(operator token and any embedded value alike) - if a fraction's separator
+were also `/`, an exact division *result* like `7/2` would prettify into
+`7 ÷ 2`, rendering indistinguishably from a still-*pending* expression.
+`:` isn't one of `prettify`'s substitution targets, so a fraction always
+reads as a fraction, never as a half-finished division. `p/q` and `p ÷ q`
+were both considered and rejected for exactly this collision; `:` is also
+standard ratio notation, which a reduced numerator/denominator pair
+literally is.
+
+**Where a fraction can and can't appear:** only `divide`/`invert` results
+ever have `denominator != 1` - typed digits are always plain integers, and
+`changeBase` now converts via the new `rationalValue` (previously
+`integerValue`, which would have silently dropped a shown fraction's
+denominator when switching bases - fixed as part of this change, along
+with the same bug in `resultPressed`'s "just re-display the current value"
+branch). Because `popDigit`/`pushDigit` only ever edit a `Digits`'s
+numerator digit string, letting them run on a shown fraction would silently
+corrupt it (extend/trim the numerator while a stale denominator lingers
+underneath) - `digitPressed` now also resets to a fresh value when
+`currentDigits.denominator != 1` (not just when a "=" result is showing),
+and `deletePressed` is blocked in the same case, exactly like it's already
+blocked right after a shown "=".
+
+### Shift keys (`≪`/`≫`) implemented for real
+
+Always wired to a no-op in the original and in this rewrite until now.
+Shift left multiplies the shown value by the current base (append a zero
+digit); shift right is a **truncating** divide by the base (drop the last
+digit) - deliberately lossy, unlike the exact `÷` operator, the same way a
+real digit/bit shift is expected to discard whatever falls off the end
+rather than preserve it as a remainder. Because of that, shift throws
+rather than silently mangling a genuine fraction (`Digits.shiftedLeft`/
+`shiftedRight` both require `denominator == 1`). Both edit `currentDigits`
+in place rather than treating themselves as a fresh "=" result, so shifting
+mid-entry of a pending operation's second operand doesn't disturb the
+pending operation (e.g. `5 +`, then typing `3`, then shift left, gives
+`5 + 30`).
+
+### DEL glyph swapped for the standard backspace icon
+
+`CalculatorSymbols.delete` was U+2421 SYMBOL FOR DELETE (`␡`) - a rare
+glyph with poor font support that most people don't recognize. Swapped for
+U+232B ERASE TO THE LEFT (`⌫`), the standard backspace/erase icon used on
+Mac and iOS keyboards.
+
+### Inverse ("1/x") key implemented
+
+A new `.inverse` keypad key (plain text "1/x" - there's no single common
+Unicode glyph for multiplicative inverse the way there is for the
+arithmetic operators, so this matches how real calculators label the same
+button) added to the editing row, wired to a new `CalculatorModel.
+inversePressed()`. Deliberately kept separate from the existing
+`reciprocalPressed()`, which stays exactly as it was: unreachable from any
+shipped keypad and intentionally broken (builds "x ^ -1" via
+`binaryOperationPressed`/`negatePressed`/`digitPressed`, which throws
+`Digits.negativePowerErrorMessage` since `power()` still rejects negative
+exponents) - preserved for fidelity to the original app, not "fixed" as
+part of this change. `inversePressed()` instead calls `Digits.invert()`
+directly, exact via `Rational`, and edits `currentDigits` in place the same
+way the shift keys do.
+
+### Tests
+
+Added `RationalTests.swift` (construction/reduction/sign-normalization,
+each arithmetic operator's overflow case, `inverse()`, `power()`,
+`description(inBase:)`), and extended `DigitsTests.swift` and
+`CalculatorModelTests.swift` with exact-fraction division/inversion,
+reduction, negative-fraction signing, the `Int64.min ÷ -1` overflow edge
+case, shift (including the fraction-throws case), inverse, and the new
+delete-blocked/digit-resets-fresh guards around a shown fraction.
+
 ## 2026-09-17 20:05 UTC - Wrote Unicode glyphs literally instead of as `\u{}` escapes
 
 `CalculatorSymbols.swift` and `Digits.swift` spelled every non-ASCII

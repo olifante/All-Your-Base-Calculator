@@ -31,6 +31,30 @@ whole point, and it's preserved exactly. (The original used one
 `UITabBarController` tab per base instead of a picker - see CHANGELOG.md
 for why this rewrite switched.)
 
+## Features added beyond the original
+
+A few things the original never had, added on top of the port:
+
+- **Division is exact, not truncating.** `7 ÷ 2` shows the exact fraction
+  `7:2` (a reduced numerator:denominator pair - see `Rational.swift`), not
+  the old `3`. `:` is used rather than `/` or `÷` specifically so a
+  fraction *result* never looks like a still-pending division expression
+  (`CalculatorSymbols.prettify` turns `/` into `÷` across the whole display
+  string, so a `/`-separated fraction would be visually indistinguishable
+  from `7 ÷ 2` mid-entry).
+- **The shift keys (`≪`/`≫`) actually do something now** - shift left
+  multiplies by the current base, shift right is a truncating divide by it
+  (deliberately lossy, unlike `÷`, the way a real digit/bit shift is).
+  They were wired to a no-op in every original nib.
+- **A working inverse ("1/x") key**, exact via the same `Rational` math as
+  `÷` - `1/x` for `x = 3` is `1:3`. This is a new key, separate from the
+  original reciprocal button described below, which is left exactly as
+  broken as it always was.
+- **The delete key shows the standard backspace icon** (⌫) instead of the
+  original's rare, poorly-supported "SYMBOL FOR DELETE" (␡) glyph.
+
+See `text/CHANGELOG.md`'s 2026-09-18 entry for the full design writeup.
+
 ## Why a rewrite instead of a 1:1 port
 
 The original project has one hand-made `.xib` nib per base (~70 nibs total
@@ -57,11 +81,15 @@ never referenced by any app delegate or view controller.
   the exponent that lands is just the digits *after* the dot: the shipped
   behavior is "raise to the 5th power" and "raise to the 333333rd power".
   See `CalculatorModel.squareRootPressed`/`cubeRootPressed`.
-- **The 1/x (reciprocal) button doesn't evaluate anything by itself**, and
-  when you do press "=" afterwards, it errors out rather than computing a
-  reciprocal, because `Digits.power` explicitly rejects negative exponents
-  for integer digits. See `CalculatorModel.reciprocalPressed` and
-  `CalculatorModelTests.testReciprocalButtonSetsUpExpressionWithoutEvaluating`.
+- **The original 1/x (reciprocal) button doesn't evaluate anything by
+  itself**, and when you do press "=" afterwards, it errors out rather than
+  computing a reciprocal, because `Digits.power` explicitly rejects
+  negative exponents for integer digits. See `CalculatorModel.
+  reciprocalPressed` and `CalculatorModelTests.
+  testReciprocalButtonSetsUpExpressionWithoutEvaluating`. (This is
+  unrelated to - and left unfixed on purpose alongside - the new, working
+  "1/x" inverse key described above; the two are deliberately separate
+  methods.)
 - None of the above three buttons are actually reachable from any keypad
   that ships in the app (they were only wired up in the dead Scientific10
   nibs) - kept in `CalculatorModel` for completeness/fidelity, not currently

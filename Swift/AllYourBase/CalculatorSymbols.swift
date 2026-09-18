@@ -26,11 +26,20 @@ enum CalculatorSymbols {
 
     // Control buttons wired directly to their own IBActions in the original
     // (never compared by title, just literal glyphs on the button).
-    static let negate = "∓"      // U+2213 MINUS-OR-PLUS SIGN (the +/- key)
-    static let delete = "␡"      // U+2421 SYMBOL FOR DELETE
-    static let clear = "∁"       // U+2201 COMPLEMENT (the "AC"/clear key)
-    static let shiftLeft = "≪"   // U+226A MUCH LESS-THAN (present in every
-    static let shiftRight = "≫"  // U+226B MUCH GREATER-THAN nib, always a no-op)
+    static let negate = "∓"     // U+2213 MINUS-OR-PLUS SIGN (the +/- key)
+    // The original used U+2421 SYMBOL FOR DELETE ("␡"), a rare glyph with
+    // poor font support that most people don't recognize on sight. Swapped
+    // for the standard backspace/erase icon used on Mac/iOS keyboards.
+    static let delete = "⌫"     // U+232B ERASE TO THE LEFT
+    static let clear = "∁"      // U+2201 COMPLEMENT (the "AC"/clear key)
+    static let shiftLeft = "≪"  // U+226A MUCH LESS-THAN
+    static let shiftRight = "≫" // U+226B MUCH GREATER-THAN
+
+    /// The multiplicative-inverse ("1/x") key - see `CalculatorModel.
+    /// inversePressed`. No single common Unicode glyph exists for this the
+    /// way there does for the arithmetic operators, so this is plain text,
+    /// matching how real calculators (TI, Casio, etc.) label the same key.
+    static let inverse = "1/x"
 
     static let negative = "-"          // U+002D HYPHEN-MINUS, the sign prefix
 

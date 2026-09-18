@@ -11,15 +11,18 @@
 //  original's portrait vs. landscape nibs did with hand-tuned frames.
 //
 //  Every original nib's grid had the same anatomy: a control row (negate,
-//  delete, shift left/right - always a no-op, clear), the digits 0...base-1
-//  (plus the decimal point) filling left-to-right/top-to-bottom in
-//  `Digits.allDigits` order, and the operators + "=" at the trailing edge.
-//  That anatomy is reproduced key-for-key here, now split into three
-//  explicit groups (editing / digits / operations) that CalculatorKeypadView
-//  renders as three visually separate rows/sections rather than one long
-//  interleaved grid; the exact pixel positions from the originals are not
-//  reproduced (see INPROGRESS.md/README for why an exact per-base pixel
-//  port isn't the goal).
+//  delete, shift left/right, clear), the digits 0...base-1 (plus the
+//  decimal point) filling left-to-right/top-to-bottom in `Digits.allDigits`
+//  order, and the operators + "=" at the trailing edge. That anatomy is
+//  reproduced key-for-key here, now split into three explicit groups
+//  (editing / digits / operations) that CalculatorKeypadView renders as
+//  three visually separate rows/sections rather than one long interleaved
+//  grid; the exact pixel positions from the originals are not reproduced
+//  (see INPROGRESS.md/README for why an exact per-base pixel port isn't the
+//  goal). The shift keys were an always-no-op original bug until they were
+//  implemented for real (see CalculatorModel); a new "1/x" inverse key was
+//  added to the same editing row since it didn't exist in the original at
+//  all - see CHANGELOG.md.
 //
 
 import Foundation
@@ -33,6 +36,7 @@ struct KeypadKey: Identifiable {
         case clear
         case shiftLeft
         case shiftRight
+        case inverse
         case operation(String) // one of "+", "-", "*", "/", "^"
         case equals
     }
@@ -40,19 +44,13 @@ struct KeypadKey: Identifiable {
     let id = UUID()
     let title: String
     let action: Action
-    /// Keys the original always drew but that are wired to permanently
-    /// no-op model methods (`shiftLeftPressed`/`shiftRightPressed`). Kept
-    /// visible for layout fidelity; see CalculatorModel for why they do
-    /// nothing.
-    var isInert: Bool {
-        action == .shiftLeft || action == .shiftRight
-    }
 }
 
 enum KeypadLayout {
 
-    /// The "editing" row shown above the digit grid for every "Base N" picker entry:
-    /// clear, delete, negate, and the two always-inert shift keys.
+    /// The "editing" row shown above the digit grid for every "Base N"
+    /// picker entry: clear, delete, negate, the two shift keys, and the
+    /// inverse ("1/x") key.
     static func editingKeys() -> [KeypadKey] {
         [
             KeypadKey(title: CalculatorSymbols.clear, action: .clear),
@@ -60,6 +58,7 @@ enum KeypadLayout {
             KeypadKey(title: CalculatorSymbols.negate, action: .negate),
             KeypadKey(title: CalculatorSymbols.shiftLeft, action: .shiftLeft),
             KeypadKey(title: CalculatorSymbols.shiftRight, action: .shiftRight),
+            KeypadKey(title: CalculatorSymbols.inverse, action: .inverse),
         ]
     }
 

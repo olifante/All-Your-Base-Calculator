@@ -100,6 +100,7 @@ struct CalculatorScreenView: View {
         case .clear: model.cleanPressed()
         case .shiftLeft: model.shiftLeftPressed()
         case .shiftRight: model.shiftRightPressed()
+        case .inverse: model.inversePressed()
         case .operation(let token): model.binaryOperationPressed(token)
         case .equals: model.resultPressed()
         }

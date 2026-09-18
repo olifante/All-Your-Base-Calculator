@@ -87,7 +87,7 @@ struct CalculatorKeypadView: View {
                 // CalculatorDisplayView for the same guard and why.
                 .frame(minWidth: 1, maxWidth: .infinity, minHeight: 64)
         }
-        .buttonStyle(CalculatorKeyStyle(kind: key.action.kind, isInert: key.isInert))
+        .buttonStyle(CalculatorKeyStyle(kind: key.action.kind))
     }
 }
 
@@ -101,7 +101,7 @@ private extension KeypadKey.Action {
     var kind: Kind {
         switch self {
         case .digit, .point: return .digit
-        case .negate, .delete, .clear, .shiftLeft, .shiftRight: return .control
+        case .negate, .delete, .clear, .shiftLeft, .shiftRight, .inverse: return .control
         case .operation, .equals: return .operation
         }
     }
@@ -109,7 +109,6 @@ private extension KeypadKey.Action {
 
 private struct CalculatorKeyStyle: ButtonStyle {
     let kind: KeypadKey.Action.Kind
-    let isInert: Bool
 
     private var background: Color {
         switch kind {
@@ -126,7 +125,6 @@ private struct CalculatorKeyStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .foregroundColor(foreground)
-            .opacity(isInert ? 0.4 : 1)
             .background(background.opacity(configuration.isPressed ? 0.6 : 1))
             .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
     }

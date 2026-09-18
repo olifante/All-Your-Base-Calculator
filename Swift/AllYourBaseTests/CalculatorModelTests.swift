@@ -147,4 +147,129 @@ final class CalculatorModelTests: XCTestCase {
         XCTAssertEqual(model.mainDisplay, "2 ^ -1") // unchanged: the ^ threw
         XCTAssertEqual(model.secondaryDisplay, Digits.negativePowerErrorMessage)
     }
+
+    // MARK: exact (Rational) division
+
+    /// The headline fix: division used to truncate like Int64's `/` - `7 / 2`
+    /// showed `3`. It's now the exact fraction, rendered `p:q` (see
+    /// Digits.rationalSeparator for why `:` and not `/` or `÷`).
+    func testDivisionProducesExactFractionInsteadOfTruncating() {
+        let model = CalculatorModel()
+        model.digitPressed("7")
+        model.binaryOperationPressed("/")
+        model.digitPressed("2")
+        model.resultPressed()
+        XCTAssertEqual(model.mainDisplay, "= 7:2")
+    }
+
+    func testDivisionResultReducesToLowestTerms() {
+        let model = CalculatorModel()
+        model.digitPressed("6")
+        model.binaryOperationPressed("/")
+        model.digitPressed("4")
+        model.resultPressed()
+        XCTAssertEqual(model.mainDisplay, "= 3:2") // not "6:4"
+    }
+
+    func testDivisionResultStillCollapsesToAPlainIntegerWhenExact() {
+        let model = CalculatorModel()
+        model.digitPressed("2")
+        model.digitPressed("4")
+        model.binaryOperationPressed("/")
+        model.digitPressed("4")
+        model.resultPressed()
+        XCTAssertEqual(model.mainDisplay, "= 6") // no ":1" suffix
+    }
+
+    /// A fraction result stays exact across a base change, same as any
+    /// other value - `7:2` in base 10 is `111:10` in base 2 (7 and 2 each
+    /// converted independently), not silently collapsed to just `111`.
+    func testFractionResultSurvivesBaseChange() {
+        let model = CalculatorModel(base: 10)
+        model.digitPressed("7")
+        model.binaryOperationPressed("/")
+        model.digitPressed("2")
+        model.resultPressed()
+        XCTAssertEqual(model.mainDisplay, "= 7:2")
+
+        model.changeBase(to: 2)
+        XCTAssertEqual(model.mainDisplay, "= 111:10")
+    }
+
+    // MARK: shift left / shift right
+
+    /// New feature: the shift keys were always wired to a no-op in the
+    /// original. Shift left multiplies by the base (appends a zero digit).
+    func testShiftLeftMultipliesByBase() {
+        let model = CalculatorModel()
+        model.digitPressed("5")
+        model.shiftLeftPressed()
+        XCTAssertEqual(model.mainDisplay, "50")
+    }
+
+    /// Shift right is a truncating divide by the base (drops the last
+    /// digit) - deliberately lossy, unlike the exact `÷` operator.
+    func testShiftRightDropsLastDigit() {
+        let model = CalculatorModel()
+        model.digitPressed("5")
+        model.digitPressed("7")
+        model.shiftRightPressed()
+        XCTAssertEqual(model.mainDisplay, "5")
+    }
+
+    /// Shift edits the in-progress second operand in place rather than
+    /// treating itself as a fresh "=" result, so a pending operation
+    /// survives it.
+    func testShiftLeftDuringPendingOperationKeepsTheOperationPending() {
+        let model = CalculatorModel()
+        model.digitPressed("5")
+        model.binaryOperationPressed("+")
+        model.digitPressed("3")
+        model.shiftLeftPressed()
+        XCTAssertEqual(model.mainDisplay, "5 + 30")
+    }
+
+    // MARK: inverse ("1/x")
+
+    /// New feature: `1/x` is now exact, unlike the old `reciprocalPressed`
+    /// path (kept unreachable/broken for fidelity - see
+    /// `testReciprocalButtonSetsUpExpressionWithoutEvaluating` above).
+    func testInverseProducesExactFraction() {
+        let model = CalculatorModel()
+        model.digitPressed("3")
+        model.inversePressed()
+        XCTAssertEqual(model.mainDisplay, "1:3")
+    }
+
+    func testInverseOfZeroSurfacesError() {
+        let model = CalculatorModel()
+        model.digitPressed("0")
+        model.inversePressed()
+        XCTAssertEqual(model.secondaryDisplay, Digits.invertErrorMessage)
+    }
+
+    // MARK: fraction results can't be digit-edited
+
+    /// `popDigit`/`pushDigit` only ever touch a `Digits`'s numerator, so
+    /// editing a shown fraction digit-by-digit would silently corrupt it
+    /// (extending/trimming the numerator while a stale denominator lingers)
+    /// - both actions instead treat a shown fraction like a shown "="
+    /// result: delete is blocked, and a new digit starts fresh.
+    func testDeleteIsBlockedRightAfterAFractionResult() {
+        let model = CalculatorModel()
+        model.digitPressed("3")
+        model.inversePressed()
+        XCTAssertEqual(model.mainDisplay, "1:3")
+        model.deletePressed()
+        XCTAssertEqual(model.mainDisplay, "1:3") // unchanged
+    }
+
+    func testDigitEntryStartsFreshRightAfterAFractionResult() {
+        let model = CalculatorModel()
+        model.digitPressed("3")
+        model.inversePressed()
+        XCTAssertEqual(model.mainDisplay, "1:3")
+        model.digitPressed("5")
+        XCTAssertEqual(model.mainDisplay, "5") // fresh, not "15:3"
+    }
 }

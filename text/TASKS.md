@@ -79,6 +79,20 @@
       and `Digits.swift` to the literal character, so the source shows the
       actual glyph (e.g. `"÷"` instead of `"\u{00f7}"`) - completed
       2026-09-17 20:05 UTC. See CHANGELOG.md.
+- [x] Added `Rational.swift` (reduced numerator/denominator pair, overflow-
+      checked +/-/*//, inverse, integer power) and rewired `Digits`'s
+      arithmetic through it, so `÷` now produces an exact fraction
+      (`p:q`, typeset via `Digits.rationalSeparator`) instead of truncating,
+      and `1/x` is exact instead of always `0`. Implemented the `≪`/`≫`
+      shift keys for real (multiply/truncating-divide by the current base -
+      they were always a no-op before). Swapped the DEL key's glyph for the
+      standard backspace icon. Added a new "1/x" inverse key to the editing
+      row, wired to a fresh `inversePressed()` kept deliberately separate
+      from the still-broken, still-unreachable `reciprocalPressed()`.
+      Completed 2026-09-18 - see CHANGELOG.md for the full design writeup
+      (notation choice, why `÷` and `:` stay distinct, shift/inverse
+      semantics, and the fraction-vs-digit-editing guards this required in
+      `digitPressed`/`deletePressed`/`changeBase`).
 
 ### Known open issue
 - [ ] **The pointer-hover NaN console spam is unresolved, and is now confirmed
@@ -110,21 +124,19 @@
       become worth the risk of another from-memory guess.
 
 ### To do (before treating this as production-ready)
-- [ ] **Possible follow-up, not yet scoped:** the author pointed out that
-      exact fractional values in any base don't need floating point *or* an
-      infinite-digit expansion - keep a value as a reduced numerator/
-      denominator pair (`p`, `q`) and print each of `p` and `q` in the
-      current base, rather than trying to expand the fraction into a single
-      base-B digit string (which is genuinely impossible to do exactly for
-      something like `1/3`, in any base, without a repeating-digit notation).
-      This only matters for the currently-dormant `allowsPoint`
-      ("FloatingDigits") code path - decimal-point entry / non-integer
-      results aren't reachable from any keypad the app actually ships (see
-      `CalculatorModel.swift`'s "preserved original bug" comments) - so
-      there is no live behavior to fix today. Worth designing properly if
-      the author decides to actually wire up decimal-point support later,
-      rather than bolting a `Rational` type onto the existing `Digits`
-      design as an afterthought.
+- [ ] **Possible follow-up, not yet scoped:** `Rational.swift` (numerator/
+      denominator, each typeset in the current base - see the 2026-09-18
+      "Done" entry below) now exists, but only backs the `÷`/`1/x` keys on
+      plain typed (always-integer) operands. The still-dormant
+      `allowsPoint` ("FloatingDigits") code path - decimal-point entry,
+      unreachable from any keypad the app ships (see `CalculatorModel.swift`'s
+      "preserved original bug" comments) - still does plain `Double` math
+      with no exactness at all. If decimal-point entry is ever wired up for
+      real, extending `Digits`/`Rational` to represent a typed "0.1" as an
+      exact fraction (rather than a `Double`) would need its own design
+      pass (typed decimal entry naturally wants base-10-style place values,
+      not an arbitrary p/q pair) - not attempted here since there's still no
+      live behavior that needs it.
 - [ ] Re-run the app after the 18:08 UTC fix and confirm both (a) the
       console is quiet (no more NaN/CoreGraphics spam) and (b) the keypad
       still looks right on both iPhone and iPad, in portrait and landscape,
