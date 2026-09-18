@@ -1,5 +1,18 @@
 # Changelog
 
+## 2026-09-18 (later) - Fix a real build error in Rational.init
+
+Xcode reported `Cannot assign to value: 'numerator'/'denominator' is a
+'let' constant` on the two lines at the end of `Rational.init?` that set
+the stored properties. Cause: the initializer's parameters are also named
+`numerator`/`denominator` (matching the properties they populate), and
+being parameters they're implicitly `let` - inside the initializer body,
+plain `numerator = n` resolved to the *parameter*, not `self.numerator`,
+so the compiler correctly rejected it as an attempt to mutate a constant.
+Fixed by qualifying both assignments with `self.`. This is the first real
+build feedback since this sandbox has no Swift toolchain to catch it
+locally - everything up to this point was hand-traced, not compiled.
+
 ## 2026-09-18 - Exact fraction division, working shift keys, backspace glyph, working inverse key
 
 Five related changes, all from the same request:

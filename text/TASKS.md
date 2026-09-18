@@ -93,6 +93,11 @@
       (notation choice, why `÷` and `:` stay distinct, shift/inverse
       semantics, and the fraction-vs-digit-editing guards this required in
       `digitPressed`/`deletePressed`/`changeBase`).
+- [x] Fixed a real Xcode build error in `Rational.init` (the first actual
+      compiler feedback on this project - see CHANGELOG.md): the init
+      parameters shadowed the `numerator`/`denominator` properties they were
+      meant to set, so the final assignment needed `self.` - completed
+      2026-09-18.
 
 ### Known open issue
 - [ ] **The pointer-hover NaN console spam is unresolved, and is now confirmed
